@@ -7,7 +7,6 @@
 /* variables - calculated */
 /* styles */
 .gt-container {
-  border: 10px solid red;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   font-size: 16px;
@@ -547,6 +546,17 @@
 }
 
 /*------------------todo----------------------*/
+body {counter-reset:section}
+body h1{counter-reset:sub-section}
+body h2{counter-reset:composite}
+body h3{counter-reset:detail}
+body h1:before{content:counter(section) " ";counter-increment:section}
+body h2:before{content:counter(section) "." counter(sub-section) " ";counter-increment:sub-section}
+body h3:before{content:counter(section) "." counter(sub-section) "." counter(composite) " ";counter-increment:composite}
+body h4:before{content:counter(section) "." counter(sub-section) "." counter(composite) "." counter(detail) " ";counter-increment:detail}
+
+
+
 /*标题自动添加序号*/
 .sidebar-content {
     counter-reset: h1
