@@ -1,0 +1,603 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/gzguo/img/favicon.png">
+  <link rel="icon" href="/gzguo/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="子查询">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>java_mysql_next - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/gzguo/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/gzguo/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/gzguo/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/gzguo/js/utils.js" ></script>
+  <script  src="/gzguo/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/gzguo/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/gzguo/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="java_mysql_next">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-08-16 07:08" pubdate>
+        August 16, 2019 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      29
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">java_mysql_next</h1>
+            
+            <div class="markdown-body">
+              <h4 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a><center>子查询</center></h4><span id="more"></span>
+
+<h2 id="select特殊功能："><a href="#select特殊功能：" class="headerlink" title="select特殊功能："></a>select特殊功能：</h2><p>**distinct(排重)**：select distinct 字段名 from 数据表;</p>
+<p><strong>between…and</strong>：select * from 数据表 where 字段名 between 值 and 值; 相当于select * from 数据表 where 字段名&gt;字段值 and 字段名&lt;字段值;</p>
+<p><strong>in</strong>：select * from 数据表 where 字段名 in(85，86，87);</p>
+<p><strong>or</strong>：select * from 数据表 where 字段名1 = ‘值’ or 字段名2 = ‘值’;(升序查询 asc从小到大)select * from 数据表 order by 字段名 asc; order by：系统默认是升序 desc降序（从大到小）</p>
+<p>**count(统计)*<em>：select count(</em>) from 数据表 where 字段名 = 值; (聚合函数)</p>
+<p>**avg(平均)**：select avg(字段名) from 数据表 where 字段名 = 值;(聚合函数)</p>
+<p><strong>as</strong>：起别名</p>
+<p>**like(%)**：模糊查询    %代表任意字段</p>
+<p><strong>not like</strong>：模糊查询相反</p>
+<p><strong>order by</strong>(降序查询  desc从大到小)：select * from 数据表 order by 字段名 desc;</p>
+<p><strong>group by</strong>：需要和  <u><em>聚合函数</em></u>（例如：max（），count（），avg（）等）配合使用，使用时至少有一个分组标识字段（例如某一列的列名），分组标识的字段如果有多个相同的，那么搜索结果中只会出现第一次查到的这个字段的记录的信息，可以通过having</p>
+<p><strong>having</strong>(分组条件)：作用是筛选满足条件的组，即在分组之后过滤数据，条件中经常包含聚组函数，使用having 条件显示特定的组，也可以使用多个分组标准进行分组。</p>
+<p>可以包含<u><em>聚集函数</em></u>，但是where不能包含<u><em>聚集函数</em></u></p>
+<p>**year(sbirthday)**：查询出生年份   year(now())：查看当前年份</p>
+<p><strong>union</strong>：把两个查询的结果连接起来</p>
+<p><strong>any</strong>：字段中 任意的某条记录</p>
+<p><strong>all</strong>：字段中 所有的记录</p>
+<p>*<em>count(</em>)**：函数返回由select语句返回的结果集中的行数</p>
+<p>**max(字段名)**：字段中的最大值</p>
+<p>**min(字段名)**：字段中的最小值</p>
+<p><strong>查询字段中的最大最小</strong>：</p>
+<p>一：（子查询）</p>
+<p>select * from 数据表 where 字段名 = (select max(字段名) from 数据表);</p>
+<p>1.找到最高分：select max(字段名) from 数据表;</p>
+<p>2.根据最高分查询考生信息：select * from 数据表 where 字段名 = (select max(字段名) from 数据表);</p>
+<p>二：（排序）</p>
+<p>select * from 数据表 order by 字段名 desc limit 0,1;</p>
+<p>limit：第一个数字是从多少条开始，第二个数字是查多少条</p>
+<p>这个是降序，限制获得第一条，第一条就是最大的，获得最大值</p>
+<p>注意：排序有缺陷，如果最大值有两条，她只能查到一条</p>
+<p><strong>查询score表中至少有两名学生选修的并以3开头的课程的平均分数</strong></p>
+<p><strong>having</strong>(分组条件)：having字句可以让我们筛选成组后的各种数据，where字句在聚合前先筛选记录，也就是说作用在group by和having字句前。而 having子句在聚合后对组记录进行筛选。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> cno <span class="hljs-keyword">from</span> score <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> cno <span class="hljs-keyword">having</span> <span class="hljs-built_in">count</span>(cno)<span class="hljs-operator">&gt;=</span><span class="hljs-number">2</span> <span class="hljs-keyword">and</span> cno <span class="hljs-keyword">like</span> <span class="hljs-string">&#x27;3%&#x27;</span>; <br></code></pre></td></tr></table></figure>
+
+<p>  %代表的是任意的东西   3%代表以3开头的任意东西</p>
+<h2 id="多表查询："><a href="#多表查询：" class="headerlink" title="多表查询："></a>多表查询：</h2><p><strong>精髓</strong>：他们是根据相等的地方进行联系的</p>
+<p>两张表：</p>
+<p>查询当条件相同时，把数据替换掉</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> sname,cno,degree <span class="hljs-keyword">from</span> student,score <span class="hljs-keyword">where</span> student.sno <span class="hljs-operator">=</span> score.sno;<br></code></pre></td></tr></table></figure>
+
+<p>三张表：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> sname,cname,degree <span class="hljs-keyword">from</span> student,course,score <span class="hljs-keyword">where</span> student.sno <span class="hljs-operator">=</span> score.sno                                                                 <br><span class="hljs-keyword">and</span> course.cno <span class="hljs-operator">=</span> score.cno;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="子查询："><a href="#子查询：" class="headerlink" title="子查询："></a>子查询：</h2><p><strong>精髓</strong>：分开步骤去查</p>
+<p>查一个班的学生：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> student <span class="hljs-keyword">where</span> class <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;95031&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>查学生的分数：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> score <span class="hljs-keyword">where</span> class <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;95031&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>查一个班学生的平均成绩：                                                                     </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> cno,<span class="hljs-built_in">avg</span>(degree)  <span class="hljs-keyword">from</span> score  <span class="hljs-keyword">where</span> sno <span class="hljs-keyword">in</span> (<span class="hljs-keyword">select</span> sno <span class="hljs-keyword">from</span> student <span class="hljs-keyword">where</span> class <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;95031&#x27;</span>) <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> cno;<br></code></pre></td></tr></table></figure>
+
+<p>查询选修3-105课程成绩高于109号同学3-105成绩的所有同学的记录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> score <span class="hljs-keyword">where</span> cno<span class="hljs-operator">=</span><span class="hljs-string">&#x27;3-105&#x27;</span> <span class="hljs-keyword">and</span> degree<span class="hljs-operator">&gt;</span>(<span class="hljs-keyword">select</span> degree <span class="hljs-keyword">from</span> score <span class="hljs-keyword">where</span> sno<span class="hljs-operator">=</span><span class="hljs-string">&#x27;109&#x27;</span> <span class="hljs-keyword">and</span> cno<span class="hljs-operator">=</span><span class="hljs-string">&#x27;3-105&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>查询成绩高于学号为109、课程号为3-105的成绩的记录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span><span class="hljs-operator">*</span> score <span class="hljs-keyword">where</span> degree<span class="hljs-operator">&gt;</span>(<span class="hljs-keyword">select</span> degree <span class="hljs-keyword">from</span> score <span class="hljs-keyword">where</span> sno<span class="hljs-operator">=</span><span class="hljs-string">&#x27;109&#x27;</span> <span class="hljs-keyword">and</span> cno<span class="hljs-operator">=</span><span class="hljs-string">&#x27;3-105&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>查询与学号为108和101的同学同年出生的所有学生</p>
+<p>查询学号为108和101的学生：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> student <span class="hljs-keyword">where</span> sno <span class="hljs-keyword">in</span>(<span class="hljs-number">108</span>,<span class="hljs-number">101</span>);<br></code></pre></td></tr></table></figure>
+
+<p>查询学号为108和101学生的出生年份：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">&lt;</span>u<span class="hljs-operator">&gt;</span><span class="hljs-operator">*</span><span class="hljs-keyword">year</span>(sbirthday)<span class="hljs-operator">*</span><span class="hljs-operator">&lt;</span><span class="hljs-operator">/</span>u<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">from</span> student <span class="hljs-keyword">where</span> sno <span class="hljs-keyword">in</span>(<span class="hljs-number">108</span>,<span class="hljs-number">101</span>);<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> student <span class="hljs-keyword">where</span> <span class="hljs-keyword">year</span>(sbirthday) <span class="hljs-keyword">in</span>(<span class="hljs-keyword">select</span> <span class="hljs-keyword">year</span>(sbirthday) <span class="hljs-keyword">from</span> student <span class="hljs-keyword">where</span> sno <span class="hljs-keyword">in</span>(<span class="hljs-number">108</span>,<span class="hljs-number">101</span>));<br></code></pre></td></tr></table></figure>
+
+<p>查询张旭教师任课的学生成绩：</p>
+<p>教师表中查询tno：select tno from teacher where tname=’张旭’;</p>
+<p>查询他任的课cno：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> cno <span class="hljs-keyword">from</span> cource <span class="hljs-keyword">where</span> tno<span class="hljs-operator">=</span>(<span class="hljs-keyword">select</span> tno <span class="hljs-keyword">from</span> teacher <span class="hljs-keyword">where</span> tname<span class="hljs-operator">=</span><span class="hljs-string">&#x27;张旭&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> score <span class="hljs-keyword">where</span> cno <span class="hljs-keyword">in</span>(<span class="hljs-keyword">select</span> cno <span class="hljs-keyword">from</span> cource <span class="hljs-keyword">where</span> tno<span class="hljs-operator">=</span>(<span class="hljs-keyword">select</span> tno <span class="hljs-keyword">from</span> teacher <span class="hljs-keyword">where</span> tname<span class="hljs-operator">=</span><span class="hljs-string">&#x27;张旭&#x27;</span>));<br></code></pre></td></tr></table></figure>
+
+<p>查询某课程的同学数多余5人的教师姓名：</p>
+<p>课程数大于五的cno：select cno from score group by cno having count(*)&gt;5;</p>
+<p>查询tno：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> tno <span class="hljs-keyword">from</span> course <span class="hljs-keyword">where</span> cno <span class="hljs-keyword">in</span>(<span class="hljs-keyword">select</span> cno <span class="hljs-keyword">from</span> score <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> cno <span class="hljs-keyword">having</span> <span class="hljs-built_in">count</span>(<span class="hljs-operator">*</span>)<span class="hljs-operator">&gt;</span><span class="hljs-number">5</span>);<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> tname <span class="hljs-keyword">from</span> teacher <span class="hljs-keyword">where</span> tno <span class="hljs-keyword">in</span>(<span class="hljs-keyword">select</span> tno <span class="hljs-keyword">from</span> course <span class="hljs-keyword">where</span> cno<span class="hljs-operator">=</span>(<span class="hljs-keyword">select</span> cno <span class="hljs-keyword">from</span> score <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> cno <span class="hljs-keyword">having</span> <span class="hljs-built_in">count</span>(<span class="hljs-operator">*</span>)<span class="hljs-operator">&gt;</span><span class="hljs-number">5</span>));<br></code></pre></td></tr></table></figure>
+
+<p>查看计算机系和电子工程系不同职称的教师的tname和pref</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> prof <span class="hljs-keyword">from</span> teacher <span class="hljs-keyword">where</span> depart <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;电子工程系&#x27;</span> <span class="hljs-keyword">and</span> prof <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span>(<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> teacher <span class="hljs-keyword">where</span> depart <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;计算机系&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p><u><em><strong>union</strong></em></u></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> teacher <span class="hljs-keyword">where</span> depart <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;计算机系&#x27;</span> <span class="hljs-keyword">and</span> prof <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span>(<span class="hljs-keyword">select</span> prof <span class="hljs-keyword">from</span> teacher <span class="hljs-keyword">where</span> depart <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;电子工程系&#x27;</span> );<br></code></pre></td></tr></table></figure>
+
+<p>查询选修学号为3-105课程且成绩至少高于选修编号3-245的同学的Cno、Sno和Degree，并按Degree从高到底依次排序</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> cno,sno,degree <span class="hljs-keyword">from</span> score                                         <br><span class="hljs-keyword">where</span> cno<span class="hljs-operator">=</span><span class="hljs-string">&#x27;3-105&#x27;</span><br><span class="hljs-keyword">and</span> degree<span class="hljs-operator">&gt;</span><span class="hljs-operator">&lt;</span>u<span class="hljs-operator">&gt;</span><span class="hljs-operator">*</span><span class="hljs-operator">*</span><span class="hljs-keyword">any</span><span class="hljs-operator">*</span><span class="hljs-operator">*</span><span class="hljs-operator">&lt;</span><span class="hljs-operator">/</span>u<span class="hljs-operator">&gt;</span>(<span class="hljs-keyword">select</span> degree <span class="hljs-keyword">from</span> score <span class="hljs-keyword">where</span> cno<span class="hljs-operator">=</span><span class="hljs-string">&#x27;3-245&#x27;</span>)   <br><span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> degree <span class="hljs-keyword">desc</span>;<br></code></pre></td></tr></table></figure>
+
+<p>   //从高到低</p>
+<p>复制表数据做条件查询：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> score a <span class="hljs-keyword">where</span> degree<span class="hljs-operator">&lt;</span>(<span class="hljs-keyword">select</span> <span class="hljs-built_in">avg</span>(degree) <span class="hljs-keyword">from</span> score b <span class="hljs-keyword">where</span> a.cno<span class="hljs-operator">=</span>b.cno);<br></code></pre></td></tr></table></figure>
+
+
+
+<p>查询至少有两名男生的班级：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> class <span class="hljs-keyword">from</span> student <span class="hljs-keyword">where</span> ssex <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;男&#x27;</span> <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> class <span class="hljs-keyword">having</span> <span class="hljs-built_in">count</span>(<span class="hljs-operator">*</span>) <span class="hljs-operator">&gt;</span> <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+
+<p>按等级查询：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> sno,cno,grade <span class="hljs-keyword">from</span> score,grade <span class="hljs-keyword">where</span> degree <span class="hljs-keyword">between</span> low <span class="hljs-keyword">and</span> upp;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="sql的四种链接查询："><a href="#sql的四种链接查询：" class="headerlink" title="sql的四种链接查询："></a>sql的四种链接查询：</h2><p><strong>内链接：</strong></p>
+<p>inner join 或者 join</p>
+<p><strong>外连接：</strong></p>
+<p>1.左连接：left join 或者 left outer join</p>
+<p>2.右连接：right join 或者 right outer join</p>
+<p>3.完全外连接：full join 或者 full outer join</p>
+<p>person表：id，name，cardId</p>
+<p>card表：id，name</p>
+<p>person表中的cardId来自于card表中的id</p>
+<p>create table person(</p>
+<p>​    id int,</p>
+<p>​    name varchar(20),</p>
+<p>​    cardId int</p>
+<p>);</p>
+<p>create table card(</p>
+<p>​    id int,</p>
+<p>​    name varchar(20)</p>
+<p>);</p>
+<p>insert into card values(1,’饭卡’);</p>
+<p>insert into card values(2,’建行卡’);</p>
+<p>insert into card values(3,’农行卡’);</p>
+<p>insert into card values(4,’工商卡’);</p>
+<p>insert into card values(5,’邮政卡’);</p>
+<p>insert into person values(1,’张三’,1);</p>
+<p>insert into person values(2,’李四’,3);</p>
+<p>insert into person values(3,’王五’,6);</p>
+<p>并没有创建外键，如果创建的话person里面的第三条数据插不进去</p>
+<p><strong>inner join查询</strong>：(内连接)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> person p <span class="hljs-keyword">inner</span> <span class="hljs-keyword">join</span> card c <span class="hljs-keyword">on</span> p.cardId <span class="hljs-operator">=</span> c.id;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> person p, card c <span class="hljs-keyword">where</span> c.id <span class="hljs-operator">=</span> p.cardId;<br></code></pre></td></tr></table></figure>
+
+<p>内联查询：其实就是相当于把两个表里面的数据，通过某个字段相对应，把有关系的数据查询出来</p>
+<p>mysql&gt; select * from person p, card c where c.id = p.cardId;<br>+—-+——+——–+—-+——–+<br>| id | name | cardId | id | name   |<br>+—-+——+——–+—-+——–+<br>|  1 | 张三 |      1 |  1 | 饭卡   |<br>|  2 | 李四 |      3 |  3 | 农行卡 |<br>+—-+——+——–+—-+——–+</p>
+<p>**left join:**（左外连接)outer</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> person <span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> card <span class="hljs-keyword">on</span> person.cardId <span class="hljs-operator">=</span> card.id;<br></code></pre></td></tr></table></figure>
+
+<p>左外连接：会把左边表里的数据全部取出来，而右边表里的数据有就显示出来，没有就会变成NULL</p>
+<p>mysql&gt; select * from person left join card on person.cardId = card.id;<br>+—-+——+——–+——+——–+<br>| id | name | cardId | id   | name   |<br>+—-+——+——–+——+——–+<br>|  1 | 张三 |      1 |    1 | 饭卡   |<br>|  2 | 李四 |      3 |    3 | 农行卡 |<br>|  3 | 王五 |      6 | NULL | NULL   |<br>+—-+——+——–+——+——–+</p>
+<p><strong>right join：</strong>(右外连接)outer</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> person <span class="hljs-keyword">right</span> <span class="hljs-keyword">join</span> card <span class="hljs-keyword">on</span> person.cardId <span class="hljs-operator">=</span> card.id;<br></code></pre></td></tr></table></figure>
+
+<p>左外连接：会把右边表里的数据全部取出来，而左边表里的数据有就显示出来，没有就会变成NULL</p>
+<p>mysql&gt; select * from person right join card on person.cardId = card.id;<br>+——+——+——–+—-+——–+<br>| id   | name | cardId | id | name   |<br>+——+——+——–+—-+——–+<br>|    1 | 张三 |      1 |  1 | 饭卡   |<br>|    2 | 李四 |      3 |  3 | 农行卡 |<br>| NULL | NULL | NULL   |  2 | 建行卡 |<br>| NULL | NULL | NULL   |  4 | 工商卡 |<br>| NULL | NULL | NULL   |  5 | 邮政卡 |<br>+——+——+——–+—-+——–+</p>
+<p><strong>full join：</strong>（全外连接）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> person <span class="hljs-keyword">full</span> <span class="hljs-keyword">join</span> card <span class="hljs-keyword">on</span> person.cardId <span class="hljs-operator">=</span> card.id;<br></code></pre></td></tr></table></figure>
+
+<p>mysql&gt; select * from person full join card on person.cardId = card.id;<br>1054 - Unknown column ‘person.cardId’ in ‘on clause’</p>
+<p>原因是mysql不支持full join</p>
+<p><u><em>全外连接我们想要的结果：</em></u></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> person <span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> card <span class="hljs-keyword">on</span> person.cardId <span class="hljs-operator">=</span> card.id          <br><span class="hljs-keyword">union</span>    <br><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> person <span class="hljs-keyword">right</span> <span class="hljs-keyword">join</span> card <span class="hljs-keyword">on</span> person.cardId <span class="hljs-operator">=</span> card.id;     <br></code></pre></td></tr></table></figure>
+
+<p>+——+——+——–+——+——–+<br>| id   | name | cardId | id   | name   |<br>+——+——+——–+——+——–+<br>|    1 | 张三 |      1 |    1 | 饭卡   |<br>|    2 | 李四 |      3 |    3 | 农行卡 |<br>|    3 | 王五 |      6 | NULL | NULL   |<br>| NULL | NULL | NULL   |    2 | 建行卡 |<br>| NULL | NULL | NULL   |    4 | 工商卡 |<br>| NULL | NULL | NULL   |    5 | 邮政卡 |<br>+——+——+——–+——+——–+                                                                   </p>
+<p>连接的好处：<strong>可以不创建外键</strong></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/gzguo/categories/java/">java</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/gzguo/tags/mysql/">mysql</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/gzguo/2019/08/16/java/mysql/end/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">java_mysql_end</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/gzguo/2019/08/14/java/mybatis/start/">
+                        <span class="hidden-mobile">java_mybatis_start</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/gzguo/js/events.js" ></script>
+<script  src="/gzguo/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/gzguo/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/gzguo/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/gzguo/js/boot.js" ></script>
+
+
+</body>
+</html>
