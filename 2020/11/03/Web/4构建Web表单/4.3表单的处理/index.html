@@ -14,7 +14,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="0.0.0.1. 4.3表单的处理">
+  <meta name="description" content="IT">
   <meta name="author" content="Little scholar">
   <meta name="keywords" content="IT">
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      431 字
+      411 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      4
        分钟
     </span>
   
@@ -228,23 +228,23 @@
             <h1 style="display: none">4.3表单的处理</h1>
             
             <div class="markdown-body">
-              <h4 id="4-3表单的处理">0.0.0.1. 4.3表单的处理</h4><span id="more"></span>
+              <span id="more"></span>
 
-<h2 id="表单的分组">0.1. 表单的分组</h2><p>使用fieldset元素将相关的元素组合在一起</p>
-<h3 id="fieldset基本语法">0.1.1. fieldset基本语法</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css">&lt;<span class="hljs-selector-tag">form</span>&gt;<br>	&lt;<span class="hljs-selector-tag">fieldset</span>&gt;  (表单的一个子容器，将所包含的内容以边框环绕的方式显示)<br>		&lt;<span class="hljs-selector-tag">legend</span>&gt;&lt;/<span class="hljs-selector-tag">legend</span>&gt;  (为<span class="hljs-selector-tag">fieldset</span>边框添加相关的标题)<br>	&lt;/<span class="hljs-selector-tag">fieldset</span>&gt;<br>&lt;/<span class="hljs-selector-tag">form</span>&gt;<br></code></pre></td></tr></table></figure>
-
-
-
-<h2 id="表单的验证">0.2. 表单的验证</h2><p>表单验证主要时在用户提交表单之前对用户输入的数据进行验证，看数据是否合法</p>
-<h3 id="Email-URL验证">0.2.1. Email/URL验证</h3><p>HTML5新增的Email/URL表单类型本身就是具有对表单数据进行验证的功能</p>
-<h3 id="pattern验证">0.2.2. pattern验证</h3><p>使用pattern属性验证输入字段的模式，pattern属性具有对表单中输入字段模式进行验证的功能。适合于text、url、telephone、email、password等<input>类型</p>
-<h4 id="pattern基本语法格式">0.2.2.1. pattern基本语法格式</h4><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;input <span class="hljs-attribute">pattern</span>=<span class="hljs-string">&quot;regexp(正则表达式)&quot;</span>&gt;<br></code></pre></td></tr></table></figure>
+<h1 id="表单的分组">1. 表单的分组</h1><p>使用fieldset元素将相关的元素组合在一起</p>
+<h2 id="fieldset基本语法">1.1. fieldset基本语法</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css">&lt;<span class="hljs-selector-tag">form</span>&gt;<br>	&lt;<span class="hljs-selector-tag">fieldset</span>&gt;  (表单的一个子容器，将所包含的内容以边框环绕的方式显示)<br>		&lt;<span class="hljs-selector-tag">legend</span>&gt;&lt;/<span class="hljs-selector-tag">legend</span>&gt;  (为<span class="hljs-selector-tag">fieldset</span>边框添加相关的标题)<br>	&lt;/<span class="hljs-selector-tag">fieldset</span>&gt;<br>&lt;/<span class="hljs-selector-tag">form</span>&gt;<br></code></pre></td></tr></table></figure>
 
 
 
-<h2 id="表单添加组件说明">0.3. 表单添加组件说明</h2><p>使用label标签为扁担组件添加说明</p>
-<h3 id="label标签">0.3.1. label标签</h3><p>label标签是描述表单字段用途的文本。label元素不会向用户呈现任何特殊的效果。不过它为鼠标用户改进了可用性。如果在label元素内点击文本，就会出发此控件。就是说，当用户选择该标签时，浏览器就会自动将焦点转移到和标签相关的表单控件上</p>
-<h3 id="label标签的属性">0.3.2. label标签的属性</h3><ol>
+<h1 id="表单的验证">2. 表单的验证</h1><p>表单验证主要时在用户提交表单之前对用户输入的数据进行验证，看数据是否合法</p>
+<h2 id="Email-URL验证">2.1. Email/URL验证</h2><p>HTML5新增的Email/URL表单类型本身就是具有对表单数据进行验证的功能</p>
+<h2 id="pattern验证">2.2. pattern验证</h2><p>使用pattern属性验证输入字段的模式，pattern属性具有对表单中输入字段模式进行验证的功能。适合于text、url、telephone、email、password等<input>类型</p>
+<h3 id="pattern基本语法格式">2.2.1. pattern基本语法格式</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;input <span class="hljs-attribute">pattern</span>=<span class="hljs-string">&quot;regexp(正则表达式)&quot;</span>&gt;<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="表单添加组件说明">3. 表单添加组件说明</h1><p>使用label标签为扁担组件添加说明</p>
+<h2 id="label标签">3.1. label标签</h2><p>label标签是描述表单字段用途的文本。label元素不会向用户呈现任何特殊的效果。不过它为鼠标用户改进了可用性。如果在label元素内点击文本，就会出发此控件。就是说，当用户选择该标签时，浏览器就会自动将焦点转移到和标签相关的表单控件上</p>
+<h2 id="label标签的属性">3.2. label标签的属性</h2><ol>
 <li>for：规定label绑定到哪个表单元素上，属性取值为表单元素的id</li>
 <li>form：规定label字段所属的一个或多个表单。属性取值为formid</li>
 </ol>
@@ -257,7 +257,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/gzguo/categories/html5/">html5</a>
+                      <a class="hover-with-bg" href="/gzguo/categories/html/">html</a>
                     
                   </div>
                 

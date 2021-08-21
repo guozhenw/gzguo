@@ -14,7 +14,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="0.0.0.1. linux常见命令">
+  <meta name="description" content="linux查看、vim搜索、防火墙、分区的相关命令。">
   <meta name="author" content="Little scholar">
   <meta name="keywords" content="IT">
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      321 字
+      330 字
     </span>
   
 
@@ -228,21 +228,22 @@
             <h1 style="display: none">linux</h1>
             
             <div class="markdown-body">
-              <h4 id="linux常见命令">0.0.0.1. linux常见命令</h4><span id="more"></span>
+              <p>linux查看、vim搜索、防火墙、分区的相关命令。</p>
+<span id="more"></span>
 
-<h2 id="查看">0.1. 查看</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs awk">whoami   查看当前登陆用户<br><span class="hljs-keyword">exit</span>   退出虚拟机的连接<br>pwd   查看当前路径<br>ps aux | grep mysql   查看某个进程<br>ps -ef|grep redis   查看进程是否激活<br>netstat -ntlup|grep <span class="hljs-number">8080</span>   查看<span class="hljs-number">8080</span>端口被谁占用<br>rm -rf 目录绝对位置   删除整个目录及目录下的所有文件<br>du --max-depth=<span class="hljs-number">1</span> -h   查看磁盘占用<br></code></pre></td></tr></table></figure>
+<h1 id="查看">1. 查看</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c">whoami   <span class="hljs-comment">//查看当前登陆用户</span><br><span class="hljs-built_in">exit</span>   <span class="hljs-comment">//退出虚拟机的连接</span><br>pwd   <span class="hljs-comment">//查看当前路径</span><br>ps aux | grep mysql   <span class="hljs-comment">//查看某个进程</span><br>ps -ef|grep redis   <span class="hljs-comment">//查看进程是否激活</span><br>netstat -ntlup|grep <span class="hljs-number">8080</span>   <span class="hljs-comment">//查看8080端口被谁占用</span><br>rm -rf 目录绝对位置   <span class="hljs-comment">//删除整个目录及目录下的所有文件</span><br>du --max-depth=<span class="hljs-number">1</span> -h   <span class="hljs-comment">//查看磁盘占用</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="vim搜索">0.2. vim搜索</h2><h3 id="搜索">0.2.1. 搜索</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elixir"><span class="hljs-symbol">:/</span>搜索内容<br></code></pre></td></tr></table></figure>
+<h1 id="vim搜索">2. vim搜索</h1><h2 id="搜索">2.1. 搜索</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">:/搜索内容  <span class="hljs-comment">//搜索文件里面相关的内容</span><br></code></pre></td></tr></table></figure>
 
-<h3 id="取消搜索">0.2.2. 取消搜索</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">nohlsearch</span>    简写<span class="hljs-keyword">noh</span><br><span class="hljs-keyword">set</span> <span class="hljs-keyword">nohlsearch</span>   简写<span class="hljs-keyword">set</span> <span class="hljs-keyword">noh</span><br></code></pre></td></tr></table></figure>
+<h2 id="取消搜索">2.2. 取消搜索</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c">nohlsearch    <span class="hljs-comment">//简写noh</span><br><span class="hljs-built_in">set</span> nohlsearch   <span class="hljs-comment">//简写set noh</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="防火墙">0.3. 防火墙</h2><h3 id="添加端口">0.3.1. 添加端口</h3><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">firewall</span><span class="hljs-literal">-</span><span class="hljs-comment">cmd</span> --<span class="hljs-comment">add</span><span class="hljs-literal">-</span><span class="hljs-comment">port=5000/tcp</span> --<span class="hljs-comment">permanent</span><br><span class="hljs-comment">firewall</span><span class="hljs-literal">-</span><span class="hljs-comment">cmd</span> --<span class="hljs-comment">reload</span><br></code></pre></td></tr></table></figure>
+<h1 id="防火墙">3. 防火墙</h1><h2 id="添加端口">3.1. 添加端口</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c">firewall-cmd --add-port=<span class="hljs-number">5000</span>/tcp --permanent<br>firewall-cmd --reload<br></code></pre></td></tr></table></figure>
 
-<h3 id="开启关闭">0.3.2. 开启关闭</h3><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">systemctl status firewalld.service   查看防火墙状态<br>firewall-cmd <span class="hljs-comment">--state   查看防火墙状态</span><br>firewall-cmd <span class="hljs-comment">--list-ports   查看防火墙开启的端口</span><br>firewall-cmd <span class="hljs-comment">--add-port=6379/tcp   添加端口</span><br>firewall-cmd <span class="hljs-comment">--list-services   查看防火墙开启的服务</span><br>systemctl <span class="hljs-keyword">start</span> firewalld   开启防火墙<br>systemctl stop firewalld   禁用防火墙<br>systemctl <span class="hljs-keyword">enable</span> firewalld   设置防火墙开机启动<br>systemctl <span class="hljs-keyword">disable</span> firewalld   停止并禁用开机启动<br>firewall-cmd <span class="hljs-comment">--reload   重启防火墙</span><br></code></pre></td></tr></table></figure>
+<h2 id="开启关闭">3.2. 开启关闭</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c">systemctl status firewalld.service   <span class="hljs-comment">//查看防火墙状态</span><br>firewall-cmd --state   <span class="hljs-comment">//查看防火墙状态</span><br>firewall-cmd --<span class="hljs-built_in">list</span>-ports   <span class="hljs-comment">//查看防火墙开启的端口</span><br>firewall-cmd --add-port=<span class="hljs-number">6379</span>/tcp   <span class="hljs-comment">//添加端口</span><br>firewall-cmd --<span class="hljs-built_in">list</span>-services   <span class="hljs-comment">//查看防火墙开启的服务</span><br>systemctl start firewalld   <span class="hljs-comment">//开启防火墙</span><br>systemctl stop firewalld   <span class="hljs-comment">//禁用防火墙</span><br>systemctl enable firewalld   <span class="hljs-comment">//设置防火墙开机启动</span><br>systemctl disable firewalld   <span class="hljs-comment">//停止并禁用开机启动</span><br>firewall-cmd --reload   <span class="hljs-comment">//重启防火墙</span><br></code></pre></td></tr></table></figure>
 
-<h3 id="永久打开端口">0.3.3. 永久打开端口</h3><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">firewall</span><span class="hljs-literal">-</span><span class="hljs-comment">cmd</span> --<span class="hljs-comment">zone=public</span> --<span class="hljs-comment">add</span><span class="hljs-literal">-</span><span class="hljs-comment">port=8080/tcp</span> --<span class="hljs-comment">permanent</span>   <span class="hljs-comment">永久打开端口</span><br><span class="hljs-comment">firewall</span><span class="hljs-literal">-</span><span class="hljs-comment">cmd</span> --<span class="hljs-comment">reload</span>   <span class="hljs-comment">重新加载</span><br></code></pre></td></tr></table></figure>
+<h2 id="永久打开端口">3.3. 永久打开端口</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c">firewall-cmd --zone=<span class="hljs-keyword">public</span> --add-port=<span class="hljs-number">8080</span>/tcp --permanent   <span class="hljs-comment">//永久打开端口</span><br>firewall-cmd --reload   <span class="hljs-comment">//重新加载</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="添加swag分区">0.4. 添加swag分区</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros">dd <span class="hljs-attribute">if</span>=/dev/zero <span class="hljs-attribute">of</span>=/swapfile <span class="hljs-attribute">bs</span>=1M <span class="hljs-attribute">count</span>=1024<br>mkswap /swapfile<br>swapon /swapfile<br>free -m<br></code></pre></td></tr></table></figure>
+<h1 id="添加swag分区">4. 添加swag分区</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c">dd <span class="hljs-keyword">if</span>=/dev/zero of=/swapfile bs=<span class="hljs-number">1</span>M count=<span class="hljs-number">1024</span><br>mkswap /swapfile<br>swapon /swapfile<br><span class="hljs-built_in">free</span> -m<br></code></pre></td></tr></table></figure>
 
 
             </div>
@@ -261,7 +262,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/gzguo/tags/linux%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/">linux常见命令</a>
+                      <a class="hover-with-bg" href="/gzguo/tags/linux/">linux</a>
                     
                   </div>
                 
@@ -278,9 +279,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/gzguo/2020/09/28/window/%E6%B7%BB%E5%8A%A0%E5%90%AF%E5%8A%A8%E9%A1%B9/">
+                      <a href="/gzguo/2020/09/29/java/class/start/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">windows</span>
+                        <span class="hidden-mobile">java_class_start</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -288,8 +289,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/gzguo/2020/09/28/%E6%9A%91%E5%81%87%E9%A1%B9%E7%9B%AE/idea/">
-                        <span class="hidden-mobile">idea快捷键</span>
+                      <a href="/gzguo/2020/09/28/linux/%E9%83%A8%E7%BD%B2jar%E5%8C%85/">
+                        <span class="hidden-mobile">linux</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
