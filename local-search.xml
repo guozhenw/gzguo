@@ -117,31 +117,6 @@
   
   
   <entry>
-    <title>2-2-3调度算法的评价指标</title>
-    <link href="/gzguo/2020/12/27/OS/2/2-2-3/"/>
-    <url>/gzguo/2020/12/27/OS/2/2-2-3/</url>
-    
-    <content type="html"><![CDATA[<h4 id="2-2-3调度算法的评价指标">0.0.0.1. 2-2-3调度算法的评价指标</h4><span id="more"></span><h2 id="系统利用率">0.1. 系统利用率</h2><p>利用率=忙碌时间/总时间</p><h2 id="系统吞吐量">0.2. 系统吞吐量</h2><p>单位时间内完成的作业的数量</p><p>系统吞吐量=总共完成了多少道作业/总共花了多长时间</p><h2 id="周转时间">0.3. 周转时间</h2><p>作业从提交给系统道作业完成的时间间隔</p><p>周转时间=作业完成时间-作业提交时间</p><p>平均周转时间=个作业周转时间之和/作业数</p><p>带权周转时间=作业周转时间/作业实际运行时间（越小越好，用户体验越好）</p><p>平均带权周转时间=各作业带权周转时间之和/作业数</p><h2 id="等待时间">0.4. 等待时间</h2><p>指进程/作业等待处理机状态时间之和，等待时间越长，用户满意度越低</p><p>对于作业来说：等待时间就是进程建立之后等待被服务的时间之和，等待IO完成期间也是被服务的，不算入等待时间</p><p>对于进程来说：不仅要考虑建立进程后的等待时间，还要加上作业在外存后备队列中等待的时间</p><h2 id="响应时间">0.5. 响应时间</h2><p>用户提交请求道首次产生响应所用的时间</p>]]></content>
-    
-    
-    <categories>
-      
-      <category>OS</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>OS</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>2-2-2进程调度</title>
     <link href="/gzguo/2020/12/27/OS/2/2-2-2/"/>
     <url>/gzguo/2020/12/27/OS/2/2-2-2/</url>
@@ -172,6 +147,31 @@
     <url>/gzguo/2020/12/27/OS/2/2-2-1/</url>
     
     <content type="html"><![CDATA[<h4 id="2-2-1处理机调度">0.0.0.1. 2-2-1处理机调度</h4><span id="more"></span><h2 id="定义">0.1. 定义</h2><p>某种规则来决定处理任务的顺序，这就是调度研究的问题</p><p>处理机调度：由于CPU个数远远小于进程数，不可能同时处理所有的进程。要<strong>从就绪队列中按照一定的算法选择一个进程并将处理机分配给它运行，以实现进程的并发执行</strong></p><h2 id="层次">0.2. 层次</h2><h3 id="高级调度（作业调度）">0.2.1. 高级调度（作业调度）</h3><p>作业=多个进程</p><p>由于内存有限，<strong>作业</strong>无法全部放入内存，需要某种规则来决定将作业调入内存的顺序</p><p>高级调度是<strong>外存与内存之间</strong>的调度</p><p>每个作业<strong>只调入一次调出一次</strong></p><p>作业调度时会创建相应的PCB，调出时才撤销PCB</p><h3 id="中级调度（内存调度）">0.2.2. 中级调度（内存调度）</h3><p>引入了虚拟存储技术之后，可以将暂时不能运行的<strong>进程</strong>调至外存等待。等他重新具备了运行条件且内存有空的时候，再重新调入内存</p><p>这样做的目的是<strong>提高内存的利用率和系统的吞吐量</strong></p><p>暂时调到外存的状态叫做<strong>挂起状态</strong>，进程被调出内存，但是PCB会常驻内存，因为操作系统还要对这些未执行完的进程进行管理（挂起–&gt;挂起队列）</p><p>中级调度发生的频率比高级调度高，因为一个进程可能会多次被调出、调入内存</p><p>这里引入了七状态模型，详情见补充知识</p><h3 id="低级调度（进程调度）">0.2.3. 低级调度（进程调度）</h3><p>主要任务是按照某种方法和策略从就绪队列中选取一个进程，将<strong>处理机</strong>分配给他</p><p>进程调度是最基本的一种调度，频率很高，一般几十毫秒一次</p><h2 id="调度联系、对比">0.3. 调度联系、对比</h2><p>高级调度（作业调度）：外存到内存（面向作业）（无到创建到就绪）</p><p>中级调度（内存调度）：外存到内存（面向进程）（挂起到就绪）</p><p>低级调度（进程调度）：<strong>内存–&gt;CPU</strong>（就绪到运行）</p><h2 id="补充知识">0.4. 补充知识</h2><p>与挂起状态相关的<strong>七状态模型</strong>：</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">暂时调入到外存等待的进程状态为挂起状态<br>挂起态又可以分为就绪挂起、阻塞挂起两种<br></code></pre></td></tr></table></figure><p>五状态模型–&gt;七状态模型（新增两种状态）</p><p>就绪–&gt;挂起（就绪挂起）</p><p>阻塞–&gt;挂起（阻塞挂起）</p><p>阻塞挂起等待的事件出现–&gt;就绪挂起</p><p>创建态–&gt;就绪挂起</p><p>运行态–&gt;就绪挂起</p><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs x86asm">挂起和阻塞的区别：<br>    两种都是暂时不能得到<span class="hljs-meta">CPU</span>服务<br>    挂起是将进程调入外存，而阻塞态下的进程还在内存中<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>OS</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>OS</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>2-2-3调度算法的评价指标</title>
+    <link href="/gzguo/2020/12/27/OS/2/2-2-3/"/>
+    <url>/gzguo/2020/12/27/OS/2/2-2-3/</url>
+    
+    <content type="html"><![CDATA[<h4 id="2-2-3调度算法的评价指标">0.0.0.1. 2-2-3调度算法的评价指标</h4><span id="more"></span><h2 id="系统利用率">0.1. 系统利用率</h2><p>利用率=忙碌时间/总时间</p><h2 id="系统吞吐量">0.2. 系统吞吐量</h2><p>单位时间内完成的作业的数量</p><p>系统吞吐量=总共完成了多少道作业/总共花了多长时间</p><h2 id="周转时间">0.3. 周转时间</h2><p>作业从提交给系统道作业完成的时间间隔</p><p>周转时间=作业完成时间-作业提交时间</p><p>平均周转时间=个作业周转时间之和/作业数</p><p>带权周转时间=作业周转时间/作业实际运行时间（越小越好，用户体验越好）</p><p>平均带权周转时间=各作业带权周转时间之和/作业数</p><h2 id="等待时间">0.4. 等待时间</h2><p>指进程/作业等待处理机状态时间之和，等待时间越长，用户满意度越低</p><p>对于作业来说：等待时间就是进程建立之后等待被服务的时间之和，等待IO完成期间也是被服务的，不算入等待时间</p><p>对于进程来说：不仅要考虑建立进程后的等待时间，还要加上作业在外存后备队列中等待的时间</p><h2 id="响应时间">0.5. 响应时间</h2><p>用户提交请求道首次产生响应所用的时间</p>]]></content>
     
     
     <categories>
@@ -517,31 +517,6 @@
   
   
   <entry>
-    <title>2-1-1进程定义</title>
-    <link href="/gzguo/2020/12/25/OS/2/2-1-1/"/>
-    <url>/gzguo/2020/12/25/OS/2/2-1-1/</url>
-    
-    <content type="html"><![CDATA[<h4 id="2-1-1进程定义">0.0.0.1. 2-1-1进程定义</h4><span id="more"></span><h2 id="定义">0.1. 定义</h2><p>进程是为了解决什么问题而引入的？</p><p>先讲<strong>程序</strong>：就是一个指令序列</p><p>早期还是单道程序执行的时候，所有的资源都是一个程序的，不需要记录程序的存放位置。内存中只有<strong>程序段和数据段</strong>。</p><p>随着出现了多道程序技术，需要对程序的存放位置等的进行记录。系统会为每个运行的程序配置一个<strong>数据结构</strong>，这个数据结构称为<strong>程序控制块（PCB）</strong>，用来描述进程的各种信息（存储位置等）。内存中的<strong>程序段、数据段和进程控制块</strong>三部分构成了进程实体（进程映像）</p><p>一般来说，我们可以把进程实体称之为<strong>进程</strong>，所谓的创建进程，实际上就是创建进程实体中的PCB；撤销进程就是撤销进程实体中的PCB。</p><p>严格来说，进程实体和进程还是有区别的，进程实体是静态的，进程则是动态的。</p><p>注意：PCB是进程存在的唯一标志</p><p>从不同的角度，进程有不同的定义：</p><ol><li>进程是程序的一次执行过程</li><li>进程是一个程序及其数据在处理机上顺序执行时所发生的活动</li><li>进程是具有独立功能的程序在数据集合上运行的过程，它是系统进行资源分配和调度的一个独立单位</li></ol><h2 id="组成">0.2. 组成</h2><p>每个进程由哪些部分组成？</p><p>进程是由程序段、数据段和PCB三部分组成的</p><ol><li>程序段：程序代码</li><li>数据段：程序运行时使用、产生的运算数据</li><li>PCB：操作系统对进程管理所需的各种信息</li></ol><p>PCB中的信息：</p><ol><li>进程描述信息（进程标识符id、用户标识符id）</li><li>进程控制和管理信息（进程当前状态、进程优先级）</li><li>资源分配清单（程序段指针、数据段指针、键盘、鼠标）</li><li>处理机相关信息（各种寄存器值）</li></ol><h2 id="组织方式">0.3. 组织方式</h2><p>系统间的各个进程使如何被组织起来的？</p><p>进程的组成讨论进程内部，进程组织讨论进程之间</p><h3 id="链接方式">0.3.1. 链接方式</h3><p>根据状态将PCB分为多个队列，操作系统持有队列指针</p><ol><li>执行指针：CPU中正在运行的进程</li><li>就绪队列指针：指向当前处于就绪态的进程</li><li>阻塞队列指针：指向处于阻塞状态的进程</li></ol><h3 id="索引方式">0.3.2. 索引方式</h3><p>根据状态建立索引表，操作系统持有表的指针</p><ol><li>执行指针</li><li>就绪表指针</li><li>阻塞表指针</li></ol><h2 id="特征">0.4. 特征</h2><p>相比于程序，进程有哪些特征？</p><ol><li><strong>动态性</strong>：进程是程序的一次执行过程，是动态产生、变化和消亡的</li><li><strong>并发性</strong>：内存中有多个进程实体，各进程可以并发执行</li><li><strong>独立性</strong>：进程可以独立运行、独立获得资源、独立接受调度的基本单位</li><li><strong>异步性</strong>：不可预知的速度向前推进。操作系统提供“进程同步机制”来解决异步的问题</li><li><strong>结构性</strong>：每个进程都会配置一个PCB。结构上看，进程=程序段+数据段+PCB</li></ol>]]></content>
-    
-    
-    <categories>
-      
-      <category>OS</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>OS</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>3-1-2内存管理</title>
     <link href="/gzguo/2020/12/25/OS/3/3-1-2/"/>
     <url>/gzguo/2020/12/25/OS/3/3-1-2/</url>
@@ -592,11 +567,11 @@
   
   
   <entry>
-    <title>1-2操作系统概念</title>
-    <link href="/gzguo/2020/12/24/OS/1/1-2/"/>
-    <url>/gzguo/2020/12/24/OS/1/1-2/</url>
+    <title>2-1-1进程定义</title>
+    <link href="/gzguo/2020/12/25/OS/2/2-1-1/"/>
+    <url>/gzguo/2020/12/25/OS/2/2-1-1/</url>
     
-    <content type="html"><![CDATA[<h4 id="1-2操作系统概念">0.0.0.1. 1-2操作系统概念</h4><span id="more"></span><h2 id="定义（概念）">0.1. 定义（概念）</h2><p>为了理解计算机系统的概念，先了解一下计算机系统的层次结构：</p><p>由下至上：裸机、操作系统、应用程序、用户（用户可以与操作系统直接交互）</p><p>裸机：CPU、内存、硬盘</p><p>操作系统：windows ios macos android linux</p><p>应用程序：QQ、IE、LOL、吃鸡</p><p>定义：</p><p>以操作系统为中心往两边看：操作系统负责管理和协调硬件软件等计算机资源的工作</p><p>自下往上看：为上层的应用程序、用户提供简单易用的服务</p><p>自上往下看：操作系统是系统软件，而不是硬件</p><h2 id="功能和目标">0.2. 功能和目标</h2><h3 id="资源管理者">0.2.1. 资源管理者</h3><p>目标：安全、高效（作为中间层）</p><p>补充知识：进程是一个程序的执行过程，执行前需要将该进程放到内存中，才能被CPU处理</p><p>和朋友用qq聊天的过程：</p><ol><li>在各个文件夹下找到QQ安装的位置（操作系统的文件管理）</li><li>双击打开qq.exe（将程序相关的内容放到内存==&gt;操作系统的存储器管理/内存管理）</li><li>QQ程序正常打开（相应的进程被处理机/CPU处理==&gt;操作系统处理机/CPU管理）</li><li>开始和朋友聊天（将摄像头分配给进程==&gt;操作系统的设备管理）</li></ol><p>以上就是操作系统作为系统资源管理者需要做的事情</p><h3 id="向用户提供服务">0.2.2. 向用户提供服务</h3><p>目标：方便使用（自下往上看）</p><p>需要提供：</p><ol><li>命令接口：允许用户直接使用（分为<strong>联机命令接口</strong>和<strong>脱机命令接口</strong>）</li><li>程序接口/<strong>系统调用</strong>/广义指令：允许用户通过程序间接使用（.dll）</li><li>GUI：现代操作系统中最流行的图形用户接口</li></ol><p>联机命令接口：用户说一句，系统做一句</p><p>脱机命令接口：用户说一堆，系统做一堆（批处理.bat）</p><p>上面的这三个接口也叫做：用户接口</p><h3 id="对硬件及其的扩展">0.2.3. 对硬件及其的扩展</h3><p>目标：对硬件机器的扩展能力（自上往下看）</p><p>覆盖了软件的机器叫做扩充机器，又称之为虚拟机</p><p>将基础的工具组装成强大的方便用户使用的，封装性，对硬件进行扩展</p>]]></content>
+    <content type="html"><![CDATA[<h4 id="2-1-1进程定义">0.0.0.1. 2-1-1进程定义</h4><span id="more"></span><h2 id="定义">0.1. 定义</h2><p>进程是为了解决什么问题而引入的？</p><p>先讲<strong>程序</strong>：就是一个指令序列</p><p>早期还是单道程序执行的时候，所有的资源都是一个程序的，不需要记录程序的存放位置。内存中只有<strong>程序段和数据段</strong>。</p><p>随着出现了多道程序技术，需要对程序的存放位置等的进行记录。系统会为每个运行的程序配置一个<strong>数据结构</strong>，这个数据结构称为<strong>程序控制块（PCB）</strong>，用来描述进程的各种信息（存储位置等）。内存中的<strong>程序段、数据段和进程控制块</strong>三部分构成了进程实体（进程映像）</p><p>一般来说，我们可以把进程实体称之为<strong>进程</strong>，所谓的创建进程，实际上就是创建进程实体中的PCB；撤销进程就是撤销进程实体中的PCB。</p><p>严格来说，进程实体和进程还是有区别的，进程实体是静态的，进程则是动态的。</p><p>注意：PCB是进程存在的唯一标志</p><p>从不同的角度，进程有不同的定义：</p><ol><li>进程是程序的一次执行过程</li><li>进程是一个程序及其数据在处理机上顺序执行时所发生的活动</li><li>进程是具有独立功能的程序在数据集合上运行的过程，它是系统进行资源分配和调度的一个独立单位</li></ol><h2 id="组成">0.2. 组成</h2><p>每个进程由哪些部分组成？</p><p>进程是由程序段、数据段和PCB三部分组成的</p><ol><li>程序段：程序代码</li><li>数据段：程序运行时使用、产生的运算数据</li><li>PCB：操作系统对进程管理所需的各种信息</li></ol><p>PCB中的信息：</p><ol><li>进程描述信息（进程标识符id、用户标识符id）</li><li>进程控制和管理信息（进程当前状态、进程优先级）</li><li>资源分配清单（程序段指针、数据段指针、键盘、鼠标）</li><li>处理机相关信息（各种寄存器值）</li></ol><h2 id="组织方式">0.3. 组织方式</h2><p>系统间的各个进程使如何被组织起来的？</p><p>进程的组成讨论进程内部，进程组织讨论进程之间</p><h3 id="链接方式">0.3.1. 链接方式</h3><p>根据状态将PCB分为多个队列，操作系统持有队列指针</p><ol><li>执行指针：CPU中正在运行的进程</li><li>就绪队列指针：指向当前处于就绪态的进程</li><li>阻塞队列指针：指向处于阻塞状态的进程</li></ol><h3 id="索引方式">0.3.2. 索引方式</h3><p>根据状态建立索引表，操作系统持有表的指针</p><ol><li>执行指针</li><li>就绪表指针</li><li>阻塞表指针</li></ol><h2 id="特征">0.4. 特征</h2><p>相比于程序，进程有哪些特征？</p><ol><li><strong>动态性</strong>：进程是程序的一次执行过程，是动态产生、变化和消亡的</li><li><strong>并发性</strong>：内存中有多个进程实体，各进程可以并发执行</li><li><strong>独立性</strong>：进程可以独立运行、独立获得资源、独立接受调度的基本单位</li><li><strong>异步性</strong>：不可预知的速度向前推进。操作系统提供“进程同步机制”来解决异步的问题</li><li><strong>结构性</strong>：每个进程都会配置一个PCB。结构上看，进程=程序段+数据段+PCB</li></ol>]]></content>
     
     
     <categories>
@@ -617,11 +592,11 @@
   
   
   <entry>
-    <title>1-4操作系统发展与分类</title>
-    <link href="/gzguo/2020/12/24/OS/1/1-4/"/>
-    <url>/gzguo/2020/12/24/OS/1/1-4/</url>
+    <title>1-2操作系统概念</title>
+    <link href="/gzguo/2020/12/24/OS/1/1-2/"/>
+    <url>/gzguo/2020/12/24/OS/1/1-2/</url>
     
-    <content type="html"><![CDATA[<h4 id="1-4操作系统发展与分类">0.0.0.1. 1-4操作系统发展与分类</h4><span id="more"></span><h2 id="操作系统的发展过程">0.1. 操作系统的发展过程</h2><p>各个阶段的优点就是上一个阶段的缺点</p><h3 id="手工操作阶段">0.1.1. 手工操作阶段</h3><p>CPU执行快、输入慢</p><p>人机速度矛盾导致资源利用率低</p><h3 id="批处理阶段">0.1.2. 批处理阶段</h3><h4 id="单道批处理">0.1.2.1. 单道批处理</h4><p>引入了<strong>脱机输入/输出技术</strong>，<strong>监督程序</strong>控制作业输入输出</p><p>上面的监督程序就是后期操作系统的雏形</p><p>缓解了一定程度的人机矛盾</p><p>但是内存中同时只能有一个程序运行，只能串行。CPU只能等待很长时间来等待I/O完成，资源利用率低</p><h4 id="多道批处理系统">0.1.2.2. 多道批处理系统</h4><p>操作系统的诞生</p><p>引入了<strong>中断技术</strong>，操作系统负责管理这些程序的运行，各个程序并发执行。使得系统利用率大幅度提升</p><p>但是没有人机交互的能力，出错没法调试，只能等待执行结束</p><h3 id="分时操作系统">0.1.3. 分时操作系统</h3><p>计算机以时间片为单位轮流为各个用户/作业服务，各个用户可以通过终端来与计算机进行交互</p><p>但是分时操作系统对每一个用户/作业是完全公平的，不能优先处理一些紧急的任务</p><h3 id="实时操作系统">0.1.4. 实时操作系统</h3><p>可以优先响应紧急任务，某些紧急任务不需要时间片排队</p><p>主要特点是<strong>及时性</strong>和<strong>可靠性</strong></p><p>实时操作系统可以分为：</p><ol><li>硬实时系统：必须在绝对严格的规定时间内完成处理（导弹、自动驾驶）</li><li>软实时系统：能接受偶尔违反时间规定（12306订票）</li></ol><p>之后的操作系统不考，可以百度了解</p><h3 id="网络操作系统">0.1.5. 网络操作系统</h3><h3 id="分布式操作系统">0.1.6. 分布式操作系统</h3><h3 id="个人计算机操作系统">0.1.7. 个人计算机操作系统</h3>]]></content>
+    <content type="html"><![CDATA[<h4 id="1-2操作系统概念">0.0.0.1. 1-2操作系统概念</h4><span id="more"></span><h2 id="定义（概念）">0.1. 定义（概念）</h2><p>为了理解计算机系统的概念，先了解一下计算机系统的层次结构：</p><p>由下至上：裸机、操作系统、应用程序、用户（用户可以与操作系统直接交互）</p><p>裸机：CPU、内存、硬盘</p><p>操作系统：windows ios macos android linux</p><p>应用程序：QQ、IE、LOL、吃鸡</p><p>定义：</p><p>以操作系统为中心往两边看：操作系统负责管理和协调硬件软件等计算机资源的工作</p><p>自下往上看：为上层的应用程序、用户提供简单易用的服务</p><p>自上往下看：操作系统是系统软件，而不是硬件</p><h2 id="功能和目标">0.2. 功能和目标</h2><h3 id="资源管理者">0.2.1. 资源管理者</h3><p>目标：安全、高效（作为中间层）</p><p>补充知识：进程是一个程序的执行过程，执行前需要将该进程放到内存中，才能被CPU处理</p><p>和朋友用qq聊天的过程：</p><ol><li>在各个文件夹下找到QQ安装的位置（操作系统的文件管理）</li><li>双击打开qq.exe（将程序相关的内容放到内存==&gt;操作系统的存储器管理/内存管理）</li><li>QQ程序正常打开（相应的进程被处理机/CPU处理==&gt;操作系统处理机/CPU管理）</li><li>开始和朋友聊天（将摄像头分配给进程==&gt;操作系统的设备管理）</li></ol><p>以上就是操作系统作为系统资源管理者需要做的事情</p><h3 id="向用户提供服务">0.2.2. 向用户提供服务</h3><p>目标：方便使用（自下往上看）</p><p>需要提供：</p><ol><li>命令接口：允许用户直接使用（分为<strong>联机命令接口</strong>和<strong>脱机命令接口</strong>）</li><li>程序接口/<strong>系统调用</strong>/广义指令：允许用户通过程序间接使用（.dll）</li><li>GUI：现代操作系统中最流行的图形用户接口</li></ol><p>联机命令接口：用户说一句，系统做一句</p><p>脱机命令接口：用户说一堆，系统做一堆（批处理.bat）</p><p>上面的这三个接口也叫做：用户接口</p><h3 id="对硬件及其的扩展">0.2.3. 对硬件及其的扩展</h3><p>目标：对硬件机器的扩展能力（自上往下看）</p><p>覆盖了软件的机器叫做扩充机器，又称之为虚拟机</p><p>将基础的工具组装成强大的方便用户使用的，封装性，对硬件进行扩展</p>]]></content>
     
     
     <categories>
@@ -667,11 +642,11 @@
   
   
   <entry>
-    <title>1-5中断和异常</title>
-    <link href="/gzguo/2020/12/24/OS/1/1-5/"/>
-    <url>/gzguo/2020/12/24/OS/1/1-5/</url>
+    <title>1-4操作系统发展与分类</title>
+    <link href="/gzguo/2020/12/24/OS/1/1-4/"/>
+    <url>/gzguo/2020/12/24/OS/1/1-4/</url>
     
-    <content type="html"><![CDATA[<h4 id="1-5中断和异常">0.0.0.1. 1-5中断和异常</h4><span id="more"></span><h2 id="中断机制的诞生">0.1. 中断机制的诞生</h2><p>串行的计算机资源利用率太低，所以人们发明了操作系统，引入<strong>中断机制</strong>，实现了多道程序并发执行</p><p>只要发生中断就需要操作系统介入，开展管理工作</p><h2 id="中断的概念和作用">0.2. 中断的概念和作用</h2><ol><li>中断发生之后，CPU会立即进入<strong>核心态</strong></li><li>中断发生之后，当前进程暂停运行，由操作系统内核对中断进行处理</li><li>对于不同的中断信号，会进行不同的处理</li></ol><p>操作系统的管理工作需要使用特权指令，需要核心态。中断可以使CPU进入核心态。有了中断，才能实现多道程序的并发执行</p><p>用户态和核心态只能通过中断来实现，中断是唯一条件</p><h2 id="中断的分类">0.3. 中断的分类</h2><h3 id="内中断">0.3.1. 内中断</h3><p>就是异常、例外；<strong>陷入</strong></p><p>信号来源：CPU内部，<strong>与当前执行的指令有关</strong></p><p>可以分为：自愿中断、强迫中断</p><p>自愿中断—&gt;指令中断：系统调用时使用的访管指令（陷入指令trap指令）（系统有意为止）</p><p>强迫中断—&gt;硬件故障（缺页）/软件故障（整除零）</p><h3 id="外中断">0.3.2. 外中断</h3><p>指的是狭义的中断</p><p>信号来源：CPU外部，与当前执行的指令无关</p><p>可以分为：<strong>外设请求、人工干预</strong></p><p>外设请求—&gt;I/O操作完成发出的中断信号</p><p>人工干预—&gt;用户强制终止一个程序</p><h2 id="外中断的处理过程">0.4. 外中断的处理过程</h2><ol><li>每个用户程序的指令执行完之后，CPU都需要检查当前是否有外部中断信号</li><li>如果检测到外部中断信号，则需要保护被中断的进程CPU环境</li><li>根据中断信号类型转入相应的中断处理程序（核心态）</li><li>恢复原来进程的CPU环境并退出中断，返回原程序继续往下运行</li></ol>]]></content>
+    <content type="html"><![CDATA[<h4 id="1-4操作系统发展与分类">0.0.0.1. 1-4操作系统发展与分类</h4><span id="more"></span><h2 id="操作系统的发展过程">0.1. 操作系统的发展过程</h2><p>各个阶段的优点就是上一个阶段的缺点</p><h3 id="手工操作阶段">0.1.1. 手工操作阶段</h3><p>CPU执行快、输入慢</p><p>人机速度矛盾导致资源利用率低</p><h3 id="批处理阶段">0.1.2. 批处理阶段</h3><h4 id="单道批处理">0.1.2.1. 单道批处理</h4><p>引入了<strong>脱机输入/输出技术</strong>，<strong>监督程序</strong>控制作业输入输出</p><p>上面的监督程序就是后期操作系统的雏形</p><p>缓解了一定程度的人机矛盾</p><p>但是内存中同时只能有一个程序运行，只能串行。CPU只能等待很长时间来等待I/O完成，资源利用率低</p><h4 id="多道批处理系统">0.1.2.2. 多道批处理系统</h4><p>操作系统的诞生</p><p>引入了<strong>中断技术</strong>，操作系统负责管理这些程序的运行，各个程序并发执行。使得系统利用率大幅度提升</p><p>但是没有人机交互的能力，出错没法调试，只能等待执行结束</p><h3 id="分时操作系统">0.1.3. 分时操作系统</h3><p>计算机以时间片为单位轮流为各个用户/作业服务，各个用户可以通过终端来与计算机进行交互</p><p>但是分时操作系统对每一个用户/作业是完全公平的，不能优先处理一些紧急的任务</p><h3 id="实时操作系统">0.1.4. 实时操作系统</h3><p>可以优先响应紧急任务，某些紧急任务不需要时间片排队</p><p>主要特点是<strong>及时性</strong>和<strong>可靠性</strong></p><p>实时操作系统可以分为：</p><ol><li>硬实时系统：必须在绝对严格的规定时间内完成处理（导弹、自动驾驶）</li><li>软实时系统：能接受偶尔违反时间规定（12306订票）</li></ol><p>之后的操作系统不考，可以百度了解</p><h3 id="网络操作系统">0.1.5. 网络操作系统</h3><h3 id="分布式操作系统">0.1.6. 分布式操作系统</h3><h3 id="个人计算机操作系统">0.1.7. 个人计算机操作系统</h3>]]></content>
     
     
     <categories>
@@ -717,6 +692,31 @@
   
   
   <entry>
+    <title>1-5中断和异常</title>
+    <link href="/gzguo/2020/12/24/OS/1/1-5/"/>
+    <url>/gzguo/2020/12/24/OS/1/1-5/</url>
+    
+    <content type="html"><![CDATA[<h4 id="1-5中断和异常">0.0.0.1. 1-5中断和异常</h4><span id="more"></span><h2 id="中断机制的诞生">0.1. 中断机制的诞生</h2><p>串行的计算机资源利用率太低，所以人们发明了操作系统，引入<strong>中断机制</strong>，实现了多道程序并发执行</p><p>只要发生中断就需要操作系统介入，开展管理工作</p><h2 id="中断的概念和作用">0.2. 中断的概念和作用</h2><ol><li>中断发生之后，CPU会立即进入<strong>核心态</strong></li><li>中断发生之后，当前进程暂停运行，由操作系统内核对中断进行处理</li><li>对于不同的中断信号，会进行不同的处理</li></ol><p>操作系统的管理工作需要使用特权指令，需要核心态。中断可以使CPU进入核心态。有了中断，才能实现多道程序的并发执行</p><p>用户态和核心态只能通过中断来实现，中断是唯一条件</p><h2 id="中断的分类">0.3. 中断的分类</h2><h3 id="内中断">0.3.1. 内中断</h3><p>就是异常、例外；<strong>陷入</strong></p><p>信号来源：CPU内部，<strong>与当前执行的指令有关</strong></p><p>可以分为：自愿中断、强迫中断</p><p>自愿中断—&gt;指令中断：系统调用时使用的访管指令（陷入指令trap指令）（系统有意为止）</p><p>强迫中断—&gt;硬件故障（缺页）/软件故障（整除零）</p><h3 id="外中断">0.3.2. 外中断</h3><p>指的是狭义的中断</p><p>信号来源：CPU外部，与当前执行的指令无关</p><p>可以分为：<strong>外设请求、人工干预</strong></p><p>外设请求—&gt;I/O操作完成发出的中断信号</p><p>人工干预—&gt;用户强制终止一个程序</p><h2 id="外中断的处理过程">0.4. 外中断的处理过程</h2><ol><li>每个用户程序的指令执行完之后，CPU都需要检查当前是否有外部中断信号</li><li>如果检测到外部中断信号，则需要保护被中断的进程CPU环境</li><li>根据中断信号类型转入相应的中断处理程序（核心态）</li><li>恢复原来进程的CPU环境并退出中断，返回原程序继续往下运行</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>OS</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>OS</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>1-1大题</title>
     <link href="/gzguo/2020/12/22/OS/1/1-1/"/>
     <url>/gzguo/2020/12/22/OS/1/1-1/</url>
@@ -734,6 +734,156 @@
     <tags>
       
       <tag>OS</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>7.1网页布局类型及CSS盒模型</title>
+    <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.1%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80%E7%B1%BB%E5%9E%8B%E5%8F%8ACSS%E7%9B%92%E6%A8%A1%E5%9E%8B/"/>
+    <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.1%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80%E7%B1%BB%E5%9E%8B%E5%8F%8ACSS%E7%9B%92%E6%A8%A1%E5%9E%8B/</url>
+    
+    <content type="html"><![CDATA[<h4 id="7-1网页布局类型及CSS盒模型">0.0.0.1. 7.1网页布局类型及CSS盒模型</h4><span id="more"></span><h2 id="网页布局方式">0.1. 网页布局方式</h2><p>网页布局主要是指在页面中如何对标题、导航栏、主要内容、脚注、表单等各种主要构成元素进行一个合理的排版</p><h3 id="网页布局的类型">0.1.1. 网页布局的类型</h3><ol><li><p>固定式<br>用固定的宽度设计网页布局尺寸，这种布局有一个设置了固定宽度的外包裹，里面的各个模块也是固定宽度。<br>优点：</p><ol><li>设计师所设计的就是最终用户所看到的</li><li>设计简单，并且容易定制</li><li>在所有的浏览器中的宽度一样，不会收到图片、表单、视频和其他固定宽度的内容影响</li></ol><p>缺点：</p><ol><li>高分辨率式，回留下很大的空白</li><li>屏幕分辨率过小时会出现横向滚动条</li><li>在应该确保至少居中外包裹DIV（margin:0 auto）以保持一种显示平衡，否则对于使用大分辨率的用户，整个页面会被藏到一边去</li></ol></li><li><p>流式<br>通常被称为液态布局。通常采用相对于分辨率大小的百分比的方式自适应不同的分辨率，可以根据浏览器的宽度和屏幕的大小自动调整效果，灵活多变<br>优点：</p><ol><li>对用户来说更加友好，能部分自适应用户设置</li><li>页面周围的空白区域在所有分辨率和浏览器下都是相同的，在视觉上更美观</li><li>如果设计良好，流动布局可以避免在小分辨率下出现水平滚动条</li></ol><p>缺点：</p><ol><li>设计者需要在不同的分辨率下进行测试才能看到最终的设计效果</li><li>在不同的分辨率下图片或者视频需要不同的素材</li><li>在屏幕分辨率跨度太大时，内容会过大或者过小，变得难以阅读</li></ol></li><li><p>响应式<br>这是一种糅合了流式布局，再搭配查询技术使用的网页布局方式<br>根据不同的设备平台对内容、媒体文件和布局结构进行相应的调整与优化，从而使为用户提供一种最优且相对统一的体验模式<br>优点：</p><ol><li>面对不同分辨率设备灵活性强</li><li>能够快捷的解决多设备显示适应问题</li></ol><p>缺点：</p><ol><li>兼容各种设备工作量大，效率低下</li><li>代码累赘，会出现隐藏无用的元素，加载时间加长</li><li>一定程度上改变了网站原有的布局结构，会出现用户混淆的情况</li></ol></li></ol><h2 id="DIV-CSS布局技术">0.2. DIV+CSS布局技术</h2><p>把页面中所有的元素都看成是一个盒子，通过盒子进行CSS样式定义，并借助DIV变迁及其CSS定位实现网页布局</p><h3 id="DIV-CSS布局的方法步骤">0.2.1. DIV+CSS布局的方法步骤</h3><ol><li>整体上对页面进行分块</li><li>按照分块设计使用DIV标记并定义其样式属性</li><li>对DIV盒子进行定位实现页面布局</li></ol><h3 id="创建DIV">0.2.2. 创建DIV</h3><p>DIV标签是一个块标签，他将页面内容划分为独立的部分，以实现网页的规划和布局。</p><p>DIV标签可以加入很多的属性，如：id、class、align、style等，在CSS布局设计中，为了设计网页内容和表现的分离，应尽量的减少align、style等属性的编写次数。因此，常用的属性也只有id和class两种了</p><h3 id="CSS盒模型">0.2.3. CSS盒模型</h3><p>是指在页面布局中，为了将页面元素合理有效的组织在一起，形成一套完整的、行之有效的原则和规范</p><p>CSS盒是由margin（外边距）、border（边框）、padding（内边距）、content（内容）四个部分组成，此外，还有高度和宽度两个辅助属性</p><h4 id="content内容区">0.2.3.1. content内容区</h4><p>是盒子模型的中心，包含了盒子的主要重要信息。包含width、height、overflow三个属性。</p><h5 id="overflower">0.2.3.1.1. overflower</h5><p>overflow主要是指定溢出内容的处理方式</p><table><thead><tr><th>overflow取值</th><th>描述</th></tr></thead><tbody><tr><td>visible</td><td>默认值，溢出的内容不会被修建，会呈现在元素框之外</td></tr><tr><td>hidden</td><td>溢出的内容不可见</td></tr><tr><td>scroll</td><td>溢出的内容会被修建，但是可以通过滚动条来查看隐藏的部分</td></tr><tr><td>auto</td><td>由浏览器决定如何处理溢出部分</td></tr></tbody></table><h5 id="border">0.2.3.1.2. border</h5><p>border是指围绕元素内容和内边距的一条或多条线</p><p>border-width：边框宽度</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css">&#123;<span class="hljs-attribute">border-top-width</span>: <span class="hljs-number">10px</span>&#125;<br>&#123;<span class="hljs-attribute">border-width</span>: <span class="hljs-number">10px</span> <span class="hljs-number">20px</span> <span class="hljs-number">30px</span> <span class="hljs-number">40px</span>&#125; (上右下左的顺序设置)<br>如果是三个参数将按上(左右)下的顺序作用到边框上<br>如果是两个参数的话，按照(上下)(左右)的顺序作用到边框上<br>如果只有一个参数的时候，四个方向的取值相同<br></code></pre></td></tr></table></figure><p>border-style：边框样式</p><p>border-radius：可以设置四个角的圆角样式</p><p>border-image：对图像边框进行设置</p><h2 id="多列布局方法">0.3. 多列布局方法</h2><h2 id="CSS3弹性盒布局">0.4. CSS3弹性盒布局</h2><h2 id="HTML5的语义化标签及DIV-CSS网页布局技术设计网页">0.5. HTML5的语义化标签及DIV+CSS网页布局技术设计网页</h2>]]></content>
+    
+    
+    <categories>
+      
+      <category>html5</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>html</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>7.2网页元素的定位</title>
+    <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.2%E7%BD%91%E9%A1%B5%E5%85%83%E7%B4%A0%E7%9A%84%E5%AE%9A%E4%BD%8D/"/>
+    <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.2%E7%BD%91%E9%A1%B5%E5%85%83%E7%B4%A0%E7%9A%84%E5%AE%9A%E4%BD%8D/</url>
+    
+    <content type="html"><![CDATA[<h4 id="7-2网页元素的定位">0.0.0.1. 7.2网页元素的定位</h4><span id="more"></span><h2 id="网页元素的定位">0.1. 网页元素的定位</h2><p>CSS有三种基本的定位机制：普通流、浮动和绝对定位</p><ol><li>普通流：相当于默认</li><li>浮动：float属性定位</li><li>绝对定位：position属性定位</li></ol><h3 id="浮动">0.1.1. 浮动</h3><p>基本语法格式：选择器{float: 属性值;}</p><p>属性值：</p><table><thead><tr><th>属性值</th><th>描述</th></tr></thead><tbody><tr><td>left</td><td>元素向左浮动</td></tr><tr><td>right</td><td>元素向右浮动</td></tr><tr><td>none</td><td>元素不浮动（默认）</td></tr></tbody></table><p>浮动元素不再占用原文档流中的位置，所以会对其他元素排版产生影响，我们需要对元素清除浮动，基本语法格式：选择器{clear: 属性值};。它的属性值：</p><table><thead><tr><th>属性值</th><th>描述</th></tr></thead><tbody><tr><td>left</td><td>不允许左侧有浮动的元素</td></tr><tr><td>right</td><td>不允许右侧有浮动的元素</td></tr><tr><td>both</td><td>清除两侧的浮动元素影响</td></tr></tbody></table><h3 id="绝对定位">0.1.2. 绝对定位</h3><p>通过CSS定位设置可以实现网页元素的精确定位，定位属性包括定位模式和边偏移两部分，语法格式：选择器{position: 属性值};。属性值：</p><table><thead><tr><th>属性值</th><th>描述</th></tr></thead><tbody><tr><td>static</td><td>自动定位 默认</td></tr><tr><td>relative</td><td>相对定位，相对于其他原文档流位置进行定位</td></tr><tr><td>absolute</td><td>绝对定位，相对于上一个已经确定的父元素进行定位</td></tr><tr><td>fixed</td><td>固定定位，相对于浏览器窗口进行定位</td></tr></tbody></table><h2 id="设计导航栏">0.2. 设计导航栏</h2><p>用ul和li制作导航栏</p><ol><li>去掉项目符号可以使用text-decoration:none或者list-style-type:none</li><li>将列表项改为行排列，即内联行显示，可添加属性display:inline或者display:inline-block;</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>html5</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>html</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>7.3DIV+CSS网页布局</title>
+    <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.3DIV+CSS%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80/"/>
+    <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.3DIV+CSS%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80/</url>
+    
+    <content type="html"><![CDATA[<h4 id="7-3DIV-CSS网页布局">0.0.0.1. 7.3DIV+CSS网页布局</h4><span id="more"></span><h2 id="DIV-CSS网页布局名词解释">0.1. DIV+CSS网页布局名词解释</h2><p>核心是盒子模型，通过对盒子进行CSS样式定义，借助CSS对盒子定位，这样就称为DIV+CSS布局</p><h3 id="标签">0.1.1. 标签</h3><p>header、nav、aside、article</p><h2 id="为什么使用DIV-CSS">0.2. 为什么使用DIV+CSS</h2><h3 id="这样布局的优点">0.2.1. 这样布局的优点</h3><ol><li>利于搜索引擎的检索和排名</li><li>代码精简，网页加载更快</li><li>定位更准确</li><li>更容易被其他设备访问</li></ol><h2 id="如何进行DIV-CSS布局">0.3. 如何进行DIV+CSS布局</h2><p>四个步骤：</p><ol><li>整体上对页面进行分块</li><li>按照分块的设计使用DIV标记，包裹区块元素，设计HTML的主体内容</li><li>编辑CSS，设计盒子的定位及在盒中的元素样式</li><li>连编</li></ol><h2 id="DIV-CSS实例">0.4. DIV+CSS实例</h2><h3 id="常见的布局形式">0.4.1. 常见的布局形式</h3><p>单列布局：header、article、footer</p><p>1-2-1布局：header、article、aside、footer</p><p>1-3-1布局：header、article、aside、aside、footer</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>html5</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>html</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>7.4多列布局及CSS3弹性盒布局</title>
+    <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.0%E5%A4%9A%E5%88%97%E5%B8%83%E5%B1%80%E5%8F%8ACSS3%E5%BC%B9%E6%80%A7%E7%9B%92%E5%B8%83%E5%B1%80/"/>
+    <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.0%E5%A4%9A%E5%88%97%E5%B8%83%E5%B1%80%E5%8F%8ACSS3%E5%BC%B9%E6%80%A7%E7%9B%92%E5%B8%83%E5%B1%80/</url>
+    
+    <content type="html"><![CDATA[<h4 id="7-4多列布局及CSS3弹性盒布局">0.0.0.1. 7.4多列布局及CSS3弹性盒布局</h4><span id="more"></span><h1 id="见7-4-1和7-4-2">1. 见7.4.1和7.4.2</h1>]]></content>
+    
+    
+    <categories>
+      
+      <category>html5</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>html</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>7.4.1CSS3-多列布局</title>
+    <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.1CSS3-%E5%A4%9A%E5%88%97%E5%B8%83%E5%B1%80/"/>
+    <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.1CSS3-%E5%A4%9A%E5%88%97%E5%B8%83%E5%B1%80/</url>
+    
+    <content type="html"><![CDATA[<h4 id="7-4-1CSS3-多列布局">0.0.0.1. 7.4.1CSS3-多列布局</h4><span id="more"></span><h2 id="多列布局">0.1. 多列布局</h2><p>像报纸一样</p><p>让Web页面呈现多栏多列叫多列布局</p><ol><li>分栏数<br>CSS3中通过columns属性设置分栏</li><li>列间修饰<br>columns-gap设置列间距<br>columns-rule设置列间宽度、样式和颜色</li><li>横跨多列<br>columns-span默认1，跨多少列</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>html5</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>html</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>7.4.2CSS3-弹性盒布局</title>
+    <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.2CSS3-%E5%BC%B9%E6%80%A7%E7%9B%92%E5%B8%83%E5%B1%80/"/>
+    <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.2CSS3-%E5%BC%B9%E6%80%A7%E7%9B%92%E5%B8%83%E5%B1%80/</url>
+    
+    <content type="html"><![CDATA[<h4 id="7-4-2CSS3-弹性盒布局">0.0.0.1. 7.4.2CSS3-弹性盒布局</h4><span id="more"></span><h2 id="弹性盒布局">0.1. 弹性盒布局</h2><p>弹性盒是CSS3的一种新布局模式。它是一种当页面需要适应不同的屏幕大小及设备类型时确保元素拥有桥当排列的布局方式</p><ol><li>弹性盒组成<br>弹性容器的定义：选择器{display: flex;}</li><li>弹性容器的布局<br>按照子元素排列的方向不同，有横向和纵向排列两种方式，子元素的方向属性：选择器{flex-flow: 方向值 换行设置;}</li><li>子元素的布局<br>子元素在空间宽度上的分配，由flex属性设置</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>html5</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>html</tag>
       
     </tags>
     
@@ -767,36 +917,11 @@
   
   
   <entry>
-    <title>6.3在网页中应用CSS的方式</title>
-    <link href="/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.3%E5%9C%A8%E7%BD%91%E9%A1%B5%E4%B8%AD%E5%BA%94%E7%94%A8CSS%E7%9A%84%E6%96%B9%E5%BC%8F/"/>
-    <url>/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.3%E5%9C%A8%E7%BD%91%E9%A1%B5%E4%B8%AD%E5%BA%94%E7%94%A8CSS%E7%9A%84%E6%96%B9%E5%BC%8F/</url>
+    <title>7.5CSS3高级应用</title>
+    <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.5CSS3%E9%AB%98%E7%BA%A7%E5%BA%94%E7%94%A8/"/>
+    <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.5CSS3%E9%AB%98%E7%BA%A7%E5%BA%94%E7%94%A8/</url>
     
-    <content type="html"><![CDATA[<h4 id="6-3在网页中应用CSS的方式">0.0.0.1. 6.3在网页中应用CSS的方式</h4><span id="more"></span><h2 id="CSS3应用方法">0.1. CSS3应用方法</h2><p>CSS样式能够以分离网页内容和样式的形式很好的控制网页的显示。在网页中应用CSS样式有4种方法：</p><ol><li><p>内联式</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">通过标记style属性直接把CSS样式添加到<span class="hljs-selector-tag">HTML</span>标签中<br></code></pre></td></tr></table></figure><p>语法格式：</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;标记名 <span class="hljs-attribute">style</span>=<span class="hljs-string">&quot;&quot;</span>&gt;&lt;/标记名&gt;<br></code></pre></td></tr></table></figure></li><li><p>内嵌式</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">将CSS样式代码添加到HTML文档的<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>头部中，并用<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span>标记定义<br></code></pre></td></tr></table></figure><p>语法格式：</p><figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs dust"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span>&gt;</span></span><br><span class="xml">选择器</span><span class="hljs-template-variable">&#123;属性&#125;</span><span class="xml"></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span></span><br></code></pre></td></tr></table></figure></li><li><p>链入式</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">将所有的样式放在一个或者多个以.css为扩展名的外部样式表文件中，通过<span class="hljs-tag">&lt;<span class="hljs-name">link</span> /&gt;</span>标记将外部样式表文件链接到HTML文档中<br></code></pre></td></tr></table></figure><p>语法格式：</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;CSS文件路径&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br></code></pre></td></tr></table></figure></li><li><p>导入式</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">与链入外部CSS基本相同，都是要创建一个单独的外部CSS文件，再引入到<span class="hljs-selector-tag">HTML</span>文档中。只不过语法和运作方式略有差别。<br></code></pre></td></tr></table></figure><p>语法格式：</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span>&gt;</span><span class="css"></span><br><span class="css"><span class="hljs-keyword">@import</span> url(<span class="hljs-string">&quot;外部样式表相对路径&quot;</span>);</span><br><span class="css"></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br></code></pre></td></tr></table></figure></li></ol><h3 id="链入式和导入式的区别：">0.1.1. 链入式和导入式的区别：</h3><ol><li>隶属关系不同：link属于HTML标签，@import是CSS提供的载入方式</li><li>加载时间及顺序不同：link先将外部的CSS文件加载到网页中，然后再进行编译显示。而@import是浏览器先将HTML结构呈现出来，再把外部的CSS文件加载到网页中，当网速较慢的时候会先显示没有CSS的效果，加载完毕再渲染画面</li><li>兼容性不同@import只有IE5以上的版本才能识别，而link标签没有这个问题</li><li>DOM模型控制样式：使用JavaScript控制DOM改变样式时，只能使用link标签，而@import不受DOM模型的影响</li></ol>]]></content>
-    
-    
-    <categories>
-      
-      <category>html5</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>html</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>7.2网页元素的定位</title>
-    <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.2%E7%BD%91%E9%A1%B5%E5%85%83%E7%B4%A0%E7%9A%84%E5%AE%9A%E4%BD%8D/"/>
-    <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.2%E7%BD%91%E9%A1%B5%E5%85%83%E7%B4%A0%E7%9A%84%E5%AE%9A%E4%BD%8D/</url>
-    
-    <content type="html"><![CDATA[<h4 id="7-2网页元素的定位">0.0.0.1. 7.2网页元素的定位</h4><span id="more"></span><h2 id="网页元素的定位">0.1. 网页元素的定位</h2><p>CSS有三种基本的定位机制：普通流、浮动和绝对定位</p><ol><li>普通流：相当于默认</li><li>浮动：float属性定位</li><li>绝对定位：position属性定位</li></ol><h3 id="浮动">0.1.1. 浮动</h3><p>基本语法格式：选择器{float: 属性值;}</p><p>属性值：</p><table><thead><tr><th>属性值</th><th>描述</th></tr></thead><tbody><tr><td>left</td><td>元素向左浮动</td></tr><tr><td>right</td><td>元素向右浮动</td></tr><tr><td>none</td><td>元素不浮动（默认）</td></tr></tbody></table><p>浮动元素不再占用原文档流中的位置，所以会对其他元素排版产生影响，我们需要对元素清除浮动，基本语法格式：选择器{clear: 属性值};。它的属性值：</p><table><thead><tr><th>属性值</th><th>描述</th></tr></thead><tbody><tr><td>left</td><td>不允许左侧有浮动的元素</td></tr><tr><td>right</td><td>不允许右侧有浮动的元素</td></tr><tr><td>both</td><td>清除两侧的浮动元素影响</td></tr></tbody></table><h3 id="绝对定位">0.1.2. 绝对定位</h3><p>通过CSS定位设置可以实现网页元素的精确定位，定位属性包括定位模式和边偏移两部分，语法格式：选择器{position: 属性值};。属性值：</p><table><thead><tr><th>属性值</th><th>描述</th></tr></thead><tbody><tr><td>static</td><td>自动定位 默认</td></tr><tr><td>relative</td><td>相对定位，相对于其他原文档流位置进行定位</td></tr><tr><td>absolute</td><td>绝对定位，相对于上一个已经确定的父元素进行定位</td></tr><tr><td>fixed</td><td>固定定位，相对于浏览器窗口进行定位</td></tr></tbody></table><h2 id="设计导航栏">0.2. 设计导航栏</h2><p>用ul和li制作导航栏</p><ol><li>去掉项目符号可以使用text-decoration:none或者list-style-type:none</li><li>将列表项改为行排列，即内联行显示，可添加属性display:inline或者display:inline-block;</li></ol>]]></content>
+    <content type="html"><![CDATA[<h4 id="7-5CSS3高级应用">0.0.0.1. 7.5CSS3高级应用</h4><span id="more"></span><h1 id="特效应用">1. 特效应用</h1><h2 id="滤镜属性filter">1.1. 滤镜属性filter</h2><p>滤镜是CSS的扩展部分。CSS的滤镜技术可以将各种特效添加到标准的HTML页面上，从而设计出多姿多彩的页面</p><p>语法格式：</p><p>选择器{filter:滤镜名称(滤镜参数)}</p><p>filter有十几种取值，每种取值都带有参数</p><h3 id="常用的滤镜的名称">1.1.1. 常用的滤镜的名称</h3><p>grayscale() 灰度</p><p>sepia() 老照片</p><p>saturate() 饱和度转换</p><p>hue-ratate() 色调转换</p><p>invert() 反射效果</p><p>opacity() 透明度</p><p>brightness() 亮度效果</p><p>contrast() 对比度</p><p>blur() 模糊</p><p>drop-shadow() 阴影效果</p><h2 id="渐变gradient">1.2. 渐变gradient</h2><p>CSS渐变可以显示在两个或多个指定的颜色之间平稳过渡效果</p><h3 id="线性渐变">1.2.1. 线性渐变</h3><p>linear</p><h3 id="径向渐变">1.2.2. 径向渐变</h3><p>radio</p><h2 id="2D转换transform">1.3. 2D转换transform</h2><p>CSS3转换transform可以实现二维平面内的位移、旋转、缩放、倾斜等变换效果</p><p>变换的函数：</p><p>translate() 平移</p><p>rotate() 旋转</p><p>scale() 缩放</p><p>skew() 倾斜</p><h2 id="过渡transition">1.4. 过渡transition</h2><p>过渡属性transition允许CSS属性值在一定时间和区间内平滑的过渡，这种效果可以在鼠标单击、获得焦点、被点击或对元素任何改变中触发，并圆滑地以动画效果改变CSS地属性值。</p><p>基本语法格式：选择器{transition:属性名称 过渡时间 速度类型 延迟时间;}</p><p>发生过渡的属性名称：属性名称用来规定应用过渡效果的CSS属性名称。他的取值可以是none、all或者某一个属性名</p><p>发生过渡时间用来规定由就属性过渡到新属性所花费的时间</p><p>linear线性效果</p><p>ease缓解效果</p><p>ease-in淡入效果</p><p>ease-out淡出效果</p><p>ease-in-out渐显渐隐效果</p><p>cubic-bezier特殊立方贝塞尔曲线效果</p>]]></content>
     
     
     <categories>
@@ -867,136 +992,11 @@
   
   
   <entry>
-    <title>7.3DIV+CSS网页布局</title>
-    <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.3DIV+CSS%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80/"/>
-    <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.3DIV+CSS%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80/</url>
+    <title>6.3在网页中应用CSS的方式</title>
+    <link href="/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.3%E5%9C%A8%E7%BD%91%E9%A1%B5%E4%B8%AD%E5%BA%94%E7%94%A8CSS%E7%9A%84%E6%96%B9%E5%BC%8F/"/>
+    <url>/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.3%E5%9C%A8%E7%BD%91%E9%A1%B5%E4%B8%AD%E5%BA%94%E7%94%A8CSS%E7%9A%84%E6%96%B9%E5%BC%8F/</url>
     
-    <content type="html"><![CDATA[<h4 id="7-3DIV-CSS网页布局">0.0.0.1. 7.3DIV+CSS网页布局</h4><span id="more"></span><h2 id="DIV-CSS网页布局名词解释">0.1. DIV+CSS网页布局名词解释</h2><p>核心是盒子模型，通过对盒子进行CSS样式定义，借助CSS对盒子定位，这样就称为DIV+CSS布局</p><h3 id="标签">0.1.1. 标签</h3><p>header、nav、aside、article</p><h2 id="为什么使用DIV-CSS">0.2. 为什么使用DIV+CSS</h2><h3 id="这样布局的优点">0.2.1. 这样布局的优点</h3><ol><li>利于搜索引擎的检索和排名</li><li>代码精简，网页加载更快</li><li>定位更准确</li><li>更容易被其他设备访问</li></ol><h2 id="如何进行DIV-CSS布局">0.3. 如何进行DIV+CSS布局</h2><p>四个步骤：</p><ol><li>整体上对页面进行分块</li><li>按照分块的设计使用DIV标记，包裹区块元素，设计HTML的主体内容</li><li>编辑CSS，设计盒子的定位及在盒中的元素样式</li><li>连编</li></ol><h2 id="DIV-CSS实例">0.4. DIV+CSS实例</h2><h3 id="常见的布局形式">0.4.1. 常见的布局形式</h3><p>单列布局：header、article、footer</p><p>1-2-1布局：header、article、aside、footer</p><p>1-3-1布局：header、article、aside、aside、footer</p>]]></content>
-    
-    
-    <categories>
-      
-      <category>html5</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>html</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>7.1网页布局类型及CSS盒模型</title>
-    <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.1%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80%E7%B1%BB%E5%9E%8B%E5%8F%8ACSS%E7%9B%92%E6%A8%A1%E5%9E%8B/"/>
-    <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.1%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80%E7%B1%BB%E5%9E%8B%E5%8F%8ACSS%E7%9B%92%E6%A8%A1%E5%9E%8B/</url>
-    
-    <content type="html"><![CDATA[<h4 id="7-1网页布局类型及CSS盒模型">0.0.0.1. 7.1网页布局类型及CSS盒模型</h4><span id="more"></span><h2 id="网页布局方式">0.1. 网页布局方式</h2><p>网页布局主要是指在页面中如何对标题、导航栏、主要内容、脚注、表单等各种主要构成元素进行一个合理的排版</p><h3 id="网页布局的类型">0.1.1. 网页布局的类型</h3><ol><li><p>固定式<br>用固定的宽度设计网页布局尺寸，这种布局有一个设置了固定宽度的外包裹，里面的各个模块也是固定宽度。<br>优点：</p><ol><li>设计师所设计的就是最终用户所看到的</li><li>设计简单，并且容易定制</li><li>在所有的浏览器中的宽度一样，不会收到图片、表单、视频和其他固定宽度的内容影响</li></ol><p>缺点：</p><ol><li>高分辨率式，回留下很大的空白</li><li>屏幕分辨率过小时会出现横向滚动条</li><li>在应该确保至少居中外包裹DIV（margin:0 auto）以保持一种显示平衡，否则对于使用大分辨率的用户，整个页面会被藏到一边去</li></ol></li><li><p>流式<br>通常被称为液态布局。通常采用相对于分辨率大小的百分比的方式自适应不同的分辨率，可以根据浏览器的宽度和屏幕的大小自动调整效果，灵活多变<br>优点：</p><ol><li>对用户来说更加友好，能部分自适应用户设置</li><li>页面周围的空白区域在所有分辨率和浏览器下都是相同的，在视觉上更美观</li><li>如果设计良好，流动布局可以避免在小分辨率下出现水平滚动条</li></ol><p>缺点：</p><ol><li>设计者需要在不同的分辨率下进行测试才能看到最终的设计效果</li><li>在不同的分辨率下图片或者视频需要不同的素材</li><li>在屏幕分辨率跨度太大时，内容会过大或者过小，变得难以阅读</li></ol></li><li><p>响应式<br>这是一种糅合了流式布局，再搭配查询技术使用的网页布局方式<br>根据不同的设备平台对内容、媒体文件和布局结构进行相应的调整与优化，从而使为用户提供一种最优且相对统一的体验模式<br>优点：</p><ol><li>面对不同分辨率设备灵活性强</li><li>能够快捷的解决多设备显示适应问题</li></ol><p>缺点：</p><ol><li>兼容各种设备工作量大，效率低下</li><li>代码累赘，会出现隐藏无用的元素，加载时间加长</li><li>一定程度上改变了网站原有的布局结构，会出现用户混淆的情况</li></ol></li></ol><h2 id="DIV-CSS布局技术">0.2. DIV+CSS布局技术</h2><p>把页面中所有的元素都看成是一个盒子，通过盒子进行CSS样式定义，并借助DIV变迁及其CSS定位实现网页布局</p><h3 id="DIV-CSS布局的方法步骤">0.2.1. DIV+CSS布局的方法步骤</h3><ol><li>整体上对页面进行分块</li><li>按照分块设计使用DIV标记并定义其样式属性</li><li>对DIV盒子进行定位实现页面布局</li></ol><h3 id="创建DIV">0.2.2. 创建DIV</h3><p>DIV标签是一个块标签，他将页面内容划分为独立的部分，以实现网页的规划和布局。</p><p>DIV标签可以加入很多的属性，如：id、class、align、style等，在CSS布局设计中，为了设计网页内容和表现的分离，应尽量的减少align、style等属性的编写次数。因此，常用的属性也只有id和class两种了</p><h3 id="CSS盒模型">0.2.3. CSS盒模型</h3><p>是指在页面布局中，为了将页面元素合理有效的组织在一起，形成一套完整的、行之有效的原则和规范</p><p>CSS盒是由margin（外边距）、border（边框）、padding（内边距）、content（内容）四个部分组成，此外，还有高度和宽度两个辅助属性</p><h4 id="content内容区">0.2.3.1. content内容区</h4><p>是盒子模型的中心，包含了盒子的主要重要信息。包含width、height、overflow三个属性。</p><h5 id="overflower">0.2.3.1.1. overflower</h5><p>overflow主要是指定溢出内容的处理方式</p><table><thead><tr><th>overflow取值</th><th>描述</th></tr></thead><tbody><tr><td>visible</td><td>默认值，溢出的内容不会被修建，会呈现在元素框之外</td></tr><tr><td>hidden</td><td>溢出的内容不可见</td></tr><tr><td>scroll</td><td>溢出的内容会被修建，但是可以通过滚动条来查看隐藏的部分</td></tr><tr><td>auto</td><td>由浏览器决定如何处理溢出部分</td></tr></tbody></table><h5 id="border">0.2.3.1.2. border</h5><p>border是指围绕元素内容和内边距的一条或多条线</p><p>border-width：边框宽度</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css">&#123;<span class="hljs-attribute">border-top-width</span>: <span class="hljs-number">10px</span>&#125;<br>&#123;<span class="hljs-attribute">border-width</span>: <span class="hljs-number">10px</span> <span class="hljs-number">20px</span> <span class="hljs-number">30px</span> <span class="hljs-number">40px</span>&#125; (上右下左的顺序设置)<br>如果是三个参数将按上(左右)下的顺序作用到边框上<br>如果是两个参数的话，按照(上下)(左右)的顺序作用到边框上<br>如果只有一个参数的时候，四个方向的取值相同<br></code></pre></td></tr></table></figure><p>border-style：边框样式</p><p>border-radius：可以设置四个角的圆角样式</p><p>border-image：对图像边框进行设置</p><h2 id="多列布局方法">0.3. 多列布局方法</h2><h2 id="CSS3弹性盒布局">0.4. CSS3弹性盒布局</h2><h2 id="HTML5的语义化标签及DIV-CSS网页布局技术设计网页">0.5. HTML5的语义化标签及DIV+CSS网页布局技术设计网页</h2>]]></content>
-    
-    
-    <categories>
-      
-      <category>html5</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>html</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>7.4多列布局及CSS3弹性盒布局</title>
-    <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.0%E5%A4%9A%E5%88%97%E5%B8%83%E5%B1%80%E5%8F%8ACSS3%E5%BC%B9%E6%80%A7%E7%9B%92%E5%B8%83%E5%B1%80/"/>
-    <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.0%E5%A4%9A%E5%88%97%E5%B8%83%E5%B1%80%E5%8F%8ACSS3%E5%BC%B9%E6%80%A7%E7%9B%92%E5%B8%83%E5%B1%80/</url>
-    
-    <content type="html"><![CDATA[<h4 id="7-4多列布局及CSS3弹性盒布局">0.0.0.1. 7.4多列布局及CSS3弹性盒布局</h4><span id="more"></span><h1 id="见7-4-1和7-4-2">1. 见7.4.1和7.4.2</h1>]]></content>
-    
-    
-    <categories>
-      
-      <category>html5</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>html</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>7.4.2CSS3-弹性盒布局</title>
-    <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.2CSS3-%E5%BC%B9%E6%80%A7%E7%9B%92%E5%B8%83%E5%B1%80/"/>
-    <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.2CSS3-%E5%BC%B9%E6%80%A7%E7%9B%92%E5%B8%83%E5%B1%80/</url>
-    
-    <content type="html"><![CDATA[<h4 id="7-4-2CSS3-弹性盒布局">0.0.0.1. 7.4.2CSS3-弹性盒布局</h4><span id="more"></span><h2 id="弹性盒布局">0.1. 弹性盒布局</h2><p>弹性盒是CSS3的一种新布局模式。它是一种当页面需要适应不同的屏幕大小及设备类型时确保元素拥有桥当排列的布局方式</p><ol><li>弹性盒组成<br>弹性容器的定义：选择器{display: flex;}</li><li>弹性容器的布局<br>按照子元素排列的方向不同，有横向和纵向排列两种方式，子元素的方向属性：选择器{flex-flow: 方向值 换行设置;}</li><li>子元素的布局<br>子元素在空间宽度上的分配，由flex属性设置</li></ol>]]></content>
-    
-    
-    <categories>
-      
-      <category>html5</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>html</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>7.4.1CSS3-多列布局</title>
-    <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.1CSS3-%E5%A4%9A%E5%88%97%E5%B8%83%E5%B1%80/"/>
-    <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.1CSS3-%E5%A4%9A%E5%88%97%E5%B8%83%E5%B1%80/</url>
-    
-    <content type="html"><![CDATA[<h4 id="7-4-1CSS3-多列布局">0.0.0.1. 7.4.1CSS3-多列布局</h4><span id="more"></span><h2 id="多列布局">0.1. 多列布局</h2><p>像报纸一样</p><p>让Web页面呈现多栏多列叫多列布局</p><ol><li>分栏数<br>CSS3中通过columns属性设置分栏</li><li>列间修饰<br>columns-gap设置列间距<br>columns-rule设置列间宽度、样式和颜色</li><li>横跨多列<br>columns-span默认1，跨多少列</li></ol>]]></content>
-    
-    
-    <categories>
-      
-      <category>html5</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>html</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>7.5CSS3高级应用</title>
-    <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.5CSS3%E9%AB%98%E7%BA%A7%E5%BA%94%E7%94%A8/"/>
-    <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.5CSS3%E9%AB%98%E7%BA%A7%E5%BA%94%E7%94%A8/</url>
-    
-    <content type="html"><![CDATA[<h4 id="7-5CSS3高级应用">0.0.0.1. 7.5CSS3高级应用</h4><span id="more"></span><h1 id="特效应用">1. 特效应用</h1><h2 id="滤镜属性filter">1.1. 滤镜属性filter</h2><p>滤镜是CSS的扩展部分。CSS的滤镜技术可以将各种特效添加到标准的HTML页面上，从而设计出多姿多彩的页面</p><p>语法格式：</p><p>选择器{filter:滤镜名称(滤镜参数)}</p><p>filter有十几种取值，每种取值都带有参数</p><h3 id="常用的滤镜的名称">1.1.1. 常用的滤镜的名称</h3><p>grayscale() 灰度</p><p>sepia() 老照片</p><p>saturate() 饱和度转换</p><p>hue-ratate() 色调转换</p><p>invert() 反射效果</p><p>opacity() 透明度</p><p>brightness() 亮度效果</p><p>contrast() 对比度</p><p>blur() 模糊</p><p>drop-shadow() 阴影效果</p><h2 id="渐变gradient">1.2. 渐变gradient</h2><p>CSS渐变可以显示在两个或多个指定的颜色之间平稳过渡效果</p><h3 id="线性渐变">1.2.1. 线性渐变</h3><p>linear</p><h3 id="径向渐变">1.2.2. 径向渐变</h3><p>radio</p><h2 id="2D转换transform">1.3. 2D转换transform</h2><p>CSS3转换transform可以实现二维平面内的位移、旋转、缩放、倾斜等变换效果</p><p>变换的函数：</p><p>translate() 平移</p><p>rotate() 旋转</p><p>scale() 缩放</p><p>skew() 倾斜</p><h2 id="过渡transition">1.4. 过渡transition</h2><p>过渡属性transition允许CSS属性值在一定时间和区间内平滑的过渡，这种效果可以在鼠标单击、获得焦点、被点击或对元素任何改变中触发，并圆滑地以动画效果改变CSS地属性值。</p><p>基本语法格式：选择器{transition:属性名称 过渡时间 速度类型 延迟时间;}</p><p>发生过渡的属性名称：属性名称用来规定应用过渡效果的CSS属性名称。他的取值可以是none、all或者某一个属性名</p><p>发生过渡时间用来规定由就属性过渡到新属性所花费的时间</p><p>linear线性效果</p><p>ease缓解效果</p><p>ease-in淡入效果</p><p>ease-out淡出效果</p><p>ease-in-out渐显渐隐效果</p><p>cubic-bezier特殊立方贝塞尔曲线效果</p>]]></content>
+    <content type="html"><![CDATA[<h4 id="6-3在网页中应用CSS的方式">0.0.0.1. 6.3在网页中应用CSS的方式</h4><span id="more"></span><h2 id="CSS3应用方法">0.1. CSS3应用方法</h2><p>CSS样式能够以分离网页内容和样式的形式很好的控制网页的显示。在网页中应用CSS样式有4种方法：</p><ol><li><p>内联式</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">通过标记style属性直接把CSS样式添加到<span class="hljs-selector-tag">HTML</span>标签中<br></code></pre></td></tr></table></figure><p>语法格式：</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;标记名 <span class="hljs-attribute">style</span>=<span class="hljs-string">&quot;&quot;</span>&gt;&lt;/标记名&gt;<br></code></pre></td></tr></table></figure></li><li><p>内嵌式</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">将CSS样式代码添加到HTML文档的<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>头部中，并用<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span>标记定义<br></code></pre></td></tr></table></figure><p>语法格式：</p><figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs dust"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span>&gt;</span></span><br><span class="xml">选择器</span><span class="hljs-template-variable">&#123;属性&#125;</span><span class="xml"></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span></span><br></code></pre></td></tr></table></figure></li><li><p>链入式</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">将所有的样式放在一个或者多个以.css为扩展名的外部样式表文件中，通过<span class="hljs-tag">&lt;<span class="hljs-name">link</span> /&gt;</span>标记将外部样式表文件链接到HTML文档中<br></code></pre></td></tr></table></figure><p>语法格式：</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;CSS文件路径&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br></code></pre></td></tr></table></figure></li><li><p>导入式</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">与链入外部CSS基本相同，都是要创建一个单独的外部CSS文件，再引入到<span class="hljs-selector-tag">HTML</span>文档中。只不过语法和运作方式略有差别。<br></code></pre></td></tr></table></figure><p>语法格式：</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span>&gt;</span><span class="css"></span><br><span class="css"><span class="hljs-keyword">@import</span> url(<span class="hljs-string">&quot;外部样式表相对路径&quot;</span>);</span><br><span class="css"></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br></code></pre></td></tr></table></figure></li></ol><h3 id="链入式和导入式的区别：">0.1.1. 链入式和导入式的区别：</h3><ol><li>隶属关系不同：link属于HTML标签，@import是CSS提供的载入方式</li><li>加载时间及顺序不同：link先将外部的CSS文件加载到网页中，然后再进行编译显示。而@import是浏览器先将HTML结构呈现出来，再把外部的CSS文件加载到网页中，当网速较慢的时候会先显示没有CSS的效果，加载完毕再渲染画面</li><li>兼容性不同@import只有IE5以上的版本才能识别，而link标签没有这个问题</li><li>DOM模型控制样式：使用JavaScript控制DOM改变样式时，只能使用link标签，而@import不受DOM模型的影响</li></ol>]]></content>
     
     
     <categories>
@@ -1092,11 +1092,11 @@
   
   
   <entry>
-    <title>8.2字符串对象</title>
-    <link href="/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.2%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AF%B9%E8%B1%A1/"/>
-    <url>/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.2%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AF%B9%E8%B1%A1/</url>
+    <title>8.1.3JavaScript概念及其语法下</title>
+    <link href="/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.1.3JavaScript%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95%E4%B8%8B/"/>
+    <url>/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.1.3JavaScript%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95%E4%B8%8B/</url>
     
-    <content type="html"><![CDATA[<h4 id="8-2字符串对象">0.0.0.1. 8.2字符串对象</h4><span id="more"></span>]]></content>
+    <content type="html"><![CDATA[<h4 id="8-1-3JavaScript概念及其语法下">0.0.0.1. 8.1.3JavaScript概念及其语法下</h4><span id="more"></span><h2 id="流程控制语句">0.1. 流程控制语句</h2><h3 id="顺序结构">0.1.1. 顺序结构</h3><h3 id="选择结构">0.1.2. 选择结构</h3><p>if switch</p><h3 id="循环结构">0.1.3. 循环结构</h3><p>while、do-while、for</p><h2 id="函数">0.2. 函数</h2>]]></content>
     
     
     <categories>
@@ -1117,11 +1117,11 @@
   
   
   <entry>
-    <title>8.1.3JavaScript概念及其语法下</title>
-    <link href="/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.1.3JavaScript%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95%E4%B8%8B/"/>
-    <url>/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.1.3JavaScript%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95%E4%B8%8B/</url>
+    <title>8.2字符串对象</title>
+    <link href="/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.2%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AF%B9%E8%B1%A1/"/>
+    <url>/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.2%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AF%B9%E8%B1%A1/</url>
     
-    <content type="html"><![CDATA[<h4 id="8-1-3JavaScript概念及其语法下">0.0.0.1. 8.1.3JavaScript概念及其语法下</h4><span id="more"></span><h2 id="流程控制语句">0.1. 流程控制语句</h2><h3 id="顺序结构">0.1.1. 顺序结构</h3><h3 id="选择结构">0.1.2. 选择结构</h3><p>if switch</p><h3 id="循环结构">0.1.3. 循环结构</h3><p>while、do-while、for</p><h2 id="函数">0.2. 函数</h2>]]></content>
+    <content type="html"><![CDATA[<h4 id="8-2字符串对象">0.0.0.1. 8.2字符串对象</h4><span id="more"></span>]]></content>
     
     
     <categories>
@@ -1217,31 +1217,6 @@
   
   
   <entry>
-    <title>9.3窗口对象</title>
-    <link href="/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.3%E7%AA%97%E5%8F%A3%E5%AF%B9%E8%B1%A1/"/>
-    <url>/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.3%E7%AA%97%E5%8F%A3%E5%AF%B9%E8%B1%A1/</url>
-    
-    <content type="html"><![CDATA[<h4 id="9-3窗口对象">0.0.0.1. 9.3窗口对象</h4><span id="more"></span>]]></content>
-    
-    
-    <categories>
-      
-      <category>html5</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>html</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>9.1BOM和DOM概述</title>
     <link href="/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.1BOM%E5%92%8CDOM%E6%A6%82%E8%BF%B0/"/>
     <url>/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.1BOM%E5%92%8CDOM%E6%A6%82%E8%BF%B0/</url>
@@ -1297,6 +1272,31 @@
     <url>/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.4%E6%96%87%E6%A1%A3%E5%AF%B9%E8%B1%A1/</url>
     
     <content type="html"><![CDATA[<h4 id="9-4文档对象">0.0.0.1. 9.4文档对象</h4><span id="more"></span>]]></content>
+    
+    
+    <categories>
+      
+      <category>html5</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>html</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>9.3窗口对象</title>
+    <link href="/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.3%E7%AA%97%E5%8F%A3%E5%AF%B9%E8%B1%A1/"/>
+    <url>/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.3%E7%AA%97%E5%8F%A3%E5%AF%B9%E8%B1%A1/</url>
+    
+    <content type="html"><![CDATA[<h4 id="9-3窗口对象">0.0.0.1. 9.3窗口对象</h4><span id="more"></span>]]></content>
     
     
     <categories>
@@ -1467,6 +1467,31 @@
   
   
   <entry>
+    <title>3.3文本层次语义元素及分组元素</title>
+    <link href="/gzguo/2020/10/05/Web/3%E9%A1%B5%E9%9D%A2%E5%85%83%E7%B4%A0%E5%92%8C%E5%B1%9E%E6%80%A7/3.3%E6%96%87%E6%9C%AC%E5%B1%82%E6%AC%A1%E8%AF%AD%E4%B9%89%E5%85%83%E7%B4%A0%E5%8F%8A%E5%88%86%E7%BB%84%E5%85%83%E7%B4%A0/"/>
+    <url>/gzguo/2020/10/05/Web/3%E9%A1%B5%E9%9D%A2%E5%85%83%E7%B4%A0%E5%92%8C%E5%B1%9E%E6%80%A7/3.3%E6%96%87%E6%9C%AC%E5%B1%82%E6%AC%A1%E8%AF%AD%E4%B9%89%E5%85%83%E7%B4%A0%E5%8F%8A%E5%88%86%E7%BB%84%E5%85%83%E7%B4%A0/</url>
+    
+    <content type="html"><![CDATA[<h4 id="3-3文本层次语义元素及分组元素">0.0.0.1. 3.3文本层次语义元素及分组元素</h4><span id="more"></span><h2 id="文本层次语义元素">0.1. 文本层次语义元素</h2><table><thead><tr><th>名称</th><th>说明</th></tr></thead><tbody><tr><td>em</td><td>把文本定义为强调内容</td></tr><tr><td>strong</td><td>把文本定义为语气更强的强调内容</td></tr><tr><td>dfn</td><td>定义一个定义项目</td></tr><tr><td>code</td><td>定义计算机代码文本</td></tr><tr><td>samp</td><td>定义样本文本</td></tr><tr><td>kbd</td><td>定义键盘文本</td></tr><tr><td>var</td><td>定义变量</td></tr><tr><td>cite</td><td>定义引用</td></tr></tbody></table><h3 id="cite元素">0.1.1. cite元素</h3><p>创建一个引用标记，用来指明某内容的引用或参考源</p><h3 id="mark元素">0.1.2. mark元素</h3><p> 定义带有记号的文本，可以高亮显示文档中的文字以达到醒目的效果</p><h3 id="time元素">0.1.3. time元素</h3><p>定义日期或者时间，可以使用机器能够读懂的方式对日期和时间进行编码</p><h2 id="分组元素">0.2. 分组元素</h2><table><thead><tr><th>元素名称</th><th>说明</th></tr></thead><tbody><tr><td>div</td><td>没有任何语义的通用元素，与span对应</td></tr><tr><td>blockquote</td><td>表示摘自另一个源的大段内容</td></tr><tr><td>pre</td><td>表示其格式应被保留的内容</td></tr><tr><td>ul、ol</td><td>表示无序列表，有序列表</td></tr><tr><td>li</td><td>用于ul，ol元素中的列表项</td></tr><tr><td>dl、dt、dd</td><td>表示含有一系列术语和定义说明的列表</td></tr><tr><td>figure</td><td>表示图片</td></tr><tr><td>figcaption</td><td>表示figure大元素的标题</td></tr></tbody></table><h3 id="ul元素">0.2.1. ul元素</h3><p>表示不排序的项目列表，相当于word中的项目符号。无序列表使用一对标记ul标识，每一个列表项使用li</p><h3 id="ol元素">0.2.2. ol元素</h3><p>排序的项目列表，相当于word中的自动编号功能，适用语法和ul基本相同，列表项使用li</p><h3 id="dl元素">0.2.3. dl元素</h3><p>dl用于自定义列表，一般与dt和dd一起使用，dt定义列表名称，dd定义内容</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>html5</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>html</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>3.2交互元素</title>
     <link href="/gzguo/2020/10/05/Web/3%E9%A1%B5%E9%9D%A2%E5%85%83%E7%B4%A0%E5%92%8C%E5%B1%9E%E6%80%A7/3.2%E4%BA%A4%E4%BA%92%E5%85%83%E7%B4%A0/"/>
     <url>/gzguo/2020/10/05/Web/3%E9%A1%B5%E9%9D%A2%E5%85%83%E7%B4%A0%E5%92%8C%E5%B1%9E%E6%80%A7/3.2%E4%BA%A4%E4%BA%92%E5%85%83%E7%B4%A0/</url>
@@ -1517,11 +1542,11 @@
   
   
   <entry>
-    <title>3.3文本层次语义元素及分组元素</title>
-    <link href="/gzguo/2020/10/05/Web/3%E9%A1%B5%E9%9D%A2%E5%85%83%E7%B4%A0%E5%92%8C%E5%B1%9E%E6%80%A7/3.3%E6%96%87%E6%9C%AC%E5%B1%82%E6%AC%A1%E8%AF%AD%E4%B9%89%E5%85%83%E7%B4%A0%E5%8F%8A%E5%88%86%E7%BB%84%E5%85%83%E7%B4%A0/"/>
-    <url>/gzguo/2020/10/05/Web/3%E9%A1%B5%E9%9D%A2%E5%85%83%E7%B4%A0%E5%92%8C%E5%B1%9E%E6%80%A7/3.3%E6%96%87%E6%9C%AC%E5%B1%82%E6%AC%A1%E8%AF%AD%E4%B9%89%E5%85%83%E7%B4%A0%E5%8F%8A%E5%88%86%E7%BB%84%E5%85%83%E7%B4%A0/</url>
+    <title>2.4图片标签</title>
+    <link href="/gzguo/2020/09/29/Web/2HTML5/2.4%E5%9B%BE%E7%89%87%E6%A0%87%E7%AD%BE/"/>
+    <url>/gzguo/2020/09/29/Web/2HTML5/2.4%E5%9B%BE%E7%89%87%E6%A0%87%E7%AD%BE/</url>
     
-    <content type="html"><![CDATA[<h4 id="3-3文本层次语义元素及分组元素">0.0.0.1. 3.3文本层次语义元素及分组元素</h4><span id="more"></span><h2 id="文本层次语义元素">0.1. 文本层次语义元素</h2><table><thead><tr><th>名称</th><th>说明</th></tr></thead><tbody><tr><td>em</td><td>把文本定义为强调内容</td></tr><tr><td>strong</td><td>把文本定义为语气更强的强调内容</td></tr><tr><td>dfn</td><td>定义一个定义项目</td></tr><tr><td>code</td><td>定义计算机代码文本</td></tr><tr><td>samp</td><td>定义样本文本</td></tr><tr><td>kbd</td><td>定义键盘文本</td></tr><tr><td>var</td><td>定义变量</td></tr><tr><td>cite</td><td>定义引用</td></tr></tbody></table><h3 id="cite元素">0.1.1. cite元素</h3><p>创建一个引用标记，用来指明某内容的引用或参考源</p><h3 id="mark元素">0.1.2. mark元素</h3><p> 定义带有记号的文本，可以高亮显示文档中的文字以达到醒目的效果</p><h3 id="time元素">0.1.3. time元素</h3><p>定义日期或者时间，可以使用机器能够读懂的方式对日期和时间进行编码</p><h2 id="分组元素">0.2. 分组元素</h2><table><thead><tr><th>元素名称</th><th>说明</th></tr></thead><tbody><tr><td>div</td><td>没有任何语义的通用元素，与span对应</td></tr><tr><td>blockquote</td><td>表示摘自另一个源的大段内容</td></tr><tr><td>pre</td><td>表示其格式应被保留的内容</td></tr><tr><td>ul、ol</td><td>表示无序列表，有序列表</td></tr><tr><td>li</td><td>用于ul，ol元素中的列表项</td></tr><tr><td>dl、dt、dd</td><td>表示含有一系列术语和定义说明的列表</td></tr><tr><td>figure</td><td>表示图片</td></tr><tr><td>figcaption</td><td>表示figure大元素的标题</td></tr></tbody></table><h3 id="ul元素">0.2.1. ul元素</h3><p>表示不排序的项目列表，相当于word中的项目符号。无序列表使用一对标记ul标识，每一个列表项使用li</p><h3 id="ol元素">0.2.2. ol元素</h3><p>排序的项目列表，相当于word中的自动编号功能，适用语法和ul基本相同，列表项使用li</p><h3 id="dl元素">0.2.3. dl元素</h3><p>dl用于自定义列表，一般与dt和dd一起使用，dt定义列表名称，dd定义内容</p>]]></content>
+    <content type="html"><![CDATA[<h4 id="2-4图片标签">0.0.0.1. 2.4图片标签</h4><span id="more"></span><h2 id="gif">0.1. gif</h2><p>支持动画、无损图像格式、支持透明</p><p>常用于小图标、LOFO及其他色彩相对单一的图像</p><h2 id="png">0.2. png</h2><p>相对于gif体积更小，支持alpha透明（全透明、半透明、全不透明）颜色过度更平滑、不支持动画、无损压缩</p><h2 id="jpg">0.3. jpg</h2><p>显色比上面两个多得多、有损压缩</p><h2 id="网页插入图像">0.4. 网页插入图像</h2><h3 id="body-background">0.4.1. body background</h3><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">&lt;<span class="hljs-keyword">body</span> background=<span class="hljs-string">&quot;&quot;</span>&gt;&lt;/<span class="hljs-keyword">body</span>&gt;<br></code></pre></td></tr></table></figure><h3 id="img">0.4.2. img</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;img <span class="hljs-attribute">src</span>=<span class="hljs-string">&quot;&quot;</span>&gt;<br></code></pre></td></tr></table></figure><ul><li>alt：规定图像的代替文本</li><li>src：规定图像的URL</li><li>height：规定图像的高度</li><li>ismap：把图象设置为服务器端图像映射</li><li>usemap：把图象设置为客户端图像映射</li><li>width：规定图像宽度</li></ul><h3 id="路径">0.4.3. 路径</h3><p>相对路径、绝对路径</p>]]></content>
     
     
     <categories>
@@ -1567,11 +1592,11 @@
   
   
   <entry>
-    <title>2.4图片标签</title>
-    <link href="/gzguo/2020/09/29/Web/2HTML5/2.4%E5%9B%BE%E7%89%87%E6%A0%87%E7%AD%BE/"/>
-    <url>/gzguo/2020/09/29/Web/2HTML5/2.4%E5%9B%BE%E7%89%87%E6%A0%87%E7%AD%BE/</url>
+    <title>2.5超链接标签</title>
+    <link href="/gzguo/2020/09/29/Web/2HTML5/2.5%E8%B6%85%E9%93%BE%E6%8E%A5%E6%A0%87%E7%AD%BE/"/>
+    <url>/gzguo/2020/09/29/Web/2HTML5/2.5%E8%B6%85%E9%93%BE%E6%8E%A5%E6%A0%87%E7%AD%BE/</url>
     
-    <content type="html"><![CDATA[<h4 id="2-4图片标签">0.0.0.1. 2.4图片标签</h4><span id="more"></span><h2 id="gif">0.1. gif</h2><p>支持动画、无损图像格式、支持透明</p><p>常用于小图标、LOFO及其他色彩相对单一的图像</p><h2 id="png">0.2. png</h2><p>相对于gif体积更小，支持alpha透明（全透明、半透明、全不透明）颜色过度更平滑、不支持动画、无损压缩</p><h2 id="jpg">0.3. jpg</h2><p>显色比上面两个多得多、有损压缩</p><h2 id="网页插入图像">0.4. 网页插入图像</h2><h3 id="body-background">0.4.1. body background</h3><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">&lt;<span class="hljs-keyword">body</span> background=<span class="hljs-string">&quot;&quot;</span>&gt;&lt;/<span class="hljs-keyword">body</span>&gt;<br></code></pre></td></tr></table></figure><h3 id="img">0.4.2. img</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;img <span class="hljs-attribute">src</span>=<span class="hljs-string">&quot;&quot;</span>&gt;<br></code></pre></td></tr></table></figure><ul><li>alt：规定图像的代替文本</li><li>src：规定图像的URL</li><li>height：规定图像的高度</li><li>ismap：把图象设置为服务器端图像映射</li><li>usemap：把图象设置为客户端图像映射</li><li>width：规定图像宽度</li></ul><h3 id="路径">0.4.3. 路径</h3><p>相对路径、绝对路径</p>]]></content>
+    <content type="html"><![CDATA[<h4 id="2-5超链接标签">0.0.0.1. 2.5超链接标签</h4><span id="more"></span><h2 id="什么是超链接">0.1. 什么是超链接</h2><p>跳转</p><h2 id="超链接分类">0.2. 超链接分类</h2><ul><li>按路径不同分：</li></ul><ol><li>内部链接</li><li>锚点链接</li><li>外部链接</li></ol><ul><li>按使用对象不同分</li></ul><ol><li>文本超链接</li><li>图像超链接</li><li>E-mail链接</li><li>锚点链接</li><li>多媒体文件链接</li><li>空连接</li></ol><h2 id="什么时链宿和链源">0.3. 什么时链宿和链源</h2><h3 id="链宿">0.3.1. 链宿</h3><p>是指要跳转的目标，这个目标可以是一个网页、一个图片、一个电子邮件地址、一个文件、一个应用程序</p><h3 id="链源">0.3.2. 链源</h3><p>引起跳转的原因，可以实文字、图像、图形区域</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">herf</span>=<span class="hljs-string">链宿</span>&gt;</span>链源<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br></code></pre></td></tr></table></figure><h2 id="如何实现HTML的超链接">0.4. 如何实现HTML的超链接</h2><figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xl">href      链宿的路径                用于设置要跳转的目标<br><span class="hljs-keyword">name</span>   创建文档标签             用于指定锚的名称<br><span class="hljs-built_in">title</span>      指向链接的提示信息   使用<span class="hljs-built_in">title</span>属性可以让鼠标悬停在超链接上的时候，显示该超链接的文字注释<br>target  指定打开的目标窗口   有五种取值，默认值_self<br></code></pre></td></tr></table></figure>]]></content>
     
     
     <categories>
@@ -1597,31 +1622,6 @@
     <url>/gzguo/2020/09/29/Web/2HTML5/2.6%E8%A1%A8%E6%A0%BC%E6%A0%87%E7%AD%BE/</url>
     
     <content type="html"><![CDATA[<h4 id="2-6表格标签">0.0.0.1. 2.6表格标签</h4><span id="more"></span><h2 id="怎样创建表格标签">0.1. 怎样创建表格标签</h2><p>表格不仅可以清晰的显示数据，而且还可以用来进行页面布局，在早期的网页设计中具有重要的作用</p><p>在基本的表格结构中，基本构造三要素：</p><ol><li>表格标题</li><li>项目表头</li><li>数据资料</li></ol><h3 id="基本语法">0.1.1. 基本语法</h3><ul><li>table标签：定义表格</li><li>caption标签：定义表格标题，嵌套在table中</li><li>tr标签：定义表格中的一行，嵌套在table中</li><li>th标签：定义表格中的表头单元格，嵌套在tr中</li><li>td标签：定义表格中的数据单元格，嵌套在tr中</li></ul><h2 id="怎么设置表格属性">0.2. 怎么设置表格属性</h2><h3 id="设置表格标记的属性">0.2.1. 设置表格标记的属性</h3><table><thead><tr><th>属性名</th><th>含义</th><th>常用属性值</th></tr></thead><tbody><tr><td>border</td><td>设置表格的边框(默认0无边框)</td><td>像素值</td></tr><tr><td>cellspacing</td><td>设置单元格与单元格边框之间的空白间距</td><td>像素值默认为2</td></tr><tr><td>cellpadding</td><td>设置单元格内容与单元格边框之间的空白间距</td><td>像素值默认为1</td></tr><tr><td>width</td><td>设置表格的宽度</td><td>像素值</td></tr><tr><td>height</td><td>设置表格的高度</td><td>像素值</td></tr><tr><td>align</td><td>设置表格在网页中的水平对齐方式</td><td>left center right</td></tr><tr><td>valign</td><td>设置一行内容垂直对齐方式</td><td>top middle bottom</td></tr><tr><td>bgcolor</td><td>设置表格的背景颜色</td><td>于定义的颜色值RGB</td></tr><tr><td>background</td><td>设置表格的背景图片</td><td>url地址</td></tr></tbody></table>]]></content>
-    
-    
-    <categories>
-      
-      <category>html5</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>html</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>2.5超链接标签</title>
-    <link href="/gzguo/2020/09/29/Web/2HTML5/2.5%E8%B6%85%E9%93%BE%E6%8E%A5%E6%A0%87%E7%AD%BE/"/>
-    <url>/gzguo/2020/09/29/Web/2HTML5/2.5%E8%B6%85%E9%93%BE%E6%8E%A5%E6%A0%87%E7%AD%BE/</url>
-    
-    <content type="html"><![CDATA[<h4 id="2-5超链接标签">0.0.0.1. 2.5超链接标签</h4><span id="more"></span><h2 id="什么是超链接">0.1. 什么是超链接</h2><p>跳转</p><h2 id="超链接分类">0.2. 超链接分类</h2><ul><li>按路径不同分：</li></ul><ol><li>内部链接</li><li>锚点链接</li><li>外部链接</li></ol><ul><li>按使用对象不同分</li></ul><ol><li>文本超链接</li><li>图像超链接</li><li>E-mail链接</li><li>锚点链接</li><li>多媒体文件链接</li><li>空连接</li></ol><h2 id="什么时链宿和链源">0.3. 什么时链宿和链源</h2><h3 id="链宿">0.3.1. 链宿</h3><p>是指要跳转的目标，这个目标可以是一个网页、一个图片、一个电子邮件地址、一个文件、一个应用程序</p><h3 id="链源">0.3.2. 链源</h3><p>引起跳转的原因，可以实文字、图像、图形区域</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">herf</span>=<span class="hljs-string">链宿</span>&gt;</span>链源<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br></code></pre></td></tr></table></figure><h2 id="如何实现HTML的超链接">0.4. 如何实现HTML的超链接</h2><figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xl">href      链宿的路径                用于设置要跳转的目标<br><span class="hljs-keyword">name</span>   创建文档标签             用于指定锚的名称<br><span class="hljs-built_in">title</span>      指向链接的提示信息   使用<span class="hljs-built_in">title</span>属性可以让鼠标悬停在超链接上的时候，显示该超链接的文字注释<br>target  指定打开的目标窗口   有五种取值，默认值_self<br></code></pre></td></tr></table></figure>]]></content>
     
     
     <categories>
@@ -1911,31 +1911,6 @@
   
   
   <entry>
-    <title>mariadb</title>
-    <link href="/gzguo/2020/09/28/%E6%9A%91%E5%81%87%E9%A1%B9%E7%9B%AE/mysql/"/>
-    <url>/gzguo/2020/09/28/%E6%9A%91%E5%81%87%E9%A1%B9%E7%9B%AE/mysql/</url>
-    
-    <content type="html"><![CDATA[<h4 id="mariadb下载">0.0.0.1. mariadb下载</h4><span id="more"></span><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vim">rpm -<span class="hljs-keyword">qa</span>|<span class="hljs-keyword">grep</span> mysql   查看yum源<br>rpm -ev mysql   删除yum源<br>rpm -ivh mysql   安装yum源<br></code></pre></td></tr></table></figure><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">export PYTHONPATH=<span class="hljs-regexp">/usr/</span>lib64<span class="hljs-regexp">/python2.7/</span><br>export PYTHONHOME=<span class="hljs-regexp">/usr/</span>lib64<span class="hljs-regexp">/python2.7/</span><br></code></pre></td></tr></table></figure><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//mi</span>rrors.<span class="hljs-number">163</span>.com<span class="hljs-regexp">/centos/</span><span class="hljs-number">7</span><span class="hljs-regexp">/os/</span>x86_64<span class="hljs-regexp">/Packages/</span>   yum等的镜像<br></code></pre></td></tr></table></figure><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">cat <span class="hljs-regexp">/etc/</span>redhat-release   查看服务器版本<br></code></pre></td></tr></table></figure><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">tar</span> -zxvf cmake-<span class="hljs-number">3</span>.<span class="hljs-number">15</span>.<span class="hljs-number">3</span>-Linux-x<span class="hljs-number">86</span>_<span class="hljs-number">64</span>.tar.gz<br></code></pre></td></tr></table></figure><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">mv</span> java-<span class="hljs-number">1</span>.<span class="hljs-number">8</span>.<span class="hljs-number">0</span>-openjdk-<span class="hljs-number">1.8.0.202</span>-<span class="hljs-number">1.8.1.2</span>.ns<span class="hljs-number">7</span>_<span class="hljs-number">4</span>.mips<span class="hljs-number">64</span>el/ java<span class="hljs-number">8</span><br></code></pre></td></tr></table></figure><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">yum -y install mariadb-server mariadb  <br><br>systemctl <span class="hljs-literal">start</span> mariadb  <span class="hljs-comment">#启动MariaDB</span><br><br>systemctl <span class="hljs-literal">stop</span> mariadb  <span class="hljs-comment">#停止MariaDB</span><br><br>systemctl restart mariadb  <span class="hljs-comment">#重启MariaDB</span><br><br>systemctl enable mariadb  <span class="hljs-comment">#设置开机启动</span><br><br>systemctl <span class="hljs-literal">start</span> mariadb.service<br></code></pre></td></tr></table></figure><figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs scheme">[<span class="hljs-symbol">&#x27;/usr/lib64/python2.7/lib/python2.7/site-packages</span>&#x27;, <span class="hljs-symbol">&#x27;/usr/lib64/python2.7/lib/site-python</span>&#x27;]<br></code></pre></td></tr></table></figure>]]></content>
-    
-    
-    <categories>
-      
-      <category>mariadb</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>mariadb下载</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>nginx静态服务器</title>
     <link href="/gzguo/2020/09/28/%E6%9A%91%E5%81%87%E9%A1%B9%E7%9B%AE/nginx/"/>
     <url>/gzguo/2020/09/28/%E6%9A%91%E5%81%87%E9%A1%B9%E7%9B%AE/nginx/</url>
@@ -1961,23 +1936,23 @@
   
   
   <entry>
-    <title>java分页</title>
-    <link href="/gzguo/2020/09/28/%E6%9A%91%E5%81%87%E9%A1%B9%E7%9B%AE/%E5%88%86%E9%A1%B5/"/>
-    <url>/gzguo/2020/09/28/%E6%9A%91%E5%81%87%E9%A1%B9%E7%9B%AE/%E5%88%86%E9%A1%B5/</url>
+    <title>mariadb</title>
+    <link href="/gzguo/2020/09/28/%E6%9A%91%E5%81%87%E9%A1%B9%E7%9B%AE/mysql/"/>
+    <url>/gzguo/2020/09/28/%E6%9A%91%E5%81%87%E9%A1%B9%E7%9B%AE/mysql/</url>
     
-    <content type="html"><![CDATA[<h4 id="java物理分页">0.0.0.1. java物理分页</h4><span id="more"></span><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">com.github.pagehelper.Page&lt;Object&gt; page = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PageHelper</span>.</span></span>start<span class="hljs-constructor">Page(<span class="hljs-params">pageForm</span>.<span class="hljs-params">getPageNum</span>()</span>, pageForm.get<span class="hljs-constructor">PageSize()</span>);<br></code></pre></td></tr></table></figure><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">PageInfo pageInfo = <span class="hljs-keyword">new</span> <span class="hljs-constructor">PageInfo(<span class="hljs-params">page</span>)</span>;<br></code></pre></td></tr></table></figure><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">Page&lt;Object&gt; page = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PageHelper</span>.</span></span>start<span class="hljs-constructor">Page(<span class="hljs-params">pageForm</span>.<span class="hljs-params">getPageNum</span>()</span>, pageForm.get<span class="hljs-constructor">PageSize()</span>);<br><br></code></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<h4 id="mariadb下载">0.0.0.1. mariadb下载</h4><span id="more"></span><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vim">rpm -<span class="hljs-keyword">qa</span>|<span class="hljs-keyword">grep</span> mysql   查看yum源<br>rpm -ev mysql   删除yum源<br>rpm -ivh mysql   安装yum源<br></code></pre></td></tr></table></figure><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">export PYTHONPATH=<span class="hljs-regexp">/usr/</span>lib64<span class="hljs-regexp">/python2.7/</span><br>export PYTHONHOME=<span class="hljs-regexp">/usr/</span>lib64<span class="hljs-regexp">/python2.7/</span><br></code></pre></td></tr></table></figure><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//mi</span>rrors.<span class="hljs-number">163</span>.com<span class="hljs-regexp">/centos/</span><span class="hljs-number">7</span><span class="hljs-regexp">/os/</span>x86_64<span class="hljs-regexp">/Packages/</span>   yum等的镜像<br></code></pre></td></tr></table></figure><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">cat <span class="hljs-regexp">/etc/</span>redhat-release   查看服务器版本<br></code></pre></td></tr></table></figure><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">tar</span> -zxvf cmake-<span class="hljs-number">3</span>.<span class="hljs-number">15</span>.<span class="hljs-number">3</span>-Linux-x<span class="hljs-number">86</span>_<span class="hljs-number">64</span>.tar.gz<br></code></pre></td></tr></table></figure><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">mv</span> java-<span class="hljs-number">1</span>.<span class="hljs-number">8</span>.<span class="hljs-number">0</span>-openjdk-<span class="hljs-number">1.8.0.202</span>-<span class="hljs-number">1.8.1.2</span>.ns<span class="hljs-number">7</span>_<span class="hljs-number">4</span>.mips<span class="hljs-number">64</span>el/ java<span class="hljs-number">8</span><br></code></pre></td></tr></table></figure><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">yum -y install mariadb-server mariadb  <br><br>systemctl <span class="hljs-literal">start</span> mariadb  <span class="hljs-comment">#启动MariaDB</span><br><br>systemctl <span class="hljs-literal">stop</span> mariadb  <span class="hljs-comment">#停止MariaDB</span><br><br>systemctl restart mariadb  <span class="hljs-comment">#重启MariaDB</span><br><br>systemctl enable mariadb  <span class="hljs-comment">#设置开机启动</span><br><br>systemctl <span class="hljs-literal">start</span> mariadb.service<br></code></pre></td></tr></table></figure><figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs scheme">[<span class="hljs-symbol">&#x27;/usr/lib64/python2.7/lib/python2.7/site-packages</span>&#x27;, <span class="hljs-symbol">&#x27;/usr/lib64/python2.7/lib/site-python</span>&#x27;]<br></code></pre></td></tr></table></figure>]]></content>
     
     
     <categories>
       
-      <category>资金管理系统</category>
+      <category>mariadb</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>java物理分页</tag>
+      <tag>mariadb下载</tag>
       
     </tags>
     
@@ -2028,6 +2003,31 @@
     <tags>
       
       <tag>redis算法、启动、内存</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>java分页</title>
+    <link href="/gzguo/2020/09/28/%E6%9A%91%E5%81%87%E9%A1%B9%E7%9B%AE/%E5%88%86%E9%A1%B5/"/>
+    <url>/gzguo/2020/09/28/%E6%9A%91%E5%81%87%E9%A1%B9%E7%9B%AE/%E5%88%86%E9%A1%B5/</url>
+    
+    <content type="html"><![CDATA[<h4 id="java物理分页">0.0.0.1. java物理分页</h4><span id="more"></span><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">com.github.pagehelper.Page&lt;Object&gt; page = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PageHelper</span>.</span></span>start<span class="hljs-constructor">Page(<span class="hljs-params">pageForm</span>.<span class="hljs-params">getPageNum</span>()</span>, pageForm.get<span class="hljs-constructor">PageSize()</span>);<br></code></pre></td></tr></table></figure><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">PageInfo pageInfo = <span class="hljs-keyword">new</span> <span class="hljs-constructor">PageInfo(<span class="hljs-params">page</span>)</span>;<br></code></pre></td></tr></table></figure><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">Page&lt;Object&gt; page = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PageHelper</span>.</span></span>start<span class="hljs-constructor">Page(<span class="hljs-params">pageForm</span>.<span class="hljs-params">getPageNum</span>()</span>, pageForm.get<span class="hljs-constructor">PageSize()</span>);<br><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>资金管理系统</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>java物理分页</tag>
       
     </tags>
     
@@ -2186,11 +2186,11 @@
   
   
   <entry>
-    <title>项目微服务架构</title>
-    <link href="/gzguo/2020/09/28/%E8%B0%B7%E7%B2%92%E5%95%86%E5%9F%8E/%E9%A1%B9%E7%9B%AE%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/"/>
-    <url>/gzguo/2020/09/28/%E8%B0%B7%E7%B2%92%E5%95%86%E5%9F%8E/%E9%A1%B9%E7%9B%AE%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/</url>
+    <title>分布式基本概念</title>
+    <link href="/gzguo/2020/09/28/%E8%B0%B7%E7%B2%92%E5%95%86%E5%9F%8E/%E5%88%86%E5%B8%83%E5%BC%8F%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/"/>
+    <url>/gzguo/2020/09/28/%E8%B0%B7%E7%B2%92%E5%95%86%E5%9F%8E/%E5%88%86%E5%B8%83%E5%BC%8F%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</url>
     
-    <content type="html"><![CDATA[<h4 id="微服务架构">0.0.0.1. 微服务架构</h4><span id="more"></span><p>用户通过安卓或者PC向我们后台发送清求。请求先来到Nginx集群，Nginx将请求转交给后台服务（API网关），由网关动态路由到指定的服务</p>]]></content>
+    <content type="html"><![CDATA[<h4 id="分布式等基本概念">0.0.0.1. 分布式等基本概念</h4><span id="more"></span><h5 id="分布式">0.0.0.1.1. 分布式</h5><p>若干计算机的集合，组成一个相关的系统</p><hr><h5 id="微服务">0.0.0.1.2. 微服务</h5><p>将一个大的服务进行拆分，拆分成好多的微服务</p><hr><h5 id="集群">0.0.0.1.3. 集群</h5><p>一堆机器放在一起，实现统一的业务。分布式中的每一个节点都可以做成集群</p><hr><h5 id="远程调用">0.0.0.1.4. 远程调用</h5><p>在分布式系统中，各个服务可能处于不同的主机，服务之间进行调用，称之为远程调用</p><hr><h5 id="负载均衡">0.0.0.1.5. 负载均衡</h5><p>在远程调用的时候，不确定访问服务集群中的哪一台机器。负载均衡就是为了分配集群中的服务器任务量。从而提升网站的健壮性</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs html">常见的负载均衡算法：<br>    轮询：给集群中的机器排序，然后依次访问<br>    最小连接：永远访问连接数最少的机器<br>    散列：根据ip散列（hash）。保证特定用户连接到相同的服务器<br></code></pre></td></tr></table></figure><hr><h5 id="服务注册-发现-注册中心">0.0.0.1.6. 服务注册/发现/注册中心</h5><p>每个服务开启的时候去注册中心注册，关闭的时候删除。这样的话，其他的服务想调用该服务，就可以去注册中心找注册信息。我们维护服务的开关就可以转化成维护注册中心</p><hr><h5 id="配置中心">0.0.0.1.7. 配置中心</h5><p>每个服务有大量的配置，每个服务有大量的机器，我们想更改配置的时候就很麻烦。所以我们用配置中心来集中管理微服务的配置中心</p><hr><h5 id="服务熔断-降级">0.0.0.1.8. 服务熔断/降级</h5><p>在微服务架构中，微服务之间通过网络进行通信，存在相互依赖。当一个服务没了，可能会全部崩掉。为了防止，必须有容错机制来保护服务</p><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs 1c">熔断：设置服务超时，被调用的服务失败次数达到某个阈值，就开启断路保护机制。后面进来的请求将不会再去调用这个服务。本地直接返回默认的数据（返回空/失败）<br>降级：在运维期间，系统处于高峰期，系统资源紧张，我们可以让非核心业务降级运行。某些服务不处理，或者简单处理（抛异常、返回<span class="hljs-literal">NULL</span>、调用Mock数据、调用Fallback处理逻辑）。<br></code></pre></td></tr></table></figure><hr><h5 id="API网关">0.0.0.1.9. API网关</h5><p>相当于前端访问后台时的拦截器、过滤器，相当于一个安检</p><hr>]]></content>
     
     
     <categories>
@@ -2202,7 +2202,7 @@
     
     <tags>
       
-      <tag>微服务架构</tag>
+      <tag>分布式</tag>
       
     </tags>
     
@@ -2236,6 +2236,31 @@
   
   
   <entry>
+    <title>项目微服务架构</title>
+    <link href="/gzguo/2020/09/28/%E8%B0%B7%E7%B2%92%E5%95%86%E5%9F%8E/%E9%A1%B9%E7%9B%AE%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/"/>
+    <url>/gzguo/2020/09/28/%E8%B0%B7%E7%B2%92%E5%95%86%E5%9F%8E/%E9%A1%B9%E7%9B%AE%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/</url>
+    
+    <content type="html"><![CDATA[<h4 id="微服务架构">0.0.0.1. 微服务架构</h4><span id="more"></span><p>用户通过安卓或者PC向我们后台发送清求。请求先来到Nginx集群，Nginx将请求转交给后台服务（API网关），由网关动态路由到指定的服务</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>docker</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>微服务架构</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>docker-redis环境搭建</title>
     <link href="/gzguo/2020/09/28/%E8%B0%B7%E7%B2%92%E5%95%86%E5%9F%8E/%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83-redis/"/>
     <url>/gzguo/2020/09/28/%E8%B0%B7%E7%B2%92%E5%95%86%E5%9F%8E/%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83-redis/</url>
@@ -2253,56 +2278,6 @@
     <tags>
       
       <tag>安装docker下的redis、启动、暂停</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>分布式基本概念</title>
-    <link href="/gzguo/2020/09/28/%E8%B0%B7%E7%B2%92%E5%95%86%E5%9F%8E/%E5%88%86%E5%B8%83%E5%BC%8F%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/"/>
-    <url>/gzguo/2020/09/28/%E8%B0%B7%E7%B2%92%E5%95%86%E5%9F%8E/%E5%88%86%E5%B8%83%E5%BC%8F%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</url>
-    
-    <content type="html"><![CDATA[<h4 id="分布式等基本概念">0.0.0.1. 分布式等基本概念</h4><span id="more"></span><h5 id="分布式">0.0.0.1.1. 分布式</h5><p>若干计算机的集合，组成一个相关的系统</p><hr><h5 id="微服务">0.0.0.1.2. 微服务</h5><p>将一个大的服务进行拆分，拆分成好多的微服务</p><hr><h5 id="集群">0.0.0.1.3. 集群</h5><p>一堆机器放在一起，实现统一的业务。分布式中的每一个节点都可以做成集群</p><hr><h5 id="远程调用">0.0.0.1.4. 远程调用</h5><p>在分布式系统中，各个服务可能处于不同的主机，服务之间进行调用，称之为远程调用</p><hr><h5 id="负载均衡">0.0.0.1.5. 负载均衡</h5><p>在远程调用的时候，不确定访问服务集群中的哪一台机器。负载均衡就是为了分配集群中的服务器任务量。从而提升网站的健壮性</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs html">常见的负载均衡算法：<br>    轮询：给集群中的机器排序，然后依次访问<br>    最小连接：永远访问连接数最少的机器<br>    散列：根据ip散列（hash）。保证特定用户连接到相同的服务器<br></code></pre></td></tr></table></figure><hr><h5 id="服务注册-发现-注册中心">0.0.0.1.6. 服务注册/发现/注册中心</h5><p>每个服务开启的时候去注册中心注册，关闭的时候删除。这样的话，其他的服务想调用该服务，就可以去注册中心找注册信息。我们维护服务的开关就可以转化成维护注册中心</p><hr><h5 id="配置中心">0.0.0.1.7. 配置中心</h5><p>每个服务有大量的配置，每个服务有大量的机器，我们想更改配置的时候就很麻烦。所以我们用配置中心来集中管理微服务的配置中心</p><hr><h5 id="服务熔断-降级">0.0.0.1.8. 服务熔断/降级</h5><p>在微服务架构中，微服务之间通过网络进行通信，存在相互依赖。当一个服务没了，可能会全部崩掉。为了防止，必须有容错机制来保护服务</p><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs 1c">熔断：设置服务超时，被调用的服务失败次数达到某个阈值，就开启断路保护机制。后面进来的请求将不会再去调用这个服务。本地直接返回默认的数据（返回空/失败）<br>降级：在运维期间，系统处于高峰期，系统资源紧张，我们可以让非核心业务降级运行。某些服务不处理，或者简单处理（抛异常、返回<span class="hljs-literal">NULL</span>、调用Mock数据、调用Fallback处理逻辑）。<br></code></pre></td></tr></table></figure><hr><h5 id="API网关">0.0.0.1.9. API网关</h5><p>相当于前端访问后台时的拦截器、过滤器，相当于一个安检</p><hr>]]></content>
-    
-    
-    <categories>
-      
-      <category>docker</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>分布式</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>1.1Web前端开发概述</title>
-    <link href="/gzguo/2020/09/28/Web/1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/1.1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/"/>
-    <url>/gzguo/2020/09/28/Web/1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/1.1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/</url>
-    
-    <content type="html"><![CDATA[<h4 id="1-1Web前端开发概述">0.0.0.1. 1.1Web前端开发概述</h4><span id="more"></span><h2 id="学习内容">0.1. 学习内容</h2><h3 id="Html标记">0.1.1. Html标记</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Hyper</span> Text Markup   超文本标记语言。主要是通过HTML标记对网页中的文本、图片、声音等内容进行描述。最新版本是HTML<span class="hljs-number">5</span><br></code></pre></td></tr></table></figure><h3 id="css样式">0.1.2. css样式</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">Cascading Style Sheets   层叠样式表。是一种用来表现<span class="hljs-selector-tag">HTML</span>或者XML文件样式的计算机语言<br></code></pre></td></tr></table></figure><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">CSS</span>提供了丰富的样式，控制格式的、控制布局的、控制动态效果的等。最新版是<span class="hljs-number">2010</span>年推出的CSS<span class="hljs-number">3</span><br></code></pre></td></tr></table></figure><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">CSS3通过模块化结构使设计者可以及时的调整模块的内容，方便版本的更新与发布，同时也增添了很多的新功能<br></code></pre></td></tr></table></figure><h3 id="JavaScript的内置函数">0.1.3. JavaScript的内置函数</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-number">1995</span><span class="hljs-string">年最初由Netscape（网景公司）的BrendanEich（瑞登·艾克）设计，后来Netscape为了营销考虑，与Sun微系统达成协议，将其改名为javascript</span><br></code></pre></td></tr></table></figure><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">javascript是一种基于对象和事件驱动并具有相对安全性的客户端脚本语言。运用这个脚本语言可以给HEML网页添加动态功能，响应用户的各种操作<br></code></pre></td></tr></table></figure><h2 id="Web前端开发概述">0.2. Web前端开发概述</h2><h3 id="什么是Web？">0.2.1. 什么是Web？</h3><p>Web是Internet上最受欢迎的一种多媒体服务系统</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">整个系统由Web服务器、浏览器和通信协议组成<br></code></pre></td></tr></table></figure><h3 id="什么是Web开发？">0.2.2. 什么是Web开发？</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">包括：浏览器端页面的制作、服务器端程序的编写<br></code></pre></td></tr></table></figure><h3 id="Web前端开发">0.2.3. Web前端开发</h3><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">Web前端开发的主要工作是把UI(<span class="hljs-keyword">User</span> <span class="hljs-title">Interface</span>用户界面)的设计图按照W3C标准做成html页面，用CSS进行布局，并且用javascript脚本语言实现页面上的前端互动<br></code></pre></td></tr></table></figure><h3 id="浏览器">0.2.4. 浏览器</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">浏览器是指可以显示网页服务器或者文件系统<span class="hljs-selector-tag">HTML</span>文件内容，并让用户与这些文件交互的一种软件<br></code></pre></td></tr></table></figure><h3 id="Html5">0.2.5. Html5</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Html5</span>是W<span class="hljs-number">3</span>C组织<span class="hljs-number">2014</span>年建议的标准，因此不是所有的浏览器都支持Html<span class="hljs-number">5</span>，同一浏览器对Html<span class="hljs-number">5</span>的支持情况也不同<br></code></pre></td></tr></table></figure><h3 id="Web标准">0.2.6. Web标准</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Web</span>标准是由W<span class="hljs-number">3</span>C和其他标准化组织指定的一系列标准的集合，该标准用来创建和解释基于Web的内容<br></code></pre></td></tr></table></figure><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">网页部分的标准通过三部分来描述：结构标准、表现标准、行为标准<br></code></pre></td></tr></table></figure><h4 id="结构标准">0.2.6.1. 结构标准</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">用于对于网页元素进行整理和分类<br></code></pre></td></tr></table></figure><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">相当于搭建房子的框架<br></code></pre></td></tr></table></figure><h4 id="表现标准">0.2.6.2. 表现标准</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">用于设置网页元素的版式、颜色、大小等外观样式<br></code></pre></td></tr></table></figure><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">相当于房子的装修，但是房子没有任何功能<br></code></pre></td></tr></table></figure><h4 id="行为标准">0.2.6.3. 行为标准</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">是对网页模型的定义以及交互的编写<br></code></pre></td></tr></table></figure><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">相当于给房子增加了功能，让房子具有功能性，使用户和房子有更好的交互<br></code></pre></td></tr></table></figure><h4 id="标准的实现方式">0.2.6.4. 标准的实现方式</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">上面三个标准分别对应<span class="hljs-selector-tag">HTML</span>、CSS、JavaScript（Web前端开发的基本应用技术）<br></code></pre></td></tr></table></figure>]]></content>
-    
-    
-    <categories>
-      
-      <category>html5</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>html</tag>
       
     </tags>
     
@@ -2341,6 +2316,31 @@
     <url>/gzguo/2020/09/28/Web/2HTML5/2.2HTML%E6%96%87%E6%A1%A3%E5%A4%B4%E9%83%A8%E7%9B%B8%E5%85%B3%E7%9A%84%E6%A0%87%E7%AD%BE/</url>
     
     <content type="html"><![CDATA[<h4 id="2-2HTML文档头部的标签">0.0.0.1. 2.2HTML文档头部的标签</h4><span id="more"></span><h2 id="title">0.1. title</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">主要用于定义HTML页面的标题，即给网页取一个名字，必须位于<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>之内<br></code></pre></td></tr></table></figure><h3 id="title的作用：">0.1.1. title的作用：</h3><ul><li>在浏览器的标题栏中显示</li><li>可以用作默认的快捷方式或者收藏夹的名称</li><li>可以作为搜索引擎结果中的页面标题</li></ul><h3 id="应用时应注意">0.1.2. 应用时应注意</h3><ul><li>一个网页只能有一个标题</li><li>标题的长度不超过64个字符数</li><li>标题标记对之间不允许有其他的标签存在</li></ul><h2 id="meta">0.2. meta</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">用于定义页面的元信息，可重复出现在<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>头部标记中<br></code></pre></td></tr></table></figure><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">详细信息在   HTML5语法标准中<br></code></pre></td></tr></table></figure><h2 id="link">0.3. link</h2><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lasso">用<span class="hljs-keyword">link</span>来引用外部的文件，一个页面允许使用多个<span class="hljs-keyword">link</span>标记引用多个外部文件<br></code></pre></td></tr></table></figure><h2 id="style">0.4. style</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">用于为HTML文档定义样式信息，位于<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>之中<br></code></pre></td></tr></table></figure><h2 id="script">0.5. script</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">用于在<span class="hljs-selector-tag">HTML</span>页面中加载脚本文件：如javascript<br></code></pre></td></tr></table></figure><h2 id="base">0.6. base</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">描述了基本的链接地址/链接目标，该标签作为<span class="hljs-selector-tag">HTML</span>文档中所有的链接标签的默认链接<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>html5</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>html</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>1.1Web前端开发概述</title>
+    <link href="/gzguo/2020/09/28/Web/1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/1.1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/"/>
+    <url>/gzguo/2020/09/28/Web/1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/1.1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/</url>
+    
+    <content type="html"><![CDATA[<h4 id="1-1Web前端开发概述">0.0.0.1. 1.1Web前端开发概述</h4><span id="more"></span><h2 id="学习内容">0.1. 学习内容</h2><h3 id="Html标记">0.1.1. Html标记</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Hyper</span> Text Markup   超文本标记语言。主要是通过HTML标记对网页中的文本、图片、声音等内容进行描述。最新版本是HTML<span class="hljs-number">5</span><br></code></pre></td></tr></table></figure><h3 id="css样式">0.1.2. css样式</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">Cascading Style Sheets   层叠样式表。是一种用来表现<span class="hljs-selector-tag">HTML</span>或者XML文件样式的计算机语言<br></code></pre></td></tr></table></figure><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">CSS</span>提供了丰富的样式，控制格式的、控制布局的、控制动态效果的等。最新版是<span class="hljs-number">2010</span>年推出的CSS<span class="hljs-number">3</span><br></code></pre></td></tr></table></figure><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">CSS3通过模块化结构使设计者可以及时的调整模块的内容，方便版本的更新与发布，同时也增添了很多的新功能<br></code></pre></td></tr></table></figure><h3 id="JavaScript的内置函数">0.1.3. JavaScript的内置函数</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-number">1995</span><span class="hljs-string">年最初由Netscape（网景公司）的BrendanEich（瑞登·艾克）设计，后来Netscape为了营销考虑，与Sun微系统达成协议，将其改名为javascript</span><br></code></pre></td></tr></table></figure><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">javascript是一种基于对象和事件驱动并具有相对安全性的客户端脚本语言。运用这个脚本语言可以给HEML网页添加动态功能，响应用户的各种操作<br></code></pre></td></tr></table></figure><h2 id="Web前端开发概述">0.2. Web前端开发概述</h2><h3 id="什么是Web？">0.2.1. 什么是Web？</h3><p>Web是Internet上最受欢迎的一种多媒体服务系统</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">整个系统由Web服务器、浏览器和通信协议组成<br></code></pre></td></tr></table></figure><h3 id="什么是Web开发？">0.2.2. 什么是Web开发？</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">包括：浏览器端页面的制作、服务器端程序的编写<br></code></pre></td></tr></table></figure><h3 id="Web前端开发">0.2.3. Web前端开发</h3><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">Web前端开发的主要工作是把UI(<span class="hljs-keyword">User</span> <span class="hljs-title">Interface</span>用户界面)的设计图按照W3C标准做成html页面，用CSS进行布局，并且用javascript脚本语言实现页面上的前端互动<br></code></pre></td></tr></table></figure><h3 id="浏览器">0.2.4. 浏览器</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">浏览器是指可以显示网页服务器或者文件系统<span class="hljs-selector-tag">HTML</span>文件内容，并让用户与这些文件交互的一种软件<br></code></pre></td></tr></table></figure><h3 id="Html5">0.2.5. Html5</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Html5</span>是W<span class="hljs-number">3</span>C组织<span class="hljs-number">2014</span>年建议的标准，因此不是所有的浏览器都支持Html<span class="hljs-number">5</span>，同一浏览器对Html<span class="hljs-number">5</span>的支持情况也不同<br></code></pre></td></tr></table></figure><h3 id="Web标准">0.2.6. Web标准</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Web</span>标准是由W<span class="hljs-number">3</span>C和其他标准化组织指定的一系列标准的集合，该标准用来创建和解释基于Web的内容<br></code></pre></td></tr></table></figure><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">网页部分的标准通过三部分来描述：结构标准、表现标准、行为标准<br></code></pre></td></tr></table></figure><h4 id="结构标准">0.2.6.1. 结构标准</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">用于对于网页元素进行整理和分类<br></code></pre></td></tr></table></figure><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">相当于搭建房子的框架<br></code></pre></td></tr></table></figure><h4 id="表现标准">0.2.6.2. 表现标准</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">用于设置网页元素的版式、颜色、大小等外观样式<br></code></pre></td></tr></table></figure><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">相当于房子的装修，但是房子没有任何功能<br></code></pre></td></tr></table></figure><h4 id="行为标准">0.2.6.3. 行为标准</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">是对网页模型的定义以及交互的编写<br></code></pre></td></tr></table></figure><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">相当于给房子增加了功能，让房子具有功能性，使用户和房子有更好的交互<br></code></pre></td></tr></table></figure><h4 id="标准的实现方式">0.2.6.4. 标准的实现方式</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">上面三个标准分别对应<span class="hljs-selector-tag">HTML</span>、CSS、JavaScript（Web前端开发的基本应用技术）<br></code></pre></td></tr></table></figure>]]></content>
     
     
     <categories>
