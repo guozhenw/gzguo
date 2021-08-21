@@ -1,0 +1,516 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/gzguo/img/favicon.png">
+  <link rel="icon" href="/gzguo/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="进程控制定义，进程控制的五大原语。">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
+  
+  <title>2-1-3进程控制 - Learing</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/gzguo/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/gzguo/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/gzguo/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/gzguo/js/utils.js" ></script>
+  <script  src="/gzguo/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/gzguo/">&nbsp;<strong>Jarvis</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/gzguo/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="2-1-3进程控制">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-12-26 21:17" pubdate>
+        2020年12月26日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      820 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      8
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">2-1-3进程控制</h1>
+            
+            <div class="markdown-body">
+              <p>进程控制定义，进程控制的五大原语。</p>
+<span id="more"></span>
+
+<h1 id="基本概念">1. 基本概念</h1><h2 id="定义">1.1. 定义</h2><p>进程控制就是对系统中的所有进程实施有效的管理。主要是创建进程、撤销进程、实现<strong>进程之间状态转换</strong>等的功能</p>
+<h2 id="如何实现">1.2. 如何实现</h2><p>用原语实现<strong>进程控制</strong></p>
+<p>因为进程控制的过程中，要进行进程状态的切换，切换的时候需要更改进程控制块的相关信息，更改需要更改对应的好几条信息，为了防止更改的不对应性。我们使用原语来实现进程控制。</p>
+<p>原语的特点就是执行期间不能被中断，只能一气呵成。这种不可被中断的操作就是原子操作。</p>
+<p>原语是采用<strong>关中断指令</strong>和<strong>开中段指令</strong>实现的。<u>如果执行关中断指令之后有外部中断信号进入，那么外部中断信号会被忽略</u>，这就是原语执行不会被中断的原因</p>
+<p>关中断和开中断的权限非常大，所以这两个指令只允许在核心态下执行==&gt;原语运行在核心态</p>
+<h1 id="进程控制相关原语">2. 进程控制相关原语</h1><p>无论是什么原语都无非做三类事情：</p>
+<ol>
+<li>更新PCB中的信息</li>
+<li>将PCB插入合适的队列</li>
+<li>分配/回收资源</li>
+</ol>
+<h2 id="创建">2.1. 创建</h2><p>创建原语：（创建态）</p>
+<ol>
+<li>申请空白PCB</li>
+<li>为新进程分配所需资源</li>
+<li>初始化PCB</li>
+<li>将PCB插入就绪队列</li>
+</ol>
+<p>引起进程创建的事件：</p>
+<ol>
+<li>用户登陆</li>
+<li>作业调度</li>
+<li>提供服务</li>
+<li>应用请求</li>
+</ol>
+<h2 id="终止">2.2. 终止</h2><p>撤销原语：（终止态）</p>
+<ol>
+<li>从PCB集合中找到终止进程的PCB</li>
+<li>若程序正在运行，立即剥夺CPU，将CPU分配给其他进程</li>
+<li>终止其所有子进程</li>
+<li>将该进程拥有的所有资源归还给父进程或者操作系统</li>
+<li>删除PCB</li>
+</ol>
+<p>引起进程终止的事件：</p>
+<ol>
+<li>正常结束</li>
+<li>异常结束</li>
+<li>外界干预</li>
+</ol>
+<h2 id="阻塞">2.3. 阻塞</h2><p>阻塞原语：（运行到阻塞）</p>
+<ol>
+<li>找到阻塞的进程对应的PCB</li>
+<li>保护进程运行现场，将PCB状态信息设置为”阻塞态“，暂停进程运行</li>
+<li>将PCB插入到相应进程的等待队列</li>
+</ol>
+<p>引起进程阻塞的事件：</p>
+<ol>
+<li>需要等待系统分配某种资源</li>
+<li>需要等待相互配合工作的其他进程完成工作</li>
+</ol>
+<h2 id="唤醒">2.4. 唤醒</h2><p>唤醒原语：（阻塞到就绪）</p>
+<ol>
+<li>在事件等待队列中找到对应的PCB</li>
+<li>将PCB从等待队列删除，设置进程为就绪态</li>
+<li>将PCB插入到就绪队列，等待被掉度</li>
+</ol>
+<p>引起进程唤醒的事件：</p>
+<ol>
+<li>等待事件的发生（因为什么被阻塞就因为什么被唤醒）</li>
+</ol>
+<h2 id="切换">2.5. 切换</h2><p>切换原语：（运行态到阻塞赛/就绪态 // 就绪态到运行态）</p>
+<ol>
+<li>将运行环境信息存入PCB</li>
+<li>PCB移入相应的队列</li>
+<li>选择另一个进程执行，并更新PCB</li>
+<li>根据PCB恢复进程所需的运行环境</li>
+</ol>
+<p>引起进程切换的事件：</p>
+<ol>
+<li>当前的进程时间片到</li>
+<li>有更高优先级的进程到达</li>
+<li>当前进程主动阻塞</li>
+<li>当前进程终止</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/gzguo/categories/OS/">OS</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/gzguo/tags/OS/">OS</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/gzguo/2020/12/26/OS/2%E8%BF%9B%E7%A8%8B/2-1-2%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2-1-2进程状态</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/gzguo/2020/12/26/OS/2%E8%BF%9B%E7%A8%8B/2-1-4%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/">
+                        <span class="hidden-mobile">2-1-4进程通信</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/gzguo/js/events.js" ></script>
+<script  src="/gzguo/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/gzguo/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/gzguo/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/gzguo/js/boot.js" ></script>
+
+
+</body>
+</html>

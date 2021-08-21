@@ -1,0 +1,482 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/gzguo/img/favicon.png">
+  <link rel="icon" href="/gzguo/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="mysql对数据库的操作，对表内数据的操作。mysql的约束。对时区和密码的操作。修改表结构。数据库的三范式。">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
+  
+  <title>1.1数据库的操作语句和范式 - Learing</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/gzguo/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/gzguo/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/gzguo/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/gzguo/js/utils.js" ></script>
+  <script  src="/gzguo/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/gzguo/">&nbsp;<strong>Jarvis</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/gzguo/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="1.1数据库的操作语句和范式">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-08-16 20:08" pubdate>
+        2019年8月16日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      742 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      8
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">1.1数据库的操作语句和范式</h1>
+            
+            <div class="markdown-body">
+              <p>mysql对数据库的操作，对表内数据的操作。mysql的约束。对时区和密码的操作。修改表结构。数据库的三范式。</p>
+<span id="more"></span>
+
+<h1 id="ddl">1. ddl</h1><p>create table 表名(字段名 类型 主键 非空);   建表</p>
+<p>create database 数据库名;   建库 </p>
+<p>use 数据库名;   使用某个数据库</p>
+<p>show databases：查看数据库</p>
+<p>show tables：查看数据表</p>
+<p>describe/desc 表名：查看表结构</p>
+<p>select * from 表名：查看表内数据</p>
+<h1 id="dml">2. dml</h1><p>select * from 表名;   //get</p>
+<p>insert into 表名(字段名) values(字段值);   //post</p>
+<p>update 表名 set 字段名 = ‘字段值’;   //put</p>
+<p>delete from 表名 where id = ‘字段值’;   //delete</p>
+<h1 id="mysql的约束">3. mysql的约束</h1><p><strong>primary key主键约束</strong>：是每条信息的唯一信息，主键不能重复，主键禁止为空，主键一般标志到无意义的字段上</p>
+<p><strong>auto_increment自动递增</strong>：从一开始自增</p>
+<p><strong>唯一约束</strong>：约束修饰的字段的不能重复</p>
+<p><strong>非空约束</strong>：<strong>not null</strong>不能为null</p>
+<p><strong>默认约束</strong>：<strong>default</strong>当我们插入字段的时候，如果没有传值，就会使用默认值</p>
+<p><strong>外键约束</strong>：<strong>foreign key</strong> <strong>references</strong></p>
+<p>结论：<em>1.主表中没有的数据，在副表中是不可以使用的</em></p>
+<p>​            <em>2.主表中的记录被副表引用，那么主表中的这条记录是不可以被删除的</em></p>
+<p>涉及到两个表：父表、子表（主表、副表）</p>
+<p><em>主表不能随意删，副表不能随便加</em></p>
+<p>小例子：foreigen key(子表字段名) references 父表(父表中的字段名);</p>
+<h1 id="mysql对时区和密码的操作">4. mysql对时区和密码的操作</h1><p>SELECT @@global.time_zone;  // global.time_zone<br>SELECT @@global.system_time_zone;  // globle.system_time<br>show variables like “%time_zone%”;  // Variable_name,Value<br>select now();  // now()</p>
+<p>ALTER USER ‘root‘@’localhost’ IDENTIFIED WITH mysql_native_password BY ‘root’;   修改数据库密码</p>
+<p>select @@autocommit;  mysql的事务开启状态：是否自动提交 1 自动提交 2 非自动提交</p>
+<h1 id="mysql修改表结构：">5. mysql修改表结构：</h1><p><strong>给某个字段添加主键约束</strong>：</p>
+<p>alter table 表名 add primary key(字段名);   //直接增加</p>
+<p>alter table 表名 modify 字段名 类型 primary key; //修改字段间接增加</p>
+<p><strong>删除主键约束</strong>：alter table 表名 <u>drop</u> primary key;</p>
+<p><strong>添加唯一约束</strong>：</p>
+<p>alter table 表名 add unique(字段名);</p>
+<p>alter table 表名 modify 字段名 类型 unique;</p>
+<p><strong>删除唯一约束</strong>：alter table 表名 drop index 字段名;</p>
+<h1 id="设计数据库的格式：">6. 设计数据库的格式：</h1><h2 id="第一范式：">6.1. 第一范式：</h2><p><strong>数据表中的所有字段都是不可分割的原子值</strong></p>
+<p>根据字段值还可以继续拆分的，不满主第一范式</p>
+<p>范式，设计的越详细，对于某些实际操作可能更好，但不一定都是好处</p>
+<h2 id="第二范式">6.2. 第二范式</h2><p>满足第一范式的前提下，第二范式要求，<strong>除主键外的每一列都必须完全依赖于主键</strong></p>
+<p>如果要出现不完全依赖，只可能发生在联合主键的情况下</p>
+<p>除主键之外的其他列，只依赖与主键的部分字段：<strong>拆表</strong></p>
+<h2 id="第三范式">6.3. 第三范式</h2><p>必须满足第二范式</p>
+<p><strong>除主键列的其他列之间不能用传递依赖关系</strong></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/gzguo/categories/mysql/">mysql</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/gzguo/tags/mysql/">mysql</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/gzguo/2019/08/20/java/1java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/1.1java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">1.1java基础知识</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/gzguo/2019/08/16/java/1java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/1.0java%E5%AD%A6%E5%89%8D%E7%9F%A5%E8%AF%86/">
+                        <span class="hidden-mobile">1.0java学前知识</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/gzguo/js/events.js" ></script>
+<script  src="/gzguo/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/gzguo/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/gzguo/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/gzguo/js/boot.js" ></script>
+
+
+</body>
+</html>

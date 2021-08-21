@@ -1,0 +1,537 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/gzguo/img/favicon.png">
+  <link rel="icon" href="/gzguo/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="java中的异常，异常的分类、处理以及自定义异常。">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
+  
+  <title>5.1java中的异常 - Learing</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/gzguo/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/gzguo/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/gzguo/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/gzguo/js/utils.js" ></script>
+  <script  src="/gzguo/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/gzguo/">&nbsp;<strong>Jarvis</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/gzguo/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="5.1java中的异常">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-08-30 12:00" pubdate>
+        2019年8月30日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      23
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">5.1java中的异常</h1>
+            
+            <div class="markdown-body">
+              <p>java中的异常，异常的分类、处理以及自定义异常。</p>
+<span id="more"></span>
+
+<p>让大家写一个程序：将d:/a.txt复制到e:/a.txt</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">if</span>(<span class="hljs-string">&quot;d:/a.txt&quot;</span>这个文件存在)&#123;<br>    <span class="hljs-keyword">if</span>(e盘的空间大于a.exe文件长度)&#123;<br>        <span class="hljs-keyword">if</span>(文件复制一半io流断掉)&#123;<br>            停止copy，输出：io流出现问题！<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            copyFile(<span class="hljs-string">&quot;d:/a.txt&quot;</span>,<span class="hljs-string">&quot;e:/a.txt&quot;</span>);<br>        &#125;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        输出：e盘的空间不足<br>    &#125;<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>    输出：a.exe不存在<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这样做的话有两个坏处：</p>
+<ul>
+<li>逻辑代码和错误处理代码放在一起</li>
+<li>程序员本身需要考虑的例外情况比较复杂。对程序员本身要求比较高</li>
+</ul>
+<p>软件程序在运行过程中，非常可能遇到刚刚提到的这些异常问题，我们叫异常，英文是Exception，意思是例外。这些，例外情况，或者叫异常，怎么让我们写的程序作出合理的处理？而不至于程序崩溃</p>
+<p>常见的异常：</p>
+<ul>
+<li>用户输入错误</li>
+<li>设备错误</li>
+<li>硬件问题，比如打印机关掉、服务器问题</li>
+<li>物理限制：硬盘满了</li>
+</ul>
+<h1 id="异常的概念">1. 异常的概念</h1><p>java异常是java提供的用于处理程序错误的一种机制</p>
+<p>java是采用面向对象的方式来处理异常的。处理过程：</p>
+<p>抛出异常：在执行一个方法时，如果发生异常，则这个方法生成代表该异常的一个对象，停止当前执行路径，并把异常对象提交给JRE</p>
+<p>捕获异常：JRE得到该异常后，寻找相应的代码来处理该异常。JRE在方法调用栈种查找，从生成异常的方法开始回溯，直到找到相应的异常处理代码为止</p>
+<p>类 java.lang.Throwable 的子类：Error、Exception</p>
+<p>Error错误，不需要程序员处理，直接重启</p>
+<p>Exception例外：需要程序员处理</p>
+<h1 id="异常的分类">2. 异常的分类</h1><p>JDK中定义了很多异常类，这些类对应了各种各样的可能出现的异常事件，所有的异常对象都是派生于Throwable类的一个实例。如果内置的异常类不能够满足需要，还可以自己创建自己的异常类</p>
+<p>Exception分为：CheckedException和(RuntimeException)UncheckedExcetion</p>
+<h2 id="Error">2.1. Error</h2><ul>
+<li>Error类层次描述了java运行时系统内部和资源耗尽的错误。这类错误是我们无法控制的，同时也是非常罕见的错误。所以在编程中，不去处理这类错误。</li>
+<li>Error表明系统JVM已经处于不可恢复的崩溃状态中。</li>
+<li>打开JDK包：java.lang.error，查看他的所有子类</li>
+<li>注：我们不需要管理Error</li>
+</ul>
+<h2 id="Exception">2.2. Exception</h2><ul>
+<li><p>所有异常的父类，其子类对应了各种各样可能出现的异常事件</p>
+</li>
+<li><p>Runtime Exception(Unchacked Exception)比较频繁</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-number">1.</span>一些特殊的异常，比如被<span class="hljs-number">0</span>除、数组下标超范围等，其产生比较频繁，处理麻烦，如果显式的声明或捕捉将会对程序可读性和运行效率影响很大。因此由系统自动检测并将他们交给缺省的异常处理程序<br><span class="hljs-number">2.</span>常见的Runtime Exception：<br>AirthmeticException/NullPointerException/ClassCastException/ArrayIndexOutOfBoundsException/NumberFormatException<br></code></pre></td></tr></table></figure></li>
+<li><p>Checked Exception：这一类异常，我们需要捕获进行处理</p>
+</li>
+</ul>
+<h1 id="异常处理">3. 异常处理</h1><h2 id="trycatch">3.1. trycatch</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//没有异常，就不会执行catch</span><br><span class="hljs-comment">//遇到异常的话，会在catch块中做处理</span><br><span class="hljs-comment">//不管有没有异常，finally都会执行</span><br><span class="hljs-keyword">try</span>&#123;<br>    <span class="hljs-comment">//语句1</span><br>    <span class="hljs-comment">//语句2</span><br>&#125; <span class="hljs-keyword">catch</span> &#123;<br>    <span class="hljs-comment">//语句3</span><br>&#125; <span class="hljs-keyword">finally</span> &#123;<br>    <span class="hljs-comment">//语句4</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="try">3.1.1. try</h3><p>try语句制定了一段代码，该代码就是一次捕获并处理的范围。在执行过程中，当任意一条语句产生异常时，就会跳过该段中后面的代码。代码中可能会产生并抛出一种或几种类型的异常对象，他后面的catch语句要分别对这些异常做相应的处理</p>
+<p>注：当异常处理的代码执行结束之后，是不会回到try语句去执行尚未执行的代码</p>
+<h3 id="catch">3.1.2. catch</h3><ul>
+<li><p>每个try语句块可以伴随一个或多个catch语句，用于处理可能产生的不同类型的异常对象</p>
+</li>
+<li><p>常用方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">toString()方法，显示异常的类名和产生异常的原因<br>getMessage()方法，只显示产生异常的原因，但不显示类名<br>printStackTrace()方法，用来跟踪异常事件发生时堆栈的内容<br><span class="hljs-comment">//这些方法均继承自Throwable类</span><br></code></pre></td></tr></table></figure></li>
+<li><p>Catch捕获异常时的顺序：如果异常之间有继承关系，在顺序安排上需注意。越是顶层的类，越放在下面</p>
+</li>
+</ul>
+<h3 id="finally">3.1.3. finally</h3><p>有些语句，不管是否发生了异常，都必须执行，那么就可以把这样的语句放到finally语句块中</p>
+<p>通常在finally中关闭程序快已打开的资源，比如，文件流、释放数据库连接等</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.io.*;<br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestException</span></span>&#123;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;<br>        FileReader reader = <span class="hljs-keyword">null</span>;<br>        <br>        <span class="hljs-keyword">try</span>&#123;<br>            reader = <span class="hljs-keyword">new</span> FileReader(<span class="hljs-string">&quot;d:/a.txt&quot;</span>);<br>            <span class="hljs-keyword">char</span> temp = (<span class="hljs-keyword">char</span>)reader.read();<br>            System.out.println(<span class="hljs-string">&quot;读出的内容：&quot;</span>+temp);<br>        &#125; <span class="hljs-keyword">catch</span>(FileNotFoundException e)&#123;<br>            System.out.println(<span class="hljs-string">&quot;文件没有找到&quot;</span>);<br>            e.printlnStackTrace();<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e)&#123;<br>            System.out.println(<span class="hljs-string">&quot;读取文件错误&quot;</span>);<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            System.out.println(<span class="hljs-string">&quot;不管有没有异常，我肯定会被执行&quot;</span>);<br>            <span class="hljs-keyword">try</span> &#123;<br>                reader.close();<br>            &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="try-catch、finally、return的执行顺序">3.1.3.1. try catch、finally、return的执行顺序</h4><ul>
+<li>执行try、catch，给返回值赋值，没有立即返回</li>
+<li>执行finally</li>
+<li>return //finally里面一般不要加retun，会把之前返回值赋的值覆盖掉</li>
+</ul>
+<h2 id="throw">3.2. throw</h2><p>声明异常：throws子句</p>
+<ul>
+<li>当Checked Exception产生时，不一定立刻处理它，可以再把异常Throws出去</li>
+<li>如果一个方法抛出多个已检查异常，就必须在方法的首部列出所有的异常，之间以逗号隔</li>
+</ul>
+<h3 id="方法重写中声明异常的原则">3.2.1. 方法重写中声明异常的原则</h3><ol>
+<li>父类没有声明异常，子类也不能</li>
+<li>不可抛出原有方法抛出异常类的父类或上层类</li>
+<li>抛出的异常类型的数目不可以比原有的方法抛出的还多(不是指某个类型的个数)</li>
+</ol>
+<h2 id="手动抛出throw">3.3. 手动抛出throw</h2><ul>
+<li><p>java异常类对象除在程序执行过程中出现异常时系统自动生成并抛出，也可以根据需要的手工创建并抛出</p>
+</li>
+<li><p>在捕获一个异常前，必须要有一段代码先生成异常对象并将他们抛出。这个过程我们可以手工做，也可以由JRE来实现，但是他们调用的都是throw子句</p>
+</li>
+<li><p>对于一个已经存在的异常类，抛出该异常对象过程如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs">1.找到一个合适的异常类<br>2.创建一个该类的对象<br>3.将对象抛出java<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="自定义异常">4. 自定义异常</h1><p>自定义异常：</p>
+<ul>
+<li><p>在程序中，可能会遇到任何标准异常类都没有充分描述清楚的问题，这种情况下可以创建自己的异常类</p>
+</li>
+<li><p>从Exception类或者他的子类派生一个子类即可</p>
+</li>
+<li><p>习惯上，定义的类应该包含2个构造器：一个是默认的构造器，另一个是带有详细信息的构造器</p>
+</li>
+<li><p>事列代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyException</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Exception</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MyException</span><span class="hljs-params">()</span></span>&#123;<br>        <br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MyException</span><span class="hljs-params">(String message)</span></span>&#123;<br>        <span class="hljs-keyword">super</span>(message);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestMyException</span></span>&#123;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> MyException</span>&#123;<br>        <br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;<br>        <span class="hljs-keyword">try</span>&#123;<br>            <span class="hljs-keyword">new</span> TestMyException().test();<br>        &#125; <span class="hljs-keyword">catch</span>(MyException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="使用异常机制建议">4.1. 使用异常机制建议</h2><p>使用异常机制的建议：</p>
+<ul>
+<li>要避免使用异常处理代替错误处理，这样会降低程序的清晰性，并且效率下降</li>
+<li>处理异常不可以代替简单测试，只在异常情况下使用异常机制</li>
+<li>不要进行小力度的异常，应该将整个任务包装在一个Try语句块中</li>
+<li>异常往往在高层处理</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/gzguo/categories/java/">java</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/gzguo/tags/java/">java</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/gzguo/2019/09/02/java/7%E7%BA%BF%E7%A8%8B/7.2java%E4%B8%AD%E7%9A%84%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">7.2java中的线程相关操作</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/gzguo/2019/08/29/java/7%E7%BA%BF%E7%A8%8B/7.1java%E4%B8%AD%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/">
+                        <span class="hidden-mobile">7.1java中的线程基本概念</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/gzguo/js/events.js" ></script>
+<script  src="/gzguo/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/gzguo/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/gzguo/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/gzguo/js/boot.js" ></script>
+
+
+</body>
+</html>
