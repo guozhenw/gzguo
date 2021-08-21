@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="mysql事务">
-  <meta name="author" content="John Doe">
-  <meta name="keywords" content="">
+  <meta name="description" content="0.0.0.1. mysql事务">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
   
-  <title>java_mysql_end - Hexo</title>
+  <title>java_mysql_end - Learing</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -87,7 +87,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/">
                 <i class="iconfont icon-home-fill"></i>
-                Home
+                首页
               </a>
             </li>
           
@@ -99,7 +99,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                Archives
+                归档
               </a>
             </li>
           
@@ -111,7 +111,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                Categories
+                分类
               </a>
             </li>
           
@@ -123,7 +123,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                Tags
+                标签
               </a>
             </li>
           
@@ -135,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/about/">
                 <i class="iconfont icon-user-fill"></i>
-                About
+                关于
               </a>
             </li>
           
@@ -174,7 +174,7 @@
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
       <time datetime="2019-08-16 08:08" pubdate>
-        August 16, 2019 am
+        2019年8月16日 早上
       </time>
     </span>
   
@@ -228,9 +228,9 @@
             <h1 style="display: none">java_mysql_end</h1>
             
             <div class="markdown-body">
-              <h4 id="mysql事务"><a href="#mysql事务" class="headerlink" title="mysql事务"></a><center>mysql事务</center></h4><span id="more"></span>
+              <h4 id="mysql事务">0.0.0.1. mysql事务</h4><span id="more"></span>
 
-<h2 id="mysql事务-1"><a href="#mysql事务-1" class="headerlink" title="mysql事务"></a>mysql事务</h2><p>mysql中，事务其实是一个最小的不可分割的单元，事务能保证一个业务的完整性</p>
+<h2 id="mysql事务-1">0.1. mysql事务</h2><p>mysql中，事务其实是一个最小的不可分割的单元，事务能保证一个业务的完整性</p>
 <p>比如我们的银行转账</p>
 <p>a –&gt;-100</p>
 <p>update user set money = money - 10 where name = ‘a’;</p>
@@ -240,7 +240,7 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql">update <span class="hljs-keyword">user</span> <span class="hljs-keyword">set</span> money <span class="hljs-operator">=</span> money <span class="hljs-operator">-</span> <span class="hljs-number">10</span> <span class="hljs-keyword">where</span> name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;a&#x27;</span>;<br><br>update <span class="hljs-keyword">user</span> <span class="hljs-keyword">set</span> money <span class="hljs-operator">=</span> money <span class="hljs-operator">+</span> <span class="hljs-number">10</span> <span class="hljs-keyword">where</span> name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;b&#x27;</span>;<br></code></pre></td></tr></table></figure>
 
 <p>多条sql语句，可能会有同时成功的要求，不然的话就同时失败</p>
-<h2 id="mysql如何控制事务："><a href="#mysql如何控制事务：" class="headerlink" title="mysql如何控制事务："></a>mysql如何控制事务：</h2><p>1.mysql默认是开启事务的(自动提交)</p>
+<h2 id="mysql如何控制事务：">0.2. mysql如何控制事务：</h2><p>1.mysql默认是开启事务的(自动提交)</p>
 <p>mysql&gt; select @@autocommit;<br>+————–+<br>| @@autocommit |<br>+————–+<br>|            1 |<br>+————–+<br>1 row in set (0.03 sec)</p>
 <p>默认事务开启的作用是：当我们去执行sql语句的时候，效果会立刻体现出来且不能回滚</p>
 <p>create database bank;</p>
@@ -274,7 +274,7 @@
 <p>mysql&gt; rollback;<br>Query OK, 0 rows affected (0.00 sec)</p>
 <p>mysql&gt; select * from user;<br>+—-+——+——-+<br>| id | name | money |<br>+—-+——+——-+<br>|  1 | a    |  1000 |<br>|  2 | b    |  1000 |<br>+—-+——+——-+<br>2 rows in set (0.04 sec)</p>
 <p>事务给我们提供一个反悔的机会</p>
-<h2 id="begin-或者start-transaction"><a href="#begin-或者start-transaction" class="headerlink" title="begin;或者start transaction"></a><strong>begin;<strong>或者</strong>start transaction</strong></h2><p>;都可以帮我们手动开启一个事务</p>
+<h2 id="begin-或者start-transaction">0.3. begin;或者start transaction</h2><p>;都可以帮我们手动开启一个事务</p>
 <p>mysql&gt; update user set money = money - 10 where name = ‘a’;                                                                                               update user set money = money + 10 where name = ‘b’;<br>Query OK, 1 row affected (0.02 sec)<br>Rows matched: 1  Changed: 1  Warnings: 0<br>Query OK, 1 row affected (0.01 sec)<br>Rows matched: 1  Changed: 1  Warnings: 0<br>mysql&gt; select * from user;<br>+—-+——+——-+<br>| id | name | money |<br>+—-+——+——-+<br>|  1 | a    |   990 |<br>|  2 | b    |  1010 |<br>+—-+——+——-+<br>2 rows in set (0.04 sec)</p>
 <p>mysql&gt; rollback;<br>Query OK, 0 rows affected (0.00 sec)</p>
 <p>mysql&gt; select * from user;<br>+—-+——+——-+<br>| id | name | money |<br>+—-+——+——-+<br>|  1 | a    |   990 |<br>|  2 | b    |  1010 |<br>+—-+——+——-+<br>2 rows in set (0.04 sec)</p>
@@ -286,7 +286,7 @@
 <p>mysql&gt; rollback;<br>Query OK, 0 rows affected (0.01 sec)</p>
 <p>mysql&gt; select * from user;<br>+—-+——+——-+<br>| id | name | money |<br>+—-+——+——-+<br>|  1 | a    |   990 |<br>|  2 | b    |  1010 |<br>+—-+——+——-+<br>2 rows in set (0.04 sec)</p>
 <p>注意事务开启之后，一旦commit（提交），就不可以回滚（事务在提交的时候就结束了）</p>
-<h2 id="事物的特征："><a href="#事物的特征：" class="headerlink" title="事物的特征："></a>事物的特征：</h2><p>事物的四大特征：</p>
+<h2 id="事物的特征：">0.4. 事物的特征：</h2><p>事物的四大特征：</p>
 <p>1.原子性（A）：事务是最小的单位，不可再分割</p>
 <p>2.一致性（C）：事务要求，同一事务的sql语句，必须保证同时成功或者同时失败</p>
 <p>3.隔离性（I）：事务1和事务2之间是具有隔离性的</p>
@@ -297,11 +297,11 @@
 <p>3.start transaction;</p>
 <p>事务手动提交：commit;</p>
 <p>事务手动回滚：rollback;</p>
-<h3 id="事物的隔离性"><a href="#事物的隔离性" class="headerlink" title="事物的隔离性:"></a>事物的隔离性:</h3><p>1.read uncommitted;   读未提交的</p>
+<h3 id="事物的隔离性">0.4.1. 事物的隔离性:</h3><p>1.read uncommitted;   读未提交的</p>
 <p>2.read committed;   读已提交的</p>
 <p>3.repeatable read;   可以重复读</p>
 <p>4.serializable;   串行化</p>
-<h4 id="1-read-uncommitted"><a href="#1-read-uncommitted" class="headerlink" title="1.read uncommitted;"></a>1.read uncommitted;</h4><p>如果有事务a和事务b，a事务对数据进行操作，事务没有被提交，但是b可以看到a操作的结果</p>
+<h4 id="1-read-uncommitted">0.4.1.1. 1.read uncommitted;</h4><p>如果有事务a和事务b，a事务对数据进行操作，事务没有被提交，但是b可以看到a操作的结果</p>
 <p>bank数据库 user表</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">values</span>(<span class="hljs-number">3</span>,<span class="hljs-string">&#x27;小明&#x27;</span>,<span class="hljs-number">1000</span>);<br><br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">values</span>(<span class="hljs-number">4</span>,<span class="hljs-string">&#x27;淘宝店&#x27;</span>,<span class="hljs-number">1000</span>);<br></code></pre></td></tr></table></figure>
 
@@ -347,7 +347,7 @@
 <p>这样就会出现脏读</p>
 <p>脏读：一个事务读取到另外一个事物没有提交的数据就叫做脏读</p>
 <p>实际开发不允许脏读出现</p>
-<h4 id="2-read-committed"><a href="#2-read-committed" class="headerlink" title="2.read committed;"></a>2.read committed;</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> global transaction isolation level <span class="hljs-built_in">read</span> committed;<br><br>select @@global.transaction_isolation;<br></code></pre></td></tr></table></figure>
+<h4 id="2-read-committed">0.4.1.2. 2.read committed;</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> global transaction isolation level <span class="hljs-built_in">read</span> committed;<br><br>select @@global.transaction_isolation;<br></code></pre></td></tr></table></figure>
 
 <p>mysql&gt; set global transaction isolation level read committed;</p>
 <p>select @@global.transaction_isolation;<br>Query OK, 0 rows affected (0.00 sec)</p>
@@ -373,7 +373,7 @@
 <p>mysql&gt; select avg(money) from user;<br>+————+<br>| avg(money) |<br>+————+<br>| 820.0000   |<br>+————+<br>1 row in set (0.07 sec)</p>
 <p>money的平均值不是1000，变少了</p>
 <p>虽然我只能读到另一个事务提交的数据，但是还是会出现问题，就是读取同一个表的数据，发现前后不一致，这种不可重复读现象，read committed</p>
-<h4 id="3-repeatable-read-可以重复读"><a href="#3-repeatable-read-可以重复读" class="headerlink" title="3.repeatable read;   可以重复读"></a>3.repeatable read;   可以重复读</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> global transaction isolation level repeatable <span class="hljs-built_in">read</span>;<br><br>select @@global.transaction_isolation;<br></code></pre></td></tr></table></figure>
+<h4 id="3-repeatable-read-可以重复读">0.4.1.3. 3.repeatable read;   可以重复读</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> global transaction isolation level repeatable <span class="hljs-built_in">read</span>;<br><br>select @@global.transaction_isolation;<br></code></pre></td></tr></table></figure>
 
 <p>mysql&gt; set global transaction isolation level repeatable read;</p>
 <p>select @@global.transaction_isolation;</p>
@@ -389,7 +389,7 @@
 <p>但是王尼玛不能插入6号，会报错</p>
 <p>这种现象叫做幻读</p>
 <p>事务a和事务b同时操作一张表，事务a提交的数据，也不能读到，就可能造成幻读</p>
-<h4 id="serializable-串行化"><a href="#serializable-串行化" class="headerlink" title="serializable:串行化"></a>serializable:串行化</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> global transaction isolation level serializable;<br><br>select @@global.transaction_isolation;<br></code></pre></td></tr></table></figure>
+<h4 id="serializable-串行化">0.4.1.4. serializable:串行化</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> global transaction isolation level serializable;<br><br>select @@global.transaction_isolation;<br></code></pre></td></tr></table></figure>
 
 <p>还是张全蛋和王尼玛，做了和上面一样的事</p>
 <p>当user表被另外一个事务操作的时候，其他的事务是不可以执行的，进入排队状态，直到操作事务的那个人commit之后，才会执行</p>
@@ -435,7 +435,7 @@
                       <a href="/gzguo/2019/08/16/java/basis/start/">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">java_basis_start</span>
-                        <span class="visible-mobile">Previous</span>
+                        <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
@@ -444,7 +444,7 @@
                     
                       <a href="/gzguo/2019/08/16/java/mysql/next/">
                         <span class="hidden-mobile">java_mysql_next</span>
-                        <span class="visible-mobile">Next</span>
+                        <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -461,7 +461,7 @@
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -487,7 +487,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -496,7 +496,7 @@
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+                 for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>

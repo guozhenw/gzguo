@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="mybatis使用不同方法进行增删改查">
-  <meta name="author" content="John Doe">
-  <meta name="keywords" content="">
+  <meta name="description" content="0.0.0.1. mybatis使用不同方法进行增删改查">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
   
-  <title>java_mybatis_start - Hexo</title>
+  <title>java_mybatis_start - Learing</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -87,7 +87,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/">
                 <i class="iconfont icon-home-fill"></i>
-                Home
+                首页
               </a>
             </li>
           
@@ -99,7 +99,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                Archives
+                归档
               </a>
             </li>
           
@@ -111,7 +111,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                Categories
+                分类
               </a>
             </li>
           
@@ -123,7 +123,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                Tags
+                标签
               </a>
             </li>
           
@@ -135,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/about/">
                 <i class="iconfont icon-user-fill"></i>
-                About
+                关于
               </a>
             </li>
           
@@ -174,7 +174,7 @@
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
       <time datetime="2019-08-14 11:42" pubdate>
-        August 14, 2019 am
+        2019年8月14日 中午
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.2k 字
+      5.3k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      59
+      62
        分钟
     </span>
   
@@ -228,23 +228,23 @@
             <h1 style="display: none">java_mybatis_start</h1>
             
             <div class="markdown-body">
-              <h4 id="mybatis使用不同方法进行增删改查"><a href="#mybatis使用不同方法进行增删改查" class="headerlink" title="mybatis使用不同方法进行增删改查"></a><center>mybatis使用不同方法进行增删改查</center></h4><span id="more"></span>
+              <h4 id="mybatis使用不同方法进行增删改查">0.0.0.1. mybatis使用不同方法进行增删改查</h4><span id="more"></span>
 
-<h2 id="对原生态jdbc程序问题的总结"><a href="#对原生态jdbc程序问题的总结" class="headerlink" title="对原生态jdbc程序问题的总结"></a>对原生态jdbc程序问题的总结</h2><p>（单独使用jdbc开发）</p>
+<h2 id="对原生态jdbc程序问题的总结">0.1. 对原生态jdbc程序问题的总结</h2><p>（单独使用jdbc开发）</p>
 <p>数据库用的时候连接，不用的时候释放，频繁操作   通过连接池节约资源</p>
 <p>sql语句硬编码，不利于系统维护   使用配置文件把他配起来</p>
-<h2 id="mybatis框架原理"><a href="#mybatis框架原理" class="headerlink" title="mybatis框架原理"></a>mybatis框架原理</h2><h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><p>mybatis是持久层框架，是apache下的项目</p>
+<h2 id="mybatis框架原理">0.2. mybatis框架原理</h2><h3 id="特点">0.2.1. 特点</h3><p>mybatis是持久层框架，是apache下的项目</p>
 <p>mybatis让程序主要精力放在sql上，通过mybatis提供的映射方式，简化sql</p>
 <p>mybatis将输入参数自动进行输入映射，将查询结果集映射成java对象</p>
-<h3 id="mybatis框架"><a href="#mybatis框架" class="headerlink" title="mybatis框架"></a>mybatis框架</h3><p>先完成基本配置：</p>
+<h3 id="mybatis框架">0.2.2. mybatis框架</h3><p>先完成基本配置：</p>
 <p>SqlMapConfig.xml：是mybatis的全局配置文件（名称不固定）。配置了数据源（c3p0）、事务（spring）等mybatis运行环境。配置里有个特别的东西（mapper.xml）这个文件里是映射关系（配置sql语句）通过配置文件生成会话工厂（SqlSessionFactory）</p>
 <p>操作数据库：</p>
 <p>SqlSessionFactory（会话工厂）创建 -&gt;SqlSession（接口）：会话 作用：操作数据库（发出sql增删改查）内部通过执行器（Excutor接口）操作数据库,两种实现方式（基本执行器、缓存执行器）。</p>
 <p>这个执行器需要很多参数，所以mybatis提供了一个<em>底层的封装对象（mapped statement）</em>作用：对数据库存储封装，包括sql语句，输入参数，输出结果类型，终于连接上了数据库</p>
 <p>输入参数类型：pojo、java简单类型、hashmap</p>
 <p>输出结果类型：pojo、java简单类型、hashmap</p>
-<h2 id="mybatis入门程序"><a href="#mybatis入门程序" class="headerlink" title="mybatis入门程序"></a>mybatis入门程序</h2><h3 id="增删改查"><a href="#增删改查" class="headerlink" title="增删改查"></a>增删改查</h3><p><em>lib下的一般是依赖包</em></p>
-<h4 id="查询用户信息"><a href="#查询用户信息" class="headerlink" title="查询用户信息"></a>查询用户信息</h4><p>根据用户名称模糊查询用户信息</p>
+<h2 id="mybatis入门程序">0.3. mybatis入门程序</h2><h3 id="增删改查">0.3.1. 增删改查</h3><p><em>lib下的一般是依赖包</em></p>
+<h4 id="查询用户信息">0.3.1.1. 查询用户信息</h4><p>根据用户名称模糊查询用户信息</p>
 <p><u>首先在映射文件中配置sql语句</u>   映射：（hibernate：orm：对象关系映射，实体类和数据表映射）咱们的xml映射分为输入映射、输出映射</p>
 <p>映射文件名 :user.xml(ibatis)、xxxMapper.xml(mybatis)</p>
 <p>namespace命名空间，sql的隔离</p>
@@ -257,7 +257,7 @@
 
 
 
-<h5 id="sql语句的格式"><a href="#sql语句的格式" class="headerlink" title="sql语句的格式"></a>sql语句的格式</h5><p>id：标识映射文件中的sql</p>
+<h5 id="sql语句的格式">0.3.1.1.1. sql语句的格式</h5><p>id：标识映射文件中的sql</p>
 <p>将sql语句封装到mapped statement 对象中，所以id称为statement的id</p>
 <p>parameterType：指定输入参数的类型</p>
 <p>#{}表示一个占位符号</p>
@@ -266,7 +266,7 @@
 <p>resultType：指定输出结果的类型，表示将单条记录映射成java对象</p>
 <p>selectOne表示查询出1条记录进行映射</p>
 <p>selectList表示查询出一个列表（多条记录）进行映射</p>
-<h4 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h4><p>parameterType：指定输入参数类型是pojo（包括用户信息）</p>
+<h4 id="添加用户">0.3.1.2. 添加用户</h4><p>parameterType：指定输入参数类型是pojo（包括用户信息）</p>
 <p>#{}中指定的pojo的属性名，接收到pojo对象的属性值OGNL获取对象的属性值</p>
 <p>sql后面不要加;</p>
 <p><strong>自增主键返回</strong>：执行insert提交之前自动生成一个自增主键。通过mysql函数获取到刚插入记录的自增主键（select last_insert_idid();）在inseert之后调用</p>
@@ -275,52 +275,52 @@
 <p><strong>非自增主键的返回</strong>：</p>
 <p>mysql的uuid()函数生成主键，需要修改id字段类型的为String，长度设置为35位</p>
 <p>执行思路：先通过uuid();查询到主键，将主键注入到sql语句中，执行uuid();语句顺序相对于insert语句之前执行</p>
-<h4 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h4><p>sqlSession.update(statement,parameter);</p>
+<h4 id="删除用户">0.3.1.3. 删除用户</h4><p>sqlSession.update(statement,parameter);</p>
 <p>sqlSession.delete(statement,parameter);</p>
 <p>sqlSession.selectOne/List(statement,parameter);</p>
 <p>sqlSession.insert(statement,parameter);</p>
-<h4 id="更新用户"><a href="#更新用户" class="headerlink" title="更新用户"></a>更新用户</h4><h3 id="入门程序的总结"><a href="#入门程序的总结" class="headerlink" title="入门程序的总结"></a>入门程序的总结</h3><p>#{}表示一个占位符，接受输入参数，类型可以是简单类型、pojo、hashmap，如果接受简单类型，#{}中可以写成value或其他名称</p>
+<h4 id="更新用户">0.3.1.4. 更新用户</h4><h3 id="入门程序的总结">0.3.2. 入门程序的总结</h3><p>#{}表示一个占位符，接受输入参数，类型可以是简单类型、pojo、hashmap，如果接受简单类型，#{}中可以写成value或其他名称</p>
 <p>#{}接受pojo对象值，通过OGNL读取对象的属性值，通过属性.属性.属性…的方式获取属性值</p>
 <p>${}表示一个拼接符，会出现sql注入，不建议使用。接受输入参数，类型可以是简单类型、pojo、hashmap，如果接受简单类型，#{}中只能写成value</p>
 <p>${}接受pojo对象值，通过OGNL读取对象的属性值，通过属性.属性.属性…的方式获取属性值</p>
-<h4 id="mybatis和hibernate本质区别和应用场景"><a href="#mybatis和hibernate本质区别和应用场景" class="headerlink" title="mybatis和hibernate本质区别和应用场景"></a>mybatis和hibernate本质区别和应用场景</h4><p><strong>hibernate</strong>：入门门槛较高，是一个标准的ORM框架（对象关系映射），不需要程序员写sql，sql语句自动生成。对sql语句的优化、修改比较困难</p>
+<h4 id="mybatis和hibernate本质区别和应用场景">0.3.2.1. mybatis和hibernate本质区别和应用场景</h4><p><strong>hibernate</strong>：入门门槛较高，是一个标准的ORM框架（对象关系映射），不需要程序员写sql，sql语句自动生成。对sql语句的优化、修改比较困难</p>
 <p><strong>应用场景</strong>：适应于需求变化较少的中小型的项目，比如：后台管理系统，erp、orm、oa…</p>
 <p><strong>mybatis</strong>：专注于sql本身，需要程序员自己编写sql语句，sql修改、优化比较方便。mybatis是一个不完全的ORM框架，虽然程序员自己写sql，但是存在映射（输入映射、输出映射）</p>
 <p><strong>应用场景</strong>：适应于需求项目较多的项目，比如：互联网项目</p>
 <p>企业进行技术选型，以低成本、高回报作为技术选型的原则，根据项目组的项目力量进行选择</p>
-<h2 id="mybatis开发dao的两种方法"><a href="#mybatis开发dao的两种方法" class="headerlink" title="mybatis开发dao的两种方法"></a>mybatis开发dao的两种方法</h2><h3 id="SqlSession使用范围（单例）"><a href="#SqlSession使用范围（单例）" class="headerlink" title="SqlSession使用范围（单例）"></a>SqlSession使用范围（单例）</h3><p>通过<strong>SqlSessionFactoryBuilder</strong>创建SqlSessionFactory，将SqlSessionFactoryBuilder当成一个工具类即可，不需要使用单例管理SqlSessionFactoryBuilder。在需要创建工厂的时候只需要创建一次SqlSessionFactoryBuilder即可（因为下面的SqlSessionFactory是单例管理的）</p>
+<h2 id="mybatis开发dao的两种方法">0.4. mybatis开发dao的两种方法</h2><h3 id="SqlSession使用范围（单例）">0.4.1. SqlSession使用范围（单例）</h3><p>通过<strong>SqlSessionFactoryBuilder</strong>创建SqlSessionFactory，将SqlSessionFactoryBuilder当成一个工具类即可，不需要使用单例管理SqlSessionFactoryBuilder。在需要创建工厂的时候只需要创建一次SqlSessionFactoryBuilder即可（因为下面的SqlSessionFactory是单例管理的）</p>
 <p>通过<strong>SqlSessionFactory</strong>创建SqlSession，通过使用单例模式管理sqlSessionFactory（工厂一旦创建，就一直使用一个实例）</p>
 <p>将来mybatis和spring整合后，使用单例模式管理sqlSessionFactory</p>
 <p>SqlSession：是一个面向用户（程序员）的接口提供了很多操作数据库的方法：如：selectOne、selectList。是线程不安全的，在SqlSession的实现类中，除了有接口中的方法（操作数据库的方法）、还有数据域的属性（多例不安全）。<em>SqlSession最佳的应用场合在方法体内，定义成局部变量</em></p>
-<h3 id="原始dao开发方法"><a href="#原始dao开发方法" class="headerlink" title="原始dao开发方法"></a>原始dao开发方法</h3><h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p><strong>需要编写dao接口和dao实现类</strong></p>
+<h3 id="原始dao开发方法">0.4.2. 原始dao开发方法</h3><h4 id="思路">0.4.2.1. 思路</h4><p><strong>需要编写dao接口和dao实现类</strong></p>
 <p>需要向dao实现类中注入SqlSessionFactory，在方法体中通过SqlSessionFactory常见SqlSession</p>
-<h4 id="dao接口"><a href="#dao接口" class="headerlink" title="dao接口"></a>dao接口</h4><h4 id="dao接口实现类"><a href="#dao接口实现类" class="headerlink" title="dao接口实现类"></a>dao接口实现类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//需要向dao实现类中注入SqlSessionFactory</span><br><br>这里通过构造方法注入<br><br><span class="hljs-keyword">private</span> SqlSessionFactory sqlSessionFactory;<br><br><span class="hljs-keyword">public</span> 类名 (SqlSessionFactory sqlSessionFactory)&#123;<br><br><span class="hljs-keyword">this</span>.sqlSessionFactory = sqlSessionFactory;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="dao接口">0.4.2.2. dao接口</h4><h4 id="dao接口实现类">0.4.2.3. dao接口实现类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//需要向dao实现类中注入SqlSessionFactory</span><br><br>这里通过构造方法注入<br><br><span class="hljs-keyword">private</span> SqlSessionFactory sqlSessionFactory;<br><br><span class="hljs-keyword">public</span> 类名 (SqlSessionFactory sqlSessionFactory)&#123;<br><br><span class="hljs-keyword">this</span>.sqlSessionFactory = sqlSessionFactory;<br><br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p><img src="/images/1565315234136.png" srcset="/gzguo/img/loading.gif" lazyload></p>
 <p>@Befor是在测试类之前执行的类：需要创建会话工厂，供测试类通过构造器注入</p>
 <p>@Text是测试类：创建UserDao这个实现类的时候，UserDaoImpl构造器需要一个sqlSessionFactory，有@Befor提供；创建成功后可以开始调用UserDao里面的方法</p>
-<h4 id="总结原始dao开发的问题"><a href="#总结原始dao开发的问题" class="headerlink" title="总结原始dao开发的问题"></a>总结原始dao开发的问题</h4><p>1.dao接口的实现类的方法中存在大量的模板方法，设想能否将这些代码提取出来，大大减轻程序员的工作量</p>
+<h4 id="总结原始dao开发的问题">0.4.2.4. 总结原始dao开发的问题</h4><p>1.dao接口的实现类的方法中存在大量的模板方法，设想能否将这些代码提取出来，大大减轻程序员的工作量</p>
 <p>2.第一个参数：看这个蓝色的地方：是个硬编码（statement的id硬编码）</p>
 <p>3.第二个参数的类型是泛型，即使传入参数错误，在编译阶段也不报错，不利于程序员开发</p>
 <p><img src="/images/1565316318487.png" srcset="/gzguo/img/loading.gif" lazyload></p>
-<h3 id="mybatis的mapper代理的开发方法"><a href="#mybatis的mapper代理的开发方法" class="headerlink" title="mybatis的mapper代理的开发方法"></a>mybatis的mapper代理的开发方法</h3><p>程序员编写mapper.xml映射文件</p>
+<h3 id="mybatis的mapper代理的开发方法">0.4.3. mybatis的mapper代理的开发方法</h3><p>程序员编写mapper.xml映射文件</p>
 <p>程序员编写mapper接口（相当于dao接口）需要遵循一些开发规范，mybatis可以自动生成mapper接口实现类代理对象。</p>
 <p>mybatis可以自动生成mapper接口实现类的代理对象</p>
-<h4 id="开发规范"><a href="#开发规范" class="headerlink" title="开发规范"></a>开发规范</h4><p>1.在mapper.xml中namespace等于mapper接口的地址</p>
+<h4 id="开发规范">0.4.3.1. 开发规范</h4><p>1.在mapper.xml中namespace等于mapper接口的地址</p>
 <p>2.mapper.java接口中的方法名，和mapper.xml中的statement的id一致</p>
 <p>3.mapper.java接口中的方法输入参数类型和mapper.xml中statement中的statement的parameterType指定的类型一致</p>
 <p>4.mapper.java中的返回值类型和mapper.xml中的statement中的resultType指定的类型一致</p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>以上的开发规范主要是对下边的代码进行统一的生成</p>
+<h4 id="总结">0.4.3.2. 总结</h4><p>以上的开发规范主要是对下边的代码进行统一的生成</p>
 <p>namespace变成了mapper.java的路径，mapper.java中的方法名是mapper.xml的staement的id，mybatis会自动拼接这两个东西生成原始Dao开发的第一个参数，第二个参数由第三条和第四条规范实现了</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java">User user = sqlSession.selectOne(<span class="hljs-string">&quot;namespace+statement的id&quot;</span>,占位符对应的输入参数);<br><br>sqlSession.insert(<span class="hljs-string">&quot;&quot;</span>,);<br><br><span class="hljs-comment">//开启会话，无论是什么开发，都得开启会话</span><br><br>SqlSession sqlSession = sqlSessionFactory.openSession();<br><br><span class="hljs-comment">//创建UserMapper对象,mybatis自动生成mapper代理对象</span><br><br>UserMapper userMapper = sqlSession.getMapper(UserMapper.class);<br><br>调用userMapper的方法<br></code></pre></td></tr></table></figure>
 
 <p>注意：要在SqlMapConfig.xml中加载mapper.xml</p>
-<h4 id="问题总结"><a href="#问题总结" class="headerlink" title="问题总结"></a>问题总结</h4><h5 id="代理对象内部调用selectOne或selectList"><a href="#代理对象内部调用selectOne或selectList" class="headerlink" title="代理对象内部调用selectOne或selectList"></a>代理对象内部调用selectOne或selectList</h5><p>如果mapper方法返回单个pojo对象（非集合对象），代理对象的内部通过selectOne查询数据库</p>
+<h4 id="问题总结">0.4.3.3. 问题总结</h4><h5 id="代理对象内部调用selectOne或selectList">0.4.3.3.1. 代理对象内部调用selectOne或selectList</h5><p>如果mapper方法返回单个pojo对象（非集合对象），代理对象的内部通过selectOne查询数据库</p>
 <p>如果mapper方法返回对象集合，代理对象内部通过selectList查询数据库</p>
-<h5 id="mapper接口方法的参数个数"><a href="#mapper接口方法的参数个数" class="headerlink" title="mapper接口方法的参数个数"></a>mapper接口方法的参数个数</h5><p>mapper接口方法的参数个数只能有一个，系统是否不利于系统维护</p>
+<h5 id="mapper接口方法的参数个数">0.4.3.3.2. mapper接口方法的参数个数</h5><p>mapper接口方法的参数个数只能有一个，系统是否不利于系统维护</p>
 <p>系统框架中，dao层的代码是被业务层共用的，即使mapper接口只有一个参数，可以使用包装类型的pojo瞒住不同业务方法的参数</p>
 <p>注意：持久层中方法的参数可以用包装类型、map等，但是service方法中建议不要使用包装类型（不利于业务层的可扩展性）</p>
-<h2 id="Mapper代理开发和dao原始开发总结"><a href="#Mapper代理开发和dao原始开发总结" class="headerlink" title="***Mapper代理开发和dao原始开发总结"></a>***Mapper代理开发和dao原始开发总结</h2><h3 id="原始开发："><a href="#原始开发：" class="headerlink" title="原始开发："></a>原始开发：</h3><p>映射文件中的sql语句会封装到<em>mapped statement</em>对象中</p>
+<h2 id="Mapper代理开发和dao原始开发总结">0.5. ***Mapper代理开发和dao原始开发总结</h2><h3 id="原始开发：">0.5.1. 原始开发：</h3><p>映射文件中的sql语句会封装到<em>mapped statement</em>对象中</p>
 <p>在SqlMapConfig.xml中加载刚刚写好的xxxMapper.xml</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">mappers</span>&gt;</span>   <br><br>​			<span class="hljs-tag">&lt;<span class="hljs-name">mapper</span> <span class="hljs-attr">resource</span>=<span class="hljs-string">&quot;路径/xxxMapper.xml&quot;</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">mappers</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
@@ -334,7 +334,7 @@
 <p><strong>开发的流程：</strong></p>
 <p>编写写sql的xml，在mybatis全局配置的xml中加载编写sql的xml</p>
 <p><em>编写sql的xml里的namespace对应mapper.java的类的全路径，里面的sql的id对应类中的方法名（原始开发的第一个参数statementid）。mapper.java里面的方法入参和出参对应原始dao开发的第二个参数</em></p>
-<h3 id="mapper代理开发"><a href="#mapper代理开发" class="headerlink" title="mapper代理开发"></a>mapper代理开发</h3><h4 id="开发规范-1"><a href="#开发规范-1" class="headerlink" title="开发规范"></a>开发规范</h4><p>1.在mapper.xml中namespace等于mapper接口的地址</p>
+<h3 id="mapper代理开发">0.5.2. mapper代理开发</h3><h4 id="开发规范-1">0.5.2.1. 开发规范</h4><p>1.在mapper.xml中namespace等于mapper接口的地址</p>
 <p>2.mapper.java接口中的方法名，和mapper.xml中的statement的id一致</p>
 <p>3.mapper.java接口中的方法输入参数类型和mapper.xml中statement中的statement的parameterType指定的类型一致</p>
 <p>4.mapper.java中的返回值类型和mapper.xml中的statement中的resultType指定的类型一致</p>
@@ -343,9 +343,9 @@
 
 <p>第一条和第二条开发规范优化了SqlSession的第一个参数，系统可以自动拼接，不需要我们去传入了</p>
 <p>第三条和第四条开发规范优化了SqlSession的第二个参数，可以判断他的parameterType和resultType，而不是原始开发中的泛型</p>
-<h2 id="mybatis的配置文件SqlMapConfig-xml"><a href="#mybatis的配置文件SqlMapConfig-xml" class="headerlink" title="mybatis的配置文件SqlMapConfig.xml"></a>mybatis的配置文件SqlMapConfig.xml</h2><p>mybatis的全局配置文件SqlMapConifig.xml，配置内容如下：</p>
+<h2 id="mybatis的配置文件SqlMapConfig-xml">0.6. mybatis的配置文件SqlMapConfig.xml</h2><p>mybatis的全局配置文件SqlMapConifig.xml，配置内容如下：</p>
 <p>properties（属性)、setting（全局配置参数）、typeAliases（类型别名）、typeHandlers（类型处理器）、objectFactory（对象工厂）、plugins（插件）、environments（环境集合属性对象）（environment（环境子属性对象（transactionManager（事务管理）、dataSource（数据源））））、mappers（映射器）</p>
-<h3 id="properties"><a href="#properties" class="headerlink" title="properties"></a>properties</h3><p><strong>需求：</strong></p>
+<h3 id="properties">0.6.1. properties</h3><p><strong>需求：</strong></p>
 <p>将数据库连接的参数单独配置在db.properties中，只需要在SqlMapConfig.xml中加载db.properties的属性值（添加了一个配置文件），这样做的话，在SqlMapConfig.xml中就不需要对数据库的连接参数进行硬编码。</p>
 <p>将数据库连接参数只配置在db.properties中的原因：方便对参数的统一管理，其他的xml可以引用改db.properties</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--SqlMapConfig.xml加载属性文件（db.properties）--&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">properties</span> <span class="hljs-attr">resource</span> = <span class="hljs-string">&quot;db.properties&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span><br><br><span class="hljs-comment">&lt;!--配置数据库连接池--&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">dataSource</span>&gt;</span><br><br>​			<span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span> = <span class="hljs-string">&quot;driver&quot;</span> <span class="hljs-attr">value</span> = <span class="hljs-string">&quot;$&#123;文件中的属性名称&#125;&quot;</span> /&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">dataSource</span>&gt;</span><br></code></pre></td></tr></table></figure>
@@ -357,11 +357,11 @@
 <p>3.最后读取parameterType传递的属性，他会覆盖已读取的同名属性</p>
 <p>因此，通过parameterType传递的属性具有最高优先级，resource或url加载的属性次之，最低优先级是properties元素体内定义的属性</p>
 <p>建议：不要再properties元素体内添加任何属性值，只将属性值定义在properties文件中，在properties文件中定义属性名要有一定的特殊性，如xxx.xxx</p>
-<h3 id="settings全局参数配置"><a href="#settings全局参数配置" class="headerlink" title="settings全局参数配置"></a>settings全局参数配置</h3><p>mybatis运行时可以调整一些运行参数</p>
+<h3 id="settings全局参数配置">0.6.2. settings全局参数配置</h3><p>mybatis运行时可以调整一些运行参数</p>
 <p>比如：开启二级缓存，开启延迟加载</p>
 <p><img src="/images/1565343104480.png" srcset="/gzguo/img/loading.gif" lazyload></p>
 <p>这些参数会影响mybatis的运行行为，如果操作不当，可能会导致运行出现问题</p>
-<h3 id="typeAliases（别名）"><a href="#typeAliases（别名）" class="headerlink" title="typeAliases（别名）"></a>typeAliases（别名）</h3><p><strong>需求：</strong></p>
+<h3 id="typeAliases（别名）">0.6.3. typeAliases（别名）</h3><p><strong>需求：</strong></p>
 <p>在mapper.xml中，定义很多的statement，statement需要parameterType指定输入参数类型、需要resultType指定输出结果的映射类型</p>
 <p>如果在指定类型的时候输入类型全路径，不方便进行开发，可以针对parameterType或ResultType指定的类型定义一些别名，在mapper.xml中通过别名定义，方便开发</p>
 <p>mybatis有一些自己默认的别名，但是对于pojo需要自己定义别名</p>
@@ -369,18 +369,18 @@
 
 
 
-<h3 id="typeHandlers（类型处理器）"><a href="#typeHandlers（类型处理器）" class="headerlink" title="typeHandlers（类型处理器）"></a>typeHandlers（类型处理器）</h3><p>mybatis中通过typeHandlers完成jdbc类型和java类型的转换</p>
+<h3 id="typeHandlers（类型处理器）">0.6.4. typeHandlers（类型处理器）</h3><p>mybatis中通过typeHandlers完成jdbc类型和java类型的转换</p>
 <p>通常情况下，mybatis提供的处理器满足日常需要，不需要自定义</p>
-<h3 id="mappers（映射配置）"><a href="#mappers（映射配置）" class="headerlink" title="mappers（映射配置）"></a>mappers（映射配置）</h3><p>通过resource加载单个文件</p>
+<h3 id="mappers（映射配置）">0.6.5. mappers（映射配置）</h3><p>通过resource加载单个文件</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">maper</span> <span class="hljs-attr">class</span>/<span class="hljs-attr">resource</span>/<span class="hljs-attr">url</span>/ /&gt;</span><br><br><span class="hljs-comment">&lt;!--通过mapper接口加载映射文件，需要将mapper接口的类名和mapper.xml映射文件的名称保持一致，且在一个目录，上边规范的前提是使用mapper代理的方法--&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">maper</span> <span class="hljs-attr">class</span> /&gt;</span>指定的不是映射文件，指定的是class<br><br>//批量加载mapper,指定mapper接口的包名，mybatis自动扫描包下的所有接口进行加载。这个遵循上面的规范<br><br><span class="hljs-tag">&lt;<span class="hljs-name">package</span> <span class="hljs-attr">name</span> = <span class="hljs-string">&quot;&quot;</span> /&gt;</span><br></code></pre></td></tr></table></figure>
 
 
 
-<h4 id="输入映射"><a href="#输入映射" class="headerlink" title="输入映射"></a>输入映射</h4><p>通过parameterType指定输入参数类型，类型可以实简单类型、hashmap、pojo的包装类型</p>
+<h4 id="输入映射">0.6.5.1. 输入映射</h4><p>通过parameterType指定输入参数类型，类型可以实简单类型、hashmap、pojo的包装类型</p>
 <p><strong>传递pojo的包装对象</strong>：</p>
 <p>需求：完成用户信息的综合查询，需要传入查询条件很复杂（可能包含用户信息、其他信息，比如商品、订单的）</p>
 <p>针对上面的需求建议使用自定义的pojo，自定义查询条件</p>
-<h4 id="输出映射"><a href="#输出映射" class="headerlink" title="输出映射"></a>输出映射</h4><p><strong>resultType</strong>:</p>
+<h4 id="输出映射">0.6.5.2. 输出映射</h4><p><strong>resultType</strong>:</p>
 <p>使用resultType进行输出映射，只有查询出来的列名和pojo的属性名一致，该列才可以映射成功。如果查询出来的列名和pojo中的属性名全部不一致，没有创建pojo对象。只要查询出来的列名和pojo中的属性有一个一致，就会创建一个pojo对象</p>
 <p><strong>输出简单类型</strong>：用户信息的综合查询的列表总数，通过查询总数和上边用户综合查询列表才可以实现分页</p>
 <p>小节：只有查询出来的只有一行且有一列才可以使用输出简单类型</p>
@@ -398,21 +398,21 @@
 <p>userCustom类中的属性和上边的查询列名不一致</p>
 <p><strong>小节</strong>：</p>
 <p>使用resultType进行输出映射，只有查询出来的列名和pojo中的属性名一致，该列才可以映射成功，如果查询出来的列名和pojo的属性名不一致，通过定义一个resultMap对列名和pojo属性名之间作一个映射关系</p>
-<h4 id="动态sql"><a href="#动态sql" class="headerlink" title="动态sql"></a>动态sql</h4><h5 id="什么是动态sql"><a href="#什么是动态sql" class="headerlink" title="什么是动态sql"></a>什么是动态sql</h5><p>mybatis核心：对sql语句进行灵活的操作，通过表达式，对sql进行灵活判断，组装</p>
+<h4 id="动态sql">0.6.5.3. 动态sql</h4><h5 id="什么是动态sql">0.6.5.3.1. 什么是动态sql</h5><p>mybatis核心：对sql语句进行灵活的操作，通过表达式，对sql进行灵活判断，组装</p>
 <p><strong>需求</strong>：</p>
 <p>用户信息的综合查询列表和用户信息查询列表的总数 这两个statement的定义使用动态sql。对查询条件进行判断，查询条件不为空，我们才会对查询语句进行拼接</p>
-<h5 id="if"><a href="#if" class="headerlink" title="if"></a>if</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs xml">//可以去掉查询条件中的第一个and<br><br><span class="hljs-tag">&lt;<span class="hljs-name">where</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">where</span>&gt;</span><br><br>//判断条件<br><br><span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span> = <span class="hljs-string">&quot;条件&quot;</span>&gt;</span>sql语句<span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h5 id="if">0.6.5.3.2. if</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs xml">//可以去掉查询条件中的第一个and<br><br><span class="hljs-tag">&lt;<span class="hljs-name">where</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">where</span>&gt;</span><br><br>//判断条件<br><br><span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span> = <span class="hljs-string">&quot;条件&quot;</span>&gt;</span>sql语句<span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
 
 
-<h5 id="foreach"><a href="#foreach" class="headerlink" title="foreach"></a>foreach</h5><p>向sql传递数组或list，mybatis使用foreach解析</p>
+<h5 id="foreach">0.6.5.3.3. foreach</h5><p>向sql传递数组或list，mybatis使用foreach解析</p>
 <p>在用户查询列表和查询总数的statement中添加多个id输入查询</p>
-<p>在输入参数类型中添加list<Integer> ids传入多个id</p>
+<p>在输入参数类型中添加list<integer> ids传入多个id</integer></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml">//使用foreach遍历传入的ids<br><br>//collections：指定输入对象中集合属性，item：每次遍历生成对象中的属性名，open：开始遍历时拼接的串，close：结束遍历时拼接串,separator:遍历的两个对象中间需要拼接的串<br><br><span class="hljs-tag">&lt;<span class="hljs-name">foreach</span> <span class="hljs-attr">collections</span> = <span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">item</span> = <span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">open</span> = <span class="hljs-string">&quot;AND(&quot;</span> <span class="hljs-attr">close</span> = <span class="hljs-string">&quot;)&quot;</span> <span class="hljs-attr">separator</span> = <span class="hljs-string">&quot;&quot;</span>&gt;</span>id = #&#123;这里填的时item里面填的东西&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">foreach</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
 
 
-<h5 id="sql片段"><a href="#sql片段" class="headerlink" title="sql片段"></a>sql片段</h5><p><strong>需求</strong>:</p>
+<h5 id="sql片段">0.6.5.3.4. sql片段</h5><p><strong>需求</strong>:</p>
 <p>将上边实现的sql判断代码抽取出来，组成一个sql片段。其他的statement中就可以来引用这个sql片段</p>
 <p>在mapper.xml中定义的statement的引用sql片段</p>
 <p>1.定义sql</p>
@@ -458,7 +458,7 @@
                       <a href="/gzguo/2019/08/16/java/mysql/next/">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">java_mysql_next</span>
-                        <span class="visible-mobile">Previous</span>
+                        <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
@@ -467,7 +467,7 @@
                     
                       <a href="/gzguo/2019/08/14/java/mybatis/end/">
                         <span class="hidden-mobile">java_mybatis_end</span>
-                        <span class="visible-mobile">Next</span>
+                        <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -484,7 +484,7 @@
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -510,7 +510,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -519,7 +519,7 @@
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+                 for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>

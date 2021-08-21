@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="包装类、装箱、拆箱、时间类、文件类">
-  <meta name="author" content="John Doe">
-  <meta name="keywords" content="">
+  <meta name="description" content="0.0.0.1. 包装类、装箱、拆箱、时间类、文件类">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
   
-  <title>java_class_start - Hexo</title>
+  <title>java_class_start - Learing</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -87,7 +87,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/">
                 <i class="iconfont icon-home-fill"></i>
-                Home
+                首页
               </a>
             </li>
           
@@ -99,7 +99,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                Archives
+                归档
               </a>
             </li>
           
@@ -111,7 +111,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                Categories
+                分类
               </a>
             </li>
           
@@ -123,7 +123,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                Tags
+                标签
               </a>
             </li>
           
@@ -135,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/about/">
                 <i class="iconfont icon-user-fill"></i>
-                About
+                关于
               </a>
             </li>
           
@@ -174,7 +174,7 @@
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
       <time datetime="2020-09-29 20:04" pubdate>
-        September 29, 2020 pm
+        2020年9月29日 晚上
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      770 字
+      782 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9
+      10
        分钟
     </span>
   
@@ -228,13 +228,13 @@
             <h1 style="display: none">java_class_start</h1>
             
             <div class="markdown-body">
-              <h4 id="包装类、装箱、拆箱、时间类、文件类"><a href="#包装类、装箱、拆箱、时间类、文件类" class="headerlink" title="包装类、装箱、拆箱、时间类、文件类"></a><center>包装类、装箱、拆箱、时间类、文件类</center></h4><span id="more"></span>
+              <h4 id="包装类、装箱、拆箱、时间类、文件类">0.0.0.1. 包装类、装箱、拆箱、时间类、文件类</h4><span id="more"></span>
 
-<h1 id="包装类"><a href="#包装类" class="headerlink" title="包装类"></a>包装类</h1><p>包装类的作用：将基本类型包装成对象</p>
+<h1 id="包装类">1. 包装类</h1><p>包装类的作用：将基本类型包装成对象</p>
 <p>主要介绍一下Integer</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java">Integer.MAX_VALUE; <span class="hljs-comment">//查看int类型的范围的最大值</span><br>Integer.toHexString(); <span class="hljs-comment">//转化为8进制</span><br>Integer.parseInt(); <span class="hljs-comment">//强转为Integer对象</span><br><span class="hljs-keyword">new</span> Integer(); <span class="hljs-comment">//强转为Integer对象</span><br>Integer.intValue(); <span class="hljs-comment">//强转为真正的数字</span><br>String str = <span class="hljs-number">234</span>+<span class="hljs-string">&quot;&quot;</span>; <span class="hljs-comment">//将数字转为字符串</span><br></code></pre></td></tr></table></figure>
 
-<h1 id="自动装箱、拆箱"><a href="#自动装箱、拆箱" class="headerlink" title="自动装箱、拆箱"></a>自动装箱、拆箱</h1><p>自动装箱：</p>
+<h1 id="自动装箱、拆箱">2. 自动装箱、拆箱</h1><p>自动装箱：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">Integer a = <span class="hljs-number">1000</span>; <span class="hljs-comment">//jdk5.0以前这样写是错的</span><br><span class="hljs-comment">//之后有了自动装箱，编译器帮我们改进代码,变成了如下的样子：</span><br><span class="hljs-comment">//Integer a = new Integer(1000);</span><br><span class="hljs-comment">//a还是对象</span><br></code></pre></td></tr></table></figure>
 
 <p>自动拆箱：</p>
@@ -243,7 +243,7 @@
 <p>注意：</p>
 <p>装箱的时候：-128到127之间的数依然被认为是基本数据类型</p>
 <p>这样做的目的是提高效率</p>
-<h1 id="时间类"><a href="#时间类" class="headerlink" title="时间类"></a>时间类</h1><p>java.util.Date 是个核心</p>
+<h1 id="时间类">3. 时间类</h1><p>java.util.Date 是个核心</p>
 <p>java.text.DataFormat 它是个父类 ，看一下它的子类(实现类)：java.text.SimpleDateFormat</p>
 <p>java.text.SimpleDateFormat的作用：把时间对象和字符串做转化</p>
 <p>java.util.Calendar：日期计算</p>
@@ -253,19 +253,19 @@
 <li>在标准的java类库中包含了一个Date类。他的对象表示特定的瞬间，精确到毫秒</li>
 <li>java中时间表示的说白了也是数字，是从：标准纪元1970.1.1 0点开始到某个时刻的毫秒数，类型是long</li>
 </ul>
-<h2 id="DateFormat"><a href="#DateFormat" class="headerlink" title="DateFormat"></a>DateFormat</h2><p>SimpleDateFormat</p>
+<h2 id="DateFormat">3.1. DateFormat</h2><p>SimpleDateFormat</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">System.currentTimeMillis(); <span class="hljs-comment">//得到当前时间</span><br>format<br>parse<br></code></pre></td></tr></table></figure>
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java">DateFormat df = <span class="hljs-keyword">new</span> SimpleDateFormat(<span class="hljs-string">&quot;yyyy年MM月dd日 hh:mm:ss,属于本年的低w周&quot;</span>); <br><span class="hljs-comment">//这个规定了输出格式</span><br><br>Date d = <span class="hljs-keyword">new</span> Date(<span class="hljs-number">123213123L</span>);<br>String str = df.format(d);<br>System.out.println(str); <span class="hljs-comment">//1970年01月02日</span><br></code></pre></td></tr></table></figure>
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java">String str = <span class="hljs-string">&quot;1977-7-7&quot;</span>;<br><span class="hljs-comment">//必须要有格式化，还得和上面的字符串相对应</span><br>DateFormat df = <span class="hljs-keyword">new</span> SimpleDateFormat(<span class="hljs-string">&quot;yyyy-MM-dd&quot;</span>);<br><span class="hljs-keyword">try</span>&#123;<br>    Date d = df.parse(str);<br>    System.out.println(d);<br>&#125; <span class="hljs-keyword">catch</span> &#123;<br>    e.printStackTrace();<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h2 id="Calendar"><a href="#Calendar" class="headerlink" title="Calendar"></a>Calendar</h2><p>GregorianCalendar</p>
+<h2 id="Calendar">3.2. Calendar</h2><p>GregorianCalendar</p>
 <p>月份：一月是0，二月是1，以此类推，12月是11</p>
 <p>星期：星期日是一，星期六是七</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;<br>    Calendar c = <span class="hljs-keyword">new</span> GregorianCalendar();<br>    c.set(<span class="hljs-number">2001</span>,Calendar.FEBRUARY,<span class="hljs-number">10</span>,<span class="hljs-number">12</span>,<span class="hljs-number">23</span>,<span class="hljs-number">34</span>);<br>    Date d = c.getTime();<br>    System.out,println(d);<br>    <span class="hljs-comment">//输出结果：Sat Feb 10 12:23:34 CST 2001</span><br>    <span class="hljs-comment">//可以添加天数或者月数</span><br>    <span class="hljs-comment">//前面是类型，后面是数量</span><br>    c.add(Calendar.YEAR,<span class="hljs-number">30</span>);<br>    <span class="hljs-comment">//想减的话就把30换成-30</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h1 id="file"><a href="#file" class="headerlink" title="file"></a>file</h1><p>java.io.File：文件和目录路径名的抽象表现形式</p>
+<h1 id="file">4. file</h1><p>java.io.File：文件和目录路径名的抽象表现形式</p>
 <p>通过File对象可以访问文件的属性</p>
 <p>通过File对象创建空文件或目录(在该对象所指的文件或目录不存在的情况下)</p>
 <p>file里面有很多的方法，可以精确的操作某个文件，可以去网上百度一下</p>
@@ -308,7 +308,7 @@
                       <a href="/gzguo/2020/09/29/java/object/next/">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">java_object_next</span>
-                        <span class="visible-mobile">Previous</span>
+                        <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
@@ -317,7 +317,7 @@
                     
                       <a href="/gzguo/2020/09/29/c++/c++%E5%9F%BA%E7%A1%80/c++start/">
                         <span class="hidden-mobile">c++基础</span>
-                        <span class="visible-mobile">Next</span>
+                        <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -334,7 +334,7 @@
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -360,7 +360,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -369,7 +369,7 @@
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+                 for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>

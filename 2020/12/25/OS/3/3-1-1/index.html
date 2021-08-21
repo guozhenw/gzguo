@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="3-1-1内存基础">
-  <meta name="author" content="John Doe">
-  <meta name="keywords" content="">
+  <meta name="description" content="0.0.0.1. 3-1-1内存基础">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
   
-  <title>3-1-1内存基础 - Hexo</title>
+  <title>3-1-1内存基础 - Learing</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -87,7 +87,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/">
                 <i class="iconfont icon-home-fill"></i>
-                Home
+                首页
               </a>
             </li>
           
@@ -99,7 +99,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                Archives
+                归档
               </a>
             </li>
           
@@ -111,7 +111,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                Categories
+                分类
               </a>
             </li>
           
@@ -123,7 +123,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                Tags
+                标签
               </a>
             </li>
           
@@ -135,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/about/">
                 <i class="iconfont icon-user-fill"></i>
-                About
+                关于
               </a>
             </li>
           
@@ -174,7 +174,7 @@
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
       <time datetime="2020-12-25 21:17" pubdate>
-        December 25, 2020 pm
+        2020年12月25日 晚上
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      468 字
+      497 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      5
        分钟
     </span>
   
@@ -228,24 +228,24 @@
             <h1 style="display: none">3-1-1内存基础</h1>
             
             <div class="markdown-body">
-              <h4 id="3-1-1内存基础"><a href="#3-1-1内存基础" class="headerlink" title="3-1-1内存基础"></a><center>3-1-1内存基础</center></h4><span id="more"></span>
+              <h4 id="3-1-1内存基础">0.0.0.1. 3-1-1内存基础</h4><span id="more"></span>
 
-<h2 id="什么是内存"><a href="#什么是内存" class="headerlink" title="什么是内存"></a>什么是内存</h2><p>内存是用于存放数据的硬件，程序执行前先放到内存中才能被CPU处理</p>
-<h3 id="存储单元"><a href="#存储单元" class="headerlink" title="存储单元"></a>存储单元</h3><p>类似于酒店给房间编号，内存也给他所管理的内存编号，每个编号就代表一个存储单元，编号就是内存地址</p>
+<h2 id="什么是内存">0.1. 什么是内存</h2><p>内存是用于存放数据的硬件，程序执行前先放到内存中才能被CPU处理</p>
+<h3 id="存储单元">0.1.1. 存储单元</h3><p>类似于酒店给房间编号，内存也给他所管理的内存编号，每个编号就代表一个存储单元，编号就是内存地址</p>
 <p>存储单元的大小取决于计算机是按字节编址还是按照字编址</p>
-<h3 id="内存地址"><a href="#内存地址" class="headerlink" title="内存地址"></a>内存地址</h3><h2 id="进程运行的基本原理"><a href="#进程运行的基本原理" class="headerlink" title="进程运行的基本原理"></a>进程运行的基本原理</h2><h3 id="指令的工作原理"><a href="#指令的工作原理" class="headerlink" title="指令的工作原理"></a>指令的工作原理</h3><p>指令需要有参数，参数中有地址</p>
+<h3 id="内存地址">0.1.2. 内存地址</h3><h2 id="进程运行的基本原理">0.2. 进程运行的基本原理</h2><h3 id="指令的工作原理">0.2.1. 指令的工作原理</h3><p>指令需要有参数，参数中有地址</p>
 <p>这里为了方便引入了逻辑地址（相对地址）</p>
 <p>有时候只关心绝对地址（物理地址）</p>
-<h3 id="逻辑地址和物理地址"><a href="#逻辑地址和物理地址" class="headerlink" title="逻辑地址和物理地址"></a>逻辑地址和物理地址</h3><p>起始位置+相对位置=物理位置</p>
-<h3 id="从写程序到程序运行"><a href="#从写程序到程序运行" class="headerlink" title="从写程序到程序运行"></a>从写程序到程序运行</h3><p>编译：由编译程序将用户源代码编译成若干<strong>目标模块</strong>（把高级语言翻译成机器语言）</p>
+<h3 id="逻辑地址和物理地址">0.2.2. 逻辑地址和物理地址</h3><p>起始位置+相对位置=物理位置</p>
+<h3 id="从写程序到程序运行">0.2.3. 从写程序到程序运行</h3><p>编译：由编译程序将用户源代码编译成若干<strong>目标模块</strong>（把高级语言翻译成机器语言）</p>
 <p>链接：将编译形成的模块链接起来形成<strong>装入模块</strong></p>
 <p>装入：将装入模块放入内存中</p>
-<h3 id="三种链接方式"><a href="#三种链接方式" class="headerlink" title="三种链接方式"></a>三种链接方式</h3><ol>
+<h3 id="三种链接方式">0.2.4. 三种链接方式</h3><ol>
 <li>静态链接：链接起来之后不再拆开</li>
 <li>装入时动态链接：边装入边链接</li>
 <li>运行时动态链接：运行的时候进行链接</li>
 </ol>
-<h3 id="三种装入方式"><a href="#三种装入方式" class="headerlink" title="三种装入方式"></a>三种装入方式</h3><ol>
+<h3 id="三种装入方式">0.2.5. 三种装入方式</h3><ol>
 <li>绝对装入：只适合单道程序环境</li>
 <li>静态重定位（可重定位装入）：由装入程序负责地址的转变，作业在进入内存的时候必须分配他所需要的全部的内存空间，没有足够的内存，不能装入该作业</li>
 <li>动态重定位（动态运行时装入）：地址的转变留到正式运行的时候才会进行，使用重定位寄存器来存放装入模块的起始位置（允许程序在内存中发生移动）</li>
@@ -284,19 +284,19 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/gzguo/2020/12/25/OS/2/2-1-1/">
+                      <a href="/gzguo/2020/12/25/OS/3/3-1-2/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">2-1-1进程定义</span>
-                        <span class="visible-mobile">Previous</span>
+                        <span class="hidden-mobile">3-1-2内存管理</span>
+                        <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/gzguo/2020/12/25/OS/3/3-1-2/">
-                        <span class="hidden-mobile">3-1-2内存管理</span>
-                        <span class="visible-mobile">Next</span>
+                      <a href="/gzguo/2020/12/24/OS/1/1-2/">
+                        <span class="hidden-mobile">1-2操作系统概念</span>
+                        <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -313,7 +313,7 @@
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -339,7 +339,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -348,7 +348,7 @@
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+                 for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>

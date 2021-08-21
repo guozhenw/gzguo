@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="基本概念、开启线程、线程状态、线程阻塞">
-  <meta name="author" content="John Doe">
-  <meta name="keywords" content="">
+  <meta name="description" content="0.0.0.1. 基本概念、开启线程、线程状态、线程阻塞">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
   
-  <title>java_thread_start - Hexo</title>
+  <title>java_thread_start - Learing</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -87,7 +87,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/">
                 <i class="iconfont icon-home-fill"></i>
-                Home
+                首页
               </a>
             </li>
           
@@ -99,7 +99,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                Archives
+                归档
               </a>
             </li>
           
@@ -111,7 +111,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                Categories
+                分类
               </a>
             </li>
           
@@ -123,7 +123,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                Tags
+                标签
               </a>
             </li>
           
@@ -135,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/about/">
                 <i class="iconfont icon-user-fill"></i>
-                About
+                关于
               </a>
             </li>
           
@@ -174,7 +174,7 @@
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
       <time datetime="2019-08-29 08:40" pubdate>
-        August 29, 2019 am
+        2019年8月29日 早上
       </time>
     </span>
   
@@ -228,9 +228,9 @@
             <h1 style="display: none">java_thread_start</h1>
             
             <div class="markdown-body">
-              <h4 id="基本概念、开启线程、线程状态、线程阻塞"><a href="#基本概念、开启线程、线程状态、线程阻塞" class="headerlink" title="基本概念、开启线程、线程状态、线程阻塞"></a><center>基本概念、开启线程、线程状态、线程阻塞</center></h4><span id="more"></span>
+              <h4 id="基本概念、开启线程、线程状态、线程阻塞">0.0.0.1. 基本概念、开启线程、线程状态、线程阻塞</h4><span id="more"></span>
 
-<h1 id="进程线程基本概念"><a href="#进程线程基本概念" class="headerlink" title="进程线程基本概念"></a>进程线程基本概念</h1><p>程序、进程和线程的基本概念：</p>
+<h1 id="进程线程基本概念">1. 进程线程基本概念</h1><p>程序、进程和线程的基本概念：</p>
 <ul>
 <li><p>程序：Program指令集，静态概念，就相当于一个项目的代码，写完就放在那不动了</p>
 </li>
@@ -240,7 +240,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-number">1.</span>线程又被称为轻量级进程<br><span class="hljs-number">2.</span>一个进程可拥有多个并行的线程<br><span class="hljs-number">3.</span>一个进程中的线程共享相同的内存单元/内存地址空间，可以访问相同的变量和对象，而且他们从同一堆中分配对象，通信、数据交换、同步操作<br><span class="hljs-comment">//第三句话的意思就是说，线程可以共享数据，共享一份数据，就容易造成并发</span><br><span class="hljs-number">4.</span>由于线程间的通信是在同一地址空间上进行的，所以不需要额外的通信机制，这就使得通信更简便而且信息传递的速度也更快<br><span class="hljs-comment">//还是在同一条道路上，在进程上，所以信息交互很方便</span><br></code></pre></td></tr></table></figure></li>
 </ul>
 <p>异常、main方法、gc这三者，在底层的实现，就是依靠多线程</p>
-<h1 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h1><table>
+<h1 id="进程和线程的区别">2. 进程和线程的区别</h1><table>
 <thead>
 <tr>
 <th>区别</th>
@@ -274,7 +274,7 @@
 <td>线程是进程的一部分，所有线程有的时候被称之为是轻权进程或者轻量级的进程</td>
 </tr>
 </tbody></table>
-<h1 id="java中实现多线程"><a href="#java中实现多线程" class="headerlink" title="java中实现多线程"></a>java中实现多线程</h1><h2 id="继承Thread"><a href="#继承Thread" class="headerlink" title="继承Thread"></a>继承Thread</h2><p><strong>1.继承Thread + 重写run()；2.启动：创建子类对象 + 对象.start()</strong></p>
+<h1 id="java中实现多线程">3. java中实现多线程</h1><h2 id="继承Thread">3.1. 继承Thread</h2><p><strong>1.继承Thread + 重写run()；2.启动：创建子类对象 + 对象.start()</strong></p>
 <p>java实现多线程：</p>
 <ul>
 <li>在java中负责线程的这个功能是java.lang.Thread这个类</li>
@@ -292,7 +292,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">通过实现Runnable，来实现多线程的优点：<br><span class="hljs-number">1.</span>避免单继承<br><span class="hljs-number">2.</span>方便共享资源，同一份资源，多个代理访问<br></code></pre></td></tr></table></figure>
 <figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs arduino">  <br><br>### 模拟龟兔赛跑<br><br>思路：<br><br><span class="hljs-number">1.</span> 创建多线程，继承Thread + 重写<span class="hljs-built_in">run</span>(线程体)<br><span class="hljs-number">2.</span> 使用线程：创建子类对象 + 对象.<span class="hljs-built_in">start</span>()方法<br><br>​```java<br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rabbit</span> <span class="hljs-title">extends</span> <span class="hljs-title">Thread</span>&#123;</span><br>    @<span class="hljs-function">Override</span><br><span class="hljs-function">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-comment">//线程体</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">100</span>; i++)&#123;<br>            System.out.<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;兔子跑了&quot;</span>+i+<span class="hljs-string">&quot;步&quot;</span>);<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RabbitApp</span>&#123;</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">String</span>[] args)</span></span>&#123;<br>        <span class="hljs-comment">//创建子类对象，只不过是线程类的对象而已</span><br>        Rabbit rab = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Rabbit</span>();<br>        <span class="hljs-comment">//调用start方法，start会把对象加到线程中，start相当于开辟一条路</span><br>        rab.<span class="hljs-built_in">start</span>(); <span class="hljs-comment">//不要调用run方法，run方法在start内部被调用</span><br>        <span class="hljs-comment">//如果调用run，就不会加到线程中，没有开辟路径，不是多线程，还是单线程</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="继承Thread的缺点"><a href="#继承Thread的缺点" class="headerlink" title="继承Thread的缺点"></a>继承Thread的缺点</h3><ul>
+<h3 id="继承Thread的缺点">3.1.1. 继承Thread的缺点</h3><ul>
 <li><p>继承Thread类方式的缺点：那就是如果我们的类已经从一个类继承(如小程序必须继承自Applet类)，则无法再继承Thread类</p>
 </li>
 <li><p>通过Runnable接口实现多线程</p>
@@ -301,7 +301,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">通过实现Runnable，来实现多线程的优点：<br><span class="hljs-number">1.</span>避免单继承<br><span class="hljs-number">2.</span>方便共享资源，同一份资源，多个代理访问<br></code></pre></td></tr></table></figure></li>
 </ul>
 <p>Runnable接口使用了一种代理模式：称为<strong>静态代理</strong></p>
-<h2 id="静态代理-Runnable"><a href="#静态代理-Runnable" class="headerlink" title="静态代理(Runnable)"></a>静态代理(Runnable)</h2><p>静态代理(Runnable接口实现多线程)：<strong>1.实现Runnable + 实现run()；2.启动：使用静态代理</strong></p>
+<h2 id="静态代理-Runnable">3.2. 静态代理(Runnable)</h2><p>静态代理(Runnable接口实现多线程)：<strong>1.实现Runnable + 实现run()；2.启动：使用静态代理</strong></p>
 <p>具体的实现步骤：<strong>1.创建真实角色</strong> <strong>2.创建代理角色 Thread + 引用</strong> <strong>3.代理角色.start()</strong></p>
 <p>推荐使用接口：<strong>1.避免单继承的局限性 2.便于共享资源</strong></p>
 <p>静态代理模式的条件：</p>
@@ -329,7 +329,7 @@
 <li><p>便于共享资源</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//模拟购票，实现了购票功能</span><br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Web12306</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Runnable</span></span>&#123;<br>    <br>    <span class="hljs-comment">//票数</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> num = <span class="hljs-number">50</span>;<br>    <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span></span>&#123;<br>        <br>        <span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>)&#123;<br>            <span class="hljs-keyword">if</span>(num &lt;= <span class="hljs-number">0</span>)&#123;<br>            	<span class="hljs-keyword">break</span>; <span class="hljs-comment">//跳出循环，结束线程</span><br>        	&#125;<br>        &#125;<br>        <br>        System.out.println(Thread.currentThread().getName()+<span class="hljs-string">&quot;抢到了&quot;</span>+num--);<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">mian</span><span class="hljs-params">(String[] args)</span></span>&#123;<br>        <span class="hljs-comment">//创建真实角色</span><br>        Web12306 web = <span class="hljs-keyword">new</span> Web12306();<br>        <span class="hljs-comment">//代理</span><br>        Thread t1 = <span class="hljs-keyword">new</span> Thread(web,<span class="hljs-string">&quot;甲&quot;</span>); <br>        <span class="hljs-comment">//&quot;甲&quot; 是Thread.currentThread().getName()，是这个线程的名字</span><br>        Thread t2 = <span class="hljs-keyword">new</span> Thread(web,<span class="hljs-string">&quot;乙&quot;</span>);<br>        Thread t3 = <span class="hljs-keyword">new</span> Thread(web,<span class="hljs-string">&quot;丙&quot;</span>);<br>        <br>        <span class="hljs-comment">//启动线程</span><br>        t1.start();<br>        t2.start();<br>        t3.start();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 </ol>
-<h2 id="Callable"><a href="#Callable" class="headerlink" title="Callable"></a>Callable</h2><p>实现Runnable接口来实现多线程的缺点：<strong>1.不能抛异常；2.没有返回值</strong></p>
+<h2 id="Callable">3.3. Callable</h2><p>实现Runnable接口来实现多线程的缺点：<strong>1.不能抛异常；2.没有返回值</strong></p>
 <p>通过Callable接口实现多线程：</p>
 <ul>
 <li><p>优点：可以获取返回值</p>
@@ -340,9 +340,9 @@
 <p>思路：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-number">1.</span>创建Callable实现类+重写call<br><span class="hljs-number">2.</span>借助执行调度服务ExecutorService，获取Future对象<br>  <span class="hljs-number">1</span>&gt;ExecutorService ser = Excutors.newFixedThreadPool(<span class="hljs-number">2</span>);<br>  <span class="hljs-number">2</span>&gt;Future result = ser.submit(实现类对象);<br><span class="hljs-number">3.</span>获取值result.get()<br><span class="hljs-number">4.</span>停止服务ser.shutdownNow()<br></code></pre></td></tr></table></figure>
 
-<h3 id="模拟龟兔赛跑"><a href="#模拟龟兔赛跑" class="headerlink" title="模拟龟兔赛跑"></a>模拟龟兔赛跑</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Race</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Callable</span>&lt;<span class="hljs-title">Integer</span>&gt;</span>&#123;<br>    <br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> time;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> flag = <span class="hljs-keyword">true</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> step = <span class="hljs-number">0</span>; <span class="hljs-comment">//步</span><br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setFlag</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> flag)</span></span>&#123;<br>        <span class="hljs-keyword">this</span>.flag = flag;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Race</span><span class="hljs-params">()</span></span>&#123;<br>        <br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Race</span><span class="hljs-params">(String name)</span></span>&#123;<br>        <span class="hljs-keyword">super</span>();<br>        <span class="hljs-keyword">this</span>.name = name;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Race</span><span class="hljs-params">(String name,<span class="hljs-keyword">int</span> time)</span></span>&#123;<br>        <span class="hljs-keyword">super</span>();<br>        <span class="hljs-keyword">this</span>.name = name;<br>        <span class="hljs-keyword">this</span>.time = time;<br>    &#125;<br>    <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">call</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception</span>&#123;<br>        <br>        <span class="hljs-keyword">while</span>(flag)&#123;<br>            Thread.sleep(time); <span class="hljs-comment">//延时</span><br>            step++;<br>        &#125;<br>        <span class="hljs-keyword">return</span> step;<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">//使用Callable创建线程</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Testcall</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span></span><br><span class="hljs-function">        IntereuptedException,ExecutionException</span>&#123;<br>        <span class="hljs-comment">//创建线程</span><br>        ExecutorService ser = Executors.newFixedThreadPool(<span class="hljs-number">2</span>); <span class="hljs-comment">//数字代表创建几个线程</span><br>        Race tortoise = <span class="hljs-keyword">new</span> Race(<span class="hljs-string">&quot;乌龟&quot;</span>,<span class="hljs-number">1000</span>);<br>        Race rabbit = <span class="hljs-keyword">new</span> Race(<span class="hljs-string">&quot;兔子&quot;</span>,<span class="hljs-number">500</span>);<br>        <span class="hljs-comment">//获取值</span><br>        Future&lt;Integer&gt; result1 = ser.submit(tortoise);<br>        Future&lt;Integer&gt; result2 = ser.submit(rabbit);<br>        <br>        Thread.sleep(<span class="hljs-number">2000</span>);<br>        tortoise.setFlag(<span class="hljs-keyword">false</span>);<br>        rabbit.setFlag(<span class="hljs-keyword">false</span>);<br>        <br>        <span class="hljs-keyword">int</span> num1 = result1.get();<br>        <span class="hljs-keyword">int</span> num2 = result2.get();<br>        <br>        System.out.println(<span class="hljs-string">&quot;乌龟跑了&quot;</span>+num1+<span class="hljs-string">&quot;步&quot;</span>); <span class="hljs-comment">//输出结果：step</span><br>        System.out.println(<span class="hljs-string">&quot;兔子跑了&quot;</span>+num2+<span class="hljs-string">&quot;步&quot;</span>);<br>        <br>        <span class="hljs-comment">//停止服务</span><br>        ser.shutdownNow();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="模拟龟兔赛跑">3.3.1. 模拟龟兔赛跑</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Race</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Callable</span>&lt;<span class="hljs-title">Integer</span>&gt;</span>&#123;<br>    <br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> time;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> flag = <span class="hljs-keyword">true</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> step = <span class="hljs-number">0</span>; <span class="hljs-comment">//步</span><br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setFlag</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> flag)</span></span>&#123;<br>        <span class="hljs-keyword">this</span>.flag = flag;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Race</span><span class="hljs-params">()</span></span>&#123;<br>        <br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Race</span><span class="hljs-params">(String name)</span></span>&#123;<br>        <span class="hljs-keyword">super</span>();<br>        <span class="hljs-keyword">this</span>.name = name;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Race</span><span class="hljs-params">(String name,<span class="hljs-keyword">int</span> time)</span></span>&#123;<br>        <span class="hljs-keyword">super</span>();<br>        <span class="hljs-keyword">this</span>.name = name;<br>        <span class="hljs-keyword">this</span>.time = time;<br>    &#125;<br>    <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">call</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception</span>&#123;<br>        <br>        <span class="hljs-keyword">while</span>(flag)&#123;<br>            Thread.sleep(time); <span class="hljs-comment">//延时</span><br>            step++;<br>        &#125;<br>        <span class="hljs-keyword">return</span> step;<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">//使用Callable创建线程</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Testcall</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span></span><br><span class="hljs-function">        IntereuptedException,ExecutionException</span>&#123;<br>        <span class="hljs-comment">//创建线程</span><br>        ExecutorService ser = Executors.newFixedThreadPool(<span class="hljs-number">2</span>); <span class="hljs-comment">//数字代表创建几个线程</span><br>        Race tortoise = <span class="hljs-keyword">new</span> Race(<span class="hljs-string">&quot;乌龟&quot;</span>,<span class="hljs-number">1000</span>);<br>        Race rabbit = <span class="hljs-keyword">new</span> Race(<span class="hljs-string">&quot;兔子&quot;</span>,<span class="hljs-number">500</span>);<br>        <span class="hljs-comment">//获取值</span><br>        Future&lt;Integer&gt; result1 = ser.submit(tortoise);<br>        Future&lt;Integer&gt; result2 = ser.submit(rabbit);<br>        <br>        Thread.sleep(<span class="hljs-number">2000</span>);<br>        tortoise.setFlag(<span class="hljs-keyword">false</span>);<br>        rabbit.setFlag(<span class="hljs-keyword">false</span>);<br>        <br>        <span class="hljs-keyword">int</span> num1 = result1.get();<br>        <span class="hljs-keyword">int</span> num2 = result2.get();<br>        <br>        System.out.println(<span class="hljs-string">&quot;乌龟跑了&quot;</span>+num1+<span class="hljs-string">&quot;步&quot;</span>); <span class="hljs-comment">//输出结果：step</span><br>        System.out.println(<span class="hljs-string">&quot;兔子跑了&quot;</span>+num2+<span class="hljs-string">&quot;步&quot;</span>);<br>        <br>        <span class="hljs-comment">//停止服务</span><br>        ser.shutdownNow();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h1 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h1><p>创建之后是新生状态，调用start方法之后进入就绪状态，CPU调度到之后进入运行状态，在时间片内完成了任务就进入死亡状态，没有执行完就进入挂起(就绪状态)</p>
+<h1 id="线程状态">4. 线程状态</h1><p>创建之后是新生状态，调用start方法之后进入就绪状态，CPU调度到之后进入运行状态，在时间片内完成了任务就进入死亡状态，没有执行完就进入挂起(就绪状态)</p>
 <p>线程状态：</p>
 <ul>
 <li>新生状态：用new关键字和Thread类或其子类建立一个线程对象后，该线程对象就处于新生状态。处于新生状态的线程有自己的内存空间，通过调用start方法进入就绪状态(runnable)</li>
@@ -351,19 +351,19 @@
 <li><strong>阻塞状态</strong>：处于运行状态的线程在某些情况下，如执行了sleep(睡眠)方法，或等待IO设备等资源，将让出CPU并暂时停止自己的运行，进入到阻塞状态。在阻塞状态的线程不能就如就绪队列。只有当引起阻塞的原因消除时，如睡眠时间已到，或等到的IO设备空闲下来，线程便转入就绪状态，重新到就绪队列中排队等待，被系统选中后从原来停止的位置开始继续运行</li>
 <li>死亡状态：死亡状态是线程生命周期中的最后一个阶段。线程死亡的原因有两个。一个是正常运行的线程完成了它全部的工作，另一个是线程被强制性的终止，如通过执行stop或destory方法来终止一个线程(不推荐使用这两个方法。前者会产生异常，后者是强制终止，不会释放锁)</li>
 </ul>
-<h2 id="停止线程"><a href="#停止线程" class="headerlink" title="停止线程"></a>停止线程</h2><ol>
+<h2 id="停止线程">4.1. 停止线程</h2><ol>
 <li><p>自然终止：线程体正常执行完毕</p>
 </li>
 <li><p>外部干涉：通过改变标识，来结束循环</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Study</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Runnable</span></span>&#123;<br>    <span class="hljs-comment">//1.线程类中定义线程体使用的标识</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> flag = <span class="hljs-keyword">true</span>;<br>    <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-comment">//2.线程体使用该标识</span><br>        <span class="hljs-keyword">while</span>(flag)&#123;<br>            System.out.println(<span class="hljs-string">&quot;study thread……&quot;</span>);<br>        &#125;<br>    &#125;<br>    <br>    <span class="hljs-comment">//3.对外提供改变标识的方法</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">stop</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">this</span>.flag = <span class="hljs-keyword">false</span>;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;<br>        Study s = <span class="hljs-keyword">new</span> Study();<br>        <span class="hljs-keyword">new</span> Thread(s).start();<br>        <span class="hljs-comment">//4.外部干涉</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">100</span>; i++)&#123;<br>            <span class="hljs-keyword">if</span>(<span class="hljs-number">50</span> == i)&#123;<br>                s.stop();<br>            &#125;<br>            System.out.println(<span class="hljs-string">&quot;main……&quot;</span>+i)<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 </ol>
-<h1 id="线程阻塞"><a href="#线程阻塞" class="headerlink" title="线程阻塞"></a>线程阻塞</h1><h2 id="join"><a href="#join" class="headerlink" title="join"></a>join</h2><p>join：合并线程</p>
+<h1 id="线程阻塞">5. 线程阻塞</h1><h2 id="join">5.1. join</h2><p>join：合并线程</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Join</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Thread</span> <span class="hljs-title">throws</span> <span class="hljs-title">InterruptedException</span></span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span></span>&#123;<br>        Join j = <span class="hljs-keyword">new</span> Join();<br>        Thread t = <span class="hljs-keyword">new</span> Thread(j); <span class="hljs-comment">//新生</span><br>        t.start(); <span class="hljs-comment">//就绪</span><br>        <br>        <span class="hljs-comment">//CPU调度到了就运行</span><br>        <br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1000</span>; i++)&#123;<br>            <span class="hljs-keyword">if</span>(<span class="hljs-number">50</span> == i)&#123;<br>                t.join() <span class="hljs-comment">//main停下来，等待t执行完，再执行。</span><br>                <span class="hljs-comment">//main阻塞了</span><br>            &#125;<br>            System.out.println(<span class="hljs-string">&quot;join……&quot;</span>+i);<br>        &#125;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1000</span>; i++)&#123;<br>            System.out.println(<span class="hljs-string">&quot;main……&quot;</span>)+i;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h2 id="yield"><a href="#yield" class="headerlink" title="yield"></a>yield</h2><p>yield：暂停当前正在执行的线程对象，并执行其他线程，static</p>
+<h2 id="yield">5.2. yield</h2><p>yield：暂停当前正在执行的线程对象，并执行其他线程，static</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Yield</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Thread</span> <span class="hljs-title">throws</span> <span class="hljs-title">InterruptedException</span></span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span></span>&#123;<br>        Join j = <span class="hljs-keyword">new</span> Join();<br>        Thread t = <span class="hljs-keyword">new</span> Thread(j); <span class="hljs-comment">//新生</span><br>        t.start(); <span class="hljs-comment">//就绪</span><br>        <br>        <span class="hljs-comment">//CPU调度到了就运行</span><br>        <br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1000</span>; i++)&#123;<br>            <span class="hljs-keyword">if</span>(i%<span class="hljs-number">20</span> == <span class="hljs-number">0</span>)&#123;<br>                <span class="hljs-comment">//Thread.yield()是静态方法，写在谁的线程体里面就暂停谁</span><br>                <span class="hljs-comment">//暂停本线程：main</span><br>                Thread.yield();<br>            &#125;<br>            System.out.println(<span class="hljs-string">&quot;yield……&quot;</span>+i);<br>        &#125;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1000</span>; i++)&#123;<br>            System.out.println(<span class="hljs-string">&quot;main……&quot;</span>)+i;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h2 id="sleep"><a href="#sleep" class="headerlink" title="sleep"></a>sleep</h2><p>每一个对象都有一把锁，这个对象占用了资源，获得了这个资源的一把排他锁(互斥锁)，其他的线程访问不了这个对象</p>
+<h2 id="sleep">5.3. sleep</h2><p>每一个对象都有一把锁，这个对象占用了资源，获得了这个资源的一把排他锁(互斥锁)，其他的线程访问不了这个对象</p>
 <p>sleep：暂停线程多少时间，在指定的毫秒数内进行休眠。休眠的时候不释放锁</p>
 <p>sleep一般用于两种形式：1&gt;与时间相关：倒计时   2&gt;模拟网络延时</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//倒数10个数，，一秒内打印一个</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sleep</span></span>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> InterruptedException</span>&#123;<br>		<span class="hljs-keyword">int</span> num = <span class="hljs-number">10</span>;<br>		<span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>)&#123;<br>			System.out.println(num--);<br>			Thread.sleep(<span class="hljs-number">1000</span>); <span class="hljs-comment">//休眠main</span><br>			<span class="hljs-keyword">if</span>(num&lt;=<span class="hljs-number">0</span>)&#123;<br>				<span class="hljs-keyword">break</span>;<br>			&#125;<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -409,7 +409,7 @@
                       <a href="/gzguo/2019/08/30/java/exception/start/">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">java_exception_start</span>
-                        <span class="visible-mobile">Previous</span>
+                        <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
@@ -418,7 +418,7 @@
                     
                       <a href="/gzguo/2019/08/20/java/basis/next/">
                         <span class="hidden-mobile">java_next</span>
-                        <span class="visible-mobile">Next</span>
+                        <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -435,7 +435,7 @@
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -461,7 +461,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -470,7 +470,7 @@
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+                 for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>

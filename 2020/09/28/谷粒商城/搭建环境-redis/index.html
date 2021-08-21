@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="安装docker下的redis、启动、暂停">
-  <meta name="author" content="John Doe">
-  <meta name="keywords" content="">
+  <meta name="description" content="0.0.0.1. 安装docker下的redis、启动、暂停">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
   
-  <title>docker-redis环境搭建 - Hexo</title>
+  <title>docker-redis环境搭建 - Learing</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -87,7 +87,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/">
                 <i class="iconfont icon-home-fill"></i>
-                Home
+                首页
               </a>
             </li>
           
@@ -99,7 +99,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                Archives
+                归档
               </a>
             </li>
           
@@ -111,7 +111,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                Categories
+                分类
               </a>
             </li>
           
@@ -123,7 +123,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                Tags
+                标签
               </a>
             </li>
           
@@ -135,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/about/">
                 <i class="iconfont icon-user-fill"></i>
-                About
+                关于
               </a>
             </li>
           
@@ -174,7 +174,7 @@
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
       <time datetime="2020-09-28 21:17" pubdate>
-        September 28, 2020 pm
+        2020年9月28日 晚上
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      127 字
+      135 字
     </span>
   
 
@@ -228,12 +228,12 @@
             <h1 style="display: none">docker-redis环境搭建</h1>
             
             <div class="markdown-body">
-              <h4 id="安装docker下的redis、启动、暂停"><a href="#安装docker下的redis、启动、暂停" class="headerlink" title="安装docker下的redis、启动、暂停"></a><center>安装docker下的redis、启动、暂停</center></h4><span id="more"></span>
+              <h4 id="安装docker下的redis、启动、暂停">0.0.0.1. 安装docker下的redis、启动、暂停</h4><span id="more"></span>
 
-<h2 id="下载redis镜像"><a href="#下载redis镜像" class="headerlink" title="下载redis镜像"></a>下载redis镜像</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">docker</span> pull redis   下载redis最新镜像<br></code></pre></td></tr></table></figure>
+<h2 id="下载redis镜像">0.1. 下载redis镜像</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">docker</span> pull redis   下载redis最新镜像<br></code></pre></td></tr></table></figure>
 
 <p>镜像都是从dockerhub中下载的</p>
-<h2 id="启动镜像"><a href="#启动镜像" class="headerlink" title="启动镜像"></a>启动镜像</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker run -p <span class="hljs-number">6379</span>:<span class="hljs-number">6378</span> --name redis -v <span class="hljs-regexp">/mydata/</span>redis<span class="hljs-regexp">/data:/</span>data -v <span class="hljs-regexp">/mydata/</span>redis<span class="hljs-regexp">/conf/</span>redis.conf:<span class="hljs-regexp">/etc/</span>redis<span class="hljs-regexp">/redis.conf -d redis redis-server /</span>etc<span class="hljs-regexp">/redis/</span>redis.conf<br></code></pre></td></tr></table></figure>
+<h2 id="启动镜像">0.2. 启动镜像</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker run -p <span class="hljs-number">6379</span>:<span class="hljs-number">6378</span> --name redis -v <span class="hljs-regexp">/mydata/</span>redis<span class="hljs-regexp">/data:/</span>data -v <span class="hljs-regexp">/mydata/</span>redis<span class="hljs-regexp">/conf/</span>redis.conf:<span class="hljs-regexp">/etc/</span>redis<span class="hljs-regexp">/redis.conf -d redis redis-server /</span>etc<span class="hljs-regexp">/redis/</span>redis.conf<br></code></pre></td></tr></table></figure>
 
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">-d redis redis-server <span class="hljs-regexp">/etc/</span>redis/redis.conf   redis启动的额外要求，以配置文件启动<br></code></pre></td></tr></table></figure>
 
@@ -274,19 +274,19 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/gzguo/2020/09/28/%E8%B0%B7%E7%B2%92%E5%95%86%E5%9F%8E/%E9%A1%B9%E7%9B%AE%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/">
+                      <a href="/gzguo/2020/09/28/%E8%B0%B7%E7%B2%92%E5%95%86%E5%9F%8E/%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83-docker/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">项目微服务架构</span>
-                        <span class="visible-mobile">Previous</span>
+                        <span class="hidden-mobile">docker环境搭建</span>
+                        <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/gzguo/2020/09/28/Web/1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/1.1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/">
-                        <span class="hidden-mobile">1.1Web前端开发概述</span>
-                        <span class="visible-mobile">Next</span>
+                      <a href="/gzguo/2020/09/28/%E8%B0%B7%E7%B2%92%E5%95%86%E5%9F%8E/%E5%88%86%E5%B8%83%E5%BC%8F%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/">
+                        <span class="hidden-mobile">分布式基本概念</span>
+                        <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -303,7 +303,7 @@
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -329,7 +329,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -338,7 +338,7 @@
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+                 for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>

@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="2-1-5线程">
-  <meta name="author" content="John Doe">
-  <meta name="keywords" content="">
+  <meta name="description" content="0.0.0.1. 2-1-5线程">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
   
-  <title>2-1-5线程 - Hexo</title>
+  <title>2-1-5线程 - Learing</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -87,7 +87,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/">
                 <i class="iconfont icon-home-fill"></i>
-                Home
+                首页
               </a>
             </li>
           
@@ -99,7 +99,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                Archives
+                归档
               </a>
             </li>
           
@@ -111,7 +111,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                Categories
+                分类
               </a>
             </li>
           
@@ -123,7 +123,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                Tags
+                标签
               </a>
             </li>
           
@@ -135,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/about/">
                 <i class="iconfont icon-user-fill"></i>
-                About
+                关于
               </a>
             </li>
           
@@ -174,7 +174,7 @@
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
       <time datetime="2020-12-27 21:17" pubdate>
-        December 27, 2020 pm
+        2020年12月27日 晚上
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      770 字
+      790 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      8
        分钟
     </span>
   
@@ -228,17 +228,17 @@
             <h1 style="display: none">2-1-5线程</h1>
             
             <div class="markdown-body">
-              <h4 id="2-1-5线程"><a href="#2-1-5线程" class="headerlink" title="2-1-5线程"></a><center>2-1-5线程</center></h4><span id="more"></span>
+              <h4 id="2-1-5线程">0.0.0.1. 2-1-5线程</h4><span id="more"></span>
 
-<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>QQ可以进行很多的功能，但是进程是程序的一次执行</p>
+<h2 id="定义">0.1. 定义</h2><p>QQ可以进行很多的功能，但是进程是程序的一次执行</p>
 <p>很多的功能不可能是由一个程序的顺序执行就能实现的</p>
 <p>传统的进程是<strong>程序执行流</strong>的最小单位</p>
 <p>因为有的进程可能需要同时执行很多的事情，而传统的进程只能串行的执行一系列程序。为此，<strong>引入了“线程”</strong>，来增加并发调度</p>
 <p>引入了线程之后，<strong>线程就是程序执行流的最小单位，是一个基本的CPU执行单元</strong>。进程只作为除CPU之外的系统资源分配单元（<strong>系统资源是分配给进程的</strong>）。</p>
-<h2 id="引入线程的变化"><a href="#引入线程的变化" class="headerlink" title="引入线程的变化"></a>引入线程的变化</h2><p>资源分配调度：<strong>进程是资源分配的基本单位，线程是调度的基本单位</strong></p>
+<h2 id="引入线程的变化">0.2. 引入线程的变化</h2><p>资源分配调度：<strong>进程是资源分配的基本单位，线程是调度的基本单位</strong></p>
 <p>并发性：各线程之间也能并发，提升了并发速度</p>
 <p>系统开销：系统开销减小（同一个进程内线程切换，不需要切换进程环境，系统开销小）</p>
-<h2 id="线程的重要属性"><a href="#线程的重要属性" class="headerlink" title="线程的重要属性"></a>线程的重要属性</h2><ol>
+<h2 id="线程的重要属性">0.3. 线程的重要属性</h2><ol>
 <li>线程是处理机调度的单位</li>
 <li>多个CPU计算机中，各个线程可占用不同的CPU</li>
 <li>每个线程都有一个线程ID、线程控制块（TCB）</li>
@@ -251,14 +251,14 @@
 <li>切换同进程内的线程，系统开销很小</li>
 <li>切换进程，系统开销大</li>
 </ol>
-<h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><h3 id="用户级线程"><a href="#用户级线程" class="headerlink" title="用户级线程"></a>用户级线程</h3><p>由应用程序通过<strong>线程库</strong>来实现，所有的线程管理者工作都由应用程序负责（包括线程切换）</p>
+<h2 id="实现方式">0.4. 实现方式</h2><h3 id="用户级线程">0.4.1. 用户级线程</h3><p>由应用程序通过<strong>线程库</strong>来实现，所有的线程管理者工作都由应用程序负责（包括线程切换）</p>
 <p>操作系统并意识不到线程的存在，但是用户可以感受到线程的存在</p>
 <p>用户级线程就是从用户的视角可以看到的线程</p>
-<h3 id="内核级线程"><a href="#内核级线程" class="headerlink" title="内核级线程"></a>内核级线程</h3><p>又称为 内核支持的线程</p>
+<h3 id="内核级线程">0.4.2. 内核级线程</h3><p>又称为 内核支持的线程</p>
 <p>内核级的线程的管理工作由操作系统内核完成。内核级线程的切换必须在核心态下才能完成</p>
 <p>内核级线程可以理解为从操作系统的角度可以看到的线程</p>
 <p>内核级线程才是真正的处理机分配的单位</p>
-<h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><p>在同时支持用户级线程和内核级线程的系统中，由几个用户级线程映射到几个内核级线程的问题引出了”多线程模型“的问题</p>
+<h2 id="多线程">0.5. 多线程</h2><p>在同时支持用户级线程和内核级线程的系统中，由几个用户级线程映射到几个内核级线程的问题引出了”多线程模型“的问题</p>
 <p>多线程模型：</p>
 <ol>
 <li>多对一：多个用户级线程对应一个内核级线程（并发性较弱，系统开销小）</li>
@@ -302,16 +302,16 @@
                       <a href="/gzguo/2020/12/27/OS/1/1-7/">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">1-7运行机制体系结构</span>
-                        <span class="visible-mobile">Previous</span>
+                        <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/gzguo/2020/12/27/OS/2/2-2-1/">
-                        <span class="hidden-mobile">2-2-1处理机调度</span>
-                        <span class="visible-mobile">Next</span>
+                      <a href="/gzguo/2020/12/27/OS/2/2-2-3/">
+                        <span class="hidden-mobile">2-2-3调度算法的评价指标</span>
+                        <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -328,7 +328,7 @@
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -354,7 +354,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -363,7 +363,7 @@
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+                 for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>

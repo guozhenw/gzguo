@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="2-1-1进程定义">
-  <meta name="author" content="John Doe">
-  <meta name="keywords" content="">
+  <meta name="description" content="0.0.0.1. 2-1-1进程定义">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
   
-  <title>2-1-1进程定义 - Hexo</title>
+  <title>2-1-1进程定义 - Learing</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -87,7 +87,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/">
                 <i class="iconfont icon-home-fill"></i>
-                Home
+                首页
               </a>
             </li>
           
@@ -99,7 +99,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                Archives
+                归档
               </a>
             </li>
           
@@ -111,7 +111,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                Categories
+                分类
               </a>
             </li>
           
@@ -123,7 +123,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                Tags
+                标签
               </a>
             </li>
           
@@ -135,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/about/">
                 <i class="iconfont icon-user-fill"></i>
-                About
+                关于
               </a>
             </li>
           
@@ -174,7 +174,7 @@
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
       <time datetime="2020-12-25 21:17" pubdate>
-        December 25, 2020 pm
+        2020年12月25日 晚上
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      838 字
+      856 字
     </span>
   
 
@@ -228,9 +228,9 @@
             <h1 style="display: none">2-1-1进程定义</h1>
             
             <div class="markdown-body">
-              <h4 id="2-1-1进程定义"><a href="#2-1-1进程定义" class="headerlink" title="2-1-1进程定义"></a><center>2-1-1进程定义</center></h4><span id="more"></span>
+              <h4 id="2-1-1进程定义">0.0.0.1. 2-1-1进程定义</h4><span id="more"></span>
 
-<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>进程是为了解决什么问题而引入的？</p>
+<h2 id="定义">0.1. 定义</h2><p>进程是为了解决什么问题而引入的？</p>
 <p>先讲<strong>程序</strong>：就是一个指令序列</p>
 <p>早期还是单道程序执行的时候，所有的资源都是一个程序的，不需要记录程序的存放位置。内存中只有<strong>程序段和数据段</strong>。</p>
 <p>随着出现了多道程序技术，需要对程序的存放位置等的进行记录。系统会为每个运行的程序配置一个<strong>数据结构</strong>，这个数据结构称为<strong>程序控制块（PCB）</strong>，用来描述进程的各种信息（存储位置等）。内存中的<strong>程序段、数据段和进程控制块</strong>三部分构成了进程实体（进程映像）</p>
@@ -243,7 +243,7 @@
 <li>进程是一个程序及其数据在处理机上顺序执行时所发生的活动</li>
 <li>进程是具有独立功能的程序在数据集合上运行的过程，它是系统进行资源分配和调度的一个独立单位</li>
 </ol>
-<h2 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h2><p>每个进程由哪些部分组成？</p>
+<h2 id="组成">0.2. 组成</h2><p>每个进程由哪些部分组成？</p>
 <p>进程是由程序段、数据段和PCB三部分组成的</p>
 <ol>
 <li>程序段：程序代码</li>
@@ -257,21 +257,21 @@
 <li>资源分配清单（程序段指针、数据段指针、键盘、鼠标）</li>
 <li>处理机相关信息（各种寄存器值）</li>
 </ol>
-<h2 id="组织方式"><a href="#组织方式" class="headerlink" title="组织方式"></a>组织方式</h2><p>系统间的各个进程使如何被组织起来的？</p>
+<h2 id="组织方式">0.3. 组织方式</h2><p>系统间的各个进程使如何被组织起来的？</p>
 <p>进程的组成讨论进程内部，进程组织讨论进程之间</p>
-<h3 id="链接方式"><a href="#链接方式" class="headerlink" title="链接方式"></a>链接方式</h3><p>根据状态将PCB分为多个队列，操作系统持有队列指针</p>
+<h3 id="链接方式">0.3.1. 链接方式</h3><p>根据状态将PCB分为多个队列，操作系统持有队列指针</p>
 <ol>
 <li>执行指针：CPU中正在运行的进程</li>
 <li>就绪队列指针：指向当前处于就绪态的进程</li>
 <li>阻塞队列指针：指向处于阻塞状态的进程</li>
 </ol>
-<h3 id="索引方式"><a href="#索引方式" class="headerlink" title="索引方式"></a>索引方式</h3><p>根据状态建立索引表，操作系统持有表的指针</p>
+<h3 id="索引方式">0.3.2. 索引方式</h3><p>根据状态建立索引表，操作系统持有表的指针</p>
 <ol>
 <li>执行指针</li>
 <li>就绪表指针</li>
 <li>阻塞表指针</li>
 </ol>
-<h2 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h2><p>相比于程序，进程有哪些特征？</p>
+<h2 id="特征">0.4. 特征</h2><p>相比于程序，进程有哪些特征？</p>
 <ol>
 <li><strong>动态性</strong>：进程是程序的一次执行过程，是动态产生、变化和消亡的</li>
 <li><strong>并发性</strong>：内存中有多个进程实体，各进程可以并发执行</li>
@@ -316,16 +316,16 @@
                       <a href="/gzguo/2020/12/26/OS/2/2-1-4/">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">2-1-4进程通信</span>
-                        <span class="visible-mobile">Previous</span>
+                        <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/gzguo/2020/12/25/OS/3/3-1-1/">
-                        <span class="hidden-mobile">3-1-1内存基础</span>
-                        <span class="visible-mobile">Next</span>
+                      <a href="/gzguo/2020/12/25/OS/3/3-1-2/">
+                        <span class="hidden-mobile">3-1-2内存管理</span>
+                        <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -342,7 +342,7 @@
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -368,7 +368,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -377,7 +377,7 @@
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+                 for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>

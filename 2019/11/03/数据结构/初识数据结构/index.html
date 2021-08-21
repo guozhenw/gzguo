@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="数据结构预备知识">
-  <meta name="author" content="John Doe">
-  <meta name="keywords" content="">
+  <meta name="description" content="0.0.0.1. 数据结构预备知识">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
   
-  <title>初识数据结构 - Hexo</title>
+  <title>初识数据结构 - Learing</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -87,7 +87,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/">
                 <i class="iconfont icon-home-fill"></i>
-                Home
+                首页
               </a>
             </li>
           
@@ -99,7 +99,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                Archives
+                归档
               </a>
             </li>
           
@@ -111,7 +111,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                Categories
+                分类
               </a>
             </li>
           
@@ -123,7 +123,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                Tags
+                标签
               </a>
             </li>
           
@@ -135,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/about/">
                 <i class="iconfont icon-user-fill"></i>
-                About
+                关于
               </a>
             </li>
           
@@ -174,7 +174,7 @@
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
       <time datetime="2019-11-03 09:03" pubdate>
-        November 3, 2019 am
+        2019年11月3日 上午
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.3k 字
+      3.4k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      40
+      41
        分钟
     </span>
   
@@ -228,29 +228,29 @@
             <h1 style="display: none">初识数据结构</h1>
             
             <div class="markdown-body">
-              <h4 id="数据结构预备知识"><a href="#数据结构预备知识" class="headerlink" title="数据结构预备知识"></a><center>数据结构预备知识</center></h4><span id="more"></span>
+              <h4 id="数据结构预备知识">0.0.0.1. 数据结构预备知识</h4><span id="more"></span>
 
 <p>先介绍几本书：</p>
 <p>严蔚敏、吴伟民(伪算法)(清华)</p>
 <p>高一凡(实现了上面这本书的所有伪算法)(西电)</p>
 <p>黄国瑜(台湾人) 自己手写了一本数据结构</p>
-<h2 id="数据结构概述"><a href="#数据结构概述" class="headerlink" title="数据结构概述"></a>数据结构概述</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>我们如何吧现实中大量而复杂的问题以特定的数据类型和特定的存储结构保存到主存储器(内存)中，以及在此基础上为实现某个功能(比如查找某个元素，删除某个元素，对所有的元素进行排序)而执行的相应操作，这个相应操作也叫算法</p>
+<h2 id="数据结构概述">0.1. 数据结构概述</h2><h3 id="定义">0.1.1. 定义</h3><p>我们如何吧现实中大量而复杂的问题以特定的数据类型和特定的存储结构保存到主存储器(内存)中，以及在此基础上为实现某个功能(比如查找某个元素，删除某个元素，对所有的元素进行排序)而执行的相应操作，这个相应操作也叫算法</p>
 <p>数据结构 = 个体的存储方式 + 个体关系的存储方式</p>
 <p>算法 = 对存储数据的操作</p>
 <p>广义的讲数据结构包含算法</p>
-<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p>算法 = 对存储数据的操作</p>
+<h3 id="算法">0.1.2. 算法</h3><p>算法 = 对存储数据的操作</p>
 <p>广义算法：算法和存储关系没有关系</p>
 <p>狭义算法：存储方式不一样，那么执行的操作就不一样</p>
 <p>我们现在研究的是 狭义算法</p>
 <p>算法：解题的方法和步骤</p>
-<h3 id="衡量算法的标准"><a href="#衡量算法的标准" class="headerlink" title="衡量算法的标准"></a>衡量算法的标准</h3><p>时间复杂度：大概程序要执行的次数，而非执行时间 (执行的机器不一样，会影响时间，执行时间依赖硬件)</p>
+<h3 id="衡量算法的标准">0.1.3. 衡量算法的标准</h3><p>时间复杂度：大概程序要执行的次数，而非执行时间 (执行的机器不一样，会影响时间，执行时间依赖硬件)</p>
 <p>空间复杂度：算法执行过程中大概所占用的最大内存(消耗内存的多少)</p>
 <p>难易程度：尽量容易理解</p>
 <p>健壮性： 一个问题你可能并没有考虑全面<br>                这时你写了一个算法，健壮性强，就说明如果遇到你考虑之外的东西也能处理<br>                健壮性差就说明这个算法刚刚符合你自己考虑的 </p>
-<h3 id="数据结构的地位"><a href="#数据结构的地位" class="headerlink" title="数据结构的地位"></a>数据结构的地位</h3><p>数据结构是软件中<u>最核心</u>的课程</p>
+<h3 id="数据结构的地位">0.1.4. 数据结构的地位</h3><p>数据结构是软件中<u>最核心</u>的课程</p>
 <p>程序 = 数据的存储 + 数据的操作 + 可以被计算机执行的语言</p>
-<h2 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h2><h3 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h3><p>指针的重要性：指针是c语言的灵魂</p>
-<h4 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h4><p><strong>地址</strong>：内存单元的编号。(32位)从0开始的非负整数，范围0-FFFFFFFF(0-4G-1)(这里的G和硬盘的G意义相同)</p>
+<h2 id="预备知识">0.2. 预备知识</h2><h3 id="指针">0.2.1. 指针</h3><p>指针的重要性：指针是c语言的灵魂</p>
+<h4 id="定义-1">0.2.1.1. 定义</h4><p><strong>地址</strong>：内存单元的编号。(32位)从0开始的非负整数，范围0-FFFFFFFF(0-4G-1)(这里的G和硬盘的G意义相同)</p>
 <p><strong>指针</strong>：指针就是地址，地址就是指针。</p>
 <p>指针变量是存放内存单元地址的变量。</p>
 <p>指针的本质：是一个操作受限的非负整数(不能加减乘除、只能在某些特殊情况下才能减)</p>
@@ -269,7 +269,7 @@
 <p>逻辑上来讲，cpu和内存之间进行交互有三条总线进行调节：地址线（找位置、控制数据单元）、控制线（控制读写）、数据线（数据传输）</p>
 <p>32位的电脑，内存最大为4G，因为地址线只能控制2的32次方个数据单元，内存再大没有任何意义</p>
 <p>因为内存中的空间不会被清除，所以java中的局部变量必须初始化才能使用，Java中的属性不需要初始化就可以使用，因为他默认初始化了。不管怎么样，在使用之前必须初始化。</p>
-<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><ol>
+<h4 id="注意事项">0.2.1.2. 注意事项</h4><ol>
 <li>指针变量也是变量，只不过他存放的不能是内存单元的内容，只能存放内存单元的地址</li>
 <li>普通变量前不能加*</li>
 <li>常量和表达式前不能加&amp;</li>
@@ -280,9 +280,9 @@
 
 
 
-<h3 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h3><h4 id="为什么会出现结构体"><a href="#为什么会出现结构体" class="headerlink" title="为什么会出现结构体"></a>为什么会出现结构体</h4><p>为了表示一些复杂的数据，而普通的基本类型变量无法满足要求</p>
-<h4 id="什么叫结构体"><a href="#什么叫结构体" class="headerlink" title="什么叫结构体"></a>什么叫结构体</h4><p>结构体是用户根据自己的需要自己定义的复合<strong>数据类型</strong></p>
-<h4 id="如何使用结构体"><a href="#如何使用结构体" class="headerlink" title="如何使用结构体"></a>如何使用结构体</h4><p>两种方式：</p>
+<h3 id="结构体">0.2.2. 结构体</h3><h4 id="为什么会出现结构体">0.2.2.1. 为什么会出现结构体</h4><p>为了表示一些复杂的数据，而普通的基本类型变量无法满足要求</p>
+<h4 id="什么叫结构体">0.2.2.2. 什么叫结构体</h4><p>结构体是用户根据自己的需要自己定义的复合<strong>数据类型</strong></p>
+<h4 id="如何使用结构体">0.2.2.3. 如何使用结构体</h4><p>两种方式：</p>
 <p>第一种方式：st.sid 结构体变量名</p>
 <p>第二种方式：</p>
 <p>pst-&gt;sid 指针（这句话的意思是：pst所指向的结构体变量中的sid这个成员）</p>
@@ -291,13 +291,13 @@
 
 
 
-<h4 id="注意事项-1"><a href="#注意事项-1" class="headerlink" title="注意事项"></a>注意事项</h4><ol>
+<h4 id="注意事项-1">0.2.2.4. 注意事项</h4><ol>
 <li><p>结构体变量不能加减乘除但<strong>可以相互赋值</strong></p>
 </li>
 <li><p>普通结构体变量和结构体指针变量作为函数传参的问题（感受指针的方便之处，可以在传参时节省内存空间，提升程序的运行效率，减少了运行时间）</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;string.h&gt;</span></span><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Student</span> &#123;</span><br>	<span class="hljs-keyword">int</span> sid;<br>	<span class="hljs-keyword">char</span> name[<span class="hljs-number">200</span>];<br>	<span class="hljs-keyword">int</span> age;<br>&#125;; <span class="hljs-comment">//分号不能省略</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f</span><span class="hljs-params">(struct Student * pst)</span></span>;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">g</span><span class="hljs-params">(struct Student st)</span></span>;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br><br>	<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Student</span> <span class="hljs-title">st</span>;</span> <span class="hljs-comment">//分配了空间，但是存储的是垃圾值</span><br>	<span class="hljs-comment">//现在我要通过f()函数来修改他里面的值</span><br>	<span class="hljs-comment">//只用了4个字节的空间</span><br>	<span class="hljs-built_in">f</span>(&amp;st);<br><br>	<span class="hljs-comment">//通过g()函数来输出st中的值</span><br>    <span class="hljs-comment">//把整个st传过去，传了至少208个字节</span><br>    <span class="hljs-comment">//损耗内存，损耗时间，不推荐</span><br>	<span class="hljs-built_in">g</span>(st);<br><br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f</span><span class="hljs-params">(struct Student* pst)</span> </span>&#123;<br>	(*pst).sid = <span class="hljs-number">2000</span>;<br>	<span class="hljs-built_in">strcpy_s</span>((*pst).name,<span class="hljs-string">&quot;xiaohong&quot;</span>);<br>	(*pst).age = <span class="hljs-number">20</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">g</span><span class="hljs-params">(struct Student st)</span> </span>&#123;<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;sid = %d\nname = %s\nage = %d\n&quot;</span>, st.sid, st.name, st.age);<br>&#125;<br></code></pre></td></tr></table></figure></li>
 </ol>
-<h3 id="动态内存的分配和释放"><a href="#动态内存的分配和释放" class="headerlink" title="动态内存的分配和释放"></a>动态内存的分配和释放</h3><p>malloc函数分配内存</p>
+<h3 id="动态内存的分配和释放">0.2.3. 动态内存的分配和释放</h3><p>malloc函数分配内存</p>
 <p>free函数释放内存</p>
 <p>必须通过free释放，如果没有free的话，<em>即使函数已经终止了，这个内存也不会释放</em>，直到这个<strong>程序终止</strong>的时候，这个内存才有可能会被释放</p>
 <p>但是也不一定，可能会出现内存泄漏的问题。这也是我们的系统越用越慢的原因，内存会变得越来越少</p>
@@ -307,7 +307,7 @@
 
 
 
-<h3 id="memory-内存、记忆-跨函数使用内存"><a href="#memory-内存、记忆-跨函数使用内存" class="headerlink" title="memory(内存、记忆) 跨函数使用内存"></a>memory(内存、记忆) 跨函数使用内存</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;malloc.h&gt;</span></span><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">	我想要跨函数来使用内存</span><br><span class="hljs-comment">	什么意思呢？</span><br><span class="hljs-comment">	就是说我要通过一个函数来将一个指针指向确定的内存空间</span><br><span class="hljs-comment">*/</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f</span><span class="hljs-params">(<span class="hljs-keyword">int</span> **q)</span></span>;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>	<span class="hljs-keyword">int</span>* p;<br>	<span class="hljs-comment">//我们想要通过f()改变p的值，必须传p的地址</span><br>	<span class="hljs-built_in">f</span>(&amp;p);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f</span><span class="hljs-params">(<span class="hljs-keyword">int</span> ** q)</span> </span>&#123;<br>	<span class="hljs-comment">//在这里，我们必须使用malloc</span><br>	<span class="hljs-comment">//如果使用int s ;的话，在f()函数执行结束之后，我们s的内存就会被释放掉了</span><br>	<span class="hljs-comment">//不能满足我们的要求，不能指向确定的内存空间</span><br>	<span class="hljs-comment">//但是如果我们用malloc的话，malloc出来的内存空间不会因为函数f()执行完成而被释放</span><br>	<span class="hljs-comment">//malloc出来的空间只有遇到free()或者说是程序终止的时候才会被释放</span><br>	<span class="hljs-comment">//所以我们指向malloc出来的空间，不要free的话，就相当于指向了一个确定的内存空间</span><br>	*q = (<span class="hljs-keyword">int</span>*)(<span class="hljs-built_in">malloc</span>(<span class="hljs-number">4</span>));<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="memory-内存、记忆-跨函数使用内存">0.2.4. memory(内存、记忆) 跨函数使用内存</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;malloc.h&gt;</span></span><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">	我想要跨函数来使用内存</span><br><span class="hljs-comment">	什么意思呢？</span><br><span class="hljs-comment">	就是说我要通过一个函数来将一个指针指向确定的内存空间</span><br><span class="hljs-comment">*/</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f</span><span class="hljs-params">(<span class="hljs-keyword">int</span> **q)</span></span>;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>	<span class="hljs-keyword">int</span>* p;<br>	<span class="hljs-comment">//我们想要通过f()改变p的值，必须传p的地址</span><br>	<span class="hljs-built_in">f</span>(&amp;p);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f</span><span class="hljs-params">(<span class="hljs-keyword">int</span> ** q)</span> </span>&#123;<br>	<span class="hljs-comment">//在这里，我们必须使用malloc</span><br>	<span class="hljs-comment">//如果使用int s ;的话，在f()函数执行结束之后，我们s的内存就会被释放掉了</span><br>	<span class="hljs-comment">//不能满足我们的要求，不能指向确定的内存空间</span><br>	<span class="hljs-comment">//但是如果我们用malloc的话，malloc出来的内存空间不会因为函数f()执行完成而被释放</span><br>	<span class="hljs-comment">//malloc出来的空间只有遇到free()或者说是程序终止的时候才会被释放</span><br>	<span class="hljs-comment">//所以我们指向malloc出来的空间，不要free的话，就相当于指向了一个确定的内存空间</span><br>	*q = (<span class="hljs-keyword">int</span>*)(<span class="hljs-built_in">malloc</span>(<span class="hljs-number">4</span>));<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>在我们的java代码中，很多地方都是跨函数使用内存的，<strong>通过函数来让一个变量指向确定的内存</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">A a = <span class="hljs-keyword">new</span> A();<br></code></pre></td></tr></table></figure>
@@ -391,7 +391,7 @@
                       <a href="/gzguo/2020/09/28/Web/2HTML5/2.2HTML%E6%96%87%E6%A1%A3%E5%A4%B4%E9%83%A8%E7%9B%B8%E5%85%B3%E7%9A%84%E6%A0%87%E7%AD%BE/">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">2.2HTML文档头部的标签</span>
-                        <span class="visible-mobile">Previous</span>
+                        <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
@@ -400,7 +400,7 @@
                     
                       <a href="/gzguo/2019/09/07/java/regular/start/">
                         <span class="hidden-mobile">java_regular_start</span>
-                        <span class="visible-mobile">Next</span>
+                        <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -417,7 +417,7 @@
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -443,7 +443,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -452,7 +452,7 @@
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+                 for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>

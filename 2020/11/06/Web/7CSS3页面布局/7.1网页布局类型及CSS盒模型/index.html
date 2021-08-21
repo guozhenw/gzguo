@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="7.1网页布局类型及CSS盒模型">
-  <meta name="author" content="John Doe">
-  <meta name="keywords" content="">
+  <meta name="description" content="0.0.0.1. 7.1网页布局类型及CSS盒模型">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
   
-  <title>7.1网页布局类型及CSS盒模型 - Hexo</title>
+  <title>7.1网页布局类型及CSS盒模型 - Learing</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -87,7 +87,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/">
                 <i class="iconfont icon-home-fill"></i>
-                Home
+                首页
               </a>
             </li>
           
@@ -99,7 +99,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                Archives
+                归档
               </a>
             </li>
           
@@ -111,7 +111,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                Categories
+                分类
               </a>
             </li>
           
@@ -123,7 +123,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                Tags
+                标签
               </a>
             </li>
           
@@ -135,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/about/">
                 <i class="iconfont icon-user-fill"></i>
-                About
+                关于
               </a>
             </li>
           
@@ -174,7 +174,7 @@
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
       <time datetime="2020-11-06 21:17" pubdate>
-        November 6, 2020 pm
+        2020年11月6日 晚上
       </time>
     </span>
   
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      13
+      14
        分钟
     </span>
   
@@ -228,10 +228,10 @@
             <h1 style="display: none">7.1网页布局类型及CSS盒模型</h1>
             
             <div class="markdown-body">
-              <h4 id="7-1网页布局类型及CSS盒模型"><a href="#7-1网页布局类型及CSS盒模型" class="headerlink" title="7.1网页布局类型及CSS盒模型"></a><center>7.1网页布局类型及CSS盒模型</center></h4><span id="more"></span>
+              <h4 id="7-1网页布局类型及CSS盒模型">0.0.0.1. 7.1网页布局类型及CSS盒模型</h4><span id="more"></span>
 
-<h2 id="网页布局方式"><a href="#网页布局方式" class="headerlink" title="网页布局方式"></a>网页布局方式</h2><p>网页布局主要是指在页面中如何对标题、导航栏、主要内容、脚注、表单等各种主要构成元素进行一个合理的排版</p>
-<h3 id="网页布局的类型"><a href="#网页布局的类型" class="headerlink" title="网页布局的类型"></a>网页布局的类型</h3><ol>
+<h2 id="网页布局方式">0.1. 网页布局方式</h2><p>网页布局主要是指在页面中如何对标题、导航栏、主要内容、脚注、表单等各种主要构成元素进行一个合理的排版</p>
+<h3 id="网页布局的类型">0.1.1. 网页布局的类型</h3><ol>
 <li><p>固定式<br>用固定的宽度设计网页布局尺寸，这种布局有一个设置了固定宽度的外包裹，里面的各个模块也是固定宽度。<br>优点：</p>
 <ol>
 <li>设计师所设计的就是最终用户所看到的</li>
@@ -271,18 +271,18 @@
 </ol>
 </li>
 </ol>
-<h2 id="DIV-CSS布局技术"><a href="#DIV-CSS布局技术" class="headerlink" title="DIV+CSS布局技术"></a>DIV+CSS布局技术</h2><p>把页面中所有的元素都看成是一个盒子，通过盒子进行CSS样式定义，并借助DIV变迁及其CSS定位实现网页布局</p>
-<h3 id="DIV-CSS布局的方法步骤"><a href="#DIV-CSS布局的方法步骤" class="headerlink" title="DIV+CSS布局的方法步骤"></a>DIV+CSS布局的方法步骤</h3><ol>
+<h2 id="DIV-CSS布局技术">0.2. DIV+CSS布局技术</h2><p>把页面中所有的元素都看成是一个盒子，通过盒子进行CSS样式定义，并借助DIV变迁及其CSS定位实现网页布局</p>
+<h3 id="DIV-CSS布局的方法步骤">0.2.1. DIV+CSS布局的方法步骤</h3><ol>
 <li>整体上对页面进行分块</li>
 <li>按照分块设计使用DIV标记并定义其样式属性</li>
 <li>对DIV盒子进行定位实现页面布局</li>
 </ol>
-<h3 id="创建DIV"><a href="#创建DIV" class="headerlink" title="创建DIV"></a>创建DIV</h3><p>DIV标签是一个块标签，他将页面内容划分为独立的部分，以实现网页的规划和布局。</p>
+<h3 id="创建DIV">0.2.2. 创建DIV</h3><p>DIV标签是一个块标签，他将页面内容划分为独立的部分，以实现网页的规划和布局。</p>
 <p>DIV标签可以加入很多的属性，如：id、class、align、style等，在CSS布局设计中，为了设计网页内容和表现的分离，应尽量的减少align、style等属性的编写次数。因此，常用的属性也只有id和class两种了</p>
-<h3 id="CSS盒模型"><a href="#CSS盒模型" class="headerlink" title="CSS盒模型"></a>CSS盒模型</h3><p>是指在页面布局中，为了将页面元素合理有效的组织在一起，形成一套完整的、行之有效的原则和规范</p>
+<h3 id="CSS盒模型">0.2.3. CSS盒模型</h3><p>是指在页面布局中，为了将页面元素合理有效的组织在一起，形成一套完整的、行之有效的原则和规范</p>
 <p>CSS盒是由margin（外边距）、border（边框）、padding（内边距）、content（内容）四个部分组成，此外，还有高度和宽度两个辅助属性</p>
-<h4 id="content内容区"><a href="#content内容区" class="headerlink" title="content内容区"></a>content内容区</h4><p>是盒子模型的中心，包含了盒子的主要重要信息。包含width、height、overflow三个属性。</p>
-<h5 id="overflower"><a href="#overflower" class="headerlink" title="overflower"></a>overflower</h5><p>overflow主要是指定溢出内容的处理方式</p>
+<h4 id="content内容区">0.2.3.1. content内容区</h4><p>是盒子模型的中心，包含了盒子的主要重要信息。包含width、height、overflow三个属性。</p>
+<h5 id="overflower">0.2.3.1.1. overflower</h5><p>overflow主要是指定溢出内容的处理方式</p>
 <table>
 <thead>
 <tr>
@@ -307,14 +307,14 @@
 <td>由浏览器决定如何处理溢出部分</td>
 </tr>
 </tbody></table>
-<h5 id="border"><a href="#border" class="headerlink" title="border"></a>border</h5><p>border是指围绕元素内容和内边距的一条或多条线</p>
+<h5 id="border">0.2.3.1.2. border</h5><p>border是指围绕元素内容和内边距的一条或多条线</p>
 <p>border-width：边框宽度</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css">&#123;<span class="hljs-attribute">border-top-width</span>: <span class="hljs-number">10px</span>&#125;<br>&#123;<span class="hljs-attribute">border-width</span>: <span class="hljs-number">10px</span> <span class="hljs-number">20px</span> <span class="hljs-number">30px</span> <span class="hljs-number">40px</span>&#125; (上右下左的顺序设置)<br>如果是三个参数将按上(左右)下的顺序作用到边框上<br>如果是两个参数的话，按照(上下)(左右)的顺序作用到边框上<br>如果只有一个参数的时候，四个方向的取值相同<br></code></pre></td></tr></table></figure>
 
 <p>border-style：边框样式</p>
 <p>border-radius：可以设置四个角的圆角样式</p>
 <p>border-image：对图像边框进行设置</p>
-<h2 id="多列布局方法"><a href="#多列布局方法" class="headerlink" title="多列布局方法"></a>多列布局方法</h2><h2 id="CSS3弹性盒布局"><a href="#CSS3弹性盒布局" class="headerlink" title="CSS3弹性盒布局"></a>CSS3弹性盒布局</h2><h2 id="HTML5的语义化标签及DIV-CSS网页布局技术设计网页"><a href="#HTML5的语义化标签及DIV-CSS网页布局技术设计网页" class="headerlink" title="HTML5的语义化标签及DIV+CSS网页布局技术设计网页"></a>HTML5的语义化标签及DIV+CSS网页布局技术设计网页</h2>
+<h2 id="多列布局方法">0.3. 多列布局方法</h2><h2 id="CSS3弹性盒布局">0.4. CSS3弹性盒布局</h2><h2 id="HTML5的语义化标签及DIV-CSS网页布局技术设计网页">0.5. HTML5的语义化标签及DIV+CSS网页布局技术设计网页</h2>
             </div>
             <hr>
             <div>
@@ -348,19 +348,19 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.4CSS3%E6%A0%B7%E5%BC%8F%E7%89%B9%E6%80%A7%E5%92%8C%E5%B8%B8%E7%94%A8%E6%A0%B7%E5%BC%8F%E5%B1%9E%E6%80%A7/">
+                      <a href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.3DIV+CSS%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">6.4CSS3样式特性和常用样式属性</span>
-                        <span class="visible-mobile">Previous</span>
+                        <span class="hidden-mobile">7.3DIV+CSS网页布局</span>
+                        <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.2%E7%BD%91%E9%A1%B5%E5%85%83%E7%B4%A0%E7%9A%84%E5%AE%9A%E4%BD%8D/">
-                        <span class="hidden-mobile">7.2网页元素的定位</span>
-                        <span class="visible-mobile">Next</span>
+                      <a href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.0%E5%A4%9A%E5%88%97%E5%B8%83%E5%B1%80%E5%8F%8ACSS3%E5%BC%B9%E6%80%A7%E7%9B%92%E5%B8%83%E5%B1%80/">
+                        <span class="hidden-mobile">7.4多列布局及CSS3弹性盒布局</span>
+                        <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -377,7 +377,7 @@
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -403,7 +403,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -412,7 +412,7 @@
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+                 for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>

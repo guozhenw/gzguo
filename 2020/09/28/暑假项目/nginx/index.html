@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="nginx静态服务器配置及问题">
-  <meta name="author" content="John Doe">
-  <meta name="keywords" content="">
+  <meta name="description" content="0.0.0.1. nginx静态服务器配置及问题">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
   
-  <title>nginx静态服务器 - Hexo</title>
+  <title>nginx静态服务器 - Learing</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -87,7 +87,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/">
                 <i class="iconfont icon-home-fill"></i>
-                Home
+                首页
               </a>
             </li>
           
@@ -99,7 +99,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                Archives
+                归档
               </a>
             </li>
           
@@ -111,7 +111,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                Categories
+                分类
               </a>
             </li>
           
@@ -123,7 +123,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                Tags
+                标签
               </a>
             </li>
           
@@ -135,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/about/">
                 <i class="iconfont icon-user-fill"></i>
-                About
+                关于
               </a>
             </li>
           
@@ -174,7 +174,7 @@
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
       <time datetime="2020-09-28 21:17" pubdate>
-        September 28, 2020 pm
+        2020年9月28日 晚上
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      225 字
+      258 字
     </span>
   
 
@@ -228,29 +228,29 @@
             <h1 style="display: none">nginx静态服务器</h1>
             
             <div class="markdown-body">
-              <h4 id="nginx静态服务器配置及问题"><a href="#nginx静态服务器配置及问题" class="headerlink" title="nginx静态服务器配置及问题"></a><center>nginx静态服务器配置及问题</center></h4><span id="more"></span>
+              <h4 id="nginx静态服务器配置及问题">0.0.0.1. nginx静态服务器配置及问题</h4><span id="more"></span>
 
-<h2 id="nginx服务本地无法访问"><a href="#nginx服务本地无法访问" class="headerlink" title="nginx服务本地无法访问"></a>nginx服务本地无法访问</h2><h3 id="查看nginx配置"><a href="#查看nginx配置" class="headerlink" title="查看nginx配置"></a>查看nginx配置</h3><figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs excel">nginx -<span class="hljs-built_in">t</span>   #查看nginx配置是否正确  也可以切换到nginx的安装目录下的sbin目录下，执行<span class="hljs-symbol">:</span> ./nginx -<span class="hljs-built_in">t</span><br></code></pre></td></tr></table></figure>
+<h2 id="nginx服务本地无法访问">0.1. nginx服务本地无法访问</h2><h3 id="查看nginx配置">0.1.1. 查看nginx配置</h3><figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs excel">nginx -<span class="hljs-built_in">t</span>   #查看nginx配置是否正确  也可以切换到nginx的安装目录下的sbin目录下，执行<span class="hljs-symbol">:</span> ./nginx -<span class="hljs-built_in">t</span><br></code></pre></td></tr></table></figure>
 
-<h3 id="查看nginx是否启动"><a href="#查看nginx是否启动" class="headerlink" title="查看nginx是否启动"></a>查看nginx是否启动</h3><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs perl">ps -ef | <span class="hljs-keyword">grep</span> nginx  <span class="hljs-comment">#查看nginx端口</span><br></code></pre></td></tr></table></figure>
+<h3 id="查看nginx是否启动">0.1.2. 查看nginx是否启动</h3><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs perl">ps -ef | <span class="hljs-keyword">grep</span> nginx  <span class="hljs-comment">#查看nginx端口</span><br></code></pre></td></tr></table></figure>
 
-<h3 id="重新启动nginx"><a href="#重新启动nginx" class="headerlink" title="重新启动nginx"></a>重新启动nginx</h3><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">nginx -s reload</span><br></code></pre></td></tr></table></figure>
+<h3 id="重新启动nginx">0.1.3. 重新启动nginx</h3><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">nginx -s reload</span><br></code></pre></td></tr></table></figure>
 
 <p>报错：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs linux">[root@izbp13r6miebokqjpa59gxz conf]# nginx -s reload<br>nginx: [alert] kill(2469, 1) failed (3: No such process)<br></code></pre></td></tr></table></figure>
 
-<h3 id="去nginx的sbin下重启"><a href="#去nginx的sbin下重启" class="headerlink" title="去nginx的sbin下重启"></a>去nginx的sbin下重启</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/nginx/</span>sbin   去这个目录下   <br>./nginx   执行这个命令<br></code></pre></td></tr></table></figure>
+<h3 id="去nginx的sbin下重启">0.1.4. 去nginx的sbin下重启</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/nginx/</span>sbin   去这个目录下   <br>./nginx   执行这个命令<br></code></pre></td></tr></table></figure>
 
 <p>忽然间就好了，查看的文档中写的</p>
-<h2 id="vsftpd"><a href="#vsftpd" class="headerlink" title="vsftpd"></a>vsftpd</h2><h3 id="虽然nginx可以访问了，但ftp还是不能访问"><a href="#虽然nginx可以访问了，但ftp还是不能访问" class="headerlink" title="虽然nginx可以访问了，但ftp还是不能访问"></a>虽然nginx可以访问了，但ftp还是不能访问</h3><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">systemctl <span class="hljs-built_in">start</span> vsftpd   重启<span class="hljs-keyword">ftp</span>服务 新<br>service vsftpd restart   重启<span class="hljs-keyword">ftp</span>服务<br></code></pre></td></tr></table></figure>
+<h2 id="vsftpd">0.2. vsftpd</h2><h3 id="虽然nginx可以访问了，但ftp还是不能访问">0.2.1. 虽然nginx可以访问了，但ftp还是不能访问</h3><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">systemctl <span class="hljs-built_in">start</span> vsftpd   重启<span class="hljs-keyword">ftp</span>服务 新<br>service vsftpd restart   重启<span class="hljs-keyword">ftp</span>服务<br></code></pre></td></tr></table></figure>
 
-<h3 id="vsftpd的默认配置文件"><a href="#vsftpd的默认配置文件" class="headerlink" title="vsftpd的默认配置文件"></a>vsftpd的默认配置文件</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/etc/</span>vsftpd/vsftpd_conf<br></code></pre></td></tr></table></figure>
+<h3 id="vsftpd的默认配置文件">0.2.2. vsftpd的默认配置文件</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/etc/</span>vsftpd/vsftpd_conf<br></code></pre></td></tr></table></figure>
 
-<h3 id="最后尽然是访问路径不对"><a href="#最后尽然是访问路径不对" class="headerlink" title="最后尽然是访问路径不对"></a>最后尽然是访问路径不对</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">ftp:<span class="hljs-regexp">//</span><span class="hljs-number">112.124</span>.<span class="hljs-number">17.86</span><span class="hljs-regexp">/www/im</span>ages   ftp的访问路径<br>http:<span class="hljs-regexp">//</span><span class="hljs-number">112.124</span>.<span class="hljs-number">17.86</span>/images   nginx的访问路径<br></code></pre></td></tr></table></figure>
+<h3 id="最后尽然是访问路径不对">0.2.3. 最后尽然是访问路径不对</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">ftp:<span class="hljs-regexp">//</span><span class="hljs-number">112.124</span>.<span class="hljs-number">17.86</span><span class="hljs-regexp">/www/im</span>ages   ftp的访问路径<br>http:<span class="hljs-regexp">//</span><span class="hljs-number">112.124</span>.<span class="hljs-number">17.86</span>/images   nginx的访问路径<br></code></pre></td></tr></table></figure>
 
-<h2 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a>nginx配置</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">user ftpuser<br>autoindex on<br>root <span class="hljs-regexp">/home/</span>ftpuser<span class="hljs-regexp">/www/</span><br></code></pre></td></tr></table></figure>
+<h2 id="nginx配置">0.3. nginx配置</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">user ftpuser<br>autoindex on<br>root <span class="hljs-regexp">/home/</span>ftpuser<span class="hljs-regexp">/www/</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="vsftpd配置"><a href="#vsftpd配置" class="headerlink" title="vsftpd配置"></a>vsftpd配置</h2><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">anonymous_enable</span>=<span class="hljs-literal">NO</span><br><span class="hljs-attr">pasv_enable</span>=<span class="hljs-literal">YES</span><br><span class="hljs-attr">pasv_min_port</span>=<span class="hljs-number">50000</span><br><span class="hljs-attr">pasv_max_port</span>=<span class="hljs-number">60000</span><br></code></pre></td></tr></table></figure>
+<h2 id="vsftpd配置">0.4. vsftpd配置</h2><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">anonymous_enable</span>=<span class="hljs-literal">NO</span><br><span class="hljs-attr">pasv_enable</span>=<span class="hljs-literal">YES</span><br><span class="hljs-attr">pasv_min_port</span>=<span class="hljs-number">50000</span><br><span class="hljs-attr">pasv_max_port</span>=<span class="hljs-number">60000</span><br></code></pre></td></tr></table></figure>
 
 
             </div>
@@ -289,16 +289,16 @@
                       <a href="/gzguo/2020/09/28/%E6%9A%91%E5%81%87%E9%A1%B9%E7%9B%AE/mysql/">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">mariadb</span>
-                        <span class="visible-mobile">Previous</span>
+                        <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/gzguo/2020/09/28/%E6%9A%91%E5%81%87%E9%A1%B9%E7%9B%AE/problem/">
-                        <span class="hidden-mobile">java报错</span>
-                        <span class="visible-mobile">Next</span>
+                      <a href="/gzguo/2020/09/28/%E6%9A%91%E5%81%87%E9%A1%B9%E7%9B%AE/%E5%88%86%E9%A1%B5/">
+                        <span class="hidden-mobile">java分页</span>
+                        <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -315,7 +315,7 @@
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -341,7 +341,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -350,7 +350,7 @@
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+                 for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>

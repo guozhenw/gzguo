@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="2-2-2进程调度">
-  <meta name="author" content="John Doe">
-  <meta name="keywords" content="">
+  <meta name="description" content="0.0.0.1. 2-2-2进程调度">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
   
-  <title>2-2-2进程调度 - Hexo</title>
+  <title>2-2-2进程调度 - Learing</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -87,7 +87,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/">
                 <i class="iconfont icon-home-fill"></i>
-                Home
+                首页
               </a>
             </li>
           
@@ -99,7 +99,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                Archives
+                归档
               </a>
             </li>
           
@@ -111,7 +111,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                Categories
+                分类
               </a>
             </li>
           
@@ -123,7 +123,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                Tags
+                标签
               </a>
             </li>
           
@@ -135,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/about/">
                 <i class="iconfont icon-user-fill"></i>
-                About
+                关于
               </a>
             </li>
           
@@ -174,7 +174,7 @@
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
       <time datetime="2020-12-27 21:17" pubdate>
-        December 27, 2020 pm
+        2020年12月27日 晚上
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      377 字
+      402 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      4
        分钟
     </span>
   
@@ -228,31 +228,31 @@
             <h1 style="display: none">2-2-2进程调度</h1>
             
             <div class="markdown-body">
-              <h4 id="2-2-2进程调度"><a href="#2-2-2进程调度" class="headerlink" title="2-2-2进程调度"></a><center>2-2-2进程调度</center></h4><span id="more"></span>
+              <h4 id="2-2-2进程调度">0.0.0.1. 2-2-2进程调度</h4><span id="more"></span>
 
-<h2 id="时机"><a href="#时机" class="headerlink" title="时机"></a>时机</h2><h3 id="主动放弃CPU"><a href="#主动放弃CPU" class="headerlink" title="主动放弃CPU"></a>主动放弃CPU</h3><ol>
+<h2 id="时机">0.1. 时机</h2><h3 id="主动放弃CPU">0.1.1. 主动放弃CPU</h3><ol>
 <li>进程正常终止</li>
 <li>运行过程发生异常而终止</li>
 <li>进程主动请求阻塞（等待IO）</li>
 </ol>
-<h3 id="被动放弃CPU"><a href="#被动放弃CPU" class="headerlink" title="被动放弃CPU"></a>被动放弃CPU</h3><ol>
+<h3 id="被动放弃CPU">0.1.2. 被动放弃CPU</h3><ol>
 <li>分给进程的时间片用完</li>
 <li>有更紧急的事情需要处理（IO中断）</li>
 <li>有更高优先级的进程就如就绪队列</li>
 </ol>
-<h3 id="不能进行进程调度和切换"><a href="#不能进行进程调度和切换" class="headerlink" title="不能进行进程调度和切换"></a>不能进行进程调度和切换</h3><ol>
+<h3 id="不能进行进程调度和切换">0.1.3. 不能进行进程调度和切换</h3><ol>
 <li>在处理中断的过程中</li>
 <li>进程在操作系统<strong>内核程序临界区</strong>中（再普通的临界区内可以进行调度与切换）</li>
 <li>在原子操作过程中</li>
 </ol>
-<h2 id="切换与过程"><a href="#切换与过程" class="headerlink" title="切换与过程"></a>切换与过程</h2><p>狭义的进程调度：从就绪队列中<strong>选中</strong>一个要运行的进程</p>
+<h2 id="切换与过程">0.2. 切换与过程</h2><p>狭义的进程调度：从就绪队列中<strong>选中</strong>一个要运行的进程</p>
 <p>进程切换：一个程序让出处理机，让另一个进程占用处理机</p>
 <p>广义的进程调度：包含了选择一个进程和进程切换两个步骤</p>
 <p>进程切换的过程：完成了对原来运行进程各种数据的保存，对新的进程数据的恢复</p>
-<h2 id="方式"><a href="#方式" class="headerlink" title="方式"></a>方式</h2><p>由当前运行的进程是否可以被强行剥夺处理机资源，引出了进程调度的两种方式</p>
-<h3 id="非剥夺调度方式-非抢占"><a href="#非剥夺调度方式-非抢占" class="headerlink" title="非剥夺调度方式/非抢占"></a>非剥夺调度方式/非抢占</h3><p>只允许进程主动终止</p>
+<h2 id="方式">0.3. 方式</h2><p>由当前运行的进程是否可以被强行剥夺处理机资源，引出了进程调度的两种方式</p>
+<h3 id="非剥夺调度方式-非抢占">0.3.1. 非剥夺调度方式/非抢占</h3><p>只允许进程主动终止</p>
 <p>实现简单，但是不能优先处理紧急的事情，适用于早期的</p>
-<h3 id="剥夺调度方式-抢占"><a href="#剥夺调度方式-抢占" class="headerlink" title="剥夺调度方式/抢占"></a>剥夺调度方式/抢占</h3><p>允许被动放弃CPU</p>
+<h3 id="剥夺调度方式-抢占">0.3.2. 剥夺调度方式/抢占</h3><p>允许被动放弃CPU</p>
 <p>可以优先实现紧急的事情，适用于分时操作系统和实时操作系统</p>
 
             </div>
@@ -288,19 +288,19 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/gzguo/2020/12/27/OS/2/2-2-1/">
+                      <a href="/gzguo/2020/12/27/OS/2/2-2-3/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">2-2-1处理机调度</span>
-                        <span class="visible-mobile">Previous</span>
+                        <span class="hidden-mobile">2-2-3调度算法的评价指标</span>
+                        <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/gzguo/2020/12/27/OS/2/2-2-3/">
-                        <span class="hidden-mobile">2-2-3调度算法的评价指标</span>
-                        <span class="visible-mobile">Next</span>
+                      <a href="/gzguo/2020/12/27/OS/2/2-2-1/">
+                        <span class="hidden-mobile">2-2-1处理机调度</span>
+                        <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -317,7 +317,7 @@
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -343,7 +343,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -352,7 +352,7 @@
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+                 for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>

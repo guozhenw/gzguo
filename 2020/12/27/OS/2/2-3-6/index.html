@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content=" 2-3-6生产者和消费者">
-  <meta name="author" content="John Doe">
-  <meta name="keywords" content="">
+  <meta name="description" content="0.0.0.1.  2-3-6生产者和消费者">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
   
-  <title>2-3-6生产者和消费者 - Hexo</title>
+  <title>2-3-6生产者和消费者 - Learing</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -87,7 +87,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/">
                 <i class="iconfont icon-home-fill"></i>
-                Home
+                首页
               </a>
             </li>
           
@@ -99,7 +99,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                Archives
+                归档
               </a>
             </li>
           
@@ -111,7 +111,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                Categories
+                分类
               </a>
             </li>
           
@@ -123,7 +123,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                Tags
+                标签
               </a>
             </li>
           
@@ -135,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/about/">
                 <i class="iconfont icon-user-fill"></i>
-                About
+                关于
               </a>
             </li>
           
@@ -174,7 +174,7 @@
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
       <time datetime="2020-12-27 21:17" pubdate>
-        December 27, 2020 pm
+        2020年12月27日 晚上
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      306 字
+      320 字
     </span>
   
 
@@ -228,15 +228,15 @@
             <h1 style="display: none">2-3-6生产者和消费者</h1>
             
             <div class="markdown-body">
-              <h4 id="2-3-6生产者和消费者"><a href="#2-3-6生产者和消费者" class="headerlink" title=" 2-3-6生产者和消费者"></a><center> 2-3-6生产者和消费者</center></h4><span id="more"></span>
+              <h4 id="2-3-6生产者和消费者">0.0.0.1.  2-3-6生产者和消费者</h4><span id="more"></span>
 
-<h2 id="生产者和消费者问题"><a href="#生产者和消费者问题" class="headerlink" title="生产者和消费者问题"></a>生产者和消费者问题</h2><p>系统中有一组生产者和消费者进程，生产者进程每次生产一个产品放入<strong>缓冲区</strong>，消费者进程每次从缓冲区取出一个产品并且使用</p>
+<h2 id="生产者和消费者问题">0.1. 生产者和消费者问题</h2><p>系统中有一组生产者和消费者进程，生产者进程每次生产一个产品放入<strong>缓冲区</strong>，消费者进程每次从缓冲区取出一个产品并且使用</p>
 <p>缓冲区是临界资源，必须互斥访问</p>
 <p><strong>使用PV操作实现生产者消费者这些功能：</strong></p>
 <p>一个同步一个互斥，实现互斥的P操作要放在实现同步的P操作之后，V操作顺序不会影响</p>
-<h2 id="多生产者和多消费者"><a href="#多生产者和多消费者" class="headerlink" title="多生产者和多消费者"></a>多生产者和多消费者</h2><p>互斥信号量来实现生产者生产资源的问题</p>
-<h2 id="吸烟者问题"><a href="#吸烟者问题" class="headerlink" title="吸烟者问题"></a>吸烟者问题</h2><p>先V后P</p>
-<h2 id="读写者问题"><a href="#读写者问题" class="headerlink" title="读写者问题"></a>读写者问题</h2><h2 id="哲学家进餐问题"><a href="#哲学家进餐问题" class="headerlink" title="哲学家进餐问题"></a>哲学家进餐问题</h2><p>五个哲学家，只能吃饭和思考，每个人左右手边各一根筷子</p>
+<h2 id="多生产者和多消费者">0.2. 多生产者和多消费者</h2><p>互斥信号量来实现生产者生产资源的问题</p>
+<h2 id="吸烟者问题">0.3. 吸烟者问题</h2><p>先V后P</p>
+<h2 id="读写者问题">0.4. 读写者问题</h2><h2 id="哲学家进餐问题">0.5. 哲学家进餐问题</h2><p>五个哲学家，只能吃饭和思考，每个人左右手边各一根筷子</p>
 <p>需要持有两个临界资源才能吃饭，要避免死锁</p>
 <ol>
 <li>限制只能由四个哲学家同时进餐</li>
@@ -281,7 +281,7 @@
                       <a href="/gzguo/2020/12/27/OS/2/2-3-5/">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">2-3-5信号量实现进程同步互斥</span>
-                        <span class="visible-mobile">Previous</span>
+                        <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
@@ -290,7 +290,7 @@
                     
                       <a href="/gzguo/2020/12/27/OS/2/2-4/">
                         <span class="hidden-mobile">2-4死锁</span>
-                        <span class="visible-mobile">Next</span>
+                        <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -307,7 +307,7 @@
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -333,7 +333,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -342,7 +342,7 @@
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+                 for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>

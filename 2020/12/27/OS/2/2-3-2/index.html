@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content=" 2-3-2进程互斥软件实现">
-  <meta name="author" content="John Doe">
-  <meta name="keywords" content="">
+  <meta name="description" content="0.0.0.1.  2-3-2进程互斥软件实现">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
   
-  <title>2-3-2进程互斥软件实现 - Hexo</title>
+  <title>2-3-2进程互斥软件实现 - Learing</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -87,7 +87,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/">
                 <i class="iconfont icon-home-fill"></i>
-                Home
+                首页
               </a>
             </li>
           
@@ -99,7 +99,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                Archives
+                归档
               </a>
             </li>
           
@@ -111,7 +111,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                Categories
+                分类
               </a>
             </li>
           
@@ -123,7 +123,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                Tags
+                标签
               </a>
             </li>
           
@@ -135,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/about/">
                 <i class="iconfont icon-user-fill"></i>
-                About
+                关于
               </a>
             </li>
           
@@ -174,7 +174,7 @@
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
       <time datetime="2020-12-27 21:17" pubdate>
-        December 27, 2020 pm
+        2020年12月27日 晚上
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      235 字
+      247 字
     </span>
   
 
@@ -228,16 +228,16 @@
             <h1 style="display: none">2-3-2进程互斥软件实现</h1>
             
             <div class="markdown-body">
-              <h4 id="2-3-2进程互斥软件实现"><a href="#2-3-2进程互斥软件实现" class="headerlink" title=" 2-3-2进程互斥软件实现"></a><center> 2-3-2进程互斥软件实现</center></h4><span id="more"></span>
+              <h4 id="2-3-2进程互斥软件实现">0.0.0.1.  2-3-2进程互斥软件实现</h4><span id="more"></span>
 
-<h2 id="单标志法"><a href="#单标志法" class="headerlink" title="单标志法"></a>单标志法</h2><p>每个进程进入临界区的权限只能被另一个进程赋予</p>
+<h2 id="单标志法">0.1. 单标志法</h2><p>每个进程进入临界区的权限只能被另一个进程赋予</p>
 <p>虽然实现了互斥访问，但是违背了空闲让进原则</p>
-<h2 id="双标志先检查"><a href="#双标志先检查" class="headerlink" title="双标志先检查"></a>双标志先检查</h2><p>设置boolean的数组，为true代表想进入临界区</p>
+<h2 id="双标志先检查">0.2. 双标志先检查</h2><p>设置boolean的数组，为true代表想进入临界区</p>
 <p>检查别的进程有没有进入临界区的意愿，如果都没有的话，就把自己设置成想要进入临界区（上锁）</p>
 <p>违背了忙则等待的原则</p>
-<h2 id="双标志后检查"><a href="#双标志后检查" class="headerlink" title="双标志后检查"></a>双标志后检查</h2><p>先上锁后检查，解决了上面的先检查后上锁带来的问题-&gt;违背了忙则等待原则</p>
+<h2 id="双标志后检查">0.3. 双标志后检查</h2><p>先上锁后检查，解决了上面的先检查后上锁带来的问题-&gt;违背了忙则等待原则</p>
 <p>虽然解决了忙则等待，但是违背了空闲让进和优先等待</p>
-<h2 id="Peterson算法"><a href="#Peterson算法" class="headerlink" title="Peterson算法"></a>Peterson算法</h2><p>解决上面算法，都抢着进入临界区的问题，孔融让梨</p>
+<h2 id="Peterson算法">0.4. Peterson算法</h2><p>解决上面算法，都抢着进入临界区的问题，孔融让梨</p>
 <p>但是违背了让权等待的原则</p>
 <p>相对来说是最好的</p>
 
@@ -277,7 +277,7 @@
                       <a href="/gzguo/2020/12/27/OS/2/2-3-11/">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">2-3-11管程</span>
-                        <span class="visible-mobile">Previous</span>
+                        <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
@@ -286,7 +286,7 @@
                     
                       <a href="/gzguo/2020/12/27/OS/2/2-3-3/">
                         <span class="hidden-mobile">2-3-3进程互斥硬件实现</span>
-                        <span class="visible-mobile">Next</span>
+                        <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -303,7 +303,7 @@
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -329,7 +329,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -338,7 +338,7 @@
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+                 for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>

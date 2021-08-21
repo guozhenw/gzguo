@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content=" 2-3-4信号量机制">
-  <meta name="author" content="John Doe">
-  <meta name="keywords" content="">
+  <meta name="description" content="0.0.0.1.  2-3-4信号量机制">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
   
-  <title>2-3-4信号量机制 - Hexo</title>
+  <title>2-3-4信号量机制 - Learing</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -87,7 +87,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/">
                 <i class="iconfont icon-home-fill"></i>
-                Home
+                首页
               </a>
             </li>
           
@@ -99,7 +99,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                Archives
+                归档
               </a>
             </li>
           
@@ -111,7 +111,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                Categories
+                分类
               </a>
             </li>
           
@@ -123,7 +123,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                Tags
+                标签
               </a>
             </li>
           
@@ -135,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/about/">
                 <i class="iconfont icon-user-fill"></i>
-                About
+                关于
               </a>
             </li>
           
@@ -174,7 +174,7 @@
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
       <time datetime="2020-12-27 21:17" pubdate>
-        December 27, 2020 pm
+        2020年12月27日 晚上
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      290 字
+      300 字
     </span>
   
 
@@ -228,16 +228,16 @@
             <h1 style="display: none">2-3-4信号量机制</h1>
             
             <div class="markdown-body">
-              <h4 id="2-3-4信号量机制"><a href="#2-3-4信号量机制" class="headerlink" title=" 2-3-4信号量机制"></a><center> 2-3-4信号量机制</center></h4><span id="more"></span>
+              <h4 id="2-3-4信号量机制">0.0.0.1.  2-3-4信号量机制</h4><span id="more"></span>
 
 <p>迪杰斯特拉提出了信号量机制，是一种卓有成效的进程互斥、同步的方法</p>
-<h2 id="信号量机制"><a href="#信号量机制" class="headerlink" title="信号量机制"></a>信号量机制</h2><p>用户进程可以通过操作系统提供的原语来对信号量进行操作，从而很方便的实现了进程互斥、进程同步</p>
+<h2 id="信号量机制">0.1. 信号量机制</h2><p>用户进程可以通过操作系统提供的原语来对信号量进行操作，从而很方便的实现了进程互斥、进程同步</p>
 <p>信号量就是一个变量（可以是一个整数，也可以是更复杂的记录型变量），可以用来标识系统中某种资源的数量</p>
 <p>一对原语wait(S)、signal(S)   括号里的S就是信号量，可以理解为参数</p>
 <p>wait和signal原语简称为P、V操作</p>
-<h2 id="整形信号量"><a href="#整形信号量" class="headerlink" title="整形信号量"></a>整形信号量</h2><p>用整数来表示系统资源的数量，对信号量的操作只有三种初始化、P操作、V操作</p>
+<h2 id="整形信号量">0.2. 整形信号量</h2><p>用整数来表示系统资源的数量，对信号量的操作只有三种初始化、P操作、V操作</p>
 <p>检查和上锁一气呵成，避免了并发、异步导致的问题。但是还是不满足让全等待，会导致忙等现象</p>
-<h2 id="记录型信号量"><a href="#记录型信号量" class="headerlink" title="记录型信号量"></a>记录型信号量</h2><p>解决上面的忙等的问题</p>
+<h2 id="记录型信号量">0.3. 记录型信号量</h2><p>解决上面的忙等的问题</p>
 <p>加了block原语：主动阻塞，加入到等待队列   还有wakeup原语：唤醒等待队列中的程序</p>
 
             </div>
@@ -276,7 +276,7 @@
                       <a href="/gzguo/2020/12/27/OS/2/2-3-3/">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">2-3-3进程互斥硬件实现</span>
-                        <span class="visible-mobile">Previous</span>
+                        <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
@@ -285,7 +285,7 @@
                     
                       <a href="/gzguo/2020/12/27/OS/2/2-3-5/">
                         <span class="hidden-mobile">2-3-5信号量实现进程同步互斥</span>
-                        <span class="visible-mobile">Next</span>
+                        <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -302,7 +302,7 @@
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -328,7 +328,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -337,7 +337,7 @@
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+                 for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>

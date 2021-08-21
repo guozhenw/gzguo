@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="特殊字符、量词、零宽、匹配模式、分组、预搜索、java中的使用、网络爬虫">
-  <meta name="author" content="John Doe">
-  <meta name="keywords" content="">
+  <meta name="description" content="0.0.0.1. 特殊字符、量词、零宽、匹配模式、分组、预搜索、java中的使用、网络爬虫">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
   
-  <title>java_regular_start - Hexo</title>
+  <title>java_regular_start - Learing</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -87,7 +87,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/">
                 <i class="iconfont icon-home-fill"></i>
-                Home
+                首页
               </a>
             </li>
           
@@ -99,7 +99,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                Archives
+                归档
               </a>
             </li>
           
@@ -111,7 +111,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                Categories
+                分类
               </a>
             </li>
           
@@ -123,7 +123,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                Tags
+                标签
               </a>
             </li>
           
@@ -135,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/about/">
                 <i class="iconfont icon-user-fill"></i>
-                About
+                关于
               </a>
             </li>
           
@@ -174,7 +174,7 @@
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
       <time datetime="2019-09-07 12:00" pubdate>
-        September 7, 2019 pm
+        2019年9月7日 中午
       </time>
     </span>
   
@@ -228,10 +228,10 @@
             <h1 style="display: none">java_regular_start</h1>
             
             <div class="markdown-body">
-              <h4 id="特殊字符、量词、零宽、匹配模式、分组、预搜索、java中的使用、网络爬虫"><a href="#特殊字符、量词、零宽、匹配模式、分组、预搜索、java中的使用、网络爬虫" class="headerlink" title="特殊字符、量词、零宽、匹配模式、分组、预搜索、java中的使用、网络爬虫"></a><center>特殊字符、量词、零宽、匹配模式、分组、预搜索、java中的使用、网络爬虫</center></h4><span id="more"></span>
+              <h4 id="特殊字符、量词、零宽、匹配模式、分组、预搜索、java中的使用、网络爬虫">0.0.0.1. 特殊字符、量词、零宽、匹配模式、分组、预搜索、java中的使用、网络爬虫</h4><span id="more"></span>
 
 <p><strong>regular Expression</strong></p>
-<h1 id="正则表达式的基本知识"><a href="#正则表达式的基本知识" class="headerlink" title="正则表达式的基本知识"></a>正则表达式的基本知识</h1><h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><p><em>为什么需要正则表达式</em>？文本的复杂处理</p>
+<h1 id="正则表达式的基本知识">1. 正则表达式的基本知识</h1><h2 id="基本语法">1.1. 基本语法</h2><p><em>为什么需要正则表达式</em>？文本的复杂处理</p>
 <p><em>正则表达式的优势和用途</em>：1.一种强大的文本处理工具 2.大部分编程语言、数据库、文本编译器、开发环境都支持正则表达式</p>
 <p><em>正则表达式的定义</em>：1.正如他的名字一样描述了一个规则，通过这个规则可以匹配一类字符串 2.学习正则表达式很大程度上就是学习正则表达式的语法规则</p>
 <p>开发中使用正则表达式：</p>
@@ -258,19 +258,19 @@
 <p>2&gt;标准字符集合，除小数点外(小数点在中括号内只表示小数点，没有特殊含义)，如果被包含于中括号，自定义字符集合将包含该集合。比如</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">[\d.\-+] 将匹配：数字、小数点、+、-<br></code></pre></td></tr></table></figure>
 
-<h3 id="量词"><a href="#量词" class="headerlink" title="量词"></a>量词</h3><p>量词：修饰匹配次数的特殊符号</p>
+<h3 id="量词">1.1.1. 量词</h3><p>量词：修饰匹配次数的特殊符号</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java">贪婪模式：<br>&#123;n&#125; 表达式重复n次<br>&#123;m,n&#125; 表达式至少重复m次，最多重复n次<br>&#123;m,&#125; 表达式至少重复m次<br>? 匹配表达式<span class="hljs-number">0</span>次或者<span class="hljs-number">1</span>次，相当于&#123;<span class="hljs-number">0</span>,<span class="hljs-number">1</span>&#125;<br>+ 表达式至少出现<span class="hljs-number">1</span>次，相当于&#123;<span class="hljs-number">1</span>,&#125;<br>* 表达式不出现或出现任意次，相当于&#123;<span class="hljs-number">0</span>,&#125;<br><br>非贪婪模式：<br>&#123;n&#125;? 表达式重复n次<br>&#123;m,n&#125;? 表达式至少重复m次，最多重复n次<br>&#123;m,&#125;? 表达式至少重复m次<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>匹配次数中的贪婪模式(匹配字符越多越好，默认！)</li>
 <li>匹配次数中的非贪婪模式(匹配的字符越少越好，修饰匹配次数的特殊符号后再加上一个“？”号)</li>
 </ul>
-<h3 id="字符边界-零宽"><a href="#字符边界-零宽" class="headerlink" title="字符边界(零宽)"></a>字符边界(零宽)</h3><p>本组标记匹配的不是字符而是位置，符合某种条件的位置</p>
+<h3 id="字符边界-零宽">1.1.2. 字符边界(零宽)</h3><p>本组标记匹配的不是字符而是位置，符合某种条件的位置</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">^ 与字符串开始的地方匹配<br>$ 与字符串结束的地方匹配<br>\b 匹配一个单词边界<br><span class="hljs-comment">// \b匹配这样一个位置：前面的字符和后面的字符不全是\w</span><br></code></pre></td></tr></table></figure>
 
-<h3 id="正则表达式的匹配模式"><a href="#正则表达式的匹配模式" class="headerlink" title="正则表达式的匹配模式"></a>正则表达式的匹配模式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java">IGNORECASE(ignorecase) 忽略大小写模式<br> <span class="hljs-number">1</span>&gt;匹配时忽略大小写<br> <span class="hljs-number">2</span>&gt;默认情况下，正则表达式是要区分大小写的<br>SINGLELINE(singleline) 单行模式<br> <span class="hljs-number">1</span>&gt;整个文本看作一个字符串，只有一个开头，一个结尾<br> <span class="hljs-number">2</span>&gt;使小数点“.”可以匹配包含换行符(\n)在内的任意字符<br>MULTILINE(multiline) 多行模式<br> <span class="hljs-number">1</span>&gt;每行都是一个字符串，都有开头和结尾<br> <span class="hljs-number">2</span>&gt;在指定MULTILINE之后，如果需要仅匹配字符串开始和结束位置，可以使用\A和\Z<br></code></pre></td></tr></table></figure>
+<h3 id="正则表达式的匹配模式">1.1.3. 正则表达式的匹配模式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java">IGNORECASE(ignorecase) 忽略大小写模式<br> <span class="hljs-number">1</span>&gt;匹配时忽略大小写<br> <span class="hljs-number">2</span>&gt;默认情况下，正则表达式是要区分大小写的<br>SINGLELINE(singleline) 单行模式<br> <span class="hljs-number">1</span>&gt;整个文本看作一个字符串，只有一个开头，一个结尾<br> <span class="hljs-number">2</span>&gt;使小数点“.”可以匹配包含换行符(\n)在内的任意字符<br>MULTILINE(multiline) 多行模式<br> <span class="hljs-number">1</span>&gt;每行都是一个字符串，都有开头和结尾<br> <span class="hljs-number">2</span>&gt;在指定MULTILINE之后，如果需要仅匹配字符串开始和结束位置，可以使用\A和\Z<br></code></pre></td></tr></table></figure>
 
-<h3 id="选择符和分组"><a href="#选择符和分组" class="headerlink" title="选择符和分组"></a>选择符和分组</h3><table>
+<h3 id="选择符和分组">1.1.4. 选择符和分组</h3><table>
 <thead>
 <tr>
 <th>表达式</th>
@@ -290,7 +290,7 @@
 <td>一些表达式中，不得不使用()，但又不需要保存()中的子表达式匹配的内容，这时可以用非捕获来抵消()带来的副作用</td>
 </tr>
 </tbody></table>
-<h4 id="反向引用-nnn"><a href="#反向引用-nnn" class="headerlink" title="反向引用(\nnn)"></a>反向引用(\nnn)</h4><ol>
+<h4 id="反向引用-nnn">1.1.4.1. 反向引用(\nnn)</h4><ol>
 <li>每一对()会分配一个编号，使用()的捕捉<strong>根据左括号的顺序</strong>从1开始自动编号</li>
 <li>通过反向引用，可以对分组已捕获的字符串进行引用</li>
 </ol>
@@ -298,7 +298,7 @@
 
 
 
-<h2 id="高级语法"><a href="#高级语法" class="headerlink" title="高级语法"></a>高级语法</h2><h3 id="预搜索-零宽断言"><a href="#预搜索-零宽断言" class="headerlink" title="预搜索(零宽断言)"></a>预搜索(零宽断言)</h3><p>预搜索(零宽断言)：也叫<strong>环视</strong></p>
+<h2 id="高级语法">1.2. 高级语法</h2><h3 id="预搜索-零宽断言">1.2.1. 预搜索(零宽断言)</h3><p>预搜索(零宽断言)：也叫<strong>环视</strong></p>
 <ul>
 <li>只进行子表达式的匹配，匹配内容不计入最终的匹配结果，是零宽度</li>
 <li>这个位置应该符合某个条件。判断当前位置的前后字符，是否符合指定条件，但不匹配前后字符。是对位置的匹配</li>
@@ -310,7 +310,7 @@
 
 
 
-<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="电话号码"><a href="#电话号码" class="headerlink" title="电话号码"></a>电话号码</h3><p>电话号码验证：</p>
+<h2 id="练习">1.3. 练习</h2><h3 id="电话号码">1.3.1. 电话号码</h3><p>电话号码验证：</p>
 <ul>
 <li>电话号码由数字和“-”构成</li>
 <li>电话号码为7到8位</li>
@@ -323,7 +323,7 @@
 
 
 
-<h3 id="电子邮箱"><a href="#电子邮箱" class="headerlink" title="电子邮箱"></a>电子邮箱</h3><p>电子邮箱地址验证：</p>
+<h3 id="电子邮箱">1.3.2. 电子邮箱</h3><p>电子邮箱地址验证：</p>
 <ul>
 <li>用户名：字母、数字、中划线、下划线组成</li>
 <li>@</li>
@@ -335,9 +335,9 @@
 
 
 
-<h2 id="使用正则"><a href="#使用正则" class="headerlink" title="使用正则"></a>使用正则</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java">匹配中文字符：[\u4e00-\u9fa5]<br>匹配空白行：\n\s*\r<br>匹配HTML标记：&lt;(\S*?)[^&gt;]*&gt;.*?&lt;^<span class="hljs-number">1</span>&gt;|&lt;.*?/&gt;<br>匹配首尾空白字符串：^\s*|\s*$<br>匹配Email地址：\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*<br>匹配网址URL：[a-zA-Z]+:<span class="hljs-comment">//[^\s]*</span><br>匹配国内电话号码：\d&#123;<span class="hljs-number">3</span>&#125;-\d&#123;<span class="hljs-number">8</span>&#125;|\d&#123;<span class="hljs-number">4</span>&#125;-\d&#123;<span class="hljs-number">7</span>&#125;<br>匹配腾讯QQ号：[<span class="hljs-number">1</span>-<span class="hljs-number">9</span>][<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]&#123;<span class="hljs-number">4</span>,&#125;<br>匹配中国邮政编码：[<span class="hljs-number">1</span>-<span class="hljs-number">9</span>]\d&#123;<span class="hljs-number">5</span>&#125;(?!\d)<br>匹配身份证：\d&#123;<span class="hljs-number">15</span>&#125;|\d&#123;<span class="hljs-number">18</span>&#125;<br>匹配ip地址：\d+\.\d+\.\d+\.\d+<br></code></pre></td></tr></table></figure>
+<h2 id="使用正则">1.4. 使用正则</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java">匹配中文字符：[\u4e00-\u9fa5]<br>匹配空白行：\n\s*\r<br>匹配HTML标记：&lt;(\S*?)[^&gt;]*&gt;.*?&lt;^<span class="hljs-number">1</span>&gt;|&lt;.*?/&gt;<br>匹配首尾空白字符串：^\s*|\s*$<br>匹配Email地址：\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*<br>匹配网址URL：[a-zA-Z]+:<span class="hljs-comment">//[^\s]*</span><br>匹配国内电话号码：\d&#123;<span class="hljs-number">3</span>&#125;-\d&#123;<span class="hljs-number">8</span>&#125;|\d&#123;<span class="hljs-number">4</span>&#125;-\d&#123;<span class="hljs-number">7</span>&#125;<br>匹配腾讯QQ号：[<span class="hljs-number">1</span>-<span class="hljs-number">9</span>][<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]&#123;<span class="hljs-number">4</span>,&#125;<br>匹配中国邮政编码：[<span class="hljs-number">1</span>-<span class="hljs-number">9</span>]\d&#123;<span class="hljs-number">5</span>&#125;(?!\d)<br>匹配身份证：\d&#123;<span class="hljs-number">15</span>&#125;|\d&#123;<span class="hljs-number">18</span>&#125;<br>匹配ip地址：\d+\.\d+\.\d+\.\d+<br></code></pre></td></tr></table></figure>
 
-<h3 id="java中使用正则"><a href="#java中使用正则" class="headerlink" title="java中使用正则"></a>java中使用正则</h3><ul>
+<h3 id="java中使用正则">1.4.1. java中使用正则</h3><ul>
 <li>相关的类位于：java.util.regex包下面</li>
 <li>类Pattern：1.正则表达式的编译表示形式 2.Pattern p = Pattern.compile(r,int); //建立正则表达式，并启用相应模式</li>
 <li>类Matcher：1.通过解释Pattern对character sequence执行匹配操作的引擎 2.MAtcher m = p.matcher(str); //匹配str字符串</li>
@@ -352,7 +352,7 @@
 
 
 
-<h1 id="java复杂文本操作"><a href="#java复杂文本操作" class="headerlink" title="java复杂文本操作"></a>java复杂文本操作</h1><h2 id="网络爬虫"><a href="#网络爬虫" class="headerlink" title="网络爬虫"></a>网络爬虫</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//网络爬虫取链接</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WebSpiderCore</span></span>&#123;<br>    <br>    <span class="hljs-comment">//获得url对应的网页的源码内容</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">getURLContent</span><span class="hljs-params">(String URL)</span></span>&#123;<br>        StringBuilder sb = <span class="hljs-keyword">new</span> StringBuilder();<br>        <br>        <span class="hljs-keyword">try</span>&#123;<br>            Url url = <span class="hljs-keyword">new</span> Url(URL);<br>            BufferedReader reader = <br>                <span class="hljs-keyword">new</span> BufferedReader(<span class="hljs-keyword">new</span> InputStreamReader<br>                                   (url.openStream(),Charset.forName(<span class="hljs-string">&quot;gbk&quot;</span>)));<br>            String temp = <span class="hljs-string">&quot;&quot;</span>;<br>            <span class="hljs-keyword">while</span>(temp = reader.readLine() != <span class="hljs-keyword">null</span>)&#123;<br>                sb.append(temp);<br>            &#125;<br>            <br>        &#125; <span class="hljs-keyword">catch</span> (MalformedURLException e)&#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e)&#123;<br>            e.printStackTrace();<br>        &#125;<br>        <br>        <span class="hljs-keyword">return</span> sb;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;<br>        String destStr = getURLContent(<span class="hljs-string">&quot;http://www.163.com&quot;</span>);<br>        <br>        <span class="hljs-comment">//记得\变\\</span><br>        <span class="hljs-comment">//取到超链接中的所有内容</span><br>        <span class="hljs-comment">//Partten p = Partten.compile(&quot;&lt;a[\\s\\S]+?&lt;/a&gt;&quot;);</span><br>        <br>        <span class="hljs-comment">//取到超链接的地址</span><br>        <span class="hljs-comment">//Partten p = Partten.compile(&quot;href=\&quot;.+?\&quot;&quot;);</span><br>        <br>        <span class="hljs-comment">//只取超链接</span><br>        <span class="hljs-comment">//分组、预搜索(零宽断言)</span><br>        Partten p = Partten.compile(<span class="hljs-string">&quot;href=\&quot;(.+?)\&quot;&quot;</span>);<br>        <span class="hljs-comment">//String str = &quot;href=\&quot;([\\w\\s./:]+?)\&quot;&quot;;</span><br>        <span class="hljs-comment">/*</span><br><span class="hljs-comment">         * ?简介：</span><br><span class="hljs-comment">         * 当该字符紧跟在任何一个其他限制符 (*, +, ?, &#123;n&#125;, &#123;n,&#125;, &#123;n,m&#125;) 后面时，</span><br><span class="hljs-comment">         * 匹配模式是非贪婪的。</span><br><span class="hljs-comment">         * 非贪婪模式尽可能少的匹配所搜索的字符串，</span><br><span class="hljs-comment">         * 而默认的贪婪模式则尽可能多的匹配所搜索的字符串。</span><br><span class="hljs-comment">         * 例如，对于字符串 &quot;oooo&quot;，&#x27;o+?&#x27; 将匹配单个 &quot;o&quot;，而 &#x27;o+&#x27; 将匹配所有 &#x27;o&#x27;。</span><br><span class="hljs-comment">         */</span><br>        Matcher m = p.matcher(deseStr);<br>        <br>        <span class="hljs-keyword">while</span>(m.find())&#123;<br>            <span class="hljs-comment">//取到超链接的地址</span><br>            System.out.println(m.group());<br>            <br>            <span class="hljs-comment">//只取超链接</span><br>            System.out.println(m.group(<span class="hljs-number">1</span>));<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="java复杂文本操作">2. java复杂文本操作</h1><h2 id="网络爬虫">2.1. 网络爬虫</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//网络爬虫取链接</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WebSpiderCore</span></span>&#123;<br>    <br>    <span class="hljs-comment">//获得url对应的网页的源码内容</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">getURLContent</span><span class="hljs-params">(String URL)</span></span>&#123;<br>        StringBuilder sb = <span class="hljs-keyword">new</span> StringBuilder();<br>        <br>        <span class="hljs-keyword">try</span>&#123;<br>            Url url = <span class="hljs-keyword">new</span> Url(URL);<br>            BufferedReader reader = <br>                <span class="hljs-keyword">new</span> BufferedReader(<span class="hljs-keyword">new</span> InputStreamReader<br>                                   (url.openStream(),Charset.forName(<span class="hljs-string">&quot;gbk&quot;</span>)));<br>            String temp = <span class="hljs-string">&quot;&quot;</span>;<br>            <span class="hljs-keyword">while</span>(temp = reader.readLine() != <span class="hljs-keyword">null</span>)&#123;<br>                sb.append(temp);<br>            &#125;<br>            <br>        &#125; <span class="hljs-keyword">catch</span> (MalformedURLException e)&#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e)&#123;<br>            e.printStackTrace();<br>        &#125;<br>        <br>        <span class="hljs-keyword">return</span> sb;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;<br>        String destStr = getURLContent(<span class="hljs-string">&quot;http://www.163.com&quot;</span>);<br>        <br>        <span class="hljs-comment">//记得\变\\</span><br>        <span class="hljs-comment">//取到超链接中的所有内容</span><br>        <span class="hljs-comment">//Partten p = Partten.compile(&quot;&lt;a[\\s\\S]+?&lt;/a&gt;&quot;);</span><br>        <br>        <span class="hljs-comment">//取到超链接的地址</span><br>        <span class="hljs-comment">//Partten p = Partten.compile(&quot;href=\&quot;.+?\&quot;&quot;);</span><br>        <br>        <span class="hljs-comment">//只取超链接</span><br>        <span class="hljs-comment">//分组、预搜索(零宽断言)</span><br>        Partten p = Partten.compile(<span class="hljs-string">&quot;href=\&quot;(.+?)\&quot;&quot;</span>);<br>        <span class="hljs-comment">//String str = &quot;href=\&quot;([\\w\\s./:]+?)\&quot;&quot;;</span><br>        <span class="hljs-comment">/*</span><br><span class="hljs-comment">         * ?简介：</span><br><span class="hljs-comment">         * 当该字符紧跟在任何一个其他限制符 (*, +, ?, &#123;n&#125;, &#123;n,&#125;, &#123;n,m&#125;) 后面时，</span><br><span class="hljs-comment">         * 匹配模式是非贪婪的。</span><br><span class="hljs-comment">         * 非贪婪模式尽可能少的匹配所搜索的字符串，</span><br><span class="hljs-comment">         * 而默认的贪婪模式则尽可能多的匹配所搜索的字符串。</span><br><span class="hljs-comment">         * 例如，对于字符串 &quot;oooo&quot;，&#x27;o+?&#x27; 将匹配单个 &quot;o&quot;，而 &#x27;o+&#x27; 将匹配所有 &#x27;o&#x27;。</span><br><span class="hljs-comment">         */</span><br>        Matcher m = p.matcher(deseStr);<br>        <br>        <span class="hljs-keyword">while</span>(m.find())&#123;<br>            <span class="hljs-comment">//取到超链接的地址</span><br>            System.out.println(m.group());<br>            <br>            <span class="hljs-comment">//只取超链接</span><br>            System.out.println(m.group(<span class="hljs-number">1</span>));<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
             </div>
@@ -391,7 +391,7 @@
                       <a href="/gzguo/2019/11/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">初识数据结构</span>
-                        <span class="visible-mobile">Previous</span>
+                        <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
@@ -400,7 +400,7 @@
                     
                       <a href="/gzguo/2019/09/05/java/network/start/">
                         <span class="hidden-mobile">java_network_start</span>
-                        <span class="visible-mobile">Next</span>
+                        <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -417,7 +417,7 @@
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -443,7 +443,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -452,7 +452,7 @@
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+                 for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>

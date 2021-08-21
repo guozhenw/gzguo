@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="子查询">
-  <meta name="author" content="John Doe">
-  <meta name="keywords" content="">
+  <meta name="description" content="0.0.0.1. 子查询">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
   
-  <title>java_mysql_next - Hexo</title>
+  <title>java_mysql_next - Learing</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -87,7 +87,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/">
                 <i class="iconfont icon-home-fill"></i>
-                Home
+                首页
               </a>
             </li>
           
@@ -99,7 +99,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                Archives
+                归档
               </a>
             </li>
           
@@ -111,7 +111,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                Categories
+                分类
               </a>
             </li>
           
@@ -123,7 +123,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                Tags
+                标签
               </a>
             </li>
           
@@ -135,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/about/">
                 <i class="iconfont icon-user-fill"></i>
-                About
+                关于
               </a>
             </li>
           
@@ -174,7 +174,7 @@
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
       <time datetime="2019-08-16 07:08" pubdate>
-        August 16, 2019 am
+        2019年8月16日 早上
       </time>
     </span>
   
@@ -228,9 +228,9 @@
             <h1 style="display: none">java_mysql_next</h1>
             
             <div class="markdown-body">
-              <h4 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a><center>子查询</center></h4><span id="more"></span>
+              <h4 id="子查询">0.0.0.1. 子查询</h4><span id="more"></span>
 
-<h2 id="select特殊功能："><a href="#select特殊功能：" class="headerlink" title="select特殊功能："></a>select特殊功能：</h2><p>**distinct(排重)**：select distinct 字段名 from 数据表;</p>
+<h2 id="select特殊功能：">0.1. select特殊功能：</h2><p>**distinct(排重)**：select distinct 字段名 from 数据表;</p>
 <p><strong>between…and</strong>：select * from 数据表 where 字段名 between 值 and 值; 相当于select * from 数据表 where 字段名&gt;字段值 and 字段名&lt;字段值;</p>
 <p><strong>in</strong>：select * from 数据表 where 字段名 in(85，86，87);</p>
 <p><strong>or</strong>：select * from 数据表 where 字段名1 = ‘值’ or 字段名2 = ‘值’;(升序查询 asc从小到大)select * from 数据表 order by 字段名 asc; order by：系统默认是升序 desc降序（从大到小）</p>
@@ -265,7 +265,7 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> cno <span class="hljs-keyword">from</span> score <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> cno <span class="hljs-keyword">having</span> <span class="hljs-built_in">count</span>(cno)<span class="hljs-operator">&gt;=</span><span class="hljs-number">2</span> <span class="hljs-keyword">and</span> cno <span class="hljs-keyword">like</span> <span class="hljs-string">&#x27;3%&#x27;</span>; <br></code></pre></td></tr></table></figure>
 
 <p>  %代表的是任意的东西   3%代表以3开头的任意东西</p>
-<h2 id="多表查询："><a href="#多表查询：" class="headerlink" title="多表查询："></a>多表查询：</h2><p><strong>精髓</strong>：他们是根据相等的地方进行联系的</p>
+<h2 id="多表查询：">0.2. 多表查询：</h2><p><strong>精髓</strong>：他们是根据相等的地方进行联系的</p>
 <p>两张表：</p>
 <p>查询当条件相同时，把数据替换掉</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> sname,cno,degree <span class="hljs-keyword">from</span> student,score <span class="hljs-keyword">where</span> student.sno <span class="hljs-operator">=</span> score.sno;<br></code></pre></td></tr></table></figure>
@@ -275,7 +275,7 @@
 
 
 
-<h2 id="子查询："><a href="#子查询：" class="headerlink" title="子查询："></a>子查询：</h2><p><strong>精髓</strong>：分开步骤去查</p>
+<h2 id="子查询：">0.3. 子查询：</h2><p><strong>精髓</strong>：分开步骤去查</p>
 <p>查一个班的学生：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> student <span class="hljs-keyword">where</span> class <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;95031&#x27;</span>;<br></code></pre></td></tr></table></figure>
 
@@ -339,7 +339,7 @@
 
 
 
-<h2 id="sql的四种链接查询："><a href="#sql的四种链接查询：" class="headerlink" title="sql的四种链接查询："></a>sql的四种链接查询：</h2><p><strong>内链接：</strong></p>
+<h2 id="sql的四种链接查询：">0.4. sql的四种链接查询：</h2><p><strong>内链接：</strong></p>
 <p>inner join 或者 join</p>
 <p><strong>外连接：</strong></p>
 <p>1.左连接：left join 或者 left outer join</p>
@@ -430,7 +430,7 @@
                       <a href="/gzguo/2019/08/16/java/mysql/end/">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">java_mysql_end</span>
-                        <span class="visible-mobile">Previous</span>
+                        <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
@@ -439,7 +439,7 @@
                     
                       <a href="/gzguo/2019/08/14/java/mybatis/start/">
                         <span class="hidden-mobile">java_mybatis_start</span>
-                        <span class="visible-mobile">Next</span>
+                        <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -456,7 +456,7 @@
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -482,7 +482,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -491,7 +491,7 @@
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+                 for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>

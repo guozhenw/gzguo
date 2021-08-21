@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="多态深入、抽象类、接口、回调、内部类">
-  <meta name="author" content="John Doe">
-  <meta name="keywords" content="">
+  <meta name="description" content="0.0.0.1. 多态深入、抽象类、接口、回调、内部类">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
   
-  <title>java_object_end - Hexo</title>
+  <title>java_object_end - Learing</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -87,7 +87,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/">
                 <i class="iconfont icon-home-fill"></i>
-                Home
+                首页
               </a>
             </li>
           
@@ -99,7 +99,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                Archives
+                归档
               </a>
             </li>
           
@@ -111,7 +111,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                Categories
+                分类
               </a>
             </li>
           
@@ -123,7 +123,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                Tags
+                标签
               </a>
             </li>
           
@@ -135,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/gzguo/about/">
                 <i class="iconfont icon-user-fill"></i>
-                About
+                关于
               </a>
             </li>
           
@@ -174,7 +174,7 @@
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
       <time datetime="2020-09-29 20:04" pubdate>
-        September 29, 2020 pm
+        2020年9月29日 晚上
       </time>
     </span>
   
@@ -228,15 +228,15 @@
             <h1 style="display: none">java_object_end</h1>
             
             <div class="markdown-body">
-              <h4 id="多态深入、抽象类、接口、回调、内部类"><a href="#多态深入、抽象类、接口、回调、内部类" class="headerlink" title="多态深入、抽象类、接口、回调、内部类"></a><center>多态深入、抽象类、接口、回调、内部类</center></h4><span id="more"></span>
+              <h4 id="多态深入、抽象类、接口、回调、内部类">0.0.0.1. 多态深入、抽象类、接口、回调、内部类</h4><span id="more"></span>
 
-<h1 id="多态的内存分析"><a href="#多态的内存分析" class="headerlink" title="多态的内存分析"></a>多态的内存分析</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HttpServlet</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">service</span><span class="hljs-params">()</span></span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;HttpServlet.service()&quot;</span>);<br>        <span class="hljs-comment">//它调用了doGet()</span><br>        doGet();<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doGet</span><span class="hljs-params">()</span></span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;HttpServlet.doGet()&quot;</span>);<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doPost</span><span class="hljs-params">()</span></span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;HttpServlet.doPost()&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyServlet</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HttpServlet</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doGet</span><span class="hljs-params">()</span></span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;MyServlet.doGet()&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;<br>        HttpServlet s = <span class="hljs-keyword">new</span> MyServlet();<br>        s.service();<br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * 输出结果：</span><br><span class="hljs-comment">         * HttpServlet.Service()</span><br><span class="hljs-comment">         * MyServlet.doGet()</span><br><span class="hljs-comment">         */</span>     <br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="多态的内存分析">1. 多态的内存分析</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HttpServlet</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">service</span><span class="hljs-params">()</span></span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;HttpServlet.service()&quot;</span>);<br>        <span class="hljs-comment">//它调用了doGet()</span><br>        doGet();<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doGet</span><span class="hljs-params">()</span></span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;HttpServlet.doGet()&quot;</span>);<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doPost</span><span class="hljs-params">()</span></span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;HttpServlet.doPost()&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyServlet</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HttpServlet</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doGet</span><span class="hljs-params">()</span></span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;MyServlet.doGet()&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;<br>        HttpServlet s = <span class="hljs-keyword">new</span> MyServlet();<br>        s.service();<br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * 输出结果：</span><br><span class="hljs-comment">         * HttpServlet.Service()</span><br><span class="hljs-comment">         * MyServlet.doGet()</span><br><span class="hljs-comment">         */</span>     <br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>上面的这个为什么会这样呢？</p>
 <p>调用的时候总是会优先调用子类的构造方法，从子类的构造器开始向上寻找构造器，直到找到Object的构造器，开始向下执行构造器。</p>
 <p>但是我们执行方法的时候，先寻找子类中是否存在该方法，不存在的话会向上寻找，一旦找到就会执行了，如果父类调用了某个方法，这个时候很特殊。由于this指的是当前对象(的地址)，指的还是子类对象，所以还是从子类中开始找。</p>
 <p>咱们的例子：先在MyServlet中找service()，但是找不到，向上找，在HttpServlet中找到了，执行的时候service中执行了doGet()。因为this的原因，执行doGet的时候，又会重复一开始的操作，从MyServlet开始找，找到了，直接执行MyServlet的doGet()方法</p>
-<h1 id="抽象类-abstract"><a href="#抽象类-abstract" class="headerlink" title="抽象类(abstract)"></a>抽象类(abstract)</h1><p>抽象类就是有抽象方法的类：抽象方法就是只有声明，没有实现</p>
+<h1 id="抽象类-abstract">2. 抽象类(abstract)</h1><p>抽象类就是有抽象方法的类：抽象方法就是只有声明，没有实现</p>
 <p>抽象类是一种模板模式。抽象类为所有子类提供了一个通用模板，子类可以在这个模板基础上进行扩展。</p>
 <p>通过抽象类，可以避免子类设计的随意性。通过抽象类，我们就可以做到严格控制子类的设计，使子类之间更加通用</p>
 <p>要点：</p>
@@ -250,7 +250,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span></span>&#123;<br>    <span class="hljs-comment">//包含了抽象方法的类一定是抽象类</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-comment">//能这么调的原因：abstract不能被实例化，调用的run()是子类的</span><br>    <span class="hljs-comment">//抽象类只能用来继承</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">breath</span><span class="hljs-params">()</span></span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;呼吸&quot;</span>);<br>        run();<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">//继承了Animal抽象类，就必须实现抽象方法</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cat</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Animal</span></span>&#123;<br>    <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span></span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;猫步&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>把设计和实现分开了,将方法的设计和方法的实现分开了</p>
-<h1 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h1><p>interface，更加抽象，抽象类的抽象类。接口是最抽象的，接口里面放的就是基本不变的东西，以不变应万变</p>
+<h1 id="接口">3. 接口</h1><p>interface，更加抽象，抽象类的抽象类。接口是最抽象的，接口里面放的就是基本不变的东西，以不变应万变</p>
 <p>这个的目的就是，<strong>设计和实现分离</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//定义的时候用interface，除了定义的时候没有任何区别</span><br><span class="hljs-comment">//还是java文件，编译之后还是class文件</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">MyInterface</span></span>&#123;<br>    <span class="hljs-comment">//接口里面只有：常量和抽象方法</span><br>    <span class="hljs-comment">//public static final有没有都一样，系统会自动加上的</span><br>    <span class="hljs-comment">/*public static final*/</span>String MAX_GREAD = <span class="hljs-string">&quot;Boss&quot;</span>;<br>    <span class="hljs-keyword">int</span> MAX_SPEED = <span class="hljs-number">120</span>;<br>    <br>    <span class="hljs-comment">//方法必须是public，不加的话，系统自动加public abstract</span><br>    <span class="hljs-comment">/*public abstract*/</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">int</span> <span class="hljs-title">test1</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> b)</span></span>;<br>&#125;<br><br><span class="hljs-comment">//怎么实现接口？</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Myclass</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">MyInterface</span></span>&#123;<br>    <span class="hljs-comment">//implements：实现</span><br>    <span class="hljs-comment">//没有什么可以集成的，只要自己实现就行，不需要extends</span><br>    MyInterface.MAX_GREAD; <span class="hljs-comment">//调用接口中的常量</span><br>    <span class="hljs-comment">/*</span><br><span class="hljs-comment">     * 两个抽象方法必须都实现</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">()</span></span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;test&quot;</span>);<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">test1</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> b)</span></span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;MyClass.test1()&quot;</span>);<br>        <span class="hljs-keyword">return</span> a+b;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
@@ -259,10 +259,10 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">InterfaceA</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">a</span><span class="hljs-params">()</span></span>;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">InterfaceB</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">b</span><span class="hljs-params">()</span></span>;<br>&#125;<br><br><span class="hljs-comment">//接口是有多继承的</span><br><span class="hljs-comment">//接口可以多继承，因为接口足够简单</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">InterfaceC</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">InterfaceA</span>,<span class="hljs-title">InterfaceB</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">c</span><span class="hljs-params">()</span></span>;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">InterfaceC</span></span>&#123;<br>    <span class="hljs-comment">//必须实现三个方法，InterfaceC继承的接口，这个类也得实现</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">c</span><span class="hljs-params">()</span></span>&#123;<br>        <br>    &#125;<br>    <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">b</span><span class="hljs-params">()</span></span>&#123;<br>        <br>    &#125;<br>    <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">a</span><span class="hljs-params">()</span></span>&#123;<br>        <br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 
 <p>接口即规范</p>
-<h1 id="回调的实现"><a href="#回调的实现" class="headerlink" title="回调的实现"></a>回调的实现</h1><p>CallBack/Hook/模板方法模式</p>
+<h1 id="回调的实现">4. 回调的实现</h1><p>CallBack/Hook/模板方法模式</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//这个类模拟回调</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PaintFrame</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">drawFrame</span><span class="hljs-params">(MyFrame f)</span></span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;启动线程&quot;</span>);<br>        System.out.println(<span class="hljs-string">&quot;增加循环&quot;</span>);<br>        System.out.println(<span class="hljs-string">&quot;查看消息线&quot;</span>);<br>        <br>        <span class="hljs-comment">//回调</span><br>        f.paint();<br>        <br>        System.out.println(<span class="hljs-string">&quot;启动缓存，增加效率&quot;</span>);<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;<br>        drawFram(<span class="hljs-keyword">new</span> GameFrame01());<br>        <br>        <span class="hljs-comment">/*</span><br><span class="hljs-comment">         * 输出结果：</span><br><span class="hljs-comment">         * 启动线程</span><br><span class="hljs-comment">         * 增加循环</span><br><span class="hljs-comment">         * 查看消息线</span><br><span class="hljs-comment">         * GameFrame01.Paint() //子类引用指向父类对象</span><br><span class="hljs-comment">         * 启动缓存，增加效率</span><br><span class="hljs-comment">         */</span><br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyFrame</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">paint</span><span class="hljs-params">()</span></span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;MyFrame.Paint()&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GameFrame01</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">MyFrame</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">paint</span><span class="hljs-params">()</span></span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;GameFrame01.Paint()&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment"> * java中的画窗口的实现类似于这个过程</span><br><span class="hljs-comment"> * 你不需要调用你写的画窗口的类，但他就直接相当于钩子执行了</span><br><span class="hljs-comment"> */</span><br></code></pre></td></tr></table></figure>
 
-<h1 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h1><p>innerclasses</p>
+<h1 id="内部类">5. 内部类</h1><p>innerclasses</p>
 <p>一般情况，我们把类定义成独立的单元。有些情况下，我们把一个类放在另一个的内部定义，称为内部类</p>
 <p>内部类的作用：</p>
 <ul>
@@ -271,11 +271,11 @@
 </ul>
 <p>内部类的使用场合：</p>
 <p>由于内部类提供了更好的封装性，并且可以很方便的访问外部类的属性。所以，通常内部类在只为所在外部类提供服务的情况下优先使用</p>
-<h2 id="内部类的分类"><a href="#内部类的分类" class="headerlink" title="内部类的分类"></a>内部类的分类</h2><h3 id="成员内部类"><a href="#成员内部类" class="headerlink" title="成员内部类"></a>成员内部类</h3><p>就好像外部类的成员一样</p>
+<h2 id="内部类的分类">5.1. 内部类的分类</h2><h3 id="成员内部类">5.1.1. 成员内部类</h3><p>就好像外部类的成员一样</p>
 <p>可以使用private、protected、public 任意进行修饰。</p>
 <p><strong>外部类文件：外部类.class</strong></p>
 <p><strong>内部类文件：外部类$内部类.class</strong></p>
-<h4 id="非静态内部类"><a href="#非静态内部类" class="headerlink" title="非静态内部类"></a>非静态内部类</h4><p>普通成员，外部类里使用非静态内部类和平时使用其他类没什么不同</p>
+<h4 id="非静态内部类">5.1.1.1. 非静态内部类</h4><p>普通成员，外部类里使用非静态内部类和平时使用其他类没什么不同</p>
 <ul>
 <li><p>非静态内部类必须寄存在一个外部类对象里。因此，如果有一个非静态内部类对象，那么一定存在对应的外部类对象。非静态内部类对象单独属于外部类的某个对象</p>
 </li>
@@ -296,7 +296,7 @@
 
 
 
-<h4 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h4><p>静态成员</p>
+<h4 id="静态内部类">5.1.1.2. 静态内部类</h4><p>静态成员</p>
 <p>使用要点：</p>
 <ul>
 <li><p>当一个静态内部类对象存在，并不一定存在对应的外部类对象。因此，静态内部类的实例方法/属性不能直接访问外部类的实例方法/属性</p>
@@ -312,14 +312,14 @@
 
 
 
-<h3 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h3><p>适合那种只需要使用一次的类。比如：键盘监听操作。</p>
+<h3 id="匿名内部类">5.1.2. 匿名内部类</h3><p>适合那种只需要使用一次的类。比如：键盘监听操作。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">new</span> 父类构造器(实参列表) 实现接口()&#123;<br><br>	<span class="hljs-comment">//匿名内部类类体</span><br><br>&#125;<br></code></pre></td></tr></table></figure>
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">this</span>.addWindowListener(<span class="hljs-keyword">new</span> WindowAdapter()&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">windowClosing</span><span class="hljs-params">(WindowEvent e)</span></span>&#123;<br>        System.exit(<span class="hljs-number">0</span>);<br>    &#125;<br>&#125;);<br><br><span class="hljs-keyword">this</span>.addKeyListener(<span class="hljs-keyword">new</span> KeyAdapter()&#123;<br>   <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">keyPressed</span><span class="hljs-params">(KeyEvent e)</span></span>&#123;<br>        <span class="hljs-comment">//TODO Auto-generated method atub</span><br>        myTank.keyPressed(e);<br>    &#125;<br>    <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">keyReleased</span><span class="hljs-params">(KeyEvent e)</span></span>&#123;<br>        <span class="hljs-comment">//TODO Auto-generated method stub</span><br>        myTank.KeyReleased(e);<br>    &#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
 
 
 
-<h3 id="局部内部类"><a href="#局部内部类" class="headerlink" title="局部内部类"></a>局部内部类</h3><p>定义在方法内部。作用域只限于本方法。用的非常少</p>
+<h3 id="局部内部类">5.1.3. 局部内部类</h3><p>定义在方法内部。作用域只限于本方法。用的非常少</p>
 
             </div>
             <hr>
@@ -357,7 +357,7 @@
                       <a href="/gzguo/2020/09/29/java/object/start/">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">java_object_start</span>
-                        <span class="visible-mobile">Previous</span>
+                        <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
@@ -366,7 +366,7 @@
                     
                       <a href="/gzguo/2020/09/29/java/object/next/">
                         <span class="hidden-mobile">java_object_next</span>
-                        <span class="visible-mobile">Next</span>
+                        <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -383,7 +383,7 @@
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -409,7 +409,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -418,7 +418,7 @@
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+                 for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
