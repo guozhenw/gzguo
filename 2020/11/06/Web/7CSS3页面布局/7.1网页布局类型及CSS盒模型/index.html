@@ -1,0 +1,524 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/gzguo/img/favicon.png">
+  <link rel="icon" href="/gzguo/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="7.1网页布局类型及CSS盒模型">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>7.1网页布局类型及CSS盒模型 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/gzguo/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/gzguo/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/gzguo/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/gzguo/js/utils.js" ></script>
+  <script  src="/gzguo/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/gzguo/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/gzguo/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="7.1网页布局类型及CSS盒模型">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-11-06 21:17" pubdate>
+        November 6, 2020 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      13
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">7.1网页布局类型及CSS盒模型</h1>
+            
+            <div class="markdown-body">
+              <h4 id="7-1网页布局类型及CSS盒模型"><a href="#7-1网页布局类型及CSS盒模型" class="headerlink" title="7.1网页布局类型及CSS盒模型"></a><center>7.1网页布局类型及CSS盒模型</center></h4><span id="more"></span>
+
+<h2 id="网页布局方式"><a href="#网页布局方式" class="headerlink" title="网页布局方式"></a>网页布局方式</h2><p>网页布局主要是指在页面中如何对标题、导航栏、主要内容、脚注、表单等各种主要构成元素进行一个合理的排版</p>
+<h3 id="网页布局的类型"><a href="#网页布局的类型" class="headerlink" title="网页布局的类型"></a>网页布局的类型</h3><ol>
+<li><p>固定式<br>用固定的宽度设计网页布局尺寸，这种布局有一个设置了固定宽度的外包裹，里面的各个模块也是固定宽度。<br>优点：</p>
+<ol>
+<li>设计师所设计的就是最终用户所看到的</li>
+<li>设计简单，并且容易定制</li>
+<li>在所有的浏览器中的宽度一样，不会收到图片、表单、视频和其他固定宽度的内容影响</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>高分辨率式，回留下很大的空白</li>
+<li>屏幕分辨率过小时会出现横向滚动条</li>
+<li>在应该确保至少居中外包裹DIV（margin:0 auto）以保持一种显示平衡，否则对于使用大分辨率的用户，整个页面会被藏到一边去</li>
+</ol>
+</li>
+<li><p>流式<br>通常被称为液态布局。通常采用相对于分辨率大小的百分比的方式自适应不同的分辨率，可以根据浏览器的宽度和屏幕的大小自动调整效果，灵活多变<br>优点：</p>
+<ol>
+<li>对用户来说更加友好，能部分自适应用户设置</li>
+<li>页面周围的空白区域在所有分辨率和浏览器下都是相同的，在视觉上更美观</li>
+<li>如果设计良好，流动布局可以避免在小分辨率下出现水平滚动条</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>设计者需要在不同的分辨率下进行测试才能看到最终的设计效果</li>
+<li>在不同的分辨率下图片或者视频需要不同的素材</li>
+<li>在屏幕分辨率跨度太大时，内容会过大或者过小，变得难以阅读</li>
+</ol>
+</li>
+<li><p>响应式<br>这是一种糅合了流式布局，再搭配查询技术使用的网页布局方式<br>根据不同的设备平台对内容、媒体文件和布局结构进行相应的调整与优化，从而使为用户提供一种最优且相对统一的体验模式<br>优点：</p>
+<ol>
+<li>面对不同分辨率设备灵活性强</li>
+<li>能够快捷的解决多设备显示适应问题</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>兼容各种设备工作量大，效率低下</li>
+<li>代码累赘，会出现隐藏无用的元素，加载时间加长</li>
+<li>一定程度上改变了网站原有的布局结构，会出现用户混淆的情况</li>
+</ol>
+</li>
+</ol>
+<h2 id="DIV-CSS布局技术"><a href="#DIV-CSS布局技术" class="headerlink" title="DIV+CSS布局技术"></a>DIV+CSS布局技术</h2><p>把页面中所有的元素都看成是一个盒子，通过盒子进行CSS样式定义，并借助DIV变迁及其CSS定位实现网页布局</p>
+<h3 id="DIV-CSS布局的方法步骤"><a href="#DIV-CSS布局的方法步骤" class="headerlink" title="DIV+CSS布局的方法步骤"></a>DIV+CSS布局的方法步骤</h3><ol>
+<li>整体上对页面进行分块</li>
+<li>按照分块设计使用DIV标记并定义其样式属性</li>
+<li>对DIV盒子进行定位实现页面布局</li>
+</ol>
+<h3 id="创建DIV"><a href="#创建DIV" class="headerlink" title="创建DIV"></a>创建DIV</h3><p>DIV标签是一个块标签，他将页面内容划分为独立的部分，以实现网页的规划和布局。</p>
+<p>DIV标签可以加入很多的属性，如：id、class、align、style等，在CSS布局设计中，为了设计网页内容和表现的分离，应尽量的减少align、style等属性的编写次数。因此，常用的属性也只有id和class两种了</p>
+<h3 id="CSS盒模型"><a href="#CSS盒模型" class="headerlink" title="CSS盒模型"></a>CSS盒模型</h3><p>是指在页面布局中，为了将页面元素合理有效的组织在一起，形成一套完整的、行之有效的原则和规范</p>
+<p>CSS盒是由margin（外边距）、border（边框）、padding（内边距）、content（内容）四个部分组成，此外，还有高度和宽度两个辅助属性</p>
+<h4 id="content内容区"><a href="#content内容区" class="headerlink" title="content内容区"></a>content内容区</h4><p>是盒子模型的中心，包含了盒子的主要重要信息。包含width、height、overflow三个属性。</p>
+<h5 id="overflower"><a href="#overflower" class="headerlink" title="overflower"></a>overflower</h5><p>overflow主要是指定溢出内容的处理方式</p>
+<table>
+<thead>
+<tr>
+<th>overflow取值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>visible</td>
+<td>默认值，溢出的内容不会被修建，会呈现在元素框之外</td>
+</tr>
+<tr>
+<td>hidden</td>
+<td>溢出的内容不可见</td>
+</tr>
+<tr>
+<td>scroll</td>
+<td>溢出的内容会被修建，但是可以通过滚动条来查看隐藏的部分</td>
+</tr>
+<tr>
+<td>auto</td>
+<td>由浏览器决定如何处理溢出部分</td>
+</tr>
+</tbody></table>
+<h5 id="border"><a href="#border" class="headerlink" title="border"></a>border</h5><p>border是指围绕元素内容和内边距的一条或多条线</p>
+<p>border-width：边框宽度</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css">&#123;<span class="hljs-attribute">border-top-width</span>: <span class="hljs-number">10px</span>&#125;<br>&#123;<span class="hljs-attribute">border-width</span>: <span class="hljs-number">10px</span> <span class="hljs-number">20px</span> <span class="hljs-number">30px</span> <span class="hljs-number">40px</span>&#125; (上右下左的顺序设置)<br>如果是三个参数将按上(左右)下的顺序作用到边框上<br>如果是两个参数的话，按照(上下)(左右)的顺序作用到边框上<br>如果只有一个参数的时候，四个方向的取值相同<br></code></pre></td></tr></table></figure>
+
+<p>border-style：边框样式</p>
+<p>border-radius：可以设置四个角的圆角样式</p>
+<p>border-image：对图像边框进行设置</p>
+<h2 id="多列布局方法"><a href="#多列布局方法" class="headerlink" title="多列布局方法"></a>多列布局方法</h2><h2 id="CSS3弹性盒布局"><a href="#CSS3弹性盒布局" class="headerlink" title="CSS3弹性盒布局"></a>CSS3弹性盒布局</h2><h2 id="HTML5的语义化标签及DIV-CSS网页布局技术设计网页"><a href="#HTML5的语义化标签及DIV-CSS网页布局技术设计网页" class="headerlink" title="HTML5的语义化标签及DIV+CSS网页布局技术设计网页"></a>HTML5的语义化标签及DIV+CSS网页布局技术设计网页</h2>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/gzguo/categories/html5/">html5</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/gzguo/tags/html/">html</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.4CSS3%E6%A0%B7%E5%BC%8F%E7%89%B9%E6%80%A7%E5%92%8C%E5%B8%B8%E7%94%A8%E6%A0%B7%E5%BC%8F%E5%B1%9E%E6%80%A7/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">6.4CSS3样式特性和常用样式属性</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.2%E7%BD%91%E9%A1%B5%E5%85%83%E7%B4%A0%E7%9A%84%E5%AE%9A%E4%BD%8D/">
+                        <span class="hidden-mobile">7.2网页元素的定位</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/gzguo/js/events.js" ></script>
+<script  src="/gzguo/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/gzguo/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/gzguo/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/gzguo/js/boot.js" ></script>
+
+
+</body>
+</html>
