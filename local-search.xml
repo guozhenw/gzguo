@@ -142,31 +142,6 @@
   
   
   <entry>
-    <title>2-2-3调度算法的评价指标</title>
-    <link href="/gzguo/2020/12/27/OS/2/2-2-3/"/>
-    <url>/gzguo/2020/12/27/OS/2/2-2-3/</url>
-    
-    <content type="html"><![CDATA[<h4 id="2-2-3调度算法的评价指标"><a href="#2-2-3调度算法的评价指标" class="headerlink" title="2-2-3调度算法的评价指标"></a><center>2-2-3调度算法的评价指标</center></h4><span id="more"></span><h2 id="系统利用率"><a href="#系统利用率" class="headerlink" title="系统利用率"></a>系统利用率</h2><p>利用率=忙碌时间/总时间</p><h2 id="系统吞吐量"><a href="#系统吞吐量" class="headerlink" title="系统吞吐量"></a>系统吞吐量</h2><p>单位时间内完成的作业的数量</p><p>系统吞吐量=总共完成了多少道作业/总共花了多长时间</p><h2 id="周转时间"><a href="#周转时间" class="headerlink" title="周转时间"></a>周转时间</h2><p>作业从提交给系统道作业完成的时间间隔</p><p>周转时间=作业完成时间-作业提交时间</p><p>平均周转时间=个作业周转时间之和/作业数</p><p>带权周转时间=作业周转时间/作业实际运行时间（越小越好，用户体验越好）</p><p>平均带权周转时间=各作业带权周转时间之和/作业数</p><h2 id="等待时间"><a href="#等待时间" class="headerlink" title="等待时间"></a>等待时间</h2><p>指进程/作业等待处理机状态时间之和，等待时间越长，用户满意度越低</p><p>对于作业来说：等待时间就是进程建立之后等待被服务的时间之和，等待IO完成期间也是被服务的，不算入等待时间</p><p>对于进程来说：不仅要考虑建立进程后的等待时间，还要加上作业在外存后备队列中等待的时间</p><h2 id="响应时间"><a href="#响应时间" class="headerlink" title="响应时间"></a>响应时间</h2><p>用户提交请求道首次产生响应所用的时间</p>]]></content>
-    
-    
-    <categories>
-      
-      <category>OS</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>OS</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>2-2-2进程调度</title>
     <link href="/gzguo/2020/12/27/OS/2/2-2-2/"/>
     <url>/gzguo/2020/12/27/OS/2/2-2-2/</url>
@@ -192,11 +167,11 @@
   
   
   <entry>
-    <title>2-2-4调度算法</title>
-    <link href="/gzguo/2020/12/27/OS/2/2-2-4/"/>
-    <url>/gzguo/2020/12/27/OS/2/2-2-4/</url>
+    <title>2-2-3调度算法的评价指标</title>
+    <link href="/gzguo/2020/12/27/OS/2/2-2-3/"/>
+    <url>/gzguo/2020/12/27/OS/2/2-2-3/</url>
     
-    <content type="html"><![CDATA[<h4 id="2-2-4调度算法"><a href="#2-2-4调度算法" class="headerlink" title="2-2-4调度算法"></a><center>2-2-4调度算法</center></h4><span id="more"></span><h2 id="先来先服务"><a href="#先来先服务" class="headerlink" title="先来先服务"></a>先来先服务</h2><p>FCFS（first come first serve）</p><p>公平，<strong>非抢占式</strong></p><p>对于作业调度和进程调度来说都一样，谁先来谁先进入内存</p><p>对长作业有利，对短作业不利</p><p>不会导致饥饿</p><h2 id="最短作业优先"><a href="#最短作业优先" class="headerlink" title="最短作业优先"></a>最短作业优先</h2><p>SJF（shortest job first）</p><p>最求最少的平均等待时间、最少的平均周转时间、最少的平均带权周转时间</p><p>所谓的最短指的是执行时间/服务时间最短</p><p>有抢占式、也有非抢占式</p><p>抢占式的也叫”最短剩余时间优先算法“，题目中没有特别说明都默认是非抢占式的</p><p>每次调度的时候选择当前已经到达的且运行时间最短的作业/进程</p><p>对短作业有利，但是对长作业不利</p><p>可能产生长作业饥饿的问题</p><h2 id="最高响应比优先"><a href="#最高响应比优先" class="headerlink" title="最高响应比优先"></a>最高响应比优先</h2><p>HRRN（highest response ratio next）</p><p>综合考虑作业/进程的等待时间和要求服务时间</p><p>在每次调度时都要计算各个作业/进程的响应比，<strong>选择响应比高的作业/进程服务</strong></p><p>响应比=（等待时间+要求服务时间）/要求服务时间   要求服务时间就是执行时间</p><p><strong>非抢占式</strong>的</p><p>前两个算法的折中</p><p>不会导致饥饿</p>]]></content>
+    <content type="html"><![CDATA[<h4 id="2-2-3调度算法的评价指标"><a href="#2-2-3调度算法的评价指标" class="headerlink" title="2-2-3调度算法的评价指标"></a><center>2-2-3调度算法的评价指标</center></h4><span id="more"></span><h2 id="系统利用率"><a href="#系统利用率" class="headerlink" title="系统利用率"></a>系统利用率</h2><p>利用率=忙碌时间/总时间</p><h2 id="系统吞吐量"><a href="#系统吞吐量" class="headerlink" title="系统吞吐量"></a>系统吞吐量</h2><p>单位时间内完成的作业的数量</p><p>系统吞吐量=总共完成了多少道作业/总共花了多长时间</p><h2 id="周转时间"><a href="#周转时间" class="headerlink" title="周转时间"></a>周转时间</h2><p>作业从提交给系统道作业完成的时间间隔</p><p>周转时间=作业完成时间-作业提交时间</p><p>平均周转时间=个作业周转时间之和/作业数</p><p>带权周转时间=作业周转时间/作业实际运行时间（越小越好，用户体验越好）</p><p>平均带权周转时间=各作业带权周转时间之和/作业数</p><h2 id="等待时间"><a href="#等待时间" class="headerlink" title="等待时间"></a>等待时间</h2><p>指进程/作业等待处理机状态时间之和，等待时间越长，用户满意度越低</p><p>对于作业来说：等待时间就是进程建立之后等待被服务的时间之和，等待IO完成期间也是被服务的，不算入等待时间</p><p>对于进程来说：不仅要考虑建立进程后的等待时间，还要加上作业在外存后备队列中等待的时间</p><h2 id="响应时间"><a href="#响应时间" class="headerlink" title="响应时间"></a>响应时间</h2><p>用户提交请求道首次产生响应所用的时间</p>]]></content>
     
     
     <categories>
@@ -222,6 +197,31 @@
     <url>/gzguo/2020/12/27/OS/2/2-2-5/</url>
     
     <content type="html"><![CDATA[<h4 id="2-2-5分时系统的调度算法"><a href="#2-2-5分时系统的调度算法" class="headerlink" title=" 2-2-5分时系统的调度算法"></a><center> 2-2-5分时系统的调度算法</center></h4><span id="more"></span><h2 id="时间片轮转"><a href="#时间片轮转" class="headerlink" title="时间片轮转"></a>时间片轮转</h2><p>RR（round robin）</p><p>公平、轮流为各个进程服务。让每个进程在一定时间间隔内都可以得到响应</p><p>按照时间片来进行执行，时间片的大小可能固定，也可以动态</p><p>只有进程调度才能使用这个算法</p><p><strong>抢占式</strong>的算法，通过<strong>时钟中断</strong>来通知CPU时间片已到</p><p>不会导致饥饿</p><h2 id="优先级调度"><a href="#优先级调度" class="headerlink" title="优先级调度"></a>优先级调度</h2><p>实时操作系统的出现，需要根据紧急程度来决定优先处理的顺序</p><p>每个作业/进程都有自己的优先级，调度是选择优先级最高的作业/进程</p><p>抢占式和非抢占式都有 </p><p>有静态优先级和动态优先级两种。静态优先级：创建进程时确定，之后一直不变。动态优先级：创建进程有一个初始值，之后会根据情况动态的调整优先级</p><p>如何合理的设置各类进程的优先级？</p><ol><li>系统进程优先级高于用户进程</li><li>前台进程的优先级高于后台进程</li><li>操作系统更偏好IO型进程（还有一类时计算型进程）</li></ol><p>比较适合用于实时操作系统</p><p>会发生饥饿</p><h2 id="多级反馈队列调度算法"><a href="#多级反馈队列调度算法" class="headerlink" title="多级反馈队列调度算法"></a>多级反馈队列调度算法</h2><p><strong>对所有上面的算法的折中权衡</strong></p><p><strong>抢占式</strong>的算法</p><p>设置多级就绪队列，各级队列优先级从高到低，时间片从小到大。新进程到达时先进入第一级队列，按照FCFS原则分配时间片。如果时间片用完还没有执行完就进入下一级队列队尾。反复执行上面的过程。</p><p>可能会发生饥饿</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>OS</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>OS</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>2-2-4调度算法</title>
+    <link href="/gzguo/2020/12/27/OS/2/2-2-4/"/>
+    <url>/gzguo/2020/12/27/OS/2/2-2-4/</url>
+    
+    <content type="html"><![CDATA[<h4 id="2-2-4调度算法"><a href="#2-2-4调度算法" class="headerlink" title="2-2-4调度算法"></a><center>2-2-4调度算法</center></h4><span id="more"></span><h2 id="先来先服务"><a href="#先来先服务" class="headerlink" title="先来先服务"></a>先来先服务</h2><p>FCFS（first come first serve）</p><p>公平，<strong>非抢占式</strong></p><p>对于作业调度和进程调度来说都一样，谁先来谁先进入内存</p><p>对长作业有利，对短作业不利</p><p>不会导致饥饿</p><h2 id="最短作业优先"><a href="#最短作业优先" class="headerlink" title="最短作业优先"></a>最短作业优先</h2><p>SJF（shortest job first）</p><p>最求最少的平均等待时间、最少的平均周转时间、最少的平均带权周转时间</p><p>所谓的最短指的是执行时间/服务时间最短</p><p>有抢占式、也有非抢占式</p><p>抢占式的也叫”最短剩余时间优先算法“，题目中没有特别说明都默认是非抢占式的</p><p>每次调度的时候选择当前已经到达的且运行时间最短的作业/进程</p><p>对短作业有利，但是对长作业不利</p><p>可能产生长作业饥饿的问题</p><h2 id="最高响应比优先"><a href="#最高响应比优先" class="headerlink" title="最高响应比优先"></a>最高响应比优先</h2><p>HRRN（highest response ratio next）</p><p>综合考虑作业/进程的等待时间和要求服务时间</p><p>在每次调度时都要计算各个作业/进程的响应比，<strong>选择响应比高的作业/进程服务</strong></p><p>响应比=（等待时间+要求服务时间）/要求服务时间   要求服务时间就是执行时间</p><p><strong>非抢占式</strong>的</p><p>前两个算法的折中</p><p>不会导致饥饿</p>]]></content>
     
     
     <categories>
@@ -467,11 +467,11 @@
   
   
   <entry>
-    <title>2-1-4进程通信</title>
-    <link href="/gzguo/2020/12/26/OS/2/2-1-4/"/>
-    <url>/gzguo/2020/12/26/OS/2/2-1-4/</url>
+    <title>2-1-3进程控制</title>
+    <link href="/gzguo/2020/12/26/OS/2/2-1-3/"/>
+    <url>/gzguo/2020/12/26/OS/2/2-1-3/</url>
     
-    <content type="html"><![CDATA[<h4 id="2-1-4进程通信"><a href="#2-1-4进程通信" class="headerlink" title="2-1-4进程通信"></a><center>2-1-4进程通信</center></h4><span id="more"></span><p>进程通信就是进程之间的信息交换</p><p>进程是分配系统资源的单位，各进程拥有的内存地址空间是相对独立的</p><p>为了保证安全，进程之间不允许互相访问</p><p>但是进程之间的信息交换又是必须实现的，为了保证进程之间的安全通信，操作系统提供了一些方法</p><p>下面就是操作系统提供的三种进程通信的方式</p><h2 id="共享存储"><a href="#共享存储" class="headerlink" title="共享存储"></a>共享存储</h2><p>系统为两个进程分配一个共享空间，两个进程可以<strong>互斥的访问</strong>共享空间</p><p>互斥访问通过操作系统提供的同步互斥工具实现（P、V操作）</p><h3 id="基于数据结构的共享"><a href="#基于数据结构的共享" class="headerlink" title="基于数据结构的共享"></a>基于数据结构的共享</h3><p><strong>对每次传递的数据格式有限制</strong>，是一种低级的通信方式</p><h3 id="基于存储区的共享"><a href="#基于存储区的共享" class="headerlink" title="基于存储区的共享"></a>基于存储区的共享</h3><p>操作系统只提供共享存储区，数据结构、存放位置等的信息都由进程控制，相比之下，这是一种高级通信的方式</p><h2 id="管道通信"><a href="#管道通信" class="headerlink" title="管道通信"></a>管道通信</h2><p>管道就是特殊的共享文件/pipe文件（实质就是在内存中开辟一个固定大小的<strong>缓冲区</strong>）</p><p>注意：</p><ol><li>管道只能采用<strong>半双工通信</strong>（只能单向传输，想要实现双向可以设置两个管道）</li><li>各进程要互斥的访问管道</li><li>管道写满，写进程阻塞，等待读进程全部读走，管道变空，读进程阻塞</li><li>没有写满不能读，没有空不允许写</li><li>数据一旦被读出就会消失，所以<strong>读进程只能有一个</strong></li></ol><h2 id="消息传递"><a href="#消息传递" class="headerlink" title="消息传递"></a>消息传递</h2><p>进程间的数据交换以<strong>格式化的消息</strong>为单位，通过<strong>发送/接收消息两个原语</strong>进行数据交换</p><p>格式化的消息：<strong>消息头、消息体</strong></p><h3 id="直接通信方式"><a href="#直接通信方式" class="headerlink" title="直接通信方式"></a>直接通信方式</h3><p>消息直接挂到接收进程的<strong>消息缓冲队列上</strong></p><h3 id="间接通信方式"><a href="#间接通信方式" class="headerlink" title="间接通信方式"></a>间接通信方式</h3><p>消息先发送到<strong>中间实体（信箱）</strong>，也成为“信箱通信方式”</p>]]></content>
+    <content type="html"><![CDATA[<h4 id="2-1-3进程控制"><a href="#2-1-3进程控制" class="headerlink" title="2-1-3进程控制"></a><center>2-1-3进程控制</center></h4><span id="more"></span><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>进程控制就是对系统中的所有进程实施有效的管理。主要是创建进程、撤销进程、实现<strong>进程之间状态转换</strong>等的功能</p><h3 id="如何实现"><a href="#如何实现" class="headerlink" title="如何实现"></a>如何实现</h3><p>用原语实现<strong>进程控制</strong></p><p>因为进程控制的过程中，要进行进程状态的切换，切换的时候需要更改进程控制块的相关信息，更改需要更改对应的好几条信息，为了防止更改的不对应性。我们使用原语来实现进程控制。</p><p>原语的特点就是执行期间不能被中断，只能一气呵成。这种不可被中断的操作就是原子操作。</p><p>原语是采用<strong>关中断指令</strong>和<strong>开中段指令</strong>实现的。<u>如果执行关中断指令之后有外部中断信号进入，那么外部中断信号会被忽略</u>，这就是原语执行不会被中断的原因</p><p>关中断和开中断的权限非常大，所以这两个指令只允许在核心态下执行==&gt;原语运行在核心态</p><h2 id="进程控制相关原语"><a href="#进程控制相关原语" class="headerlink" title="进程控制相关原语"></a>进程控制相关原语</h2><p>无论是什么原语都无非做三类事情：</p><ol><li>更新PCB中的信息</li><li>将PCB插入合适的队列</li><li>分配/回收资源</li></ol><h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><p>创建原语：（创建态）</p><ol><li>申请空白PCB</li><li>为新进程分配所需资源</li><li>初始化PCB</li><li>将PCB插入就绪队列</li></ol><p>引起进程创建的事件：</p><ol><li>用户登陆</li><li>作业调度</li><li>提供服务</li><li>应用请求</li></ol><h3 id="终止"><a href="#终止" class="headerlink" title="终止"></a>终止</h3><p>撤销原语：（终止态）</p><ol><li>从PCB集合中找到终止进程的PCB</li><li>若程序正在运行，立即剥夺CPU，将CPU分配给其他进程</li><li>终止其所有子进程</li><li>将该进程拥有的所有资源归还给父进程或者操作系统</li><li>删除PCB</li></ol><p>引起进程终止的事件：</p><ol><li>正常结束</li><li>异常结束</li><li>外界干预</li></ol><h3 id="阻塞"><a href="#阻塞" class="headerlink" title="阻塞"></a>阻塞</h3><p>阻塞原语：（运行到阻塞）</p><ol><li>找到阻塞的进程对应的PCB</li><li>保护进程运行现场，将PCB状态信息设置为”阻塞态“，暂停进程运行</li><li>将PCB插入到相应进程的等待队列</li></ol><p>引起进程阻塞的事件：</p><ol><li>需要等待系统分配某种资源</li><li>需要等待相互配合工作的其他进程完成工作</li></ol><h3 id="唤醒"><a href="#唤醒" class="headerlink" title="唤醒"></a>唤醒</h3><p>唤醒原语：（阻塞到就绪）</p><ol><li>在事件等待队列中找到对应的PCB</li><li>将PCB从等待队列删除，设置进程为就绪态</li><li>将PCB插入到就绪队列，等待被掉度</li></ol><p>引起进程唤醒的事件：</p><ol><li>等待事件的发生（因为什么被阻塞就因为什么被唤醒）</li></ol><h3 id="切换"><a href="#切换" class="headerlink" title="切换"></a>切换</h3><p>切换原语：（运行态到阻塞赛/就绪态 // 就绪态到运行态）</p><ol><li>将运行环境信息存入PCB</li><li>PCB移入相应的队列</li><li>选择另一个进程执行，并更新PCB</li><li>根据PCB恢复进程所需的运行环境</li></ol><p>引起进程切换的事件：</p><ol><li>当前的进程时间片到</li><li>有更高优先级的进程到达</li><li>当前进程主动阻塞</li><li>当前进程终止</li></ol>]]></content>
     
     
     <categories>
@@ -492,11 +492,11 @@
   
   
   <entry>
-    <title>2-1-3进程控制</title>
-    <link href="/gzguo/2020/12/26/OS/2/2-1-3/"/>
-    <url>/gzguo/2020/12/26/OS/2/2-1-3/</url>
+    <title>2-1-4进程通信</title>
+    <link href="/gzguo/2020/12/26/OS/2/2-1-4/"/>
+    <url>/gzguo/2020/12/26/OS/2/2-1-4/</url>
     
-    <content type="html"><![CDATA[<h4 id="2-1-3进程控制"><a href="#2-1-3进程控制" class="headerlink" title="2-1-3进程控制"></a><center>2-1-3进程控制</center></h4><span id="more"></span><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>进程控制就是对系统中的所有进程实施有效的管理。主要是创建进程、撤销进程、实现<strong>进程之间状态转换</strong>等的功能</p><h3 id="如何实现"><a href="#如何实现" class="headerlink" title="如何实现"></a>如何实现</h3><p>用原语实现<strong>进程控制</strong></p><p>因为进程控制的过程中，要进行进程状态的切换，切换的时候需要更改进程控制块的相关信息，更改需要更改对应的好几条信息，为了防止更改的不对应性。我们使用原语来实现进程控制。</p><p>原语的特点就是执行期间不能被中断，只能一气呵成。这种不可被中断的操作就是原子操作。</p><p>原语是采用<strong>关中断指令</strong>和<strong>开中段指令</strong>实现的。<u>如果执行关中断指令之后有外部中断信号进入，那么外部中断信号会被忽略</u>，这就是原语执行不会被中断的原因</p><p>关中断和开中断的权限非常大，所以这两个指令只允许在核心态下执行==&gt;原语运行在核心态</p><h2 id="进程控制相关原语"><a href="#进程控制相关原语" class="headerlink" title="进程控制相关原语"></a>进程控制相关原语</h2><p>无论是什么原语都无非做三类事情：</p><ol><li>更新PCB中的信息</li><li>将PCB插入合适的队列</li><li>分配/回收资源</li></ol><h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><p>创建原语：（创建态）</p><ol><li>申请空白PCB</li><li>为新进程分配所需资源</li><li>初始化PCB</li><li>将PCB插入就绪队列</li></ol><p>引起进程创建的事件：</p><ol><li>用户登陆</li><li>作业调度</li><li>提供服务</li><li>应用请求</li></ol><h3 id="终止"><a href="#终止" class="headerlink" title="终止"></a>终止</h3><p>撤销原语：（终止态）</p><ol><li>从PCB集合中找到终止进程的PCB</li><li>若程序正在运行，立即剥夺CPU，将CPU分配给其他进程</li><li>终止其所有子进程</li><li>将该进程拥有的所有资源归还给父进程或者操作系统</li><li>删除PCB</li></ol><p>引起进程终止的事件：</p><ol><li>正常结束</li><li>异常结束</li><li>外界干预</li></ol><h3 id="阻塞"><a href="#阻塞" class="headerlink" title="阻塞"></a>阻塞</h3><p>阻塞原语：（运行到阻塞）</p><ol><li>找到阻塞的进程对应的PCB</li><li>保护进程运行现场，将PCB状态信息设置为”阻塞态“，暂停进程运行</li><li>将PCB插入到相应进程的等待队列</li></ol><p>引起进程阻塞的事件：</p><ol><li>需要等待系统分配某种资源</li><li>需要等待相互配合工作的其他进程完成工作</li></ol><h3 id="唤醒"><a href="#唤醒" class="headerlink" title="唤醒"></a>唤醒</h3><p>唤醒原语：（阻塞到就绪）</p><ol><li>在事件等待队列中找到对应的PCB</li><li>将PCB从等待队列删除，设置进程为就绪态</li><li>将PCB插入到就绪队列，等待被掉度</li></ol><p>引起进程唤醒的事件：</p><ol><li>等待事件的发生（因为什么被阻塞就因为什么被唤醒）</li></ol><h3 id="切换"><a href="#切换" class="headerlink" title="切换"></a>切换</h3><p>切换原语：（运行态到阻塞赛/就绪态 // 就绪态到运行态）</p><ol><li>将运行环境信息存入PCB</li><li>PCB移入相应的队列</li><li>选择另一个进程执行，并更新PCB</li><li>根据PCB恢复进程所需的运行环境</li></ol><p>引起进程切换的事件：</p><ol><li>当前的进程时间片到</li><li>有更高优先级的进程到达</li><li>当前进程主动阻塞</li><li>当前进程终止</li></ol>]]></content>
+    <content type="html"><![CDATA[<h4 id="2-1-4进程通信"><a href="#2-1-4进程通信" class="headerlink" title="2-1-4进程通信"></a><center>2-1-4进程通信</center></h4><span id="more"></span><p>进程通信就是进程之间的信息交换</p><p>进程是分配系统资源的单位，各进程拥有的内存地址空间是相对独立的</p><p>为了保证安全，进程之间不允许互相访问</p><p>但是进程之间的信息交换又是必须实现的，为了保证进程之间的安全通信，操作系统提供了一些方法</p><p>下面就是操作系统提供的三种进程通信的方式</p><h2 id="共享存储"><a href="#共享存储" class="headerlink" title="共享存储"></a>共享存储</h2><p>系统为两个进程分配一个共享空间，两个进程可以<strong>互斥的访问</strong>共享空间</p><p>互斥访问通过操作系统提供的同步互斥工具实现（P、V操作）</p><h3 id="基于数据结构的共享"><a href="#基于数据结构的共享" class="headerlink" title="基于数据结构的共享"></a>基于数据结构的共享</h3><p><strong>对每次传递的数据格式有限制</strong>，是一种低级的通信方式</p><h3 id="基于存储区的共享"><a href="#基于存储区的共享" class="headerlink" title="基于存储区的共享"></a>基于存储区的共享</h3><p>操作系统只提供共享存储区，数据结构、存放位置等的信息都由进程控制，相比之下，这是一种高级通信的方式</p><h2 id="管道通信"><a href="#管道通信" class="headerlink" title="管道通信"></a>管道通信</h2><p>管道就是特殊的共享文件/pipe文件（实质就是在内存中开辟一个固定大小的<strong>缓冲区</strong>）</p><p>注意：</p><ol><li>管道只能采用<strong>半双工通信</strong>（只能单向传输，想要实现双向可以设置两个管道）</li><li>各进程要互斥的访问管道</li><li>管道写满，写进程阻塞，等待读进程全部读走，管道变空，读进程阻塞</li><li>没有写满不能读，没有空不允许写</li><li>数据一旦被读出就会消失，所以<strong>读进程只能有一个</strong></li></ol><h2 id="消息传递"><a href="#消息传递" class="headerlink" title="消息传递"></a>消息传递</h2><p>进程间的数据交换以<strong>格式化的消息</strong>为单位，通过<strong>发送/接收消息两个原语</strong>进行数据交换</p><p>格式化的消息：<strong>消息头、消息体</strong></p><h3 id="直接通信方式"><a href="#直接通信方式" class="headerlink" title="直接通信方式"></a>直接通信方式</h3><p>消息直接挂到接收进程的<strong>消息缓冲队列上</strong></p><h3 id="间接通信方式"><a href="#间接通信方式" class="headerlink" title="间接通信方式"></a>间接通信方式</h3><p>消息先发送到<strong>中间实体（信箱）</strong>，也成为“信箱通信方式”</p>]]></content>
     
     
     <categories>
@@ -1092,11 +1092,11 @@
   
   
   <entry>
-    <title>8.2字符串对象</title>
-    <link href="/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.2%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AF%B9%E8%B1%A1/"/>
-    <url>/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.2%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AF%B9%E8%B1%A1/</url>
+    <title>8.1.3JavaScript概念及其语法下</title>
+    <link href="/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.1.3JavaScript%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95%E4%B8%8B/"/>
+    <url>/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.1.3JavaScript%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95%E4%B8%8B/</url>
     
-    <content type="html"><![CDATA[<h4 id="8-2字符串对象"><a href="#8-2字符串对象" class="headerlink" title="8.2字符串对象"></a><center>8.2字符串对象</center></h4><span id="more"></span>]]></content>
+    <content type="html"><![CDATA[<h4 id="8-1-3JavaScript概念及其语法下"><a href="#8-1-3JavaScript概念及其语法下" class="headerlink" title="8.1.3JavaScript概念及其语法下"></a><center>8.1.3JavaScript概念及其语法下</center></h4><span id="more"></span><h2 id="流程控制语句"><a href="#流程控制语句" class="headerlink" title="流程控制语句"></a>流程控制语句</h2><h3 id="顺序结构"><a href="#顺序结构" class="headerlink" title="顺序结构"></a>顺序结构</h3><h3 id="选择结构"><a href="#选择结构" class="headerlink" title="选择结构"></a>选择结构</h3><p>if switch</p><h3 id="循环结构"><a href="#循环结构" class="headerlink" title="循环结构"></a>循环结构</h3><p>while、do-while、for</p><h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2>]]></content>
     
     
     <categories>
@@ -1117,11 +1117,11 @@
   
   
   <entry>
-    <title>8.1.3JavaScript概念及其语法下</title>
-    <link href="/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.1.3JavaScript%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95%E4%B8%8B/"/>
-    <url>/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.1.3JavaScript%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95%E4%B8%8B/</url>
+    <title>8.2字符串对象</title>
+    <link href="/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.2%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AF%B9%E8%B1%A1/"/>
+    <url>/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.2%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AF%B9%E8%B1%A1/</url>
     
-    <content type="html"><![CDATA[<h4 id="8-1-3JavaScript概念及其语法下"><a href="#8-1-3JavaScript概念及其语法下" class="headerlink" title="8.1.3JavaScript概念及其语法下"></a><center>8.1.3JavaScript概念及其语法下</center></h4><span id="more"></span><h2 id="流程控制语句"><a href="#流程控制语句" class="headerlink" title="流程控制语句"></a>流程控制语句</h2><h3 id="顺序结构"><a href="#顺序结构" class="headerlink" title="顺序结构"></a>顺序结构</h3><h3 id="选择结构"><a href="#选择结构" class="headerlink" title="选择结构"></a>选择结构</h3><p>if switch</p><h3 id="循环结构"><a href="#循环结构" class="headerlink" title="循环结构"></a>循环结构</h3><p>while、do-while、for</p><h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2>]]></content>
+    <content type="html"><![CDATA[<h4 id="8-2字符串对象"><a href="#8-2字符串对象" class="headerlink" title="8.2字符串对象"></a><center>8.2字符串对象</center></h4><span id="more"></span>]]></content>
     
     
     <categories>
@@ -1242,31 +1242,6 @@
   
   
   <entry>
-    <title>9.2事件机制</title>
-    <link href="/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.2%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6/"/>
-    <url>/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.2%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6/</url>
-    
-    <content type="html"><![CDATA[<h4 id="9-2事件机制"><a href="#9-2事件机制" class="headerlink" title="9.2事件机制"></a><center>9.2事件机制</center></h4><span id="more"></span>]]></content>
-    
-    
-    <categories>
-      
-      <category>html5</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>html</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>9.3窗口对象</title>
     <link href="/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.3%E7%AA%97%E5%8F%A3%E5%AF%B9%E8%B1%A1/"/>
     <url>/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.3%E7%AA%97%E5%8F%A3%E5%AF%B9%E8%B1%A1/</url>
@@ -1292,11 +1267,11 @@
   
   
   <entry>
-    <title>9.5表单对象</title>
-    <link href="/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.5%E8%A1%A8%E5%8D%95%E5%AF%B9%E8%B1%A1/"/>
-    <url>/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.5%E8%A1%A8%E5%8D%95%E5%AF%B9%E8%B1%A1/</url>
+    <title>9.2事件机制</title>
+    <link href="/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.2%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6/"/>
+    <url>/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.2%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6/</url>
     
-    <content type="html"><![CDATA[<h4 id="9-5表单对象"><a href="#9-5表单对象" class="headerlink" title="9.5表单对象"></a><center>9.5表单对象</center></h4><span id="more"></span>]]></content>
+    <content type="html"><![CDATA[<h4 id="9-2事件机制"><a href="#9-2事件机制" class="headerlink" title="9.2事件机制"></a><center>9.2事件机制</center></h4><span id="more"></span>]]></content>
     
     
     <categories>
@@ -1322,6 +1297,31 @@
     <url>/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.4%E6%96%87%E6%A1%A3%E5%AF%B9%E8%B1%A1/</url>
     
     <content type="html"><![CDATA[<h4 id="9-4文档对象"><a href="#9-4文档对象" class="headerlink" title="9.4文档对象"></a><center>9.4文档对象</center></h4><span id="more"></span>]]></content>
+    
+    
+    <categories>
+      
+      <category>html5</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>html</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>9.5表单对象</title>
+    <link href="/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.5%E8%A1%A8%E5%8D%95%E5%AF%B9%E8%B1%A1/"/>
+    <url>/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.5%E8%A1%A8%E5%8D%95%E5%AF%B9%E8%B1%A1/</url>
+    
+    <content type="html"><![CDATA[<h4 id="9-5表单对象"><a href="#9-5表单对象" class="headerlink" title="9.5表单对象"></a><center>9.5表单对象</center></h4><span id="more"></span>]]></content>
     
     
     <categories>
@@ -1812,31 +1812,6 @@
   
   <entry>
     <title>linux</title>
-    <link href="/gzguo/2020/09/28/linux/linux%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/"/>
-    <url>/gzguo/2020/09/28/linux/linux%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/</url>
-    
-    <content type="html"><![CDATA[<h4 id="linux常见命令"><a href="#linux常见命令" class="headerlink" title="linux常见命令"></a><center>linux常见命令</center></h4><span id="more"></span><h2 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs awk">whoami   查看当前登陆用户<br><span class="hljs-keyword">exit</span>   退出虚拟机的连接<br>pwd   查看当前路径<br>ps aux | grep mysql   查看某个进程<br>ps -ef|grep redis   查看进程是否激活<br>netstat -ntlup|grep <span class="hljs-number">8080</span>   查看<span class="hljs-number">8080</span>端口被谁占用<br>rm -rf 目录绝对位置   删除整个目录及目录下的所有文件<br>du --max-depth=<span class="hljs-number">1</span> -h   查看磁盘占用<br></code></pre></td></tr></table></figure><h2 id="vim搜索"><a href="#vim搜索" class="headerlink" title="vim搜索"></a>vim搜索</h2><h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elixir"><span class="hljs-symbol">:/</span>搜索内容<br></code></pre></td></tr></table></figure><h3 id="取消搜索"><a href="#取消搜索" class="headerlink" title="取消搜索"></a>取消搜索</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">nohlsearch</span>    简写<span class="hljs-keyword">noh</span><br><span class="hljs-keyword">set</span> <span class="hljs-keyword">nohlsearch</span>   简写<span class="hljs-keyword">set</span> <span class="hljs-keyword">noh</span><br></code></pre></td></tr></table></figure><h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><h3 id="添加端口"><a href="#添加端口" class="headerlink" title="添加端口"></a>添加端口</h3><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">firewall</span><span class="hljs-literal">-</span><span class="hljs-comment">cmd</span> --<span class="hljs-comment">add</span><span class="hljs-literal">-</span><span class="hljs-comment">port=5000/tcp</span> --<span class="hljs-comment">permanent</span><br><span class="hljs-comment">firewall</span><span class="hljs-literal">-</span><span class="hljs-comment">cmd</span> --<span class="hljs-comment">reload</span><br></code></pre></td></tr></table></figure><h3 id="开启关闭"><a href="#开启关闭" class="headerlink" title="开启关闭"></a>开启关闭</h3><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">systemctl status firewalld.service   查看防火墙状态<br>firewall-cmd <span class="hljs-comment">--state   查看防火墙状态</span><br>firewall-cmd <span class="hljs-comment">--list-ports   查看防火墙开启的端口</span><br>firewall-cmd <span class="hljs-comment">--add-port=6379/tcp   添加端口</span><br>firewall-cmd <span class="hljs-comment">--list-services   查看防火墙开启的服务</span><br>systemctl <span class="hljs-keyword">start</span> firewalld   开启防火墙<br>systemctl stop firewalld   禁用防火墙<br>systemctl <span class="hljs-keyword">enable</span> firewalld   设置防火墙开机启动<br>systemctl <span class="hljs-keyword">disable</span> firewalld   停止并禁用开机启动<br>firewall-cmd <span class="hljs-comment">--reload   重启防火墙</span><br></code></pre></td></tr></table></figure><h3 id="永久打开端口"><a href="#永久打开端口" class="headerlink" title="永久打开端口"></a>永久打开端口</h3><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">firewall</span><span class="hljs-literal">-</span><span class="hljs-comment">cmd</span> --<span class="hljs-comment">zone=public</span> --<span class="hljs-comment">add</span><span class="hljs-literal">-</span><span class="hljs-comment">port=8080/tcp</span> --<span class="hljs-comment">permanent</span>   <span class="hljs-comment">永久打开端口</span><br><span class="hljs-comment">firewall</span><span class="hljs-literal">-</span><span class="hljs-comment">cmd</span> --<span class="hljs-comment">reload</span>   <span class="hljs-comment">重新加载</span><br></code></pre></td></tr></table></figure><h2 id="添加swag分区"><a href="#添加swag分区" class="headerlink" title="添加swag分区"></a>添加swag分区</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros">dd <span class="hljs-attribute">if</span>=/dev/zero <span class="hljs-attribute">of</span>=/swapfile <span class="hljs-attribute">bs</span>=1M <span class="hljs-attribute">count</span>=1024<br>mkswap /swapfile<br>swapon /swapfile<br>free -m<br></code></pre></td></tr></table></figure>]]></content>
-    
-    
-    <categories>
-      
-      <category>linux</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>linux常见命令</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>linux</title>
     <link href="/gzguo/2020/09/28/linux/%E9%83%A8%E7%BD%B2jar%E5%8C%85/"/>
     <url>/gzguo/2020/09/28/linux/%E9%83%A8%E7%BD%B2jar%E5%8C%85/</url>
     
@@ -1853,6 +1828,31 @@
     <tags>
       
       <tag>部署jar包</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>linux</title>
+    <link href="/gzguo/2020/09/28/linux/linux%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/"/>
+    <url>/gzguo/2020/09/28/linux/linux%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/</url>
+    
+    <content type="html"><![CDATA[<h4 id="linux常见命令"><a href="#linux常见命令" class="headerlink" title="linux常见命令"></a><center>linux常见命令</center></h4><span id="more"></span><h2 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs awk">whoami   查看当前登陆用户<br><span class="hljs-keyword">exit</span>   退出虚拟机的连接<br>pwd   查看当前路径<br>ps aux | grep mysql   查看某个进程<br>ps -ef|grep redis   查看进程是否激活<br>netstat -ntlup|grep <span class="hljs-number">8080</span>   查看<span class="hljs-number">8080</span>端口被谁占用<br>rm -rf 目录绝对位置   删除整个目录及目录下的所有文件<br>du --max-depth=<span class="hljs-number">1</span> -h   查看磁盘占用<br></code></pre></td></tr></table></figure><h2 id="vim搜索"><a href="#vim搜索" class="headerlink" title="vim搜索"></a>vim搜索</h2><h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elixir"><span class="hljs-symbol">:/</span>搜索内容<br></code></pre></td></tr></table></figure><h3 id="取消搜索"><a href="#取消搜索" class="headerlink" title="取消搜索"></a>取消搜索</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">nohlsearch</span>    简写<span class="hljs-keyword">noh</span><br><span class="hljs-keyword">set</span> <span class="hljs-keyword">nohlsearch</span>   简写<span class="hljs-keyword">set</span> <span class="hljs-keyword">noh</span><br></code></pre></td></tr></table></figure><h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><h3 id="添加端口"><a href="#添加端口" class="headerlink" title="添加端口"></a>添加端口</h3><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">firewall</span><span class="hljs-literal">-</span><span class="hljs-comment">cmd</span> --<span class="hljs-comment">add</span><span class="hljs-literal">-</span><span class="hljs-comment">port=5000/tcp</span> --<span class="hljs-comment">permanent</span><br><span class="hljs-comment">firewall</span><span class="hljs-literal">-</span><span class="hljs-comment">cmd</span> --<span class="hljs-comment">reload</span><br></code></pre></td></tr></table></figure><h3 id="开启关闭"><a href="#开启关闭" class="headerlink" title="开启关闭"></a>开启关闭</h3><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">systemctl status firewalld.service   查看防火墙状态<br>firewall-cmd <span class="hljs-comment">--state   查看防火墙状态</span><br>firewall-cmd <span class="hljs-comment">--list-ports   查看防火墙开启的端口</span><br>firewall-cmd <span class="hljs-comment">--add-port=6379/tcp   添加端口</span><br>firewall-cmd <span class="hljs-comment">--list-services   查看防火墙开启的服务</span><br>systemctl <span class="hljs-keyword">start</span> firewalld   开启防火墙<br>systemctl stop firewalld   禁用防火墙<br>systemctl <span class="hljs-keyword">enable</span> firewalld   设置防火墙开机启动<br>systemctl <span class="hljs-keyword">disable</span> firewalld   停止并禁用开机启动<br>firewall-cmd <span class="hljs-comment">--reload   重启防火墙</span><br></code></pre></td></tr></table></figure><h3 id="永久打开端口"><a href="#永久打开端口" class="headerlink" title="永久打开端口"></a>永久打开端口</h3><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">firewall</span><span class="hljs-literal">-</span><span class="hljs-comment">cmd</span> --<span class="hljs-comment">zone=public</span> --<span class="hljs-comment">add</span><span class="hljs-literal">-</span><span class="hljs-comment">port=8080/tcp</span> --<span class="hljs-comment">permanent</span>   <span class="hljs-comment">永久打开端口</span><br><span class="hljs-comment">firewall</span><span class="hljs-literal">-</span><span class="hljs-comment">cmd</span> --<span class="hljs-comment">reload</span>   <span class="hljs-comment">重新加载</span><br></code></pre></td></tr></table></figure><h2 id="添加swag分区"><a href="#添加swag分区" class="headerlink" title="添加swag分区"></a>添加swag分区</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros">dd <span class="hljs-attribute">if</span>=/dev/zero <span class="hljs-attribute">of</span>=/swapfile <span class="hljs-attribute">bs</span>=1M <span class="hljs-attribute">count</span>=1024<br>mkswap /swapfile<br>swapon /swapfile<br>free -m<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>linux</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>linux常见命令</tag>
       
     </tags>
     
@@ -1878,6 +1878,31 @@
     <tags>
       
       <tag>windows添加启动项</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>mariadb</title>
+    <link href="/gzguo/2020/09/28/%E6%9A%91%E5%81%87%E9%A1%B9%E7%9B%AE/mysql/"/>
+    <url>/gzguo/2020/09/28/%E6%9A%91%E5%81%87%E9%A1%B9%E7%9B%AE/mysql/</url>
+    
+    <content type="html"><![CDATA[<h4 id="mariadb下载"><a href="#mariadb下载" class="headerlink" title="mariadb下载"></a><center>mariadb下载</center></h4><span id="more"></span><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vim">rpm -<span class="hljs-keyword">qa</span>|<span class="hljs-keyword">grep</span> mysql   查看yum源<br>rpm -ev mysql   删除yum源<br>rpm -ivh mysql   安装yum源<br></code></pre></td></tr></table></figure><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">export PYTHONPATH=<span class="hljs-regexp">/usr/</span>lib64<span class="hljs-regexp">/python2.7/</span><br>export PYTHONHOME=<span class="hljs-regexp">/usr/</span>lib64<span class="hljs-regexp">/python2.7/</span><br></code></pre></td></tr></table></figure><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//mi</span>rrors.<span class="hljs-number">163</span>.com<span class="hljs-regexp">/centos/</span><span class="hljs-number">7</span><span class="hljs-regexp">/os/</span>x86_64<span class="hljs-regexp">/Packages/</span>   yum等的镜像<br></code></pre></td></tr></table></figure><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">cat <span class="hljs-regexp">/etc/</span>redhat-release   查看服务器版本<br></code></pre></td></tr></table></figure><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">tar</span> -zxvf cmake-<span class="hljs-number">3</span>.<span class="hljs-number">15</span>.<span class="hljs-number">3</span>-Linux-x<span class="hljs-number">86</span>_<span class="hljs-number">64</span>.tar.gz<br></code></pre></td></tr></table></figure><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">mv</span> java-<span class="hljs-number">1</span>.<span class="hljs-number">8</span>.<span class="hljs-number">0</span>-openjdk-<span class="hljs-number">1.8.0.202</span>-<span class="hljs-number">1.8.1.2</span>.ns<span class="hljs-number">7</span>_<span class="hljs-number">4</span>.mips<span class="hljs-number">64</span>el/ java<span class="hljs-number">8</span><br></code></pre></td></tr></table></figure><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">yum -y install mariadb-server mariadb  <br><br>systemctl <span class="hljs-literal">start</span> mariadb  <span class="hljs-comment">#启动MariaDB</span><br><br>systemctl <span class="hljs-literal">stop</span> mariadb  <span class="hljs-comment">#停止MariaDB</span><br><br>systemctl restart mariadb  <span class="hljs-comment">#重启MariaDB</span><br><br>systemctl enable mariadb  <span class="hljs-comment">#设置开机启动</span><br><br>systemctl <span class="hljs-literal">start</span> mariadb.service<br></code></pre></td></tr></table></figure><figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs scheme">[<span class="hljs-symbol">&#x27;/usr/lib64/python2.7/lib/python2.7/site-packages</span>&#x27;, <span class="hljs-symbol">&#x27;/usr/lib64/python2.7/lib/site-python</span>&#x27;]<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>mariadb</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>mariadb下载</tag>
       
     </tags>
     
@@ -1928,31 +1953,6 @@
     <tags>
       
       <tag>nginx静态服务器</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>mariadb</title>
-    <link href="/gzguo/2020/09/28/%E6%9A%91%E5%81%87%E9%A1%B9%E7%9B%AE/mysql/"/>
-    <url>/gzguo/2020/09/28/%E6%9A%91%E5%81%87%E9%A1%B9%E7%9B%AE/mysql/</url>
-    
-    <content type="html"><![CDATA[<h4 id="mariadb下载"><a href="#mariadb下载" class="headerlink" title="mariadb下载"></a><center>mariadb下载</center></h4><span id="more"></span><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vim">rpm -<span class="hljs-keyword">qa</span>|<span class="hljs-keyword">grep</span> mysql   查看yum源<br>rpm -ev mysql   删除yum源<br>rpm -ivh mysql   安装yum源<br></code></pre></td></tr></table></figure><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">export PYTHONPATH=<span class="hljs-regexp">/usr/</span>lib64<span class="hljs-regexp">/python2.7/</span><br>export PYTHONHOME=<span class="hljs-regexp">/usr/</span>lib64<span class="hljs-regexp">/python2.7/</span><br></code></pre></td></tr></table></figure><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//mi</span>rrors.<span class="hljs-number">163</span>.com<span class="hljs-regexp">/centos/</span><span class="hljs-number">7</span><span class="hljs-regexp">/os/</span>x86_64<span class="hljs-regexp">/Packages/</span>   yum等的镜像<br></code></pre></td></tr></table></figure><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">cat <span class="hljs-regexp">/etc/</span>redhat-release   查看服务器版本<br></code></pre></td></tr></table></figure><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">tar</span> -zxvf cmake-<span class="hljs-number">3</span>.<span class="hljs-number">15</span>.<span class="hljs-number">3</span>-Linux-x<span class="hljs-number">86</span>_<span class="hljs-number">64</span>.tar.gz<br></code></pre></td></tr></table></figure><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">mv</span> java-<span class="hljs-number">1</span>.<span class="hljs-number">8</span>.<span class="hljs-number">0</span>-openjdk-<span class="hljs-number">1.8.0.202</span>-<span class="hljs-number">1.8.1.2</span>.ns<span class="hljs-number">7</span>_<span class="hljs-number">4</span>.mips<span class="hljs-number">64</span>el/ java<span class="hljs-number">8</span><br></code></pre></td></tr></table></figure><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">yum -y install mariadb-server mariadb  <br><br>systemctl <span class="hljs-literal">start</span> mariadb  <span class="hljs-comment">#启动MariaDB</span><br><br>systemctl <span class="hljs-literal">stop</span> mariadb  <span class="hljs-comment">#停止MariaDB</span><br><br>systemctl restart mariadb  <span class="hljs-comment">#重启MariaDB</span><br><br>systemctl enable mariadb  <span class="hljs-comment">#设置开机启动</span><br><br>systemctl <span class="hljs-literal">start</span> mariadb.service<br></code></pre></td></tr></table></figure><figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs scheme">[<span class="hljs-symbol">&#x27;/usr/lib64/python2.7/lib/python2.7/site-packages</span>&#x27;, <span class="hljs-symbol">&#x27;/usr/lib64/python2.7/lib/site-python</span>&#x27;]<br></code></pre></td></tr></table></figure>]]></content>
-    
-    
-    <categories>
-      
-      <category>mariadb</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>mariadb下载</tag>
       
     </tags>
     
@@ -2111,31 +2111,6 @@
   
   
   <entry>
-    <title>资金管理系统-添加接口</title>
-    <link href="/gzguo/2020/09/28/%E6%9A%91%E5%81%87%E9%A1%B9%E7%9B%AE/%E6%B7%BB%E5%8A%A0/"/>
-    <url>/gzguo/2020/09/28/%E6%9A%91%E5%81%87%E9%A1%B9%E7%9B%AE/%E6%B7%BB%E5%8A%A0/</url>
-    
-    <content type="html"><![CDATA[<h4 id="添加接口"><a href="#添加接口" class="headerlink" title="添加接口"></a><center>添加接口</center></h4><span id="more"></span><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gradle">出库领用API<br><span class="hljs-regexp">/use/</span>add   增加<br><span class="hljs-regexp">/use/</span><span class="hljs-keyword">find</span>/simple   简单搜索<br><span class="hljs-regexp">/use/</span><span class="hljs-keyword">find</span><span class="hljs-regexp">/all/</span>by   高级搜索<br></code></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddUseForm</span> </span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 领用单号</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String coding;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 领用人id</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer userId;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 备注</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String remark;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 资产</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer assetId;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="调拨"><a href="#调拨" class="headerlink" title="调拨"></a>调拨</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gradle">资产调拨API<br><span class="hljs-regexp">/borrow/</span>add   增加<br><span class="hljs-regexp">/borrow/</span><span class="hljs-keyword">find</span>/simple   简单搜索<br><span class="hljs-regexp">/borrow/</span><span class="hljs-keyword">find</span><span class="hljs-regexp">/all/</span>by   高级搜索<br></code></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddBorrowForm</span> </span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 调拨单号</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String coding;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 调拨前公司</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer companyPid;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 调拨后公司</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer companyNid;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 备注</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String remark;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 资产id</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer assetId;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="维修"><a href="#维修" class="headerlink" title="维修"></a>维修</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gradle">资产维修API<br><span class="hljs-regexp">/repair/</span>add   增加<br><span class="hljs-regexp">/repair/</span><span class="hljs-keyword">find</span>/simple   简单搜索<br><span class="hljs-regexp">/repair/</span><span class="hljs-keyword">find</span><span class="hljs-regexp">/all/</span>by   高级搜索<br></code></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddRepairForm</span> </span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 维修状态(0维修中，1维修完成)</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String status;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 维修单号</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String coding;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 维修原因</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String reason;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 维修内容</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String content;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 维修花费</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String pay;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 维修备注</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String remark;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 资产id</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer assetId;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 报修部门</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer departmentId;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="报废"><a href="#报废" class="headerlink" title="报废"></a>报废</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gradle">清理报废API<br><span class="hljs-regexp">/scrap/</span>add   增加<br><span class="hljs-regexp">/scrap/</span><span class="hljs-keyword">find</span>/simple   简单搜索<br><span class="hljs-regexp">/scrap/</span><span class="hljs-keyword">find</span><span class="hljs-regexp">/all/</span>by   高级搜索<br></code></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddScrapForm</span> </span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 报废单号</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String coding;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 报废原因</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String reason;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 报废备注</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String remark;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 资产id</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer assetId;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="转移"><a href="#转移" class="headerlink" title="转移"></a>转移</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gradle">资产转移API<br><span class="hljs-regexp">/transfer/</span>add   增加<br><span class="hljs-regexp">/transfer/</span><span class="hljs-keyword">find</span>/simple   简单搜索<br><span class="hljs-regexp">/transfer/</span><span class="hljs-keyword">find</span><span class="hljs-regexp">/all/</span>by   高级搜索<br></code></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddTransferForm</span> </span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     *转移编码</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String coding;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 转移后使用人</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer userId;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 转移后使用地</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer locationId;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 转移的资产</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer assetId;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 备注</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String remark;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="退库"><a href="#退库" class="headerlink" title="退库"></a>退库</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gradle">资产退库API<br><span class="hljs-regexp">/return/</span>add   增加<br><span class="hljs-regexp">/return/</span><span class="hljs-keyword">find</span>/simple   简单搜索<br><span class="hljs-regexp">/return/</span><span class="hljs-keyword">find</span><span class="hljs-regexp">/all/</span>by   高级搜索<br></code></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddReturnForm</span> </span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 编码</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String coding;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 存放地</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer locationId;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 备注</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String remark;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 资产id</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer assetId;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
-    
-    
-    <categories>
-      
-      <category>资金管理系统</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>添加接口</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>资金管理系统-小失误</title>
     <link href="/gzguo/2020/09/28/%E6%9A%91%E5%81%87%E9%A1%B9%E7%9B%AE/%E6%B2%A1%E6%9C%89%E5%8A%A0%E6%9D%83%E9%99%90/"/>
     <url>/gzguo/2020/09/28/%E6%9A%91%E5%81%87%E9%A1%B9%E7%9B%AE/%E6%B2%A1%E6%9C%89%E5%8A%A0%E6%9D%83%E9%99%90/</url>
@@ -2153,6 +2128,31 @@
     <tags>
       
       <tag>小失误</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>资金管理系统-添加接口</title>
+    <link href="/gzguo/2020/09/28/%E6%9A%91%E5%81%87%E9%A1%B9%E7%9B%AE/%E6%B7%BB%E5%8A%A0/"/>
+    <url>/gzguo/2020/09/28/%E6%9A%91%E5%81%87%E9%A1%B9%E7%9B%AE/%E6%B7%BB%E5%8A%A0/</url>
+    
+    <content type="html"><![CDATA[<h4 id="添加接口"><a href="#添加接口" class="headerlink" title="添加接口"></a><center>添加接口</center></h4><span id="more"></span><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gradle">出库领用API<br><span class="hljs-regexp">/use/</span>add   增加<br><span class="hljs-regexp">/use/</span><span class="hljs-keyword">find</span>/simple   简单搜索<br><span class="hljs-regexp">/use/</span><span class="hljs-keyword">find</span><span class="hljs-regexp">/all/</span>by   高级搜索<br></code></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddUseForm</span> </span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 领用单号</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String coding;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 领用人id</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer userId;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 备注</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String remark;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 资产</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer assetId;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="调拨"><a href="#调拨" class="headerlink" title="调拨"></a>调拨</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gradle">资产调拨API<br><span class="hljs-regexp">/borrow/</span>add   增加<br><span class="hljs-regexp">/borrow/</span><span class="hljs-keyword">find</span>/simple   简单搜索<br><span class="hljs-regexp">/borrow/</span><span class="hljs-keyword">find</span><span class="hljs-regexp">/all/</span>by   高级搜索<br></code></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddBorrowForm</span> </span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 调拨单号</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String coding;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 调拨前公司</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer companyPid;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 调拨后公司</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer companyNid;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 备注</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String remark;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 资产id</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer assetId;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="维修"><a href="#维修" class="headerlink" title="维修"></a>维修</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gradle">资产维修API<br><span class="hljs-regexp">/repair/</span>add   增加<br><span class="hljs-regexp">/repair/</span><span class="hljs-keyword">find</span>/simple   简单搜索<br><span class="hljs-regexp">/repair/</span><span class="hljs-keyword">find</span><span class="hljs-regexp">/all/</span>by   高级搜索<br></code></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddRepairForm</span> </span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 维修状态(0维修中，1维修完成)</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String status;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 维修单号</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String coding;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 维修原因</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String reason;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 维修内容</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String content;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 维修花费</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String pay;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 维修备注</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String remark;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 资产id</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer assetId;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 报修部门</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer departmentId;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="报废"><a href="#报废" class="headerlink" title="报废"></a>报废</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gradle">清理报废API<br><span class="hljs-regexp">/scrap/</span>add   增加<br><span class="hljs-regexp">/scrap/</span><span class="hljs-keyword">find</span>/simple   简单搜索<br><span class="hljs-regexp">/scrap/</span><span class="hljs-keyword">find</span><span class="hljs-regexp">/all/</span>by   高级搜索<br></code></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddScrapForm</span> </span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 报废单号</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String coding;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 报废原因</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String reason;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 报废备注</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String remark;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 资产id</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer assetId;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="转移"><a href="#转移" class="headerlink" title="转移"></a>转移</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gradle">资产转移API<br><span class="hljs-regexp">/transfer/</span>add   增加<br><span class="hljs-regexp">/transfer/</span><span class="hljs-keyword">find</span>/simple   简单搜索<br><span class="hljs-regexp">/transfer/</span><span class="hljs-keyword">find</span><span class="hljs-regexp">/all/</span>by   高级搜索<br></code></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddTransferForm</span> </span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     *转移编码</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String coding;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 转移后使用人</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer userId;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 转移后使用地</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer locationId;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 转移的资产</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer assetId;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 备注</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String remark;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="退库"><a href="#退库" class="headerlink" title="退库"></a>退库</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gradle">资产退库API<br><span class="hljs-regexp">/return/</span>add   增加<br><span class="hljs-regexp">/return/</span><span class="hljs-keyword">find</span>/simple   简单搜索<br><span class="hljs-regexp">/return/</span><span class="hljs-keyword">find</span><span class="hljs-regexp">/all/</span>by   高级搜索<br></code></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddReturnForm</span> </span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 编码</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String coding;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 存放地</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer locationId;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 备注</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String remark;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 资产id</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer assetId;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>资金管理系统</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>添加接口</tag>
       
     </tags>
     
@@ -2236,31 +2236,6 @@
   
   
   <entry>
-    <title>项目微服务架构</title>
-    <link href="/gzguo/2020/09/28/%E8%B0%B7%E7%B2%92%E5%95%86%E5%9F%8E/%E9%A1%B9%E7%9B%AE%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/"/>
-    <url>/gzguo/2020/09/28/%E8%B0%B7%E7%B2%92%E5%95%86%E5%9F%8E/%E9%A1%B9%E7%9B%AE%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/</url>
-    
-    <content type="html"><![CDATA[<h4 id="微服务架构"><a href="#微服务架构" class="headerlink" title="微服务架构"></a><center>微服务架构</center></h4><span id="more"></span><p>用户通过安卓或者PC向我们后台发送清求。请求先来到Nginx集群，Nginx将请求转交给后台服务（API网关），由网关动态路由到指定的服务</p>]]></content>
-    
-    
-    <categories>
-      
-      <category>docker</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>微服务架构</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>docker-redis环境搭建</title>
     <link href="/gzguo/2020/09/28/%E8%B0%B7%E7%B2%92%E5%95%86%E5%9F%8E/%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83-redis/"/>
     <url>/gzguo/2020/09/28/%E8%B0%B7%E7%B2%92%E5%95%86%E5%9F%8E/%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83-redis/</url>
@@ -2278,6 +2253,31 @@
     <tags>
       
       <tag>安装docker下的redis、启动、暂停</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>项目微服务架构</title>
+    <link href="/gzguo/2020/09/28/%E8%B0%B7%E7%B2%92%E5%95%86%E5%9F%8E/%E9%A1%B9%E7%9B%AE%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/"/>
+    <url>/gzguo/2020/09/28/%E8%B0%B7%E7%B2%92%E5%95%86%E5%9F%8E/%E9%A1%B9%E7%9B%AE%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/</url>
+    
+    <content type="html"><![CDATA[<h4 id="微服务架构"><a href="#微服务架构" class="headerlink" title="微服务架构"></a><center>微服务架构</center></h4><span id="more"></span><p>用户通过安卓或者PC向我们后台发送清求。请求先来到Nginx集群，Nginx将请求转交给后台服务（API网关），由网关动态路由到指定的服务</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>docker</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>微服务架构</tag>
       
     </tags>
     
