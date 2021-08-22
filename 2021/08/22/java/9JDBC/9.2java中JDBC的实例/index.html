@@ -1,0 +1,468 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/gzguo/img/favicon.png">
+  <link rel="icon" href="/gzguo/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="如何用java使用JDBC，五大步骤。bean类的创建和简化代码。List接收数据库的值，来进行结果处理。封装JDBC。">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
+  
+  <title>9.2java中JDBC的实例 - Learing</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/gzguo/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/gzguo/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/gzguo/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/gzguo/js/utils.js" ></script>
+  <script  src="/gzguo/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/gzguo/">&nbsp;<strong>Jarvis</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/gzguo/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="9.2java中JDBC的实例">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-22 16:26" pubdate>
+        2021年8月22日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      21
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">9.2java中JDBC的实例</h1>
+            
+            <div class="markdown-body">
+              <p>如何用java使用JDBC，五大步骤。bean类的创建和简化代码。List接收数据库的值，来进行结果处理。封装JDBC。</p>
+<span id="more"></span>
+
+<h1 id="使用JDBC的步骤">1. 使用JDBC的步骤</h1><p>包括加载驱动、建立连接、执行查询、处理结果集、关闭连接 五大步骤。</p>
+<ol>
+<li><p>加载驱动</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Class.forName(<span class="hljs-string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>);<br></code></pre></td></tr></table></figure></li>
+<li><p>建立连接</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">String url = <span class="hljs-string">&quot;jdbc:mysql://127.0.0.1:3306/dspt&quot;</span>;<br>String username = <span class="hljs-string">&quot;root&quot;</span>;<br>String password = <span class="hljs-string">&quot;root&quot;</span>;<br>Connection connection = DriverManager.getConnection(url,username,password);<br></code></pre></td></tr></table></figure></li>
+<li><p>执行查询语句</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">String sql = <span class="hljs-string">&quot;select * from users&quot;</span>;<br>PreparedStatement preparedStatement = connection.prepareStatement(sql);<br></code></pre></td></tr></table></figure></li>
+<li><p>处理结果集</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//简单打印一下</span><br><span class="hljs-keyword">while</span> (resultSet.next())&#123;<br>            System.out.println(resultSet.getObject(<span class="hljs-number">1</span>) + <span class="hljs-string">&quot; &quot;</span> + resultSet.getObject(<span class="hljs-string">&quot;upwd&quot;</span>));<br>        &#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>关闭连接，从内到外</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">resultSet.close();<br>preparedStatement.close();<br>connection.close();<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="对象接收数据和List的使用">2. 对象接收数据和List的使用</h1><h2 id="Bean类的创建">2.1. Bean类的创建</h2><p>封装一个bean类用来存放实体类。bean类创建如下（bean中一般不要使用int类型，使用int的包装类Integer。<em>int初始值为0可能会成为干扰数据</em>）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.jarvis.bean;<br><br><span class="hljs-keyword">import</span> java.sql.Timestamp;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Author</span> jarvis</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Date</span> 2021/8/22 16:35</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Version</span> 1.0</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Users</span> </span>&#123;<br>    <span class="hljs-comment">/**整形的默认值是0，不能使用int*/</span><br>    <span class="hljs-keyword">private</span> Integer uid;<br>    <span class="hljs-keyword">private</span> String uname;<br>    <span class="hljs-keyword">private</span> String upwd;<br>    <span class="hljs-keyword">private</span> Integer ulevel;<br>    <span class="hljs-keyword">private</span> Timestamp createTime;<br>    <span class="hljs-keyword">private</span> Timestamp updateTime;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">getUid</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> uid;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setUid</span><span class="hljs-params">(Integer uid)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.uid = uid;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getUname</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> uname;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setUname</span><span class="hljs-params">(String uname)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.uname = uname;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getUpwd</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> upwd;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setUpwd</span><span class="hljs-params">(String upwd)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.upwd = upwd;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">getUlevel</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> ulevel;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setUlevel</span><span class="hljs-params">(Integer ulevel)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.ulevel = ulevel;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Timestamp <span class="hljs-title">getCreateTime</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> createTime;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setCreateTime</span><span class="hljs-params">(Timestamp createTime)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.createTime = createTime;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Timestamp <span class="hljs-title">getUpdateTime</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> updateTime;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setUpdateTime</span><span class="hljs-params">(Timestamp updateTime)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.updateTime = updateTime;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Users&#123;&quot;</span> +<br>                <span class="hljs-string">&quot;uid=&quot;</span> + uid +<br>                <span class="hljs-string">&quot;, uname=&#x27;&quot;</span> + uname + <span class="hljs-string">&#x27;\&#x27;&#x27;</span> +<br>                <span class="hljs-string">&quot;, upwd=&#x27;&quot;</span> + upwd + <span class="hljs-string">&#x27;\&#x27;&#x27;</span> +<br>                <span class="hljs-string">&quot;, ulevel=&quot;</span> + ulevel +<br>                <span class="hljs-string">&quot;, createTime=&quot;</span> + createTime +<br>                <span class="hljs-string">&quot;, updateTime=&quot;</span> + updateTime +<br>                <span class="hljs-string">&#x27;&#125;&#x27;</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="Bean类注释-Data">2.2. Bean类注释@Data</h2><p>使用lombok，在pom文件中导入相关依赖即可（依赖可以在<a target="_blank" rel="noopener" href="https://mvnrepository.com/%E4%B8%AD%E6%9F%A5%E6%89%BE%EF%BC%89%E3%80%82%E6%B7%BB%E5%8A%A0%E4%BA%86%E4%BE%9D%E8%B5%96%E4%B9%8B%E5%90%8E%E7%9B%B4%E6%8E%A5%E5%9C%A8bean%E7%B1%BB%E4%B8%8A%E4%BD%BF%E7%94%A8**@Data**%E6%B3%A8%E9%87%8A%EF%BC%8C%E8%BF%99%E4%B8%AA%E6%B3%A8%E9%87%8A%E5%8C%85%E5%90%AB%E4%BA%86get">https://mvnrepository.com/中查找）。添加了依赖之后直接在bean类上使用**@Data**注释，这个注释包含了get</a> set toString 构造器等的一系列方法，非常方便。下面是目前最新的lombok依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- https://mvnrepository.com/artifact/org.projectlombok/lombok --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.projectlombok<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>lombok<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.18.20<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>provided<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="List接收数据库的值">2.3. List接收数据库的值</h2><p>结果集之前定义List，用来存放查询结果（拿到List之后可以进行各种操作，就算关闭连接List中也有值）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;Users&gt; usersList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br><span class="hljs-keyword">while</span> (resultSet.next())&#123;<br>    Users users = <span class="hljs-keyword">new</span> Users();<br>    users.setUid(resultSet.getInt(<span class="hljs-string">&quot;uid&quot;</span>));<br>    users.setUname(resultSet.getString(<span class="hljs-string">&quot;uname&quot;</span>));<br>    users.setUpwd(resultSet.getString(<span class="hljs-string">&quot;upwd&quot;</span>));<br>    users.setUlevel(resultSet.getInt(<span class="hljs-string">&quot;ulevel&quot;</span>));<br>    users.setCreateTime(resultSet.getTimestamp(<span class="hljs-string">&quot;createtime&quot;</span>));<br>    users.setUpdateTime(resultSet.getTimestamp(<span class="hljs-string">&quot;updatetime&quot;</span>));<br>    usersList.add(users);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="set和List">2.4. set和List</h2><ul>
+<li>List是有序的，可以重复的。而set是无序的，不可以重复的。</li>
+<li>List提取数据可以直接使用for循环，比set方便。</li>
+<li>顺序表ArrayList：有利于查询操作。链表LinkList：有利于插入和删除。</li>
+</ul>
+<h1 id="封装JDBC">3. 封装JDBC</h1><p>使用静态代码块和静态方法。静态方法的<em>两种调用方式</em>：类名调用、对象调用。<strong>非静态方法只有对象可以调用</strong>。</p>
+<h2 id="工具类SqlBase的实现">3.1. 工具类SqlBase的实现</h2><p>创建一个工具类SqlBase，并且使用静态代码块和静态方法实现<strong>注册驱动、获取连接、关闭连接、sql语句自动传参数 的功能</strong>。下面是相关代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.jarvis.jdbc;<br><br><span class="hljs-keyword">import</span> java.sql.*;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Author</span> jarvis</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Date</span> 2021/8/22 17:19</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Version</span> 1.0</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SqlBase</span> </span>&#123;<br><br>    <span class="hljs-comment">//注册驱动</span><br>    <span class="hljs-keyword">static</span>&#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            Class.forName(<span class="hljs-string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (ClassNotFoundException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//获取连接</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Connection <span class="hljs-title">getConnection</span><span class="hljs-params">()</span></span>&#123;<br>        String url = <span class="hljs-string">&quot;jdbc:mysql://127.0.0.1:3306/dspt&quot;</span>;<br>        String username = <span class="hljs-string">&quot;root&quot;</span>;<br>        String password = <span class="hljs-string">&quot;root&quot;</span>;<br>        Connection connection = <span class="hljs-keyword">null</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            connection = DriverManager.getConnection(url,username,password);<br>        &#125; <span class="hljs-keyword">catch</span> (SQLException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>        <span class="hljs-keyword">return</span> connection;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 关闭连接</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> objects 可变数组</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">close</span><span class="hljs-params">(Object ...objects)</span></span>&#123;<br>        <span class="hljs-keyword">if</span> (objects != <span class="hljs-keyword">null</span> &amp;&amp; objects.length &gt; <span class="hljs-number">0</span>)&#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-keyword">for</span> (Object o : objects) &#123;<br>                    <span class="hljs-keyword">if</span> (o <span class="hljs-keyword">instanceof</span> Connection) &#123;<br>                        ((Connection) o).close();<br>                    &#125;<br>                    <span class="hljs-keyword">if</span> (o <span class="hljs-keyword">instanceof</span> Statement) &#123;<br>                        ((Statement) o).close();<br>                    &#125;<br>                    <span class="hljs-keyword">if</span> (o <span class="hljs-keyword">instanceof</span> ResultSet) &#123;<br>                        ((ResultSet) o).close();<br>                    &#125;<br>                &#125;<br>            &#125; <span class="hljs-keyword">catch</span> (SQLException e)&#123;<br>                e.printStackTrace();<br>            &#125;<br>        &#125;<br>    &#125;<br>     <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * sql语句中的？自动传递参数</span><br><span class="hljs-comment">     * 两个参数的位置不可以交换！！！</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> preparedStatement 预处理的sql对象</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> objects 传入的值</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">objectInsertPreparedStatement</span><span class="hljs-params">(PreparedStatement preparedStatement,Object ...objects)</span></span>&#123;<br>        <span class="hljs-keyword">if</span> (objects != <span class="hljs-keyword">null</span> &amp;&amp; objects.length &gt; <span class="hljs-number">0</span>)&#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; objects.length; i++) &#123;<br>                    preparedStatement.setObject(i + <span class="hljs-number">1</span>, objects[i]);<br>                &#125;<br>            &#125; <span class="hljs-keyword">catch</span> (SQLException e)&#123;<br>                <span class="hljs-comment">//这里的异常时检查性异常，必须手动用代码处理。还有一种非检查性异常（空异常），可以不用代码处理，看我们怎么写代码了。</span><br>                e.printStackTrace();<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="使用包装JDBC之后简化的代码">3.2. 使用包装JDBC之后简化的代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.jarvis.jdbc;<br><br><span class="hljs-keyword">import</span> com.jarvis.bean.Users;<br><br><span class="hljs-keyword">import</span> java.sql.*;<br><span class="hljs-keyword">import</span> java.util.ArrayList;<br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Author</span> jarvis</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Date</span> 2021/8/20 8:23</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Version</span> 1.0</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> ClassNotFoundException, SQLException </span>&#123;<br>        <span class="hljs-comment">//1.注册启动 + 2.获取连接</span><br>        Connection connection = SqlBase.getConnection();<br>        <span class="hljs-comment">//3.执行查询</span><br>        String sql = <span class="hljs-string">&quot;select * from users where uid = ? and uname = ?&quot;</span>;<br>        PreparedStatement preparedStatement = connection.prepareStatement(sql);<br>        SqlBase.objectInsertPreparedStatement(preparedStatement,<span class="hljs-number">2</span>,<span class="hljs-string">&quot;tom&quot;</span>);<br>        ResultSet resultSet = preparedStatement.executeQuery();<br>        <span class="hljs-comment">//4.处理结果集</span><br>        List&lt;Users&gt; usersList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br>        <span class="hljs-keyword">while</span> (resultSet.next())&#123;<br>            Users users = <span class="hljs-keyword">new</span> Users();<br>            users.setUid(resultSet.getInt(<span class="hljs-string">&quot;uid&quot;</span>));<br>            users.setUname(resultSet.getString(<span class="hljs-string">&quot;uname&quot;</span>));<br>            users.setUpwd(resultSet.getString(<span class="hljs-string">&quot;upwd&quot;</span>));<br>            users.setUlevel(resultSet.getInt(<span class="hljs-string">&quot;ulevel&quot;</span>));<br>            users.setCreateTime(resultSet.getTimestamp(<span class="hljs-string">&quot;createtime&quot;</span>));<br>            users.setUpdateTime(resultSet.getTimestamp(<span class="hljs-string">&quot;updatetime&quot;</span>));<br>            usersList.add(users);<br>        &#125;<br>        <span class="hljs-comment">//5.关闭连接，从内到外,注意顺序</span><br>        SqlBase.close(resultSet,preparedStatement,connection);<br>        System.out.println(usersList);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/gzguo/categories/java/">java</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/gzguo/tags/java/">java</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/gzguo/2021/08/20/mysql/1.4mysql%E8%AF%AD%E5%8F%A5/">
+                        <span class="hidden-mobile">1.4mysql语句总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/gzguo/js/events.js" ></script>
+<script  src="/gzguo/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/gzguo/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/gzguo/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/gzguo/js/boot.js" ></script>
+
+
+</body>
+</html>
