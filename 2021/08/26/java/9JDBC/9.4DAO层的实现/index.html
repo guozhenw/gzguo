@@ -1,0 +1,469 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/gzguo/img/favicon.png">
+  <link rel="icon" href="/gzguo/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="上一篇我们可以只输入sql语句和对应的参数就可以操作数据库了。在这一篇我们将实现DAO层（数据访问层）。">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
+  
+  <title>9.4DAO层的实现 - Learing</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/gzguo/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/gzguo/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/gzguo/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/gzguo/js/utils.js" ></script>
+  <script  src="/gzguo/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/gzguo/">&nbsp;<strong>Jarvis</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/gzguo/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="9.4DAO层的实现">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-26 08:06" pubdate>
+        2021年8月26日 早上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      32
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">9.4DAO层的实现</h1>
+            
+            <div class="markdown-body">
+              <p>上一篇我们可以只输入sql语句和对应的参数就可以操作数据库了。在这一篇我们将实现DAO层（数据访问层）。</p>
+<span id="more"></span>
+
+<h1 id="DAO的概念">1. DAO的概念</h1><p>DAO的含义：D：data代表数据，A：access代表访问，O：object代表对象。所以DAO就是数据访问对象。DAO就是持久层，简单来说就是对数据库的操作。一般来说DAO是对我们的单表进行操作。DAO在数据库和业务逻辑层之间进行数据访问。DAO提供了一个接口，这些接口中的方法体现了我们想要的功能，但是怎么实现不归DAO管。</p>
+<h1 id="DAO的实现">2. DAO的实现</h1><h2 id="创建DAO接口">2.1. 创建DAO接口</h2><p>在接口中定义我们想要实现的功能。不需要实现。下面是简单实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.jarvis.dao;<br><br><span class="hljs-keyword">import</span> com.jarvis.bean.Users;<br><br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Author</span> jarvis</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Date</span> 2021/8/26 8:10</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Version</span> 1.0</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">UsersDao</span> </span>&#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 查询所有用户信息</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 所有用户信息</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function">List&lt;Users&gt; <span class="hljs-title">selectAll</span><span class="hljs-params">()</span></span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 根据用户名进行查询</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> uname 用户名</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 用户信息</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function">Users <span class="hljs-title">selectByUname</span><span class="hljs-params">(String uname)</span></span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 根据用户名和密码进行查询</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> uname 用户名</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> upwd 密码</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 用户信息</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function">Users <span class="hljs-title">selectByUnameAndUpwd</span><span class="hljs-params">(String uname,String upwd)</span></span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 添加用户</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> users 使用对象进行传值</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 影响的条数</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">insert</span><span class="hljs-params">(Users users)</span></span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 修改用户</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> users 使用对象进行传值，uid是原值，其他的修改字段是新值</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 影响的条数</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">update</span><span class="hljs-params">(Users users)</span></span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 模糊查询</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> uname 用户名</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 用户信息</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function">List&lt;Users&gt; <span class="hljs-title">selectByLike</span><span class="hljs-params">(String uname)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="创建DAO实现类">2.2. 创建DAO实现类</h2><p>在实现类中实现DAO接口中定义的抽象方法。下面是简单实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.jarvis.dao.impl;<br><br><span class="hljs-keyword">import</span> com.jarvis.bean.Users;<br><span class="hljs-keyword">import</span> com.jarvis.dao.UsersDao;<br><span class="hljs-keyword">import</span> com.jarvis.jdbc.QueryUpdate;<br><span class="hljs-keyword">import</span> com.jarvis.jdbc.ResultSetOneObject;<br><br><span class="hljs-keyword">import</span> javax.jws.soap.SOAPBinding;<br><span class="hljs-keyword">import</span> java.sql.ResultSet;<br><span class="hljs-keyword">import</span> java.sql.SQLException;<br><span class="hljs-keyword">import</span> java.sql.Timestamp;<br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Author</span> jarvis</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Date</span> 2021/8/26 8:27</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Version</span> 1.0</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserDaoImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">UsersDao</span> </span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Users&gt; <span class="hljs-title">selectAll</span><span class="hljs-params">()</span> </span>&#123;<br>        String sql = <span class="hljs-string">&quot;select uid,uname,upwd,ulevel,createtime,updatetime from users&quot;</span>;<br>        <span class="hljs-keyword">return</span> QueryUpdate.query(<span class="hljs-keyword">new</span> ResultSetOneObject&lt;Users&gt;() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> Users <span class="hljs-title">getResultSetOneObject</span><span class="hljs-params">(ResultSet resultSet)</span> <span class="hljs-keyword">throws</span> SQLException </span>&#123;<br>                <span class="hljs-keyword">return</span> getUsers(resultSet);<br>            &#125;<br>        &#125;, sql);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Users <span class="hljs-title">selectByUname</span><span class="hljs-params">(String uname)</span> </span>&#123;<br>        String sql = <span class="hljs-string">&quot;select uid,uname,upwd,ulevel,createtime,updatetime from users where uname=?&quot;</span>;<br>        List&lt;Users&gt; usersList = QueryUpdate.query(<span class="hljs-keyword">new</span> ResultSetOneObject&lt;Users&gt;() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> Users <span class="hljs-title">getResultSetOneObject</span><span class="hljs-params">(ResultSet resultSet)</span> <span class="hljs-keyword">throws</span> SQLException </span>&#123;<br>                <span class="hljs-keyword">return</span> getUsers(resultSet);<br>            &#125;<br>        &#125;, sql, uname);<br>        <span class="hljs-keyword">if</span> (usersList.size() == <span class="hljs-number">1</span>)&#123;<br>            <span class="hljs-keyword">return</span> usersList.get(<span class="hljs-number">0</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Users <span class="hljs-title">selectByUnameAndUpwd</span><span class="hljs-params">(String uname, String upwd)</span> </span>&#123;<br>        String sql = <span class="hljs-string">&quot;select uid,uname,upwd,ulevel,createtime,updatetime from users where uname=? and upwd=?&quot;</span>;<br>        List&lt;Users&gt; usersList = QueryUpdate.query(<span class="hljs-keyword">new</span> ResultSetOneObject&lt;Users&gt;() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> Users <span class="hljs-title">getResultSetOneObject</span><span class="hljs-params">(ResultSet resultSet)</span> <span class="hljs-keyword">throws</span> SQLException </span>&#123;<br>                <span class="hljs-keyword">return</span> getUsers(resultSet);<br>            &#125;<br>        &#125;, sql, uname, upwd);<br>        <span class="hljs-keyword">if</span> (usersList.size() == <span class="hljs-number">1</span>)&#123;<br>            <span class="hljs-keyword">return</span> usersList.get(<span class="hljs-number">0</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">insert</span><span class="hljs-params">(Users users)</span> </span>&#123;<br>        String sql = <span class="hljs-string">&quot;insert into users(uname,upwd,ulevel,createtime,updatetime)&quot;</span> +<br>                <span class="hljs-string">&quot;values(?,?,?,?,?)&quot;</span>;<br>        Object[] objects = &#123;users.getUname(),users.getUpwd(),users.getUlevel(),<br>                users.getCreateTime(),users.getUpdateTime()&#125;;<br>        <span class="hljs-keyword">return</span> QueryUpdate.update(sql,objects);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">update</span><span class="hljs-params">(Users users)</span> </span>&#123;<br>        String sql = <span class="hljs-string">&quot;update users set upwd=? where uid=?&quot;</span>;<br>        <span class="hljs-keyword">return</span> QueryUpdate.update(sql,users.getUpwd(),users.getUid());<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Users&gt; <span class="hljs-title">selectByLike</span><span class="hljs-params">(String uname)</span> </span>&#123;<br>        String sql = <span class="hljs-string">&quot;select uid,uname,upwd,ulevel,createtime,updatetime from uname like %?%&quot;</span>;<br>        <span class="hljs-keyword">return</span> QueryUpdate.query(<span class="hljs-keyword">new</span> ResultSetOneObject&lt;Users&gt;() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> Users <span class="hljs-title">getResultSetOneObject</span><span class="hljs-params">(ResultSet resultSet)</span> <span class="hljs-keyword">throws</span> SQLException </span>&#123;<br>                <span class="hljs-keyword">return</span> getUsers(resultSet);<br>            &#125;<br>        &#125;, sql, uname);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> Users <span class="hljs-title">getUsers</span><span class="hljs-params">(ResultSet resultSet)</span> <span class="hljs-keyword">throws</span> SQLException</span>&#123;<br>        Users users = <span class="hljs-keyword">new</span> Users();<br>        users.setUid(resultSet.getInt(<span class="hljs-string">&quot;uid&quot;</span>));<br>        users.setUname(resultSet.getString(<span class="hljs-string">&quot;uname&quot;</span>));<br>        users.setUpwd(resultSet.getString(<span class="hljs-string">&quot;upwd&quot;</span>));<br>        users.setUlevel(resultSet.getInt(<span class="hljs-string">&quot;ulevel&quot;</span>));<br>        users.setCreateTime(resultSet.getTimestamp(<span class="hljs-string">&quot;createtime&quot;</span>));<br>        users.setUpdateTime(resultSet.getTimestamp(<span class="hljs-string">&quot;updatetime&quot;</span>));<br>        <span class="hljs-keyword">return</span> users;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>重写和重载的区别：</p>
+<ul>
+<li>重写：子类对父类方法的重写，方法名和返回类型等都要和父类一致，修饰符要与原来相同或者更大。</li>
+<li>重载：一个类中方法名相同，但是参数类型不同，与返回类型无关。</li>
+</ul>
+<h2 id="测试代码">2.3. 测试代码</h2><p>创建main方法、static的UserDao对象、static的测试方法。最后在main中进行测试。测试不仅要测试正确的结果，也要测试错误的。</p>
+<h3 id="用main方法测试">2.3.1. 用main方法测试</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.jarvis.jdbc;<br><br><span class="hljs-keyword">import</span> com.jarvis.bean.Users;<br><span class="hljs-keyword">import</span> com.jarvis.dao.UsersDao;<br><span class="hljs-keyword">import</span> com.jarvis.dao.impl.UserDaoImpl;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Author</span> jarvis</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Date</span> 2021/8/26 9:07</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Version</span> 1.0</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserDaoTest</span> </span>&#123;<br>    <span class="hljs-keyword">static</span> UsersDao usersDao = <span class="hljs-keyword">new</span> UserDaoImpl();<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-comment">//selectAll();</span><br>        <span class="hljs-comment">//selectByUname();</span><br>        <span class="hljs-comment">//selectByUnameAndUpwd();</span><br>        <span class="hljs-comment">//selectByLike();</span><br>        update();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">selectAll</span><span class="hljs-params">()</span></span>&#123;<br>        System.out.println(usersDao.selectAll());<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">selectByUname</span><span class="hljs-params">()</span></span>&#123;<br>        String uname = <span class="hljs-string">&quot;tom&quot;</span>;<br>        System.out.println(usersDao.selectByUname(uname));<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">selectByUnameAndUpwd</span><span class="hljs-params">()</span></span>&#123;<br>        String uname = <span class="hljs-string">&quot;tom&quot;</span>;<br>        String upwd = <span class="hljs-string">&quot;123456&quot;</span>;<br>        System.out.println(usersDao.selectByUnameAndUpwd(uname,upwd));<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">selectByLike</span><span class="hljs-params">()</span></span>&#123;<br>        String uname = <span class="hljs-string">&quot;t&quot;</span>;<br>        System.out.println(usersDao.selectByLike(uname));<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">update</span><span class="hljs-params">()</span></span>&#123;<br>        Users users = usersDao.selectByUname(<span class="hljs-string">&quot;tom&quot;</span>);<br>        users.setUpwd(<span class="hljs-string">&quot;123123&quot;</span>);<br>        <span class="hljs-keyword">int</span> i = usersDao.update(users);<br>        System.out.println(i);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="用junit测试工具测试">2.3.2. 用junit测试工具测试</h3><p>先在与main同级的目录下创建test文件夹，文件夹中创建java文件夹，然后将java文件夹类型修改为test文件夹。shift+ctrl+T，最后在测试的类上直接使用上面的快捷键就可以生成测试方法。下面是相关的实现代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.jarvis.dao;<br><br><span class="hljs-keyword">import</span> com.jarvis.bean.Users;<br><span class="hljs-keyword">import</span> com.jarvis.dao.impl.UserDaoImpl;<br><span class="hljs-keyword">import</span> org.junit.Test;<br><br><span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> org.junit.Assert.*;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Author</span> jarvis</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Date</span> 2021/8/26 9:36</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Version</span> 1.0</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UsersDaoTest</span> </span>&#123;<br><br>    UsersDao usersDao = <span class="hljs-keyword">new</span> UserDaoImpl();<br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">selectAll</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(usersDao.selectAll());<br>    &#125;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">selectByUname</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(usersDao.selectByUname(<span class="hljs-string">&quot;tom&quot;</span>));<br>    &#125;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">selectByUnameAndUpwd</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(usersDao.selectByUnameAndUpwd(<span class="hljs-string">&quot;tom&quot;</span>,<span class="hljs-string">&quot;123123&quot;</span>));<br>    &#125;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">insert</span><span class="hljs-params">()</span> </span>&#123;<br>    &#125;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">update</span><span class="hljs-params">()</span> </span>&#123;<br>        Users users = usersDao.selectByUname(<span class="hljs-string">&quot;tom&quot;</span>);<br>        users.setUpwd(<span class="hljs-string">&quot;123456&quot;</span>);<br>        System.out.println(usersDao.update(users));<br>    &#125;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">selectByLike</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(usersDao.selectByLike(<span class="hljs-string">&quot;to&quot;</span>));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="总体实现TypeDao">3. 总体实现TypeDao</h1><h2 id="创建Type对象">3.1. 创建Type对象</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.jarvis.bean;<br><br><span class="hljs-keyword">import</span> javafx.util.converter.TimeStringConverter;<br><span class="hljs-keyword">import</span> lombok.Data;<br><br><span class="hljs-keyword">import</span> java.sql.Timestamp;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Author</span> jarvis</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Date</span> 2021/8/26 9:45</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Version</span> 1.0</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Data</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Type</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> Integer tid;<br>    <span class="hljs-keyword">private</span> String tname;<br>    <span class="hljs-keyword">private</span> Timestamp createtime;<br>    <span class="hljs-keyword">private</span> Timestamp updatetime;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="创建TypeDao接口">3.2. 创建TypeDao接口</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.jarvis.dao;<br><br><span class="hljs-keyword">import</span> com.jarvis.bean.Type;<br><br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Author</span> jarvis</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Date</span> 2021/8/26 9:47</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Version</span> 1.0</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">TypeDao</span> </span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 插入数据</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> type 商品类型对象</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 影响条数</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">insert</span><span class="hljs-params">(Type type)</span></span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 修改商品类型名称</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> type 商品类型对象</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 影响条数</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">update</span><span class="hljs-params">(Type type)</span></span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 查询所有的类型</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 类型对象</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function">List&lt;Type&gt; <span class="hljs-title">selectAll</span><span class="hljs-params">()</span></span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 通过商品类型id查询</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> tid 商品类型id</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 商品类型</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function">Type <span class="hljs-title">selectByTid</span><span class="hljs-params">(<span class="hljs-keyword">int</span> tid)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="创建TypaDaoImpl实现类">3.3. 创建TypaDaoImpl实现类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.jarvis.dao.impl;<br><br><span class="hljs-keyword">import</span> com.jarvis.bean.Type;<br><span class="hljs-keyword">import</span> com.jarvis.dao.TypeDao;<br><span class="hljs-keyword">import</span> com.jarvis.jdbc.QueryUpdate;<br><span class="hljs-keyword">import</span> com.jarvis.jdbc.ResultSetOneObject;<br><br><span class="hljs-keyword">import</span> java.sql.ResultSet;<br><span class="hljs-keyword">import</span> java.sql.SQLException;<br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Author</span> jarvis</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Date</span> 2021/8/26 10:10</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Version</span> 1.0</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TypeDaoImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">TypeDao</span> </span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">insert</span><span class="hljs-params">(Type type)</span> </span>&#123;<br>        String sql = <span class="hljs-string">&quot;insert into type(tname,createtime,updatetime) values(?,?,?)&quot;</span>;<br>        <span class="hljs-keyword">return</span> QueryUpdate.update(sql,type.getTname(),type.getCreatetime(),type.getUpdatetime());<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">update</span><span class="hljs-params">(Type type)</span> </span>&#123;<br>        String sql = <span class="hljs-string">&quot;update type set tname=? where tid=?&quot;</span>;<br>        <span class="hljs-keyword">return</span> QueryUpdate.update(sql,type.getTname(),type.getTid());<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Type&gt; <span class="hljs-title">selectAll</span><span class="hljs-params">()</span> </span>&#123;<br>        String sql = <span class="hljs-string">&quot;select tid,tname,createtime,updatetime from type&quot;</span>;<br>        <span class="hljs-keyword">return</span> QueryUpdate.query(<span class="hljs-keyword">new</span> ResultSetOneObject&lt;Type&gt;() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> Type <span class="hljs-title">getResultSetOneObject</span><span class="hljs-params">(ResultSet resultSet)</span> <span class="hljs-keyword">throws</span> SQLException </span>&#123;<br>                <span class="hljs-keyword">return</span> getType(resultSet);<br>            &#125;<br>        &#125;,sql);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Type <span class="hljs-title">selectByTid</span><span class="hljs-params">(<span class="hljs-keyword">int</span> tid)</span> </span>&#123;<br>        String sql = <span class="hljs-string">&quot;select tid,tname,createtime,updatetime from type where tid=?&quot;</span>;<br>        List&lt;Type&gt; typeList = QueryUpdate.query(<span class="hljs-keyword">new</span> ResultSetOneObject&lt;Type&gt;() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> Type <span class="hljs-title">getResultSetOneObject</span><span class="hljs-params">(ResultSet resultSet)</span> <span class="hljs-keyword">throws</span> SQLException </span>&#123;<br>                <span class="hljs-keyword">return</span> getType(resultSet);<br>            &#125;<br>        &#125;,sql,tid);<br>        <span class="hljs-keyword">if</span> (typeList.size() == <span class="hljs-number">1</span>)&#123;<br>            <span class="hljs-keyword">return</span> typeList.get(<span class="hljs-number">0</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> Type <span class="hljs-title">getType</span><span class="hljs-params">(ResultSet resultSet)</span> <span class="hljs-keyword">throws</span> SQLException </span>&#123;<br>        Type type = <span class="hljs-keyword">new</span> Type();<br>        type.setTid(resultSet.getInt(<span class="hljs-string">&quot;tid&quot;</span>));<br>        type.setTname(resultSet.getString(<span class="hljs-string">&quot;tname&quot;</span>));<br>        type.setCreatetime(resultSet.getTimestamp(<span class="hljs-string">&quot;createtime&quot;</span>));<br>        type.setUpdatetime(resultSet.getTimestamp(<span class="hljs-string">&quot;updatetime&quot;</span>));<br>        <span class="hljs-keyword">return</span> type;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="创建测试类TypeDaoTest">3.4. 创建测试类TypeDaoTest</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.jarvis.dao;<br><br><span class="hljs-keyword">import</span> com.jarvis.bean.Type;<br><span class="hljs-keyword">import</span> com.jarvis.dao.impl.TypeDaoImpl;<br><span class="hljs-keyword">import</span> org.junit.Test;<br><br><span class="hljs-keyword">import</span> javax.lang.model.element.VariableElement;<br><br><span class="hljs-keyword">import</span> java.sql.Timestamp;<br><span class="hljs-keyword">import</span> java.util.Date;<br><br><span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> org.junit.Assert.*;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Author</span> jarvis</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Date</span> 2021/8/26 10:29</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Version</span> 1.0</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TypeDaoTest</span> </span>&#123;<br><br>    TypeDao typeDao = <span class="hljs-keyword">new</span> TypeDaoImpl();<br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">insert</span><span class="hljs-params">()</span> </span>&#123;<br>        Type type = <span class="hljs-keyword">new</span> Type();<br>        type.setTname(<span class="hljs-string">&quot;电脑&quot;</span>);<br>        System.out.println(typeDao.insert(type));<br>    &#125;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">update</span><span class="hljs-params">()</span> </span>&#123;<br>        Type type = typeDao.selectByTid(<span class="hljs-number">1</span>);<br>        type.setTname(<span class="hljs-string">&quot;神州&quot;</span>);<br>        System.out.println(typeDao.update(type));<br>    &#125;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">selectAll</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(typeDao.selectAll());<br>    &#125;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">selectByTid</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(typeDao.selectByTid(<span class="hljs-number">1</span>));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/gzguo/categories/java/">java</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/gzguo/tags/java/">java</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/gzguo/2021/08/27/java/9JDBC/9.5%E5%8F%82%E6%95%B0%E7%9A%84%E5%A4%96%E9%83%A8%E8%B0%83%E7%94%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">9.5外部参数的调用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/gzguo/2021/08/24/java/9JDBC/9.3%E5%AF%B9%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5%E7%9A%84%E5%B0%81%E8%A3%85/">
+                        <span class="hidden-mobile">9.3对增删改查的封装</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/gzguo/js/events.js" ></script>
+<script  src="/gzguo/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/gzguo/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/gzguo/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/gzguo/js/boot.js" ></script>
+
+
+</body>
+</html>
