@@ -14,11 +14,12 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="上一篇我们可以只输入sql语句和对应的参数就可以操作数据库了。在这一篇我们将实现DAO层（数据访问层）。">
+  <meta name="description" content="现在有一个问题：我们数据库的配置还在代码中。在我们实际部署的时候是以字节码的形式进行部署的。在部署之后不能够在修改源代码。那么怎样才可以实现在运行过程中更换数据库的操作呢？所以为了解决上面所出现的问题，我们就要把相应的配置放在一个外部的文件中，而不是放在java的源代码中。
+sql字符串拼接，可以动态的执行sql语句，更加灵活。">
   <meta name="author" content="Little scholar">
   <meta name="keywords" content="IT">
   
-  <title>9.5外部参数的调用 - Learing</title>
+  <title>9.5外部参数的调用和sql字符串拼接 - Learing</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -163,7 +164,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="9.5外部参数的调用">
+            <span class="h2" id="subtitle" title="9.5外部参数的调用和sql字符串拼接">
               
             </span>
 
@@ -185,7 +186,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      537 字
+      778 字
     </span>
   
 
@@ -195,7 +196,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      11
        分钟
     </span>
   
@@ -225,13 +226,13 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">9.5外部参数的调用</h1>
+            <h1 style="display: none">9.5外部参数的调用和sql字符串拼接</h1>
             
             <div class="markdown-body">
-              <p>上一篇我们可以只输入sql语句和对应的参数就可以操作数据库了。在这一篇我们将实现DAO层（数据访问层）。</p>
+              <p>现在有一个问题：我们数据库的配置还在代码中。在我们实际部署的时候是以字节码的形式进行部署的。在部署之后不能够在修改源代码。那么怎样才可以实现在运行过程中更换数据库的操作呢？<em>所以为了解决上面所出现的问题，我们就要把相应的配置放在一个外部的文件中</em>，而不是放在java的源代码中。</p>
+<p>sql字符串拼接，可以动态的执行sql语句，更加灵活。</p>
 <span id="more"></span>
 
-<p>现在有一个问题：我们数据库的配置还在代码中。在我们实际部署的时候是以字节码的形式进行部署的。在部署之后不能够在修改源代码。那么怎样才可以实现在运行过程中更换数据库的操作呢？<em>所以为了解决上面所出现的问题，我们就要把相应的配置放在一个外部的文件中</em>，而不是放在java的源代码中。</p>
 <h1 id="创建mysql-properties">1. 创建mysql.properties</h1><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs properties"><span class="hljs-attr">driver</span>=<span class="hljs-string">com.mysql.cj.jdbc.Driver</span><br><span class="hljs-attr">url</span>=<span class="hljs-string">jdbc:mysql://127.0.0.1:3306/dspt</span><br><span class="hljs-attr">username</span>=<span class="hljs-string">root</span><br><span class="hljs-attr">password</span>=<span class="hljs-string">root</span><br></code></pre></td></tr></table></figure>
 
 <h1 id="创建Params类来读取参数">2. 创建Params类来读取参数</h1><h2 id="读取properties文件的方法">2.1. 读取properties文件的方法</h2><p>先通过类类对象中的类加载器，调用方法getResourceAsStream，生成输入流。然后通过Properties对象进行数据提取，可以通过key、value来进行提取数据。下面是代码：</p>
@@ -240,6 +241,12 @@
 <h2 id="通过静态常量来存放配置信息">2.2. 通过静态常量来存放配置信息</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.jarvis.jdbc;<br><br><span class="hljs-keyword">import</span> jdk.internal.util.xml.impl.Input;<br><br><span class="hljs-keyword">import</span> java.io.IOException;<br><span class="hljs-keyword">import</span> java.io.InputStream;<br><span class="hljs-keyword">import</span> java.util.Properties;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Author</span> jarvis</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Date</span> 2021/8/26 10:58</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Version</span> 1.0</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Params</span> </span>&#123;<br><br>    <span class="hljs-keyword">static</span> Properties properties = <span class="hljs-keyword">new</span> Properties();<br>    <span class="hljs-keyword">static</span> &#123;<br>        InputStream resourceAsStream =<br>                Params.class.getClassLoader().getResourceAsStream(<span class="hljs-string">&quot;mysql.properties&quot;</span>);<br>        <span class="hljs-keyword">try</span> &#123;<br>            properties.load(resourceAsStream);<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String DRIVER = properties.getProperty(<span class="hljs-string">&quot;driver&quot;</span>);<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String URL = properties.getProperty(<span class="hljs-string">&quot;url&quot;</span>);<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String USERNAME = properties.getProperty(<span class="hljs-string">&quot;username&quot;</span>);<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String PASSWORD = properties.getProperty(<span class="hljs-string">&quot;password&quot;</span>);<br><br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h2 id="修改SqlBase中的配置">2.3. 修改SqlBase中的配置</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">static</span>&#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>        Class.forName(Params.DRIVER);<br>    &#125; <span class="hljs-keyword">catch</span> (ClassNotFoundException e) &#123;<br>        e.printStackTrace();<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Connection <span class="hljs-title">getConnection</span><span class="hljs-params">()</span></span>&#123;<br>    String url = Params.URL;<br>    String username = Params.USERNAME;<br>    String password = Params.PASSWORD;<br>    Connection connection = <span class="hljs-keyword">null</span>;<br>    <span class="hljs-keyword">try</span> &#123;<br>        connection = DriverManager.getConnection(url,username,password);<br>    &#125; <span class="hljs-keyword">catch</span> (SQLException e) &#123;<br>        e.printStackTrace();<br>    &#125;<br>    <span class="hljs-keyword">return</span> connection;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="sql字符串拼接">3. sql字符串拼接</h1><h2 id="sql语句太长的问题">3.1. sql语句太长的问题</h2><p>如果sql字符串太长的话，可以吧基本的sql定义成常量，然后放在代码最前面来进行使用。下面是小栗子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">final</span> String SQLBASE = <span class="hljs-string">&quot;select gid,gname,tid,gprice,&quot;</span> +<br>        <span class="hljs-string">&quot;sellprice,sellnumber,stocknumber,stockunit,describes,&quot;</span> +<br>        <span class="hljs-string">&quot;gimg from goods&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<h2 id="sql字符串的动态拼接">3.2. sql字符串的动态拼接</h2><p>如果我们现在有一个条件查询，要查询最低价格和最高价格之间的商品，但是我们不知道传入的参数是否为空。所以我们就可以拼接sql语句，来进行动态的查询。下面是小栗子：（<em>拼接的时候注意sql语句关键字附近的空格，如果没有正确空格的话会报错的！！</em>）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java">String sql = SQLBASE;<br><span class="hljs-keyword">if</span> (minPrice == <span class="hljs-keyword">null</span> &amp;&amp; maxPrice == <span class="hljs-keyword">null</span>)&#123;<br>    System.out.println(<span class="hljs-string">&quot;空值&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>    sql += <span class="hljs-string">&quot; where&quot;</span>;<br>    <span class="hljs-keyword">if</span> (minPrice != <span class="hljs-keyword">null</span>)&#123;<br>        sql += <span class="hljs-string">&quot; sellprice&gt;= &quot;</span> + minPrice + <span class="hljs-string">&quot; and&quot;</span>;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (maxPrice!=<span class="hljs-keyword">null</span>)&#123;<br>        sql += <span class="hljs-string">&quot; sellprice&lt;=&quot;</span> + maxPrice;<br>    &#125;<br>&#125;<br><span class="hljs-keyword">if</span> (sql.lastIndexOf(<span class="hljs-string">&quot;and&quot;</span>) == sql.length()-<span class="hljs-number">3</span>)&#123;<br>    sql = sql.substring(<span class="hljs-number">0</span>,sql.length()-<span class="hljs-number">3</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -272,6 +279,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/gzguo/2021/08/28/java/9JDBC/9.6service%E5%B1%82%E7%9A%84%E5%AE%9E%E7%8E%B0/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">9.6service层的实现</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
