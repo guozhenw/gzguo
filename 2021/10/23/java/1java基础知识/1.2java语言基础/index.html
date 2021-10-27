@@ -14,7 +14,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="类型转换、scanner、控制语句、语句块的相关知识。">
+  <meta name="description" content="数据类型  变量  运算符  java语句 ">
   <meta name="author" content="Little scholar">
   <meta name="keywords" content="IT">
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      712 字
+      2.7k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      30
        分钟
     </span>
   
@@ -228,71 +228,161 @@
             <h1 style="display: none">1.2java语言基础</h1>
             
             <div class="markdown-body">
-              <p>类型转换、scanner、控制语句、语句块的相关知识。</p>
+              <p>数据类型  变量  运算符  java语句 </p>
 <span id="more"></span>
 
-<h1 id="java的基本知识">1. java的基本知识</h1><h2 id="常量">1.1. 常量</h2><p>值不能改变 （数字）</p>
-<h2 id="变量">1.2. 变量</h2><p>值可以发生改变 （x、y）</p>
-<h2 id="数据类型">1.3. 数据类型</h2><h3 id="基本数据类型">1.3.1. 基本数据类型</h3><p>1、整数（byte（1）、short（2）、int（4）、long（8））</p>
+<h1 id="java的基本知识">1. java的基本知识</h1><h2 id="数据类型">1.1. 数据类型</h2><h3 id="基本数据类型">1.1.1. 基本数据类型</h3><p>一、整数（byte（1）、short（2）、int（4）、long（8））</p>
 <blockquote>
 <p>byte ：-128到127 </p>
 <p>short ：-32768到32767</p>
 <p>int ：直接进行使用</p>
 <p>long ：数字后面进行后缀标识L </p>
 </blockquote>
-<p>2、小数（float（4）、double（8））</p>
+<p>二、小数（float（4）、double（8））</p>
 <blockquote>
 <p>float类型的数据，值中有小数点必须加f、F后缀</p>
 <p>float数据范围大于long数据范围</p>
 <p>只有大的数据才会使用科学计数法表示</p>
 </blockquote>
-<p>3、字符（char）</p>
+<p>三、字符（char）</p>
 <blockquote>
 <p>编码集：数字和符号对应的表</p>
 <p>编码集是从零开始的</p>
 <p>A 65；a 97 </p>
 </blockquote>
-<p>4、布尔（boolean）</p>
+<p>四、布尔（boolean）</p>
 <blockquote>
 <p>为什么java中要有这么多的数据类型？</p>
 <p>为了合理的利用内存空间。这么多的数据类型需要进行<strong>数据转换</strong></p>
 </blockquote>
-<h3 id="数据类型转换">1.3.2. 数据类型转换</h3><p>1、大范围的数据接收小范围的数据直接转换，自动转换</p>
+<h3 id="数据类型转换">1.1.2. 数据类型转换</h3><p>1、大范围的数据接收小范围的数据直接转换，自动转换</p>
 <p>2、小范围的数据接收大范围的数据，</p>
 <p><strong>有了数据类型就可以定义变量了！</strong></p>
-<h2 id="变量-1">1.4. 变量</h2><h3 id="定义变量">1.4.1. 定义变量</h3><blockquote>
+<h2 id="变量">1.2. 变量</h2><p>常量：值不能改变 （数字）</p>
+<p>变量：值可以发生改变 （x、y）</p>
+<h3 id="定义变量">1.2.1. 定义变量</h3><blockquote>
 <p>数据类型 变量名 = 值 =====》给变量第一次赋值，初始化<br>            int a = 10;<br>        使用变量 ，进行值修改：<br>            a = 100;<br>        也可以先声明然后使用，但如果只声明不赋值就进行使用，那么就会出现未被初始化异常</p>
 </blockquote>
 <p><strong>定义变量的时候要注意变量的命名规范！</strong></p>
-<h3 id="变量的命名规范">1.4.2. 变量的命名规范</h3><ol>
+<h3 id="变量的命名规范">1.2.2. 变量的命名规范</h3><ol>
 <li>数字（不能开头）、字母、下划线、$ 都可以用来组成变量名</li>
 <li>java关键字 保留字，具有特殊的含义，不能用来表示变量名</li>
 <li>变量名要见名知意</li>
 <li>驼峰命名</li>
 </ol>
 <p><strong>有了变量和类型的知识，就可以进行运算了，要运算就还需要运算符！</strong></p>
-<h2 id="运算">1.5. 运算</h2><h3 id="运算符">1.5.1. 运算符</h3><p>1、结果是数字的运算符：</p>
+<h2 id="运算符">1.3. 运算符</h2><h3 id="结果是数字的运算符">1.3.1. 结果是数字的运算符</h3><p>一、结果是数字的运算符又分为以下两种类型：</p>
 <blockquote>
 <p>算术运算符：+   -   *   /   ++   –</p>
 <p>赋值运算符：+=   *=   /=   %=   -=</p>
-<p>结果是关系的运算符</p>
 </blockquote>
-<p>注意事项1：</p>
+<p>二、<em>运算结果的类型：</em></p>
 <ol>
 <li>如果参与运算的数据类型相同，结果默认是当前数据类型：int   long   float   double</li>
 <li>如果参与运算的数据类型相同，如果是byte   short，那么运算结果默认是   int   类型 </li>
 <li>如果参与运算的数据类型不相同，结果默认是范围比较大的数据类型：int   long   float   double</li>
 <li>如果参与运算的数据类型不相同，如果是byte   short，那么运算结果默认是   int   类型 </li>
 </ol>
-<p>注意事项2：</p>
+<p>三、*++   –*</p>
 <ol>
 <li>变量++：先使用变量后++</li>
 <li>++变量：先++后使用变量</li>
 </ol>
-<p>注意事项3：</p>
+<p><em>四、优先级</em></p>
 <p>​        一个表达式中出现了多个运算符，就会出现优先级的问题</p>
 <p>​        优先级：++    &gt;    算数优先级    &gt;    赋值运算符</p>
-<p>2、</p>
+<p>五、<em>字符char运算结果的类型</em></p>
+<ol>
+<li>字符和数字直接进行计算，结果的类型可以是char可以使int，结果的类型取决于接收的类型</li>
+<li>字符和int变量进行运算，结果默认是int类型</li>
+</ol>
+<h3 id="结果是关系-boolean-的运算符">1.3.2. 结果是关系(boolean)的运算符</h3><p>结果是关系(boolean)的运算符又分为以下两种类型：</p>
+<blockquote>
+<p>关系运算符：&gt;   &gt;=   &lt;   &lt;=   ==   !=</p>
+<p>逻辑运算符：&amp;&amp;   ||   ！</p>
+</blockquote>
+<p>注意&amp;&amp;和||的<strong>短路运算</strong>：前面的表达式就可以决定整个表达式的结果，后面的表达式不执行</p>
+<h3 id="按照参与运算的个数分类的运算符">1.3.3. 按照参与运算的个数分类的运算符</h3><ol>
+<li>一元运算符：参与运算的数据有一个</li>
+<li>二元运算符：参与运算的数据有一个</li>
+<li>三元运算符：参与运算的数据有一个</li>
+</ol>
+<blockquote>
+<p>结果的类型与参与运算的数据类型有关</p>
+</blockquote>
+<h2 id="java语句">1.4. java语句</h2><h3 id="分支">1.4.1. 分支</h3><p>一、if语句，用来进行条件判断</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span>(条件 <span class="hljs-keyword">boolean</span>)&#123;<br>	条件成立，执行代码<br>&#125;<br><br><span class="hljs-keyword">if</span>(条件 <span class="hljs-keyword">boolean</span>)&#123;<br>	条件成立，执行代码<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>       条件不成立，执行代码<br>&#125;<br><br><span class="hljs-comment">//注意：分支的一个情况只执行一次，条件重复的话只执行最先匹配到的条件对应的代码</span><br><span class="hljs-keyword">if</span>(条件 <span class="hljs-keyword">boolean</span>)&#123;<br>	条件成立，执行代码<br>&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(条件 <span class="hljs-keyword">boolean</span>) &#123;<br>       条件成立，执行代码<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>二、switch case，用来进行具体值得匹配</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/*</span><br><span class="hljs-comment">* 1、格式</span><br><span class="hljs-comment">* 2、（）数据类型：byte、short、int、char、String</span><br><span class="hljs-comment">* 3、default：没有匹配项时执行的代码</span><br><span class="hljs-comment">* 4、case必须对应一个break，否则会出现case穿透</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">int</span> a=<span class="hljs-number">20</span>;<br><span class="hljs-keyword">switch</span>(a)&#123;<br>        <span class="hljs-keyword">case</span>: <span class="hljs-number">1</span>:<br>        	System.out.println(<span class="hljs-number">1</span>);<br>        	<span class="hljs-keyword">break</span>;<br>         <span class="hljs-keyword">default</span>:<br>        	System.out.println(<span class="hljs-number">2</span>);<br>        	<span class="hljs-keyword">break</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="循环语句">1.4.2. 循环语句</h3><p>一、for语句</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/*</span><br><span class="hljs-comment">* 1、格式：for 循环初始值：循环条件：更新初始值</span><br><span class="hljs-comment">* 2、执行流程：先初始值，再判断循环条件是否满足，满足执行循环体，最后更新初始值，然后继续进行判断，直到不满足条件时退出循环</span><br><span class="hljs-comment">* 3、变量的作用域：作用域是在包含的最近的一层的&#123;&#125;</span><br><span class="hljs-comment">* 4、coutinue：当次循环结束，不影响后续循环和代码</span><br><span class="hljs-comment">	 break：当前循环结束，不影响后续代码</span><br><span class="hljs-comment">	 return：结束方法，同时会导致循环结束</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; <span class="hljs-number">10</span> ; i++)&#123;<br>    i++;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>二、while、do-while</p>
+<p>while可以用来文件读取</p>
+<p>do-while必须执行一次</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">while</span>(i &lt; <span class="hljs-number">100</span>)&#123;<br>	i++;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="引用数据类型">1.5. 引用数据类型</h2><h3 id="数组">1.5.1. 数组</h3><p>一、数组：一个变量可以存储多个值</p>
+<p>二、数组定义(3)：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/*</span><br><span class="hljs-comment">* 优点：一个变量可以存储多个值</span><br><span class="hljs-comment">* 缺点：数组一旦定义长度不可以修改（后续我们可以使用集合进行替代）</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">int</span>[] arr = &#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>&#125;; <span class="hljs-comment">//知道长度 知道值</span><br><br><span class="hljs-keyword">int</span>[] arr = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">10</span>]; <span class="hljs-comment">//知道长度 不知道值，创建的数组每个位置上都有默认值。整数byte short int long默认值都是0。小数float double的默认值都是0.0。char的默认值是ascii 空。boolean的默认值false。String的默认值 null。</span><br><br><span class="hljs-keyword">int</span>[] arr = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>&#125;; <span class="hljs-comment">//前两种用的比较多</span><br></code></pre></td></tr></table></figure>
+
+<p>三、数组排序（冒泡排序）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">int</span>[] arr = &#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>&#125;;<br><span class="hljs-comment">//控制循环次数</span><br><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; arr.length-<span class="hljs-number">1</span>; j++)&#123;<br>    <span class="hljs-comment">//两两相邻比较</span><br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; arr.length-<span class="hljs-number">1</span>; i++)&#123;<br>        <span class="hljs-keyword">if</span>(arr[i] &gt; arr[i+<span class="hljs-number">1</span>])&#123;<br>            <span class="hljs-keyword">int</span> tmp = arr[i];<br>            arr[i] = arr[i+<span class="hljs-number">1</span>];<br>            arr[i+<span class="hljs-number">1</span>] = tmp;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>四、查找（二分查找）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">int</span> count =<span class="hljs-number">0</span>;<br><span class="hljs-keyword">int</span> start = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">int</span> end = arr.length-<span class="hljs-number">1</span>;<br><span class="hljs-keyword">while</span> (start&lt;=end)&#123;<br>    count++;<br>    <span class="hljs-keyword">int</span> middle = (start+end)/<span class="hljs-number">2</span>;<br>    <span class="hljs-keyword">if</span> (arr[middle]==num)&#123;<br>        System.out.println(num);<br>        System.out.println(count);<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(arr[middle]&gt;num)&#123;<br>        end =middle-<span class="hljs-number">1</span>;<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        start=middle+<span class="hljs-number">1</span>;<br>    &#125;<br>&#125;   <br></code></pre></td></tr></table></figure>
+
+<h3 id="类类型">1.5.2. 类类型</h3><p>一、类类型的定义：</p>
+<blockquote>
+<p>类类型  class 名字</p>
+<p>类就是具有相同特征和行为的一类事物</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//创建类=&gt;形成了数据类型=&gt;类类型=&gt;名字Cat类</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cat</span></span>&#123;<br>    String name;<br>    <span class="hljs-keyword">int</span> age;<br>    String type;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>二、类名和文件名的关系：</p>
+<ol>
+<li>java文件中，可以包含多个类，类名默认是文件名</li>
+<li>一个java文件中有多个类，文件名要和public类名一致</li>
+<li>java中可以有多个类，但是只能有一个是public</li>
+<li>文件中的类都不是public的，那么java的文件名可以任意</li>
+</ol>
+<p>三、属性私有化和get、set方法：</p>
+<ol>
+<li>get方法 获取到属性的值，可以进行其他的操作，无参数，有返回值</li>
+<li>set方法 传入数据，将数据给属性进行赋值，有参数，无返回值，也叫访问器方法</li>
+<li>方法的形参，当前方法生效是局部变量。属性在当前类中生效是全局变量。如果重名的话   this   代表的是当前对象即全局变量</li>
+</ol>
+<p>四、构造方法：</p>
+<ol>
+<li>new + 构造方法 =&gt;构造方法</li>
+<li>java中只要创建了类机会默认有一个无参数的构造方法</li>
+<li>书写格式：public 类名(){}</li>
+<li>只要在类中进行了构造方法的书写，那么就会覆盖默认无参数的构造方法</li>
+<li>方法名相同，参数列表不同（个数不同、顺序不同、类型不同），这种现象叫做方法重载</li>
+<li>this() 可以进行构造方法的调用，必须放在方法体的第一句</li>
+</ol>
+<p>五、类和类之间的情况</p>
+<ol>
+<li>两个类的属性和方法重复，但是属性只能在类中，get与set也只能在类中。我们现在就可以把两个类相同的部分抽离到一个类中！（重复的代码放在一个类中）</li>
+<li>之前的两个类怎么才能使用刚刚创建的类的属性和方法呢？类的继承extends（子类 extends 父类）。子类继承了父类那么子类就拥有了父类的特征（单根继承）</li>
+<li>创建了类就是在继承，如果没有通过extends指定的话，默认的父类就是Object（顶级父类）</li>
+<li>super可以向上调用，调用父类。只能在构造方法第一句，不能和   this    同时出现在一个构造方法中</li>
+<li>表示数据范围大小的关系：父类的数据范围较大，子类的数据范围较大。小转大直接转换，大转小强制类型转换。变量可以调用什么方法，要看变量的类型。如果子类向上扩展（向上转型），那么会出现子类的扩展功能隐藏。<strong>动态绑定：</strong>当我们右键运行时，虚拟机会找到真正的new的对象的实际类型，执行实际类型中的方法</li>
+<li>方法重写，子类要实现自己特殊的功能，而不是使用父类通用的功能</li>
+</ol>
+<h2 id="java中的方法">1.6. java中的方法</h2><blockquote>
+<p>具有某种功能的代码，main是入口</p>
+<p>方法不能套方法，方法要在class文件中</p>
+<p>方法的组成：方法声明 {方法体}</p>
+</blockquote>
+<p>一、使用方法的两步：1 定义 2 调用</p>
+<p>​    <em>定义方法</em>：</p>
+<p>​         方法书写， 方法实现的逻辑，方法体中<br>​                方法是否要每次接受不同数据，定义方法式，方法需要有参数，形式形式参数  形参<br>​                根据方法是否有参数，方法分成有参 和无参的方法</p>
+<p>​    <em>方法调用</em>：执行方法中的逻辑 执行方法体<br>​                 定义方法式方法是否有参数，如果有，进行参数的赋值， 实参 实际参数 如果没有，不用赋值</p>
+<p>二、是否拿到方法返回值,进行其他运算<br>            1 有返回值的方法:  返回值的类型:数据类型  return 数据值<br>            2 无返回值的方法:  返回值类型 void</p>
+<p>调用:方法是否有返回值,如果有,进行变量接受,如果没有,不能接收</p>
 
             </div>
             <hr>
