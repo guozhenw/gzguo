@@ -8,7 +8,7 @@
     <link href="/gzguo/2021/10/23/java/1java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/1.2java%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/"/>
     <url>/gzguo/2021/10/23/java/1java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/1.2java%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/</url>
     
-    <content type="html"><![CDATA[<p>数据类型  变量  运算符  java语句 </p><span id="more"></span><h1 id="java的基本知识">1. java的基本知识</h1><h2 id="数据类型">1.1. 数据类型</h2><h3 id="基本数据类型">1.1.1. 基本数据类型</h3><p>一、整数（byte（1）、short（2）、int（4）、long（8））</p><blockquote><p>byte ：-128到127 </p><p>short ：-32768到32767</p><p>int ：直接进行使用</p><p>long ：数字后面进行后缀标识L </p></blockquote><p>二、小数（float（4）、double（8））</p><blockquote><p>float类型的数据，值中有小数点必须加f、F后缀</p><p>float数据范围大于long数据范围</p><p>只有大的数据才会使用科学计数法表示</p></blockquote><p>三、字符（char）</p><blockquote><p>编码集：数字和符号对应的表</p><p>编码集是从零开始的</p><p>A 65；a 97 </p></blockquote><p>四、布尔（boolean）</p><blockquote><p>为什么java中要有这么多的数据类型？</p><p>为了合理的利用内存空间。这么多的数据类型需要进行<strong>数据转换</strong></p></blockquote><h3 id="数据类型转换">1.1.2. 数据类型转换</h3><p>1、大范围的数据接收小范围的数据直接转换，自动转换</p><p>2、小范围的数据接收大范围的数据，</p><p><strong>有了数据类型就可以定义变量了！</strong></p><h2 id="变量">1.2. 变量</h2><p>常量：值不能改变 （数字）</p><p>变量：值可以发生改变 （x、y）</p><h3 id="定义变量">1.2.1. 定义变量</h3><blockquote><p>数据类型 变量名 = 值 =====》给变量第一次赋值，初始化<br>            int a = 10;<br>        使用变量 ，进行值修改：<br>            a = 100;<br>        也可以先声明然后使用，但如果只声明不赋值就进行使用，那么就会出现未被初始化异常</p></blockquote><p><strong>定义变量的时候要注意变量的命名规范！</strong></p><h3 id="变量的命名规范">1.2.2. 变量的命名规范</h3><ol><li>数字（不能开头）、字母、下划线、$ 都可以用来组成变量名</li><li>java关键字 保留字，具有特殊的含义，不能用来表示变量名</li><li>变量名要见名知意</li><li>驼峰命名</li></ol><p><strong>有了变量和类型的知识，就可以进行运算了，要运算就还需要运算符！</strong></p><h2 id="运算符">1.3. 运算符</h2><h3 id="结果是数字的运算符">1.3.1. 结果是数字的运算符</h3><p>一、结果是数字的运算符又分为以下两种类型：</p><blockquote><p>算术运算符：+   -   *   /   ++   –</p><p>赋值运算符：+=   *=   /=   %=   -=</p></blockquote><p>二、<em>运算结果的类型：</em></p><ol><li>如果参与运算的数据类型相同，结果默认是当前数据类型：int   long   float   double</li><li>如果参与运算的数据类型相同，如果是byte   short，那么运算结果默认是   int   类型 </li><li>如果参与运算的数据类型不相同，结果默认是范围比较大的数据类型：int   long   float   double</li><li>如果参与运算的数据类型不相同，如果是byte   short，那么运算结果默认是   int   类型 </li></ol><p>三、*++   –*</p><ol><li>变量++：先使用变量后++</li><li>++变量：先++后使用变量</li></ol><p><em>四、优先级</em></p><p>​        一个表达式中出现了多个运算符，就会出现优先级的问题</p><p>​        优先级：++    &gt;    算数优先级    &gt;    赋值运算符</p><p>五、<em>字符char运算结果的类型</em></p><ol><li>字符和数字直接进行计算，结果的类型可以是char可以使int，结果的类型取决于接收的类型</li><li>字符和int变量进行运算，结果默认是int类型</li></ol><h3 id="结果是关系-boolean-的运算符">1.3.2. 结果是关系(boolean)的运算符</h3><p>结果是关系(boolean)的运算符又分为以下两种类型：</p><blockquote><p>关系运算符：&gt;   &gt;=   &lt;   &lt;=   ==   !=</p><p>逻辑运算符：&amp;&amp;   ||   ！</p></blockquote><p>注意&amp;&amp;和||的<strong>短路运算</strong>：前面的表达式就可以决定整个表达式的结果，后面的表达式不执行</p><h3 id="按照参与运算的个数分类的运算符">1.3.3. 按照参与运算的个数分类的运算符</h3><ol><li>一元运算符：参与运算的数据有一个</li><li>二元运算符：参与运算的数据有一个</li><li>三元运算符：参与运算的数据有一个</li></ol><blockquote><p>结果的类型与参与运算的数据类型有关</p></blockquote><h2 id="java语句">1.4. java语句</h2><h3 id="分支">1.4.1. 分支</h3><p>一、if语句，用来进行条件判断</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span>(条件 <span class="hljs-keyword">boolean</span>)&#123;<br>条件成立，执行代码<br>&#125;<br><br><span class="hljs-keyword">if</span>(条件 <span class="hljs-keyword">boolean</span>)&#123;<br>条件成立，执行代码<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>       条件不成立，执行代码<br>&#125;<br><br><span class="hljs-comment">//注意：分支的一个情况只执行一次，条件重复的话只执行最先匹配到的条件对应的代码</span><br><span class="hljs-keyword">if</span>(条件 <span class="hljs-keyword">boolean</span>)&#123;<br>条件成立，执行代码<br>&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(条件 <span class="hljs-keyword">boolean</span>) &#123;<br>       条件成立，执行代码<br>&#125;<br></code></pre></td></tr></table></figure><p>二、switch case，用来进行具体值得匹配</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/*</span><br><span class="hljs-comment">* 1、格式</span><br><span class="hljs-comment">* 2、（）数据类型：byte、short、int、char、String</span><br><span class="hljs-comment">* 3、default：没有匹配项时执行的代码</span><br><span class="hljs-comment">* 4、case必须对应一个break，否则会出现case穿透</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">int</span> a=<span class="hljs-number">20</span>;<br><span class="hljs-keyword">switch</span>(a)&#123;<br>        <span class="hljs-keyword">case</span>: <span class="hljs-number">1</span>:<br>        System.out.println(<span class="hljs-number">1</span>);<br>        <span class="hljs-keyword">break</span>;<br>         <span class="hljs-keyword">default</span>:<br>        System.out.println(<span class="hljs-number">2</span>);<br>        <span class="hljs-keyword">break</span>;<br>&#125;<br></code></pre></td></tr></table></figure><h3 id="循环语句">1.4.2. 循环语句</h3><p>一、for语句</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/*</span><br><span class="hljs-comment">* 1、格式：for 循环初始值：循环条件：更新初始值</span><br><span class="hljs-comment">* 2、执行流程：先初始值，再判断循环条件是否满足，满足执行循环体，最后更新初始值，然后继续进行判断，直到不满足条件时退出循环</span><br><span class="hljs-comment">* 3、变量的作用域：作用域是在包含的最近的一层的&#123;&#125;</span><br><span class="hljs-comment">* 4、coutinue：当次循环结束，不影响后续循环和代码</span><br><span class="hljs-comment"> break：当前循环结束，不影响后续代码</span><br><span class="hljs-comment"> return：结束方法，同时会导致循环结束</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; <span class="hljs-number">10</span> ; i++)&#123;<br>    i++;<br>&#125;<br></code></pre></td></tr></table></figure><p>二、while、do-while</p><p>while可以用来文件读取</p><p>do-while必须执行一次</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">while</span>(i &lt; <span class="hljs-number">100</span>)&#123;<br>i++;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="引用数据类型">1.5. 引用数据类型</h2><h3 id="数组">1.5.1. 数组</h3><p>一、数组：一个变量可以存储多个值</p><p>二、数组定义(3)：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/*</span><br><span class="hljs-comment">* 优点：一个变量可以存储多个值</span><br><span class="hljs-comment">* 缺点：数组一旦定义长度不可以修改（后续我们可以使用集合进行替代）</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">int</span>[] arr = &#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>&#125;; <span class="hljs-comment">//知道长度 知道值</span><br><br><span class="hljs-keyword">int</span>[] arr = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">10</span>]; <span class="hljs-comment">//知道长度 不知道值，创建的数组每个位置上都有默认值。整数byte short int long默认值都是0。小数float double的默认值都是0.0。char的默认值是ascii 空。boolean的默认值false。String的默认值 null。</span><br><br><span class="hljs-keyword">int</span>[] arr = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>&#125;; <span class="hljs-comment">//前两种用的比较多</span><br></code></pre></td></tr></table></figure><p>三、数组排序（冒泡排序）</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">int</span>[] arr = &#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>&#125;;<br><span class="hljs-comment">//控制循环次数</span><br><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; arr.length-<span class="hljs-number">1</span>; j++)&#123;<br>    <span class="hljs-comment">//两两相邻比较</span><br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; arr.length-<span class="hljs-number">1</span>; i++)&#123;<br>        <span class="hljs-keyword">if</span>(arr[i] &gt; arr[i+<span class="hljs-number">1</span>])&#123;<br>            <span class="hljs-keyword">int</span> tmp = arr[i];<br>            arr[i] = arr[i+<span class="hljs-number">1</span>];<br>            arr[i+<span class="hljs-number">1</span>] = tmp;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>四、查找（二分查找）</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">int</span> count =<span class="hljs-number">0</span>;<br><span class="hljs-keyword">int</span> start = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">int</span> end = arr.length-<span class="hljs-number">1</span>;<br><span class="hljs-keyword">while</span> (start&lt;=end)&#123;<br>    count++;<br>    <span class="hljs-keyword">int</span> middle = (start+end)/<span class="hljs-number">2</span>;<br>    <span class="hljs-keyword">if</span> (arr[middle]==num)&#123;<br>        System.out.println(num);<br>        System.out.println(count);<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(arr[middle]&gt;num)&#123;<br>        end =middle-<span class="hljs-number">1</span>;<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        start=middle+<span class="hljs-number">1</span>;<br>    &#125;<br>&#125;   <br></code></pre></td></tr></table></figure><h3 id="类类型">1.5.2. 类类型</h3><p>一、类类型的定义：</p><blockquote><p>类类型  class 名字</p><p>类就是具有相同特征和行为的一类事物</p></blockquote><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//创建类=&gt;形成了数据类型=&gt;类类型=&gt;名字Cat类</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cat</span></span>&#123;<br>    String name;<br>    <span class="hljs-keyword">int</span> age;<br>    String type;<br>&#125;<br></code></pre></td></tr></table></figure><p>二、类名和文件名的关系：</p><ol><li>java文件中，可以包含多个类，类名默认是文件名</li><li>一个java文件中有多个类，文件名要和public类名一致</li><li>java中可以有多个类，但是只能有一个是public</li><li>文件中的类都不是public的，那么java的文件名可以任意</li></ol><p>三、属性私有化和get、set方法：</p><ol><li>get方法 获取到属性的值，可以进行其他的操作，无参数，有返回值</li><li>set方法 传入数据，将数据给属性进行赋值，有参数，无返回值，也叫访问器方法</li><li>方法的形参，当前方法生效是局部变量。属性在当前类中生效是全局变量。如果重名的话   this   代表的是当前对象即全局变量</li></ol><p>四、构造方法：</p><ol><li>new + 构造方法 =&gt;构造方法</li><li>java中只要创建了类机会默认有一个无参数的构造方法</li><li>书写格式：public 类名(){}</li><li>只要在类中进行了构造方法的书写，那么就会覆盖默认无参数的构造方法</li><li>方法名相同，参数列表不同（个数不同、顺序不同、类型不同），这种现象叫做方法重载</li><li>this() 可以进行构造方法的调用，必须放在方法体的第一句</li></ol><p>五、类和类之间的情况</p><ol><li>两个类的属性和方法重复，但是属性只能在类中，get与set也只能在类中。我们现在就可以把两个类相同的部分抽离到一个类中！（重复的代码放在一个类中）</li><li>之前的两个类怎么才能使用刚刚创建的类的属性和方法呢？类的继承extends（子类 extends 父类）。子类继承了父类那么子类就拥有了父类的特征（单根继承）</li><li>创建了类就是在继承，如果没有通过extends指定的话，默认的父类就是Object（顶级父类）</li><li>super可以向上调用，调用父类。只能在构造方法第一句，不能和   this    同时出现在一个构造方法中</li><li>表示数据范围大小的关系：父类的数据范围较大，子类的数据范围较大。小转大直接转换，大转小强制类型转换。变量可以调用什么方法，要看变量的类型。如果子类向上扩展（向上转型），那么会出现子类的扩展功能隐藏。<strong>动态绑定：</strong>当我们右键运行时，虚拟机会找到真正的new的对象的实际类型，执行实际类型中的方法</li><li>方法重写，子类要实现自己特殊的功能，而不是使用父类通用的功能</li></ol><h2 id="java中的方法">1.6. java中的方法</h2><blockquote><p>具有某种功能的代码，main是入口</p><p>方法不能套方法，方法要在class文件中</p><p>方法的组成：方法声明 {方法体}</p></blockquote><p>一、使用方法的两步：1 定义 2 调用</p><p>​    <em>定义方法</em>：</p><p>​         方法书写， 方法实现的逻辑，方法体中<br>​                方法是否要每次接受不同数据，定义方法式，方法需要有参数，形式形式参数  形参<br>​                根据方法是否有参数，方法分成有参 和无参的方法</p><p>​    <em>方法调用</em>：执行方法中的逻辑 执行方法体<br>​                 定义方法式方法是否有参数，如果有，进行参数的赋值， 实参 实际参数 如果没有，不用赋值</p><p>二、是否拿到方法返回值,进行其他运算<br>            1 有返回值的方法:  返回值的类型:数据类型  return 数据值<br>            2 无返回值的方法:  返回值类型 void</p><p>调用:方法是否有返回值,如果有,进行变量接受,如果没有,不能接收</p>]]></content>
+    <content type="html"><![CDATA[<p>数据类型  变量  运算符  java语句 </p><span id="more"></span><h1 id="java的基本知识">1. java的基本知识</h1><h2 id="数据类型">1.1. 数据类型</h2><h3 id="基本数据类型">1.1.1. 基本数据类型</h3><p>一、整数（byte（1）、short（2）、int（4）、long（8））</p><blockquote><p>byte ：-128到127 </p><p>short ：-32768到32767</p><p>int ：直接进行使用</p><p>long ：数字后面进行后缀标识L </p></blockquote><p>二、小数（float（4）、double（8））</p><blockquote><p>float类型的数据，值中有小数点必须加f、F后缀</p><p>float数据范围大于long数据范围</p><p>只有大的数据才会使用科学计数法表示</p></blockquote><p>三、字符（char）</p><blockquote><p>编码集：数字和符号对应的表</p><p>编码集是从零开始的</p><p>A 65；a 97 </p></blockquote><p>四、布尔（boolean）</p><blockquote><p>为什么java中要有这么多的数据类型？</p><p>为了合理的利用内存空间。这么多的数据类型需要进行<strong>数据转换</strong></p></blockquote><h3 id="数据类型转换">1.1.2. 数据类型转换</h3><p>1、大范围的数据接收小范围的数据直接转换，自动转换</p><p>2、小范围的数据接收大范围的数据，</p><p><strong>有了数据类型就可以定义变量了！</strong></p><h2 id="变量">1.2. 变量</h2><p>常量：值不能改变 （数字）</p><p>变量：值可以发生改变 （x、y）</p><h3 id="定义变量">1.2.1. 定义变量</h3><blockquote><p>数据类型 变量名 = 值 =====》给变量第一次赋值，初始化<br>            int a = 10;<br>        使用变量 ，进行值修改：<br>            a = 100;<br>        也可以先声明然后使用，但如果只声明不赋值就进行使用，那么就会出现未被初始化异常</p></blockquote><p><strong>定义变量的时候要注意变量的命名规范！</strong></p><h3 id="变量的命名规范">1.2.2. 变量的命名规范</h3><ol><li>数字（不能开头）、字母、下划线、$ 都可以用来组成变量名</li><li>java关键字 保留字，具有特殊的含义，不能用来表示变量名</li><li>变量名要见名知意</li><li>驼峰命名</li></ol><p><strong>有了变量和类型的知识，就可以进行运算了，要运算就还需要运算符！</strong></p><h2 id="运算符">1.3. 运算符</h2><h3 id="结果是数字的运算符">1.3.1. 结果是数字的运算符</h3><p>一、结果是数字的运算符又分为以下两种类型：</p><blockquote><p>算术运算符：+   -   *   /   ++   –</p><p>赋值运算符：+=   *=   /=   %=   -=</p></blockquote><p>二、<em>运算结果的类型：</em></p><ol><li>如果参与运算的数据类型相同，结果默认是当前数据类型：int   long   float   double</li><li>如果参与运算的数据类型相同，如果是byte   short，那么运算结果默认是   int   类型 </li><li>如果参与运算的数据类型不相同，结果默认是范围比较大的数据类型：int   long   float   double</li><li>如果参与运算的数据类型不相同，如果是byte   short，那么运算结果默认是   int   类型 </li></ol><p>三、*++   –*</p><ol><li>变量++：先使用变量后++</li><li>++变量：先++后使用变量</li></ol><p><em>四、优先级</em></p><p>​        一个表达式中出现了多个运算符，就会出现优先级的问题</p><p>​        优先级：++    &gt;    算数优先级    &gt;    赋值运算符</p><p>五、<em>字符char运算结果的类型</em></p><ol><li>字符和数字直接进行计算，结果的类型可以是char可以使int，结果的类型取决于接收的类型</li><li>字符和int变量进行运算，结果默认是int类型</li></ol><h3 id="结果是关系-boolean-的运算符">1.3.2. 结果是关系(boolean)的运算符</h3><p>结果是关系(boolean)的运算符又分为以下两种类型：</p><blockquote><p>关系运算符：&gt;   &gt;=   &lt;   &lt;=   ==   !=</p><p>逻辑运算符：&amp;&amp;   ||   ！</p></blockquote><p>注意&amp;&amp;和||的<strong>短路运算</strong>：前面的表达式就可以决定整个表达式的结果，后面的表达式不执行</p><h3 id="按照参与运算的个数分类的运算符">1.3.3. 按照参与运算的个数分类的运算符</h3><ol><li>一元运算符：参与运算的数据有一个</li><li>二元运算符：参与运算的数据有一个</li><li>三元运算符：参与运算的数据有一个</li></ol><blockquote><p>结果的类型与参与运算的数据类型有关</p></blockquote><h2 id="java语句">1.4. java语句</h2><h3 id="分支">1.4.1. 分支</h3><p>一、if语句，用来进行条件判断</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span>(条件 <span class="hljs-keyword">boolean</span>)&#123;<br>条件成立，执行代码<br>&#125;<br><br><span class="hljs-keyword">if</span>(条件 <span class="hljs-keyword">boolean</span>)&#123;<br>条件成立，执行代码<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>       条件不成立，执行代码<br>&#125;<br><br><span class="hljs-comment">//注意：分支的一个情况只执行一次，条件重复的话只执行最先匹配到的条件对应的代码</span><br><span class="hljs-keyword">if</span>(条件 <span class="hljs-keyword">boolean</span>)&#123;<br>条件成立，执行代码<br>&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(条件 <span class="hljs-keyword">boolean</span>) &#123;<br>       条件成立，执行代码<br>&#125;<br></code></pre></td></tr></table></figure><p>二、switch case，用来进行具体值得匹配</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/*</span><br><span class="hljs-comment">* 1、格式</span><br><span class="hljs-comment">* 2、（）数据类型：byte、short、int、char、String</span><br><span class="hljs-comment">* 3、default：没有匹配项时执行的代码</span><br><span class="hljs-comment">* 4、case必须对应一个break，否则会出现case穿透</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">int</span> a=<span class="hljs-number">20</span>;<br><span class="hljs-keyword">switch</span>(a)&#123;<br>        <span class="hljs-keyword">case</span>: <span class="hljs-number">1</span>:<br>        System.out.println(<span class="hljs-number">1</span>);<br>        <span class="hljs-keyword">break</span>;<br>         <span class="hljs-keyword">default</span>:<br>        System.out.println(<span class="hljs-number">2</span>);<br>        <span class="hljs-keyword">break</span>;<br>&#125;<br></code></pre></td></tr></table></figure><h3 id="循环语句">1.4.2. 循环语句</h3><p>一、for语句</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/*</span><br><span class="hljs-comment">* 1、格式：for 循环初始值：循环条件：更新初始值</span><br><span class="hljs-comment">* 2、执行流程：先初始值，再判断循环条件是否满足，满足执行循环体，最后更新初始值，然后继续进行判断，直到不满足条件时退出循环</span><br><span class="hljs-comment">* 3、变量的作用域：作用域是在包含的最近的一层的&#123;&#125;</span><br><span class="hljs-comment">* 4、coutinue：当次循环结束，不影响后续循环和代码</span><br><span class="hljs-comment"> break：当前循环结束，不影响后续代码</span><br><span class="hljs-comment"> return：结束方法，同时会导致循环结束</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i &lt; <span class="hljs-number">10</span> ; i++)&#123;<br>    i++;<br>&#125;<br></code></pre></td></tr></table></figure><p>二、while、do-while</p><p>while可以用来文件读取</p><p>do-while必须执行一次</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">while</span>(i &lt; <span class="hljs-number">100</span>)&#123;<br>i++;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="引用数据类型">1.5. 引用数据类型</h2><h3 id="数组">1.5.1. 数组</h3><p>一、数组：一个变量可以存储多个值</p><p>二、数组定义(3)：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/*</span><br><span class="hljs-comment">* 优点：一个变量可以存储多个值</span><br><span class="hljs-comment">* 缺点：数组一旦定义长度不可以修改（后续我们可以使用集合进行替代）</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">int</span>[] arr = &#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>&#125;; <span class="hljs-comment">//知道长度 知道值</span><br><br><span class="hljs-keyword">int</span>[] arr = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">10</span>]; <span class="hljs-comment">//知道长度 不知道值，创建的数组每个位置上都有默认值。整数byte short int long默认值都是0。小数float double的默认值都是0.0。char的默认值是ascii 空。boolean的默认值false。String的默认值 null。</span><br><br><span class="hljs-keyword">int</span>[] arr = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>&#125;; <span class="hljs-comment">//前两种用的比较多</span><br></code></pre></td></tr></table></figure><p>三、数组排序（冒泡排序）</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">int</span>[] arr = &#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>&#125;;<br><span class="hljs-comment">//控制循环次数</span><br><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; arr.length-<span class="hljs-number">1</span>; j++)&#123;<br>    <span class="hljs-comment">//两两相邻比较</span><br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; arr.length-<span class="hljs-number">1</span>; i++)&#123;<br>        <span class="hljs-keyword">if</span>(arr[i] &gt; arr[i+<span class="hljs-number">1</span>])&#123;<br>            <span class="hljs-keyword">int</span> tmp = arr[i];<br>            arr[i] = arr[i+<span class="hljs-number">1</span>];<br>            arr[i+<span class="hljs-number">1</span>] = tmp;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>四、查找（二分查找）</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">int</span> count =<span class="hljs-number">0</span>;<br><span class="hljs-keyword">int</span> start = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">int</span> end = arr.length-<span class="hljs-number">1</span>;<br><span class="hljs-keyword">while</span> (start&lt;=end)&#123;<br>    count++;<br>    <span class="hljs-keyword">int</span> middle = (start+end)/<span class="hljs-number">2</span>;<br>    <span class="hljs-keyword">if</span> (arr[middle]==num)&#123;<br>        System.out.println(num);<br>        System.out.println(count);<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(arr[middle]&gt;num)&#123;<br>        end =middle-<span class="hljs-number">1</span>;<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        start=middle+<span class="hljs-number">1</span>;<br>    &#125;<br>&#125;   <br></code></pre></td></tr></table></figure><h3 id="类类型">1.5.2. 类类型</h3><p>一、类类型的定义：</p><blockquote><p>类类型  class 名字</p><p>类就是具有相同特征和行为的一类事物</p></blockquote><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//创建类=&gt;形成了数据类型=&gt;类类型=&gt;名字Cat类</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cat</span></span>&#123;<br>    String name;<br>    <span class="hljs-keyword">int</span> age;<br>    String type;<br>&#125;<br></code></pre></td></tr></table></figure><p>二、类名和文件名的关系：</p><ol><li>java文件中，可以包含多个类，类名默认是文件名</li><li>一个java文件中有多个类，文件名要和public类名一致</li><li>java中可以有多个类，但是只能有一个是public</li><li>文件中的类都不是public的，那么java的文件名可以任意</li></ol><p>三、属性私有化和get、set方法：</p><ol><li>get方法 获取到属性的值，可以进行其他的操作，无参数，有返回值</li><li>set方法 传入数据，将数据给属性进行赋值，有参数，无返回值，也叫访问器方法</li><li>方法的形参，当前方法生效是局部变量。属性在当前类中生效是全局变量。如果重名的话   this   代表的是当前对象即全局变量</li></ol><p>四、构造方法：</p><ol><li>new + 构造方法 =&gt;构造方法</li><li>java中只要创建了类机会默认有一个无参数的构造方法</li><li>书写格式：public 类名(){}</li><li>只要在类中进行了构造方法的书写，那么就会覆盖默认无参数的构造方法</li><li>方法名相同，参数列表不同（个数不同、顺序不同、类型不同），这种现象叫做方法重载</li><li>this() 可以进行构造方法的调用，必须放在方法体的第一句</li></ol><p>五、类和类之间的情况</p><ol><li>两个类的属性和方法重复，但是属性只能在类中，get与set也只能在类中。我们现在就可以把两个类相同的部分抽离到一个类中！（重复的代码放在一个类中）</li><li>之前的两个类怎么才能使用刚刚创建的类的属性和方法呢？类的继承extends（子类 extends 父类）。子类继承了父类那么子类就拥有了父类的特征（单根继承）</li><li>创建了类就是在继承，如果没有通过extends指定的话，默认的父类就是Object（顶级父类）</li><li>super可以向上调用，调用父类。只能在构造方法第一句，不能和   this    同时出现在一个构造方法中</li><li>表示数据范围大小的关系：父类的数据范围较大，子类的数据范围较大。小转大直接转换，大转小强制类型转换。变量可以调用什么方法，要看变量的类型。如果子类向上扩展（向上转型），那么会出现子类的扩展功能隐藏。<strong>动态绑定：</strong>当我们右键运行时，虚拟机会找到真正的new的对象的实际类型，执行实际类型中的方法</li><li>方法重写，子类要实现自己特殊的功能，而不是使用父类通用的功能</li><li>抽象方法：父类的方法不会执行，但是强制子类有这个功能。抽象方法一定要出现在抽象类中</li></ol><h2 id="java中的方法">1.6. java中的方法</h2><blockquote><p>具有某种功能的代码，main是入口</p><p>方法不能套方法，方法要在class文件中</p><p>方法的组成：方法声明 {方法体}</p></blockquote><p>一、使用方法的两步：1 定义 2 调用</p><p>​    <em>定义方法</em>：</p><p>​         方法书写， 方法实现的逻辑，方法体中<br>​                方法是否要每次接受不同数据，定义方法式，方法需要有参数，形式形式参数  形参<br>​                根据方法是否有参数，方法分成有参 和无参的方法</p><p>​    <em>方法调用</em>：执行方法中的逻辑 执行方法体<br>​                 定义方法式方法是否有参数，如果有，进行参数的赋值， 实参 实际参数 如果没有，不用赋值</p><p>二、是否拿到方法返回值,进行其他运算<br>            1 有返回值的方法:  返回值的类型:数据类型  return 数据值<br>            2 无返回值的方法:  返回值类型 void</p><p>调用:方法是否有返回值,如果有,进行变量接受,如果没有,不能接收</p>]]></content>
     
     
     <categories>
@@ -242,61 +242,11 @@
   
   
   <entry>
-    <title>2-1-5线程</title>
-    <link href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-1-5%E7%BA%BF%E7%A8%8B/"/>
-    <url>/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-1-5%E7%BA%BF%E7%A8%8B/</url>
+    <title>1-7运行机制体系结构</title>
+    <link href="/gzguo/2020/12/27/OS/1%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/1-7%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/"/>
+    <url>/gzguo/2020/12/27/OS/1%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/1-7%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/</url>
     
-    <content type="html"><![CDATA[<p>引入线程之后的变化，线程的重要属性以及多线程。</p><span id="more"></span><h1 id="定义">1. 定义</h1><p>QQ可以进行很多的功能，但是进程是程序的一次执行</p><p>很多的功能不可能是由一个程序的顺序执行就能实现的</p><p>传统的进程是<strong>程序执行流</strong>的最小单位</p><p>因为有的进程可能需要同时执行很多的事情，而传统的进程只能串行的执行一系列程序。为此，<strong>引入了“线程”</strong>，来增加并发调度</p><p>引入了线程之后，<strong>线程就是程序执行流的最小单位，是一个基本的CPU执行单元</strong>。进程只作为除CPU之外的系统资源分配单元（<strong>系统资源是分配给进程的</strong>）。</p><h1 id="引入线程的变化">2. 引入线程的变化</h1><p>资源分配调度：<strong>进程是资源分配的基本单位，线程是调度的基本单位</strong></p><p>并发性：各线程之间也能并发，提升了并发速度</p><p>系统开销：系统开销减小（同一个进程内线程切换，不需要切换进程环境，系统开销小）</p><h1 id="线程的重要属性">3. 线程的重要属性</h1><ol><li>线程是处理机调度的单位</li><li>多个CPU计算机中，各个线程可占用不同的CPU</li><li>每个线程都有一个线程ID、线程控制块（TCB）</li><li>线程也有就绪、阻塞、运行三种基本状态</li><li>线程几乎不拥有系统资源</li><li>同一进程的不同线程之间共享进程的资源</li><li>由于共享内存地址空间，同意进程中的线程通信甚至无需系统干预</li><li>同一进程中的线程切换，不会引起进程的切换</li><li>不同的进程中的线程切换，会引起进程的切换</li><li>切换同进程内的线程，系统开销很小</li><li>切换进程，系统开销大</li></ol><h1 id="实现方式">4. 实现方式</h1><h2 id="用户级线程">4.1. 用户级线程</h2><p>由应用程序通过<strong>线程库</strong>来实现，所有的线程管理者工作都由应用程序负责（包括线程切换）</p><p>操作系统并意识不到线程的存在，但是用户可以感受到线程的存在</p><p>用户级线程就是从用户的视角可以看到的线程</p><h2 id="内核级线程">4.2. 内核级线程</h2><p>又称为 内核支持的线程</p><p>内核级的线程的管理工作由操作系统内核完成。内核级线程的切换必须在核心态下才能完成</p><p>内核级线程可以理解为从操作系统的角度可以看到的线程</p><p>内核级线程才是真正的处理机分配的单位</p><h1 id="多线程">5. 多线程</h1><p>在同时支持用户级线程和内核级线程的系统中，由几个用户级线程映射到几个内核级线程的问题引出了”多线程模型“的问题</p><p>多线程模型：</p><ol><li>多对一：多个用户级线程对应一个内核级线程（并发性较弱，系统开销小）</li><li>一对一：并发性很强，占用资源太多</li><li>多对多：多对一和一对一的组合模式，更加合理</li></ol>]]></content>
-    
-    
-    <categories>
-      
-      <category>OS</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>OS</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>2-2-3调度算法的评价指标</title>
-    <link href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-2-3%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E7%9A%84%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/"/>
-    <url>/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-2-3%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E7%9A%84%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/</url>
-    
-    <content type="html"><![CDATA[<p>调度算法的五大评价指标。</p><span id="more"></span><h1 id="系统利用率">1. 系统利用率</h1><p>利用率=忙碌时间/总时间</p><h1 id="系统吞吐量">2. 系统吞吐量</h1><p>单位时间内完成的作业的数量</p><p>系统吞吐量=总共完成了多少道作业/总共花了多长时间</p><h1 id="周转时间">3. 周转时间</h1><p>作业从提交给系统道作业完成的时间间隔</p><p>周转时间=作业完成时间-作业提交时间</p><p>平均周转时间=个作业周转时间之和/作业数</p><p>带权周转时间=作业周转时间/作业实际运行时间（越小越好，用户体验越好）</p><p>平均带权周转时间=各作业带权周转时间之和/作业数</p><h1 id="等待时间">4. 等待时间</h1><p>指进程/作业等待处理机状态时间之和，等待时间越长，用户满意度越低</p><p>对于作业来说：等待时间就是进程建立之后等待被服务的时间之和，等待IO完成期间也是被服务的，不算入等待时间</p><p>对于进程来说：不仅要考虑建立进程后的等待时间，还要加上作业在外存后备队列中等待的时间</p><h1 id="响应时间">5. 响应时间</h1><p>用户提交请求道首次产生响应所用的时间</p>]]></content>
-    
-    
-    <categories>
-      
-      <category>OS</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>OS</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>2-2-1处理机调度</title>
-    <link href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-2-1%E5%A4%84%E7%90%86%E6%9C%BA%E8%B0%83%E5%BA%A6/"/>
-    <url>/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-2-1%E5%A4%84%E7%90%86%E6%9C%BA%E8%B0%83%E5%BA%A6/</url>
-    
-    <content type="html"><![CDATA[<p>处理机调度的层次和他们之间的联系和对比。</p><span id="more"></span><h1 id="定义">1. 定义</h1><p>某种规则来决定处理任务的顺序，这就是调度研究的问题</p><p>处理机调度：由于CPU个数远远小于进程数，不可能同时处理所有的进程。要<strong>从就绪队列中按照一定的算法选择一个进程并将处理机分配给它运行，以实现进程的并发执行</strong></p><h1 id="层次">2. 层次</h1><h2 id="高级调度（作业调度）">2.1. 高级调度（作业调度）</h2><p>作业=多个进程</p><p>由于内存有限，<strong>作业</strong>无法全部放入内存，需要某种规则来决定将作业调入内存的顺序</p><p>高级调度是<strong>外存与内存之间</strong>的调度</p><p>每个作业<strong>只调入一次调出一次</strong></p><p>作业调度时会创建相应的PCB，调出时才撤销PCB</p><h2 id="中级调度（内存调度）">2.2. 中级调度（内存调度）</h2><p>引入了虚拟存储技术之后，可以将暂时不能运行的<strong>进程</strong>调至外存等待。等他重新具备了运行条件且内存有空的时候，再重新调入内存</p><p>这样做的目的是<strong>提高内存的利用率和系统的吞吐量</strong></p><p>暂时调到外存的状态叫做<strong>挂起状态</strong>，进程被调出内存，但是PCB会常驻内存，因为操作系统还要对这些未执行完的进程进行管理（挂起–&gt;挂起队列）</p><p>中级调度发生的频率比高级调度高，因为一个进程可能会多次被调出、调入内存</p><p>这里引入了七状态模型，详情见补充知识</p><h2 id="低级调度（进程调度）">2.3. 低级调度（进程调度）</h2><p>主要任务是按照某种方法和策略从就绪队列中选取一个进程，将<strong>处理机</strong>分配给他</p><p>进程调度是最基本的一种调度，频率很高，一般几十毫秒一次</p><h1 id="调度联系、对比">3. 调度联系、对比</h1><p>高级调度（作业调度）：外存到内存（面向作业）（无到创建到就绪）</p><p>中级调度（内存调度）：外存到内存（面向进程）（挂起到就绪）</p><p>低级调度（进程调度）：<strong>内存–&gt;CPU</strong>（就绪到运行）</p><h1 id="补充知识">4. 补充知识</h1><p>与挂起状态相关的<strong>七状态模型</strong>：</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">暂时调入到外存等待的进程状态为挂起状态<br>挂起态又可以分为就绪挂起、阻塞挂起两种<br></code></pre></td></tr></table></figure><p>五状态模型–&gt;七状态模型（新增两种状态）</p><p>就绪–&gt;挂起（就绪挂起）</p><p>阻塞–&gt;挂起（阻塞挂起）</p><p>阻塞挂起等待的事件出现–&gt;就绪挂起</p><p>创建态–&gt;就绪挂起</p><p>运行态–&gt;就绪挂起</p><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs x86asm">挂起和阻塞的区别：<br>    两种都是暂时不能得到<span class="hljs-meta">CPU</span>服务<br>    挂起是将进程调入外存，而阻塞态下的进程还在内存中<br></code></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<p>操作系统的运行机制、内核以及体系结构。</p><span id="more"></span><h1 id="运行机制">1. 运行机制</h1><p>指令和代码：一行代码对应几行机器语言指令</p><p>由于安全性问题，将<strong>指令</strong>分为<strong>特权指令、非特权指令</strong></p><p>特权指令：内存清零，不允许用户程序使用</p><p>非特权指令：运算指令</p><p>判断CPU是否可以执行特权指令？<strong>处理机的两种状态</strong>：<strong>用户态（目态）、核心态（管态）</strong></p><p>处理机状态由程序状态字寄存器某个标志位来标识</p><p><strong>程序</strong>又被分为<strong>内核程序和应用程序</strong></p><h1 id="操作系统内核">2. 操作系统内核</h1><p>内核程序应该实现哪些功能？</p><p><strong>时钟管理、中断处理、原语</strong>（设备驱动、CPU切换）、<strong>对系统资源进行管理</strong>（进程管理、存储器管理、设备管理）</p><p>前面三个功能与硬件联系比较紧密，有的操作系统不会将最后一个划分到操作系统内核中</p><p>内核是计算机上配置的底层软件，是操作系统最基本、最核心的部分</p><p>实现操作系统内核功能的程序就是<strong>内核程序</strong></p><h1 id="操作系统体系机构">3. 操作系统体系机构</h1><p>时钟管理、中断处理、原语、[对系统资源进行管理]</p><p>对于最后一个是否划分到内核中又争议，所以有了操作系统的体系结构</p><p>操作系统的体系结构：<strong>大内核、微内核</strong></p>]]></content>
     
     
     <categories>
@@ -342,11 +292,61 @@
   
   
   <entry>
-    <title>2-2-5分时系统的调度算法</title>
-    <link href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-2-5%E5%88%86%E6%97%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/"/>
-    <url>/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-2-5%E5%88%86%E6%97%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/</url>
+    <title>2-1-5线程</title>
+    <link href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-1-5%E7%BA%BF%E7%A8%8B/"/>
+    <url>/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-1-5%E7%BA%BF%E7%A8%8B/</url>
     
-    <content type="html"><![CDATA[<p>分时系统的调度算法：时间片轮转、优先级调度、多级反馈队列调度算法。</p><span id="more"></span><h1 id="时间片轮转">1. 时间片轮转</h1><p>RR（round robin）</p><p>公平、轮流为各个进程服务。让每个进程在一定时间间隔内都可以得到响应</p><p>按照时间片来进行执行，时间片的大小可能固定，也可以动态</p><p>只有进程调度才能使用这个算法</p><p><strong>抢占式</strong>的算法，通过<strong>时钟中断</strong>来通知CPU时间片已到</p><p>不会导致饥饿</p><h1 id="优先级调度">2. 优先级调度</h1><p>实时操作系统的出现，需要根据紧急程度来决定优先处理的顺序</p><p>每个作业/进程都有自己的优先级，调度是选择优先级最高的作业/进程</p><p>抢占式和非抢占式都有 </p><p>有静态优先级和动态优先级两种。静态优先级：创建进程时确定，之后一直不变。动态优先级：创建进程有一个初始值，之后会根据情况动态的调整优先级</p><p>如何合理的设置各类进程的优先级？</p><ol><li>系统进程优先级高于用户进程</li><li>前台进程的优先级高于后台进程</li><li>操作系统更偏好IO型进程（还有一类时计算型进程）</li></ol><p>比较适合用于实时操作系统</p><p>会发生饥饿</p><h1 id="多级反馈队列调度算法">3. 多级反馈队列调度算法</h1><p><strong>对所有上面的算法的折中权衡</strong></p><p><strong>抢占式</strong>的算法</p><p>设置多级就绪队列，各级队列优先级从高到低，时间片从小到大。新进程到达时先进入第一级队列，按照FCFS原则分配时间片。如果时间片用完还没有执行完就进入下一级队列队尾。反复执行上面的过程。</p><p>可能会发生饥饿</p>]]></content>
+    <content type="html"><![CDATA[<p>引入线程之后的变化，线程的重要属性以及多线程。</p><span id="more"></span><h1 id="定义">1. 定义</h1><p>QQ可以进行很多的功能，但是进程是程序的一次执行</p><p>很多的功能不可能是由一个程序的顺序执行就能实现的</p><p>传统的进程是<strong>程序执行流</strong>的最小单位</p><p>因为有的进程可能需要同时执行很多的事情，而传统的进程只能串行的执行一系列程序。为此，<strong>引入了“线程”</strong>，来增加并发调度</p><p>引入了线程之后，<strong>线程就是程序执行流的最小单位，是一个基本的CPU执行单元</strong>。进程只作为除CPU之外的系统资源分配单元（<strong>系统资源是分配给进程的</strong>）。</p><h1 id="引入线程的变化">2. 引入线程的变化</h1><p>资源分配调度：<strong>进程是资源分配的基本单位，线程是调度的基本单位</strong></p><p>并发性：各线程之间也能并发，提升了并发速度</p><p>系统开销：系统开销减小（同一个进程内线程切换，不需要切换进程环境，系统开销小）</p><h1 id="线程的重要属性">3. 线程的重要属性</h1><ol><li>线程是处理机调度的单位</li><li>多个CPU计算机中，各个线程可占用不同的CPU</li><li>每个线程都有一个线程ID、线程控制块（TCB）</li><li>线程也有就绪、阻塞、运行三种基本状态</li><li>线程几乎不拥有系统资源</li><li>同一进程的不同线程之间共享进程的资源</li><li>由于共享内存地址空间，同意进程中的线程通信甚至无需系统干预</li><li>同一进程中的线程切换，不会引起进程的切换</li><li>不同的进程中的线程切换，会引起进程的切换</li><li>切换同进程内的线程，系统开销很小</li><li>切换进程，系统开销大</li></ol><h1 id="实现方式">4. 实现方式</h1><h2 id="用户级线程">4.1. 用户级线程</h2><p>由应用程序通过<strong>线程库</strong>来实现，所有的线程管理者工作都由应用程序负责（包括线程切换）</p><p>操作系统并意识不到线程的存在，但是用户可以感受到线程的存在</p><p>用户级线程就是从用户的视角可以看到的线程</p><h2 id="内核级线程">4.2. 内核级线程</h2><p>又称为 内核支持的线程</p><p>内核级的线程的管理工作由操作系统内核完成。内核级线程的切换必须在核心态下才能完成</p><p>内核级线程可以理解为从操作系统的角度可以看到的线程</p><p>内核级线程才是真正的处理机分配的单位</p><h1 id="多线程">5. 多线程</h1><p>在同时支持用户级线程和内核级线程的系统中，由几个用户级线程映射到几个内核级线程的问题引出了”多线程模型“的问题</p><p>多线程模型：</p><ol><li>多对一：多个用户级线程对应一个内核级线程（并发性较弱，系统开销小）</li><li>一对一：并发性很强，占用资源太多</li><li>多对多：多对一和一对一的组合模式，更加合理</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>OS</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>OS</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>2-2-1处理机调度</title>
+    <link href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-2-1%E5%A4%84%E7%90%86%E6%9C%BA%E8%B0%83%E5%BA%A6/"/>
+    <url>/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-2-1%E5%A4%84%E7%90%86%E6%9C%BA%E8%B0%83%E5%BA%A6/</url>
+    
+    <content type="html"><![CDATA[<p>处理机调度的层次和他们之间的联系和对比。</p><span id="more"></span><h1 id="定义">1. 定义</h1><p>某种规则来决定处理任务的顺序，这就是调度研究的问题</p><p>处理机调度：由于CPU个数远远小于进程数，不可能同时处理所有的进程。要<strong>从就绪队列中按照一定的算法选择一个进程并将处理机分配给它运行，以实现进程的并发执行</strong></p><h1 id="层次">2. 层次</h1><h2 id="高级调度（作业调度）">2.1. 高级调度（作业调度）</h2><p>作业=多个进程</p><p>由于内存有限，<strong>作业</strong>无法全部放入内存，需要某种规则来决定将作业调入内存的顺序</p><p>高级调度是<strong>外存与内存之间</strong>的调度</p><p>每个作业<strong>只调入一次调出一次</strong></p><p>作业调度时会创建相应的PCB，调出时才撤销PCB</p><h2 id="中级调度（内存调度）">2.2. 中级调度（内存调度）</h2><p>引入了虚拟存储技术之后，可以将暂时不能运行的<strong>进程</strong>调至外存等待。等他重新具备了运行条件且内存有空的时候，再重新调入内存</p><p>这样做的目的是<strong>提高内存的利用率和系统的吞吐量</strong></p><p>暂时调到外存的状态叫做<strong>挂起状态</strong>，进程被调出内存，但是PCB会常驻内存，因为操作系统还要对这些未执行完的进程进行管理（挂起–&gt;挂起队列）</p><p>中级调度发生的频率比高级调度高，因为一个进程可能会多次被调出、调入内存</p><p>这里引入了七状态模型，详情见补充知识</p><h2 id="低级调度（进程调度）">2.3. 低级调度（进程调度）</h2><p>主要任务是按照某种方法和策略从就绪队列中选取一个进程，将<strong>处理机</strong>分配给他</p><p>进程调度是最基本的一种调度，频率很高，一般几十毫秒一次</p><h1 id="调度联系、对比">3. 调度联系、对比</h1><p>高级调度（作业调度）：外存到内存（面向作业）（无到创建到就绪）</p><p>中级调度（内存调度）：外存到内存（面向进程）（挂起到就绪）</p><p>低级调度（进程调度）：<strong>内存–&gt;CPU</strong>（就绪到运行）</p><h1 id="补充知识">4. 补充知识</h1><p>与挂起状态相关的<strong>七状态模型</strong>：</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">暂时调入到外存等待的进程状态为挂起状态<br>挂起态又可以分为就绪挂起、阻塞挂起两种<br></code></pre></td></tr></table></figure><p>五状态模型–&gt;七状态模型（新增两种状态）</p><p>就绪–&gt;挂起（就绪挂起）</p><p>阻塞–&gt;挂起（阻塞挂起）</p><p>阻塞挂起等待的事件出现–&gt;就绪挂起</p><p>创建态–&gt;就绪挂起</p><p>运行态–&gt;就绪挂起</p><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs x86asm">挂起和阻塞的区别：<br>    两种都是暂时不能得到<span class="hljs-meta">CPU</span>服务<br>    挂起是将进程调入外存，而阻塞态下的进程还在内存中<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>OS</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>OS</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>2-2-3调度算法的评价指标</title>
+    <link href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-2-3%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E7%9A%84%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/"/>
+    <url>/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-2-3%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E7%9A%84%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/</url>
+    
+    <content type="html"><![CDATA[<p>调度算法的五大评价指标。</p><span id="more"></span><h1 id="系统利用率">1. 系统利用率</h1><p>利用率=忙碌时间/总时间</p><h1 id="系统吞吐量">2. 系统吞吐量</h1><p>单位时间内完成的作业的数量</p><p>系统吞吐量=总共完成了多少道作业/总共花了多长时间</p><h1 id="周转时间">3. 周转时间</h1><p>作业从提交给系统道作业完成的时间间隔</p><p>周转时间=作业完成时间-作业提交时间</p><p>平均周转时间=个作业周转时间之和/作业数</p><p>带权周转时间=作业周转时间/作业实际运行时间（越小越好，用户体验越好）</p><p>平均带权周转时间=各作业带权周转时间之和/作业数</p><h1 id="等待时间">4. 等待时间</h1><p>指进程/作业等待处理机状态时间之和，等待时间越长，用户满意度越低</p><p>对于作业来说：等待时间就是进程建立之后等待被服务的时间之和，等待IO完成期间也是被服务的，不算入等待时间</p><p>对于进程来说：不仅要考虑建立进程后的等待时间，还要加上作业在外存后备队列中等待的时间</p><h1 id="响应时间">5. 响应时间</h1><p>用户提交请求道首次产生响应所用的时间</p>]]></content>
     
     
     <categories>
@@ -392,36 +392,11 @@
   
   
   <entry>
-    <title>2-3-3进程互斥硬件实现</title>
-    <link href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-3-3%E8%BF%9B%E7%A8%8B%E4%BA%92%E6%96%A5%E7%A1%AC%E4%BB%B6%E5%AE%9E%E7%8E%B0/"/>
-    <url>/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-3-3%E8%BF%9B%E7%A8%8B%E4%BA%92%E6%96%A5%E7%A1%AC%E4%BB%B6%E5%AE%9E%E7%8E%B0/</url>
+    <title>2-2-5分时系统的调度算法</title>
+    <link href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-2-5%E5%88%86%E6%97%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/"/>
+    <url>/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-2-5%E5%88%86%E6%97%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/</url>
     
-    <content type="html"><![CDATA[<p>硬件避免死锁的方法：中断屏蔽、TS/TSL指令、Swap指令。</p><span id="more"></span><h1 id="中断屏蔽方法">1. 中断屏蔽方法</h1><p>开中断和关中断指令，类似于原语的实现方式</p><p>不适用于多处理机，只适合于内核进程</p><h1 id="TestAndSet（TS-TSL指令）">2. TestAndSet（TS/TSL指令）</h1><p>用硬件实现的，在执行的过程中只能一气呵成，不能中断</p><p>不满足让全等待原则，从而导致忙等</p><h1 id="Swap指令（XCHG指令）">3. Swap指令（XCHG指令）</h1><p>用硬件实现，中间不能中断</p><p>和上面的差不多</p>]]></content>
-    
-    
-    <categories>
-      
-      <category>OS</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>OS</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>2-3-1进程同步、互斥</title>
-    <link href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-3-1%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E3%80%81%E4%BA%92%E6%96%A5/"/>
-    <url>/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-3-1%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E3%80%81%E4%BA%92%E6%96%A5/</url>
-    
-    <content type="html"><![CDATA[<p>进程同步和互斥的特征。</p><span id="more"></span><h1 id="进程同步">1. 进程同步</h1><p>进程具有异步性的特征，异步性就是各并发执行的进程以各自独立的、不可预知的速度向前推进</p><p>有时候需要进程同步机制来实现进程之间的同步</p><p>进程同步就是用来解决进程异步的问题</p><p><strong>同步也称为直接制约关系</strong>，他们之间有一种相互制约的关系，这种制约关系源于他们之间的相互合作。</p><h1 id="进程互斥">2. 进程互斥</h1><p>临界资源：一个时间段内只允许一个进程使用的资源</p><p>互斥也成为间接制约关系，当资源被释放之后才可以被其他进程访问</p><p>对临界资源的互斥访问可以分为四个部分：<strong>进入区（上锁）、临界区（执行操作）、退出区（解锁）、剩余区（其余操作）</strong></p><p>为了实现对临界资源的互斥访问，同时保证系统的整体性能，需要遵循下面的规则：</p><ol><li>空闲让进：临界区空闲时，可以允许一个请求进入临界区的进程立即进入临界区</li><li>忙则等待：已被占用，其余的等待</li><li>有限等待：保证在有限的时间进入临界区</li><li>让权等待：不能进入临界区，就立即释放处理机</li></ol>]]></content>
+    <content type="html"><![CDATA[<p>分时系统的调度算法：时间片轮转、优先级调度、多级反馈队列调度算法。</p><span id="more"></span><h1 id="时间片轮转">1. 时间片轮转</h1><p>RR（round robin）</p><p>公平、轮流为各个进程服务。让每个进程在一定时间间隔内都可以得到响应</p><p>按照时间片来进行执行，时间片的大小可能固定，也可以动态</p><p>只有进程调度才能使用这个算法</p><p><strong>抢占式</strong>的算法，通过<strong>时钟中断</strong>来通知CPU时间片已到</p><p>不会导致饥饿</p><h1 id="优先级调度">2. 优先级调度</h1><p>实时操作系统的出现，需要根据紧急程度来决定优先处理的顺序</p><p>每个作业/进程都有自己的优先级，调度是选择优先级最高的作业/进程</p><p>抢占式和非抢占式都有 </p><p>有静态优先级和动态优先级两种。静态优先级：创建进程时确定，之后一直不变。动态优先级：创建进程有一个初始值，之后会根据情况动态的调整优先级</p><p>如何合理的设置各类进程的优先级？</p><ol><li>系统进程优先级高于用户进程</li><li>前台进程的优先级高于后台进程</li><li>操作系统更偏好IO型进程（还有一类时计算型进程）</li></ol><p>比较适合用于实时操作系统</p><p>会发生饥饿</p><h1 id="多级反馈队列调度算法">3. 多级反馈队列调度算法</h1><p><strong>对所有上面的算法的折中权衡</strong></p><p><strong>抢占式</strong>的算法</p><p>设置多级就绪队列，各级队列优先级从高到低，时间片从小到大。新进程到达时先进入第一级队列，按照FCFS原则分配时间片。如果时间片用完还没有执行完就进入下一级队列队尾。反复执行上面的过程。</p><p>可能会发生饥饿</p>]]></content>
     
     
     <categories>
@@ -467,11 +442,11 @@
   
   
   <entry>
-    <title>2-3-5信号量实现进程同步互斥</title>
-    <link href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-3-5%E4%BF%A1%E5%8F%B7%E9%87%8F%E5%AE%9E%E7%8E%B0%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E4%BA%92%E6%96%A5/"/>
-    <url>/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-3-5%E4%BF%A1%E5%8F%B7%E9%87%8F%E5%AE%9E%E7%8E%B0%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E4%BA%92%E6%96%A5/</url>
+    <title>2-3-1进程同步、互斥</title>
+    <link href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-3-1%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E3%80%81%E4%BA%92%E6%96%A5/"/>
+    <url>/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-3-1%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E3%80%81%E4%BA%92%E6%96%A5/</url>
     
-    <content type="html"><![CDATA[<p>使用信号量避免死锁。</p><span id="more"></span><h1 id="信号量机制实现互斥">1. 信号量机制实现互斥</h1><p>P（加锁）、V（释放）操作必须成对出现，不同的临界资源需要设置不同的互斥信号量</p><p><strong>先设置P之后设置V</strong></p><h1 id="信号量实现进程同步">2. 信号量实现进程同步</h1><p><strong>在“前操作”之后执行V，在“后操作” 之前执行P</strong></p><h1 id="信号量机制实现前驱关系">3. 信号量机制实现前驱关系</h1><p>保证语句的执行一前一后，和上面的一样，比上面的复杂</p><ol><li>为每一个前驱关系设置一个同步变量</li><li>在前操作之后设置V</li><li>在后操作之前设置P</li></ol>]]></content>
+    <content type="html"><![CDATA[<p>进程同步和互斥的特征。</p><span id="more"></span><h1 id="进程同步">1. 进程同步</h1><p>进程具有异步性的特征，异步性就是各并发执行的进程以各自独立的、不可预知的速度向前推进</p><p>有时候需要进程同步机制来实现进程之间的同步</p><p>进程同步就是用来解决进程异步的问题</p><p><strong>同步也称为直接制约关系</strong>，他们之间有一种相互制约的关系，这种制约关系源于他们之间的相互合作。</p><h1 id="进程互斥">2. 进程互斥</h1><p>临界资源：一个时间段内只允许一个进程使用的资源</p><p>互斥也成为间接制约关系，当资源被释放之后才可以被其他进程访问</p><p>对临界资源的互斥访问可以分为四个部分：<strong>进入区（上锁）、临界区（执行操作）、退出区（解锁）、剩余区（其余操作）</strong></p><p>为了实现对临界资源的互斥访问，同时保证系统的整体性能，需要遵循下面的规则：</p><ol><li>空闲让进：临界区空闲时，可以允许一个请求进入临界区的进程立即进入临界区</li><li>忙则等待：已被占用，其余的等待</li><li>有限等待：保证在有限的时间进入临界区</li><li>让权等待：不能进入临界区，就立即释放处理机</li></ol>]]></content>
     
     
     <categories>
@@ -517,11 +492,11 @@
   
   
   <entry>
-    <title>2-4死锁</title>
-    <link href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-4%E6%AD%BB%E9%94%81/"/>
-    <url>/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-4%E6%AD%BB%E9%94%81/</url>
+    <title>2-3-3进程互斥硬件实现</title>
+    <link href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-3-3%E8%BF%9B%E7%A8%8B%E4%BA%92%E6%96%A5%E7%A1%AC%E4%BB%B6%E5%AE%9E%E7%8E%B0/"/>
+    <url>/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-3-3%E8%BF%9B%E7%A8%8B%E4%BA%92%E6%96%A5%E7%A1%AC%E4%BB%B6%E5%AE%9E%E7%8E%B0/</url>
     
-    <content type="html"><![CDATA[<p>什么是死锁？如何预防和避免死锁？</p><span id="more"></span><h1 id="死锁的概念">1. 死锁的概念</h1><h2 id="什么是死锁">1.1. 什么是死锁</h2><p>每个进程占有部分资源但又得不到剩余的资源</p><h2 id="死锁、饥饿、死循环">1.2. 死锁、饥饿、死循环</h2><p>死锁：进程间互相等待对方手里的资源，导致阻塞，无法向前推进（阻塞）</p><p>饥饿：长期得不到资源，无法向前推进（SPF：长进程饥饿）（就绪/阻塞）</p><p>死循环：某进程一直跳不出某个循环的现象，可能是BUG也可能是故意为之（可以是运行态）</p><h2 id="死锁产生的必要条件">1.3. 死锁产生的必要条件</h2><ol><li><p><strong>互斥条件</strong></p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">只有对必须互斥使用的资源的争抢才会导致死锁<br></code></pre></td></tr></table></figure></li><li><p><strong>不可剥夺条件</strong></p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">资源不能被抢走<br></code></pre></td></tr></table></figure></li><li><p><strong>请求和保持条件</strong></p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">进程已经拥有一个资源，提出了新的资源请求。新的资源被阻塞，旧的资源不愿意释放<br></code></pre></td></tr></table></figure></li><li><p><strong>循环等待条件</strong></p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">存在一种进程的循环等待链<br>死锁一定有循环等待，但是循环等待未必死锁<br></code></pre></td></tr></table></figure></li></ol><h2 id="什么时候会发生死锁">1.4. 什么时候会发生死锁</h2><ol><li>对资源的竞争</li><li>进程推进顺序非法</li><li>信号量使用不当（可以把同步、互斥信号量也看作是一种抽象的资源）</li></ol><h2 id="死锁的处理策略">1.5. 死锁的处理策略</h2><ol><li>预防死锁：破坏死锁产生的条件</li><li>避免死锁：防止系统进入不安全状态（银行家算法）</li><li>死锁的检测和解除：允许死锁发生，然后解除</li></ol><h1 id="预防死锁（静态策略）">2. 预防死锁（静态策略）</h1><h2 id="破坏互斥条件">2.1. 破坏互斥条件</h2><p>SPOOLing技术：操作系统可以采用SPOOLing技术把独占设备在逻辑上改造成共享设备</p><p>缺点：并不是所有的资源都可以改造成共享的。为了系统安全，很多地方必须保护互斥性</p><h2 id="破坏不剥夺条件">2.2. 破坏不剥夺条件</h2><p>当某个进程请求某个资源失败的话，就放弃手中的所有资源 或者 让操作系统帮他抢到他想要的资源</p><p>缺点：</p><ol><li>实现复杂</li><li>释放所有资源可能会导致之前一个阶段的工作失效。因此这种方式只适合一些容易保持和恢复状态的资源。</li><li>反复的申请和释放资源导致系统开销大，降低了系统的吞吐量</li><li>如果是第一种方法，可能会导致饥饿现象</li></ol><h2 id="破坏请求和保持条件">2.3. 破坏请求和保持条件</h2><p>静态分配方法：<strong>一旦申请就申请全部需要的资源</strong>，否则等待</p><p>缺点：可能导致饥饿，而且资源利用率会降低</p><h2 id="破坏循环等待条件">2.4. 破坏循环等待条件</h2><p>循序资源分配法：给系统中的资源编号，<strong>规定每个进程必须按编号递增的顺序请求资源</strong>，同类资源一次申请完。持有大编号的资源必然包含小编号的资源，不能形成循环</p><p>缺点：</p><ol><li>不方便新增设备，有可能重新分配所有设备</li><li>进程实际使用的资源顺序和编号递增的顺序不一致，会导致资源浪费</li><li>必须按照规定次序申请资源，用户变成麻烦</li></ol><h1 id="避免死锁（动态策略）">3. 避免死锁（动态策略）</h1><h2 id="什么是安全序列">3.1. 什么是安全序列</h2><p>系统按照安全序列的顺序分配资源，则每个进程都可以完成，只要找到一个安全序列，系统就是安全状态。可以有多个安全序列</p><p>系统找不到任何一个安全序列，那么系统就会进入不安全状态</p><p>如果系统处于安全状态，就一定不会发生死锁。如果进入不安全状态，就有可能会发生死锁</p><p><strong>银行家算法</strong>：在资源分配之前判断这次分配是否会导致系统进入不安全状态，已决定分配请求</p><p>银行家算法的步骤：</p><ol><li>检查申请的资源数是否大于声明的最大需求</li><li>检查系统资源是否能满足申请</li><li>开始分配，更改相应数据</li><li>用安全性算法检查此次分配是否会导致进入不安全状态</li></ol><p>安全性算法的步骤：检查当前的剩余可用资源是否满足某个进程，满足的话，就把这个进程加入安全序列，并把该进程的资源回收，反复执行上面的步骤</p><h1 id="检测和解除（允许死锁出现）">4. 检测和解除（允许死锁出现）</h1><p>为了可以对系统是否死锁进行检测，必须：</p><ol><li>用某种数据结构来保存资源的请求和分配信息</li><li>提供一种算法，利用上述的信息来检测系统是否死锁</li></ol><p>数据结构：资源分配图</p><ol><li><p>两种节点</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">进程节点：对应一个进程<br>资源节点：对应一类资源<br></code></pre></td></tr></table></figure></li><li><p>两种边</p><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ada">进程节点<span class="hljs-comment">--&gt;资源节点：标识进程想申请几个资源（每条边代表一个）</span><br>资源节点<span class="hljs-comment">--&gt;进程节点：标识为进程分配了几个资源（每条边代表一个）</span><br></code></pre></td></tr></table></figure></li></ol><p>如果按照某种顺序可以消除所有边，就成这个图是可以完全简化的，此时一定没有死锁发生（可以找到安全序列）</p><p>不能消除就会发生死锁 ，最终还连着边的进程就是处于死锁状态的进程</p><h2 id="解除死锁的方法">4.1. 解除死锁的方法</h2><ol><li><strong>资源剥夺法</strong>：挂起，暂时放到外存上</li><li><strong>撤销进程法</strong>：强制撤销进程</li><li><strong>进程回退法</strong>：回退到避免死锁的地步</li></ol>]]></content>
+    <content type="html"><![CDATA[<p>硬件避免死锁的方法：中断屏蔽、TS/TSL指令、Swap指令。</p><span id="more"></span><h1 id="中断屏蔽方法">1. 中断屏蔽方法</h1><p>开中断和关中断指令，类似于原语的实现方式</p><p>不适用于多处理机，只适合于内核进程</p><h1 id="TestAndSet（TS-TSL指令）">2. TestAndSet（TS/TSL指令）</h1><p>用硬件实现的，在执行的过程中只能一气呵成，不能中断</p><p>不满足让全等待原则，从而导致忙等</p><h1 id="Swap指令（XCHG指令）">3. Swap指令（XCHG指令）</h1><p>用硬件实现，中间不能中断</p><p>和上面的差不多</p>]]></content>
     
     
     <categories>
@@ -567,6 +542,31 @@
   
   
   <entry>
+    <title>2-3-5信号量实现进程同步互斥</title>
+    <link href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-3-5%E4%BF%A1%E5%8F%B7%E9%87%8F%E5%AE%9E%E7%8E%B0%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E4%BA%92%E6%96%A5/"/>
+    <url>/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-3-5%E4%BF%A1%E5%8F%B7%E9%87%8F%E5%AE%9E%E7%8E%B0%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E4%BA%92%E6%96%A5/</url>
+    
+    <content type="html"><![CDATA[<p>使用信号量避免死锁。</p><span id="more"></span><h1 id="信号量机制实现互斥">1. 信号量机制实现互斥</h1><p>P（加锁）、V（释放）操作必须成对出现，不同的临界资源需要设置不同的互斥信号量</p><p><strong>先设置P之后设置V</strong></p><h1 id="信号量实现进程同步">2. 信号量实现进程同步</h1><p><strong>在“前操作”之后执行V，在“后操作” 之前执行P</strong></p><h1 id="信号量机制实现前驱关系">3. 信号量机制实现前驱关系</h1><p>保证语句的执行一前一后，和上面的一样，比上面的复杂</p><ol><li>为每一个前驱关系设置一个同步变量</li><li>在前操作之后设置V</li><li>在后操作之前设置P</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>OS</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>OS</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>2-3-6生产者和消费者</title>
     <link href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-3-6%E7%94%9F%E4%BA%A7%E8%80%85%E5%92%8C%E6%B6%88%E8%B4%B9%E8%80%85/"/>
     <url>/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-3-6%E7%94%9F%E4%BA%A7%E8%80%85%E5%92%8C%E6%B6%88%E8%B4%B9%E8%80%85/</url>
@@ -592,11 +592,11 @@
   
   
   <entry>
-    <title>1-7运行机制体系结构</title>
-    <link href="/gzguo/2020/12/27/OS/1%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/1-7%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/"/>
-    <url>/gzguo/2020/12/27/OS/1%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/1-7%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/</url>
+    <title>2-4死锁</title>
+    <link href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-4%E6%AD%BB%E9%94%81/"/>
+    <url>/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-4%E6%AD%BB%E9%94%81/</url>
     
-    <content type="html"><![CDATA[<p>操作系统的运行机制、内核以及体系结构。</p><span id="more"></span><h1 id="运行机制">1. 运行机制</h1><p>指令和代码：一行代码对应几行机器语言指令</p><p>由于安全性问题，将<strong>指令</strong>分为<strong>特权指令、非特权指令</strong></p><p>特权指令：内存清零，不允许用户程序使用</p><p>非特权指令：运算指令</p><p>判断CPU是否可以执行特权指令？<strong>处理机的两种状态</strong>：<strong>用户态（目态）、核心态（管态）</strong></p><p>处理机状态由程序状态字寄存器某个标志位来标识</p><p><strong>程序</strong>又被分为<strong>内核程序和应用程序</strong></p><h1 id="操作系统内核">2. 操作系统内核</h1><p>内核程序应该实现哪些功能？</p><p><strong>时钟管理、中断处理、原语</strong>（设备驱动、CPU切换）、<strong>对系统资源进行管理</strong>（进程管理、存储器管理、设备管理）</p><p>前面三个功能与硬件联系比较紧密，有的操作系统不会将最后一个划分到操作系统内核中</p><p>内核是计算机上配置的底层软件，是操作系统最基本、最核心的部分</p><p>实现操作系统内核功能的程序就是<strong>内核程序</strong></p><h1 id="操作系统体系机构">3. 操作系统体系机构</h1><p>时钟管理、中断处理、原语、[对系统资源进行管理]</p><p>对于最后一个是否划分到内核中又争议，所以有了操作系统的体系结构</p><p>操作系统的体系结构：<strong>大内核、微内核</strong></p>]]></content>
+    <content type="html"><![CDATA[<p>什么是死锁？如何预防和避免死锁？</p><span id="more"></span><h1 id="死锁的概念">1. 死锁的概念</h1><h2 id="什么是死锁">1.1. 什么是死锁</h2><p>每个进程占有部分资源但又得不到剩余的资源</p><h2 id="死锁、饥饿、死循环">1.2. 死锁、饥饿、死循环</h2><p>死锁：进程间互相等待对方手里的资源，导致阻塞，无法向前推进（阻塞）</p><p>饥饿：长期得不到资源，无法向前推进（SPF：长进程饥饿）（就绪/阻塞）</p><p>死循环：某进程一直跳不出某个循环的现象，可能是BUG也可能是故意为之（可以是运行态）</p><h2 id="死锁产生的必要条件">1.3. 死锁产生的必要条件</h2><ol><li><p><strong>互斥条件</strong></p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">只有对必须互斥使用的资源的争抢才会导致死锁<br></code></pre></td></tr></table></figure></li><li><p><strong>不可剥夺条件</strong></p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">资源不能被抢走<br></code></pre></td></tr></table></figure></li><li><p><strong>请求和保持条件</strong></p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">进程已经拥有一个资源，提出了新的资源请求。新的资源被阻塞，旧的资源不愿意释放<br></code></pre></td></tr></table></figure></li><li><p><strong>循环等待条件</strong></p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">存在一种进程的循环等待链<br>死锁一定有循环等待，但是循环等待未必死锁<br></code></pre></td></tr></table></figure></li></ol><h2 id="什么时候会发生死锁">1.4. 什么时候会发生死锁</h2><ol><li>对资源的竞争</li><li>进程推进顺序非法</li><li>信号量使用不当（可以把同步、互斥信号量也看作是一种抽象的资源）</li></ol><h2 id="死锁的处理策略">1.5. 死锁的处理策略</h2><ol><li>预防死锁：破坏死锁产生的条件</li><li>避免死锁：防止系统进入不安全状态（银行家算法）</li><li>死锁的检测和解除：允许死锁发生，然后解除</li></ol><h1 id="预防死锁（静态策略）">2. 预防死锁（静态策略）</h1><h2 id="破坏互斥条件">2.1. 破坏互斥条件</h2><p>SPOOLing技术：操作系统可以采用SPOOLing技术把独占设备在逻辑上改造成共享设备</p><p>缺点：并不是所有的资源都可以改造成共享的。为了系统安全，很多地方必须保护互斥性</p><h2 id="破坏不剥夺条件">2.2. 破坏不剥夺条件</h2><p>当某个进程请求某个资源失败的话，就放弃手中的所有资源 或者 让操作系统帮他抢到他想要的资源</p><p>缺点：</p><ol><li>实现复杂</li><li>释放所有资源可能会导致之前一个阶段的工作失效。因此这种方式只适合一些容易保持和恢复状态的资源。</li><li>反复的申请和释放资源导致系统开销大，降低了系统的吞吐量</li><li>如果是第一种方法，可能会导致饥饿现象</li></ol><h2 id="破坏请求和保持条件">2.3. 破坏请求和保持条件</h2><p>静态分配方法：<strong>一旦申请就申请全部需要的资源</strong>，否则等待</p><p>缺点：可能导致饥饿，而且资源利用率会降低</p><h2 id="破坏循环等待条件">2.4. 破坏循环等待条件</h2><p>循序资源分配法：给系统中的资源编号，<strong>规定每个进程必须按编号递增的顺序请求资源</strong>，同类资源一次申请完。持有大编号的资源必然包含小编号的资源，不能形成循环</p><p>缺点：</p><ol><li>不方便新增设备，有可能重新分配所有设备</li><li>进程实际使用的资源顺序和编号递增的顺序不一致，会导致资源浪费</li><li>必须按照规定次序申请资源，用户变成麻烦</li></ol><h1 id="避免死锁（动态策略）">3. 避免死锁（动态策略）</h1><h2 id="什么是安全序列">3.1. 什么是安全序列</h2><p>系统按照安全序列的顺序分配资源，则每个进程都可以完成，只要找到一个安全序列，系统就是安全状态。可以有多个安全序列</p><p>系统找不到任何一个安全序列，那么系统就会进入不安全状态</p><p>如果系统处于安全状态，就一定不会发生死锁。如果进入不安全状态，就有可能会发生死锁</p><p><strong>银行家算法</strong>：在资源分配之前判断这次分配是否会导致系统进入不安全状态，已决定分配请求</p><p>银行家算法的步骤：</p><ol><li>检查申请的资源数是否大于声明的最大需求</li><li>检查系统资源是否能满足申请</li><li>开始分配，更改相应数据</li><li>用安全性算法检查此次分配是否会导致进入不安全状态</li></ol><p>安全性算法的步骤：检查当前的剩余可用资源是否满足某个进程，满足的话，就把这个进程加入安全序列，并把该进程的资源回收，反复执行上面的步骤</p><h1 id="检测和解除（允许死锁出现）">4. 检测和解除（允许死锁出现）</h1><p>为了可以对系统是否死锁进行检测，必须：</p><ol><li>用某种数据结构来保存资源的请求和分配信息</li><li>提供一种算法，利用上述的信息来检测系统是否死锁</li></ol><p>数据结构：资源分配图</p><ol><li><p>两种节点</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">进程节点：对应一个进程<br>资源节点：对应一类资源<br></code></pre></td></tr></table></figure></li><li><p>两种边</p><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ada">进程节点<span class="hljs-comment">--&gt;资源节点：标识进程想申请几个资源（每条边代表一个）</span><br>资源节点<span class="hljs-comment">--&gt;进程节点：标识为进程分配了几个资源（每条边代表一个）</span><br></code></pre></td></tr></table></figure></li></ol><p>如果按照某种顺序可以消除所有边，就成这个图是可以完全简化的，此时一定没有死锁发生（可以找到安全序列）</p><p>不能消除就会发生死锁 ，最终还连着边的进程就是处于死锁状态的进程</p><h2 id="解除死锁的方法">4.1. 解除死锁的方法</h2><ol><li><strong>资源剥夺法</strong>：挂起，暂时放到外存上</li><li><strong>撤销进程法</strong>：强制撤销进程</li><li><strong>进程回退法</strong>：回退到避免死锁的地步</li></ol>]]></content>
     
     
     <categories>
@@ -642,11 +642,11 @@
   
   
   <entry>
-    <title>2-1-4进程通信</title>
-    <link href="/gzguo/2020/12/26/OS/2%E8%BF%9B%E7%A8%8B/2-1-4%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/"/>
-    <url>/gzguo/2020/12/26/OS/2%E8%BF%9B%E7%A8%8B/2-1-4%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/</url>
+    <title>2-1-3进程控制</title>
+    <link href="/gzguo/2020/12/26/OS/2%E8%BF%9B%E7%A8%8B/2-1-3%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6/"/>
+    <url>/gzguo/2020/12/26/OS/2%E8%BF%9B%E7%A8%8B/2-1-3%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6/</url>
     
-    <content type="html"><![CDATA[<p>进程之间的三种通信方式：共享存储、管道通信、消息传递。</p><span id="more"></span><p>进程通信就是进程之间的信息交换</p><p>进程是分配系统资源的单位，各进程拥有的内存地址空间是相对独立的</p><p>为了保证安全，进程之间不允许互相访问</p><p>但是进程之间的信息交换又是必须实现的，为了保证进程之间的安全通信，操作系统提供了一些方法</p><p>下面就是操作系统提供的三种进程通信的方式</p><h1 id="共享存储">1. 共享存储</h1><p>系统为两个进程分配一个共享空间，两个进程可以<strong>互斥的访问</strong>共享空间</p><p>互斥访问通过操作系统提供的同步互斥工具实现（P、V操作）</p><h2 id="基于数据结构的共享">1.1. 基于数据结构的共享</h2><p><strong>对每次传递的数据格式有限制</strong>，是一种低级的通信方式</p><h2 id="基于存储区的共享">1.2. 基于存储区的共享</h2><p>操作系统只提供共享存储区，数据结构、存放位置等的信息都由进程控制，相比之下，这是一种高级通信的方式</p><h1 id="管道通信">2. 管道通信</h1><p>管道就是特殊的共享文件/pipe文件（实质就是在内存中开辟一个固定大小的<strong>缓冲区</strong>）</p><p>注意：</p><ol><li>管道只能采用<strong>半双工通信</strong>（只能单向传输，想要实现双向可以设置两个管道）</li><li>各进程要互斥的访问管道</li><li>管道写满，写进程阻塞，等待读进程全部读走，管道变空，读进程阻塞</li><li>没有写满不能读，没有空不允许写</li><li>数据一旦被读出就会消失，所以<strong>读进程只能有一个</strong></li></ol><h1 id="消息传递">3. 消息传递</h1><p>进程间的数据交换以<strong>格式化的消息</strong>为单位，通过<strong>发送/接收消息两个原语</strong>进行数据交换</p><p>格式化的消息：<strong>消息头、消息体</strong></p><h2 id="直接通信方式">3.1. 直接通信方式</h2><p>消息直接挂到接收进程的<strong>消息缓冲队列上</strong></p><h2 id="间接通信方式">3.2. 间接通信方式</h2><p>消息先发送到<strong>中间实体（信箱）</strong>，也成为“信箱通信方式”</p>]]></content>
+    <content type="html"><![CDATA[<p>进程控制定义，进程控制的五大原语。</p><span id="more"></span><h1 id="基本概念">1. 基本概念</h1><h2 id="定义">1.1. 定义</h2><p>进程控制就是对系统中的所有进程实施有效的管理。主要是创建进程、撤销进程、实现<strong>进程之间状态转换</strong>等的功能</p><h2 id="如何实现">1.2. 如何实现</h2><p>用原语实现<strong>进程控制</strong></p><p>因为进程控制的过程中，要进行进程状态的切换，切换的时候需要更改进程控制块的相关信息，更改需要更改对应的好几条信息，为了防止更改的不对应性。我们使用原语来实现进程控制。</p><p>原语的特点就是执行期间不能被中断，只能一气呵成。这种不可被中断的操作就是原子操作。</p><p>原语是采用<strong>关中断指令</strong>和<strong>开中段指令</strong>实现的。<u>如果执行关中断指令之后有外部中断信号进入，那么外部中断信号会被忽略</u>，这就是原语执行不会被中断的原因</p><p>关中断和开中断的权限非常大，所以这两个指令只允许在核心态下执行==&gt;原语运行在核心态</p><h1 id="进程控制相关原语">2. 进程控制相关原语</h1><p>无论是什么原语都无非做三类事情：</p><ol><li>更新PCB中的信息</li><li>将PCB插入合适的队列</li><li>分配/回收资源</li></ol><h2 id="创建">2.1. 创建</h2><p>创建原语：（创建态）</p><ol><li>申请空白PCB</li><li>为新进程分配所需资源</li><li>初始化PCB</li><li>将PCB插入就绪队列</li></ol><p>引起进程创建的事件：</p><ol><li>用户登陆</li><li>作业调度</li><li>提供服务</li><li>应用请求</li></ol><h2 id="终止">2.2. 终止</h2><p>撤销原语：（终止态）</p><ol><li>从PCB集合中找到终止进程的PCB</li><li>若程序正在运行，立即剥夺CPU，将CPU分配给其他进程</li><li>终止其所有子进程</li><li>将该进程拥有的所有资源归还给父进程或者操作系统</li><li>删除PCB</li></ol><p>引起进程终止的事件：</p><ol><li>正常结束</li><li>异常结束</li><li>外界干预</li></ol><h2 id="阻塞">2.3. 阻塞</h2><p>阻塞原语：（运行到阻塞）</p><ol><li>找到阻塞的进程对应的PCB</li><li>保护进程运行现场，将PCB状态信息设置为”阻塞态“，暂停进程运行</li><li>将PCB插入到相应进程的等待队列</li></ol><p>引起进程阻塞的事件：</p><ol><li>需要等待系统分配某种资源</li><li>需要等待相互配合工作的其他进程完成工作</li></ol><h2 id="唤醒">2.4. 唤醒</h2><p>唤醒原语：（阻塞到就绪）</p><ol><li>在事件等待队列中找到对应的PCB</li><li>将PCB从等待队列删除，设置进程为就绪态</li><li>将PCB插入到就绪队列，等待被掉度</li></ol><p>引起进程唤醒的事件：</p><ol><li>等待事件的发生（因为什么被阻塞就因为什么被唤醒）</li></ol><h2 id="切换">2.5. 切换</h2><p>切换原语：（运行态到阻塞赛/就绪态 // 就绪态到运行态）</p><ol><li>将运行环境信息存入PCB</li><li>PCB移入相应的队列</li><li>选择另一个进程执行，并更新PCB</li><li>根据PCB恢复进程所需的运行环境</li></ol><p>引起进程切换的事件：</p><ol><li>当前的进程时间片到</li><li>有更高优先级的进程到达</li><li>当前进程主动阻塞</li><li>当前进程终止</li></ol>]]></content>
     
     
     <categories>
@@ -667,11 +667,11 @@
   
   
   <entry>
-    <title>2-1-3进程控制</title>
-    <link href="/gzguo/2020/12/26/OS/2%E8%BF%9B%E7%A8%8B/2-1-3%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6/"/>
-    <url>/gzguo/2020/12/26/OS/2%E8%BF%9B%E7%A8%8B/2-1-3%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6/</url>
+    <title>2-1-4进程通信</title>
+    <link href="/gzguo/2020/12/26/OS/2%E8%BF%9B%E7%A8%8B/2-1-4%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/"/>
+    <url>/gzguo/2020/12/26/OS/2%E8%BF%9B%E7%A8%8B/2-1-4%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/</url>
     
-    <content type="html"><![CDATA[<p>进程控制定义，进程控制的五大原语。</p><span id="more"></span><h1 id="基本概念">1. 基本概念</h1><h2 id="定义">1.1. 定义</h2><p>进程控制就是对系统中的所有进程实施有效的管理。主要是创建进程、撤销进程、实现<strong>进程之间状态转换</strong>等的功能</p><h2 id="如何实现">1.2. 如何实现</h2><p>用原语实现<strong>进程控制</strong></p><p>因为进程控制的过程中，要进行进程状态的切换，切换的时候需要更改进程控制块的相关信息，更改需要更改对应的好几条信息，为了防止更改的不对应性。我们使用原语来实现进程控制。</p><p>原语的特点就是执行期间不能被中断，只能一气呵成。这种不可被中断的操作就是原子操作。</p><p>原语是采用<strong>关中断指令</strong>和<strong>开中段指令</strong>实现的。<u>如果执行关中断指令之后有外部中断信号进入，那么外部中断信号会被忽略</u>，这就是原语执行不会被中断的原因</p><p>关中断和开中断的权限非常大，所以这两个指令只允许在核心态下执行==&gt;原语运行在核心态</p><h1 id="进程控制相关原语">2. 进程控制相关原语</h1><p>无论是什么原语都无非做三类事情：</p><ol><li>更新PCB中的信息</li><li>将PCB插入合适的队列</li><li>分配/回收资源</li></ol><h2 id="创建">2.1. 创建</h2><p>创建原语：（创建态）</p><ol><li>申请空白PCB</li><li>为新进程分配所需资源</li><li>初始化PCB</li><li>将PCB插入就绪队列</li></ol><p>引起进程创建的事件：</p><ol><li>用户登陆</li><li>作业调度</li><li>提供服务</li><li>应用请求</li></ol><h2 id="终止">2.2. 终止</h2><p>撤销原语：（终止态）</p><ol><li>从PCB集合中找到终止进程的PCB</li><li>若程序正在运行，立即剥夺CPU，将CPU分配给其他进程</li><li>终止其所有子进程</li><li>将该进程拥有的所有资源归还给父进程或者操作系统</li><li>删除PCB</li></ol><p>引起进程终止的事件：</p><ol><li>正常结束</li><li>异常结束</li><li>外界干预</li></ol><h2 id="阻塞">2.3. 阻塞</h2><p>阻塞原语：（运行到阻塞）</p><ol><li>找到阻塞的进程对应的PCB</li><li>保护进程运行现场，将PCB状态信息设置为”阻塞态“，暂停进程运行</li><li>将PCB插入到相应进程的等待队列</li></ol><p>引起进程阻塞的事件：</p><ol><li>需要等待系统分配某种资源</li><li>需要等待相互配合工作的其他进程完成工作</li></ol><h2 id="唤醒">2.4. 唤醒</h2><p>唤醒原语：（阻塞到就绪）</p><ol><li>在事件等待队列中找到对应的PCB</li><li>将PCB从等待队列删除，设置进程为就绪态</li><li>将PCB插入到就绪队列，等待被掉度</li></ol><p>引起进程唤醒的事件：</p><ol><li>等待事件的发生（因为什么被阻塞就因为什么被唤醒）</li></ol><h2 id="切换">2.5. 切换</h2><p>切换原语：（运行态到阻塞赛/就绪态 // 就绪态到运行态）</p><ol><li>将运行环境信息存入PCB</li><li>PCB移入相应的队列</li><li>选择另一个进程执行，并更新PCB</li><li>根据PCB恢复进程所需的运行环境</li></ol><p>引起进程切换的事件：</p><ol><li>当前的进程时间片到</li><li>有更高优先级的进程到达</li><li>当前进程主动阻塞</li><li>当前进程终止</li></ol>]]></content>
+    <content type="html"><![CDATA[<p>进程之间的三种通信方式：共享存储、管道通信、消息传递。</p><span id="more"></span><p>进程通信就是进程之间的信息交换</p><p>进程是分配系统资源的单位，各进程拥有的内存地址空间是相对独立的</p><p>为了保证安全，进程之间不允许互相访问</p><p>但是进程之间的信息交换又是必须实现的，为了保证进程之间的安全通信，操作系统提供了一些方法</p><p>下面就是操作系统提供的三种进程通信的方式</p><h1 id="共享存储">1. 共享存储</h1><p>系统为两个进程分配一个共享空间，两个进程可以<strong>互斥的访问</strong>共享空间</p><p>互斥访问通过操作系统提供的同步互斥工具实现（P、V操作）</p><h2 id="基于数据结构的共享">1.1. 基于数据结构的共享</h2><p><strong>对每次传递的数据格式有限制</strong>，是一种低级的通信方式</p><h2 id="基于存储区的共享">1.2. 基于存储区的共享</h2><p>操作系统只提供共享存储区，数据结构、存放位置等的信息都由进程控制，相比之下，这是一种高级通信的方式</p><h1 id="管道通信">2. 管道通信</h1><p>管道就是特殊的共享文件/pipe文件（实质就是在内存中开辟一个固定大小的<strong>缓冲区</strong>）</p><p>注意：</p><ol><li>管道只能采用<strong>半双工通信</strong>（只能单向传输，想要实现双向可以设置两个管道）</li><li>各进程要互斥的访问管道</li><li>管道写满，写进程阻塞，等待读进程全部读走，管道变空，读进程阻塞</li><li>没有写满不能读，没有空不允许写</li><li>数据一旦被读出就会消失，所以<strong>读进程只能有一个</strong></li></ol><h1 id="消息传递">3. 消息传递</h1><p>进程间的数据交换以<strong>格式化的消息</strong>为单位，通过<strong>发送/接收消息两个原语</strong>进行数据交换</p><p>格式化的消息：<strong>消息头、消息体</strong></p><h2 id="直接通信方式">3.1. 直接通信方式</h2><p>消息直接挂到接收进程的<strong>消息缓冲队列上</strong></p><h2 id="间接通信方式">3.2. 间接通信方式</h2><p>消息先发送到<strong>中间实体（信箱）</strong>，也成为“信箱通信方式”</p>]]></content>
     
     
     <categories>
@@ -717,11 +717,11 @@
   
   
   <entry>
-    <title>3-1-2内存管理</title>
-    <link href="/gzguo/2020/12/25/OS/3%E5%86%85%E5%AD%98/3-1-2%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/>
-    <url>/gzguo/2020/12/25/OS/3%E5%86%85%E5%AD%98/3-1-2%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</url>
+    <title>3-1-1内存基础</title>
+    <link href="/gzguo/2020/12/25/OS/3%E5%86%85%E5%AD%98/3-1-1%E5%86%85%E5%AD%98%E5%9F%BA%E7%A1%80/"/>
+    <url>/gzguo/2020/12/25/OS/3%E5%86%85%E5%AD%98/3-1-1%E5%86%85%E5%AD%98%E5%9F%BA%E7%A1%80/</url>
     
-    <content type="html"><![CDATA[<p>内存的分配和扩充，以及地址转换和内存保护。</p><span id="more"></span><h1 id="内存空间的分配与回收">1. 内存空间的分配与回收</h1><p>操作系统怎么记录内存的分配情况</p><p>很多位置可以分配，具体该分配哪一块</p><p>运行结束之后，如何回收进程占用的内存</p><p>方法：</p><h2 id="连续分配">1.1. 连续分配</h2><p>连续分配：为用户进程分配的必须是一个连续的内存空间</p><ol><li><p>单一连续分配</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs">内存被分为系统区和用户区。系统区通常在低地址部分，用于存放操作系统进程的相关数据。用户区用于存放用户进程的相关数据，用户程序独占整个用户区空间。<br>优点：实现简单，没有外部碎片，不需要内存保护<br>缺点：有内部碎片<br></code></pre></td></tr></table></figure></li><li><p>固定分区分配</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs">分为固定分区，每个分区中只能装入一道作业，可以分区大小相等，也可以是分区大小不等<br>分区说明表：对内存中的分区进行说明（用数据结构来表示）<br>优点：实现简单，没有外部碎片<br>缺点：程序太大要采用覆盖技术、会产生内部碎片内存利用率低<br></code></pre></td></tr></table></figure></li><li><p>动态分区分配</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">可变分区分配：不会预先划分内存分区，而是在进程装入内存的时候，根据进程大小动态的建立分区<br></code></pre></td></tr></table></figure></li></ol><h2 id="非连续分配">1.2. 非连续分配</h2><h1 id="内存空间扩充">2. 内存空间扩充</h1><p>从逻辑上对内存进行扩充</p><p>技术：</p><ol><li><p>覆盖技术</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs">内存中分为一个固定区和若干个覆盖区<br>需要常驻内存段放在固定区中 ，调入后就不再调出（除非运行结束）<br>不常用的端放在覆盖区，需要用到时调入内存，用不到时调出内存<br></code></pre></td></tr></table></figure></li><li><p>交换技术</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs">内存空间紧张时，系统将内存中的某些进程暂时换出内存，把外存中某些具备运行条件的进程换入内存<br>存在一个对换区<br>注意：PCB是常驻内存的，不会被换出<br></code></pre></td></tr></table></figure></li><li><p>虚拟存储技术</p></li></ol><h1 id="地址转换">3. 地址转换</h1><p>为了使程序员写程序方便，程序员写程序时应该只关注指令、数据的逻辑地址。而逻辑地址到物理地址的转换（地址重定位）应该由操作系统负责，这样就保证了程序员不再关注物理内存</p><p>这里有三种装入方式（绝对、可重定位、动态运行时）</p><h1 id="内存保护">4. 内存保护</h1><p>用户进程不能访问操作系统的内存空间，也不能访问其他进程的空间</p><p>方法：</p><ol><li>上下限寄存器</li><li>重定位寄存器（基址寄存器）、界地址寄存器（限长寄存器）-&gt;存放进程的最大逻辑地址</li></ol>]]></content>
+    <content type="html"><![CDATA[<p>什么是内存？进程运行的基本原理是什么？</p><span id="more"></span><h1 id="什么是内存">1. 什么是内存</h1><p>内存是用于存放数据的硬件，程序执行前先放到内存中才能被CPU处理</p><h2 id="存储单元">1.1. 存储单元</h2><p>类似于酒店给房间编号，内存也给他所管理的内存编号，每个编号就代表一个存储单元，编号就是内存地址</p><p>存储单元的大小取决于计算机是按字节编址还是按照字编址</p><h2 id="内存地址">1.2. 内存地址</h2><h1 id="进程运行的基本原理">2. 进程运行的基本原理</h1><h2 id="指令的工作原理">2.1. 指令的工作原理</h2><p>指令需要有参数，参数中有地址</p><p>这里为了方便引入了逻辑地址（相对地址）</p><p>有时候只关心绝对地址（物理地址）</p><h2 id="逻辑地址和物理地址">2.2. 逻辑地址和物理地址</h2><p>起始位置+相对位置=物理位置</p><h2 id="从写程序到程序运行">2.3. 从写程序到程序运行</h2><p>编译：由编译程序将用户源代码编译成若干<strong>目标模块</strong>（把高级语言翻译成机器语言）</p><p>链接：将编译形成的模块链接起来形成<strong>装入模块</strong></p><p>装入：将装入模块放入内存中</p><h2 id="三种链接方式">2.4. 三种链接方式</h2><ol><li>静态链接：链接起来之后不再拆开</li><li>装入时动态链接：边装入边链接</li><li>运行时动态链接：运行的时候进行链接</li></ol><h2 id="三种装入方式">2.5. 三种装入方式</h2><ol><li>绝对装入：只适合单道程序环境</li><li>静态重定位（可重定位装入）：由装入程序负责地址的转变，作业在进入内存的时候必须分配他所需要的全部的内存空间，没有足够的内存，不能装入该作业</li><li>动态重定位（动态运行时装入）：地址的转变留到正式运行的时候才会进行，使用重定位寄存器来存放装入模块的起始位置（允许程序在内存中发生移动）</li></ol>]]></content>
     
     
     <categories>
@@ -742,11 +742,11 @@
   
   
   <entry>
-    <title>3-1-1内存基础</title>
-    <link href="/gzguo/2020/12/25/OS/3%E5%86%85%E5%AD%98/3-1-1%E5%86%85%E5%AD%98%E5%9F%BA%E7%A1%80/"/>
-    <url>/gzguo/2020/12/25/OS/3%E5%86%85%E5%AD%98/3-1-1%E5%86%85%E5%AD%98%E5%9F%BA%E7%A1%80/</url>
+    <title>3-1-2内存管理</title>
+    <link href="/gzguo/2020/12/25/OS/3%E5%86%85%E5%AD%98/3-1-2%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/>
+    <url>/gzguo/2020/12/25/OS/3%E5%86%85%E5%AD%98/3-1-2%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</url>
     
-    <content type="html"><![CDATA[<p>什么是内存？进程运行的基本原理是什么？</p><span id="more"></span><h1 id="什么是内存">1. 什么是内存</h1><p>内存是用于存放数据的硬件，程序执行前先放到内存中才能被CPU处理</p><h2 id="存储单元">1.1. 存储单元</h2><p>类似于酒店给房间编号，内存也给他所管理的内存编号，每个编号就代表一个存储单元，编号就是内存地址</p><p>存储单元的大小取决于计算机是按字节编址还是按照字编址</p><h2 id="内存地址">1.2. 内存地址</h2><h1 id="进程运行的基本原理">2. 进程运行的基本原理</h1><h2 id="指令的工作原理">2.1. 指令的工作原理</h2><p>指令需要有参数，参数中有地址</p><p>这里为了方便引入了逻辑地址（相对地址）</p><p>有时候只关心绝对地址（物理地址）</p><h2 id="逻辑地址和物理地址">2.2. 逻辑地址和物理地址</h2><p>起始位置+相对位置=物理位置</p><h2 id="从写程序到程序运行">2.3. 从写程序到程序运行</h2><p>编译：由编译程序将用户源代码编译成若干<strong>目标模块</strong>（把高级语言翻译成机器语言）</p><p>链接：将编译形成的模块链接起来形成<strong>装入模块</strong></p><p>装入：将装入模块放入内存中</p><h2 id="三种链接方式">2.4. 三种链接方式</h2><ol><li>静态链接：链接起来之后不再拆开</li><li>装入时动态链接：边装入边链接</li><li>运行时动态链接：运行的时候进行链接</li></ol><h2 id="三种装入方式">2.5. 三种装入方式</h2><ol><li>绝对装入：只适合单道程序环境</li><li>静态重定位（可重定位装入）：由装入程序负责地址的转变，作业在进入内存的时候必须分配他所需要的全部的内存空间，没有足够的内存，不能装入该作业</li><li>动态重定位（动态运行时装入）：地址的转变留到正式运行的时候才会进行，使用重定位寄存器来存放装入模块的起始位置（允许程序在内存中发生移动）</li></ol>]]></content>
+    <content type="html"><![CDATA[<p>内存的分配和扩充，以及地址转换和内存保护。</p><span id="more"></span><h1 id="内存空间的分配与回收">1. 内存空间的分配与回收</h1><p>操作系统怎么记录内存的分配情况</p><p>很多位置可以分配，具体该分配哪一块</p><p>运行结束之后，如何回收进程占用的内存</p><p>方法：</p><h2 id="连续分配">1.1. 连续分配</h2><p>连续分配：为用户进程分配的必须是一个连续的内存空间</p><ol><li><p>单一连续分配</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs">内存被分为系统区和用户区。系统区通常在低地址部分，用于存放操作系统进程的相关数据。用户区用于存放用户进程的相关数据，用户程序独占整个用户区空间。<br>优点：实现简单，没有外部碎片，不需要内存保护<br>缺点：有内部碎片<br></code></pre></td></tr></table></figure></li><li><p>固定分区分配</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs">分为固定分区，每个分区中只能装入一道作业，可以分区大小相等，也可以是分区大小不等<br>分区说明表：对内存中的分区进行说明（用数据结构来表示）<br>优点：实现简单，没有外部碎片<br>缺点：程序太大要采用覆盖技术、会产生内部碎片内存利用率低<br></code></pre></td></tr></table></figure></li><li><p>动态分区分配</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">可变分区分配：不会预先划分内存分区，而是在进程装入内存的时候，根据进程大小动态的建立分区<br></code></pre></td></tr></table></figure></li></ol><h2 id="非连续分配">1.2. 非连续分配</h2><h1 id="内存空间扩充">2. 内存空间扩充</h1><p>从逻辑上对内存进行扩充</p><p>技术：</p><ol><li><p>覆盖技术</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs">内存中分为一个固定区和若干个覆盖区<br>需要常驻内存段放在固定区中 ，调入后就不再调出（除非运行结束）<br>不常用的端放在覆盖区，需要用到时调入内存，用不到时调出内存<br></code></pre></td></tr></table></figure></li><li><p>交换技术</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs">内存空间紧张时，系统将内存中的某些进程暂时换出内存，把外存中某些具备运行条件的进程换入内存<br>存在一个对换区<br>注意：PCB是常驻内存的，不会被换出<br></code></pre></td></tr></table></figure></li><li><p>虚拟存储技术</p></li></ol><h1 id="地址转换">3. 地址转换</h1><p>为了使程序员写程序方便，程序员写程序时应该只关注指令、数据的逻辑地址。而逻辑地址到物理地址的转换（地址重定位）应该由操作系统负责，这样就保证了程序员不再关注物理内存</p><p>这里有三种装入方式（绝对、可重定位、动态运行时）</p><h1 id="内存保护">4. 内存保护</h1><p>用户进程不能访问操作系统的内存空间，也不能访问其他进程的空间</p><p>方法：</p><ol><li>上下限寄存器</li><li>重定位寄存器（基址寄存器）、界地址寄存器（限长寄存器）-&gt;存放进程的最大逻辑地址</li></ol>]]></content>
     
     
     <categories>
@@ -917,6 +917,31 @@
   
   
   <entry>
+    <title>6.1CSS概述</title>
+    <link href="/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.1CSS%E6%A6%82%E8%BF%B0/"/>
+    <url>/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.1CSS%E6%A6%82%E8%BF%B0/</url>
+    
+    <content type="html"><![CDATA[<p>CSS概述。</p><span id="more"></span><h1 id="CSS概念">1. CSS概念</h1><p>Cascading Style Sheets（层叠样式表）的缩写，它是一种对Web文档添加样式的简单机制，是一种表现HTML或XML等文件外观样式的计算机语言，是一种网页排版和布局设计的技术</p><h1 id="CSS特点">2. CSS特点</h1><p>纯CSS布局和结构式HTML相结合能帮助设计师分离外观与结构，与传统的表格布局相比，具有以下特点：</p><ol><li>网页载入更快</li><li>降低了流量费用</li><li>修改设计时效率更高</li><li>更容易被搜索引擎收录</li></ol><h1 id="CSS功能">3. CSS功能</h1><ol><li>灵活控制文字字体、颜色、大小、间距、风格及位置</li><li>随意设置文本块行高、缩进，并可加三维效果的边框</li><li>方便为元素设置不同的背景颜色和背景图片</li><li>精确控制网页中个元素的位置</li><li>可以与脚本语言相结合，产生各种动态效果</li></ol><h1 id="CSS样式发展历程">4. CSS样式发展历程</h1><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">1996</span>年<span class="hljs-number">12</span>月：第一个CSS规范称为W<span class="hljs-number">3</span>C的推荐标准，提供有关字体、颜色、位置和文本属性的基本信息。较为全面的规定了文档的显示样式<br></code></pre></td></tr></table></figure><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">1998</span>年<span class="hljs-number">5</span>月：CSS<span class="hljs-number">2</span>作为W<span class="hljs-number">3</span>C推荐标准发布，他在CSS<span class="hljs-number">1</span>的基础上扩充和改进了许多属性，推出了一套内容和表现效果分离的方式，用DIV分割元素，用样式来定义外观，是程序员在开发过程中不必考虑显示和界面，大大提升了开发的效率<br></code></pre></td></tr></table></figure><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">2010</span>年<span class="hljs-number">12</span>月：CSS<span class="hljs-number">3</span>版本全新推出，通过模块化结构可以及时调整模块的内容，方便版本的更新与发布<br></code></pre></td></tr></table></figure><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">2012</span>年<span class="hljs-number">9</span>月：开始设计CSS Level<span class="hljs-number">4</span>版本；但是到目前为止，极少数的功能被浏览器厂商所支持<br></code></pre></td></tr></table></figure><h1 id="CSS3前景">5. CSS3前景</h1><h2 id="CSS3的应用范围">5.1. CSS3的应用范围</h2><ol><li>按钮效果</li><li>制作柱形图</li><li>设计下拉菜单</li><li>图片阴影效果</li><li>文本框样式</li><li>字体效果</li><li>CSS3引用气泡</li><li>动画效果</li></ol><h1 id="支持CSS3的浏览器">6. 支持CSS3的浏览器</h1><h2 id="对于属性的支持">6.1. 对于属性的支持</h2><p>除了Transforms 3D属性没有浏览器支持以外，Windows平台下的、Chrome和Safari对其他属性全面支持。其次是Firefox和Opera</p><h2 id="对于选择器的支持">6.2. 对于选择器的支持</h2><p>CSS3增加了许多的CSS选择器，可以简单实现更强大的功能，目前除了IE9以下的浏览器版本已经全部支持CSS3的选择器</p><h2 id="浏览器的前缀">6.3. 浏览器的前缀</h2><p>为了让设计人员设计的一个效果被各个浏览器所识别，通常可以在样式代码前面添加浏览器前缀</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css">-ms-<span class="hljs-attribute">transform</span>：rotate(<span class="hljs-number">30deg</span>);<span class="hljs-comment">/*IE9*/</span><br>-moz-<span class="hljs-attribute">transform</span>:<span class="hljs-built_in">rotate</span>(<span class="hljs-number">30deg</span>);<span class="hljs-comment">/*Firefox*/</span><br>-webkit-<span class="hljs-attribute">transform</span>:<span class="hljs-built_in">rotate</span>(<span class="hljs-number">30deg</span>);<span class="hljs-comment">/*Safari and Chrome*/</span><br>-<span class="hljs-number">0</span>-<span class="hljs-attribute">transform</span>:<span class="hljs-built_in">rotate</span>(<span class="hljs-number">30deg</span>);<span class="hljs-comment">/*Opera*/</span><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>html</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>html</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>6.2CSS3的基本语法</title>
     <link href="/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.2CSS3%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/"/>
     <url>/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.2CSS3%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/</url>
@@ -942,11 +967,36 @@
   
   
   <entry>
-    <title>6.1CSS概述</title>
-    <link href="/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.1CSS%E6%A6%82%E8%BF%B0/"/>
-    <url>/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.1CSS%E6%A6%82%E8%BF%B0/</url>
+    <title>6.3在网页中应用CSS的方式</title>
+    <link href="/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.3%E5%9C%A8%E7%BD%91%E9%A1%B5%E4%B8%AD%E5%BA%94%E7%94%A8CSS%E7%9A%84%E6%96%B9%E5%BC%8F/"/>
+    <url>/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.3%E5%9C%A8%E7%BD%91%E9%A1%B5%E4%B8%AD%E5%BA%94%E7%94%A8CSS%E7%9A%84%E6%96%B9%E5%BC%8F/</url>
     
-    <content type="html"><![CDATA[<p>CSS概述。</p><span id="more"></span><h1 id="CSS概念">1. CSS概念</h1><p>Cascading Style Sheets（层叠样式表）的缩写，它是一种对Web文档添加样式的简单机制，是一种表现HTML或XML等文件外观样式的计算机语言，是一种网页排版和布局设计的技术</p><h1 id="CSS特点">2. CSS特点</h1><p>纯CSS布局和结构式HTML相结合能帮助设计师分离外观与结构，与传统的表格布局相比，具有以下特点：</p><ol><li>网页载入更快</li><li>降低了流量费用</li><li>修改设计时效率更高</li><li>更容易被搜索引擎收录</li></ol><h1 id="CSS功能">3. CSS功能</h1><ol><li>灵活控制文字字体、颜色、大小、间距、风格及位置</li><li>随意设置文本块行高、缩进，并可加三维效果的边框</li><li>方便为元素设置不同的背景颜色和背景图片</li><li>精确控制网页中个元素的位置</li><li>可以与脚本语言相结合，产生各种动态效果</li></ol><h1 id="CSS样式发展历程">4. CSS样式发展历程</h1><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">1996</span>年<span class="hljs-number">12</span>月：第一个CSS规范称为W<span class="hljs-number">3</span>C的推荐标准，提供有关字体、颜色、位置和文本属性的基本信息。较为全面的规定了文档的显示样式<br></code></pre></td></tr></table></figure><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">1998</span>年<span class="hljs-number">5</span>月：CSS<span class="hljs-number">2</span>作为W<span class="hljs-number">3</span>C推荐标准发布，他在CSS<span class="hljs-number">1</span>的基础上扩充和改进了许多属性，推出了一套内容和表现效果分离的方式，用DIV分割元素，用样式来定义外观，是程序员在开发过程中不必考虑显示和界面，大大提升了开发的效率<br></code></pre></td></tr></table></figure><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">2010</span>年<span class="hljs-number">12</span>月：CSS<span class="hljs-number">3</span>版本全新推出，通过模块化结构可以及时调整模块的内容，方便版本的更新与发布<br></code></pre></td></tr></table></figure><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">2012</span>年<span class="hljs-number">9</span>月：开始设计CSS Level<span class="hljs-number">4</span>版本；但是到目前为止，极少数的功能被浏览器厂商所支持<br></code></pre></td></tr></table></figure><h1 id="CSS3前景">5. CSS3前景</h1><h2 id="CSS3的应用范围">5.1. CSS3的应用范围</h2><ol><li>按钮效果</li><li>制作柱形图</li><li>设计下拉菜单</li><li>图片阴影效果</li><li>文本框样式</li><li>字体效果</li><li>CSS3引用气泡</li><li>动画效果</li></ol><h1 id="支持CSS3的浏览器">6. 支持CSS3的浏览器</h1><h2 id="对于属性的支持">6.1. 对于属性的支持</h2><p>除了Transforms 3D属性没有浏览器支持以外，Windows平台下的、Chrome和Safari对其他属性全面支持。其次是Firefox和Opera</p><h2 id="对于选择器的支持">6.2. 对于选择器的支持</h2><p>CSS3增加了许多的CSS选择器，可以简单实现更强大的功能，目前除了IE9以下的浏览器版本已经全部支持CSS3的选择器</p><h2 id="浏览器的前缀">6.3. 浏览器的前缀</h2><p>为了让设计人员设计的一个效果被各个浏览器所识别，通常可以在样式代码前面添加浏览器前缀</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css">-ms-<span class="hljs-attribute">transform</span>：rotate(<span class="hljs-number">30deg</span>);<span class="hljs-comment">/*IE9*/</span><br>-moz-<span class="hljs-attribute">transform</span>:<span class="hljs-built_in">rotate</span>(<span class="hljs-number">30deg</span>);<span class="hljs-comment">/*Firefox*/</span><br>-webkit-<span class="hljs-attribute">transform</span>:<span class="hljs-built_in">rotate</span>(<span class="hljs-number">30deg</span>);<span class="hljs-comment">/*Safari and Chrome*/</span><br>-<span class="hljs-number">0</span>-<span class="hljs-attribute">transform</span>:<span class="hljs-built_in">rotate</span>(<span class="hljs-number">30deg</span>);<span class="hljs-comment">/*Opera*/</span><br></code></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<p>在网页中应用CSS的方式。</p><span id="more"></span><h1 id="CSS3应用方法">1. CSS3应用方法</h1><p>CSS样式能够以分离网页内容和样式的形式很好的控制网页的显示。在网页中应用CSS样式有4种方法：</p><ol><li><p>内联式</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">通过标记style属性直接把CSS样式添加到<span class="hljs-selector-tag">HTML</span>标签中<br></code></pre></td></tr></table></figure><p>语法格式：</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;标记名 <span class="hljs-attribute">style</span>=<span class="hljs-string">&quot;&quot;</span>&gt;&lt;/标记名&gt;<br></code></pre></td></tr></table></figure></li><li><p>内嵌式</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">将CSS样式代码添加到HTML文档的<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>头部中，并用<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span>标记定义<br></code></pre></td></tr></table></figure><p>语法格式：</p><figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs dust"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span>&gt;</span></span><br><span class="xml">选择器</span><span class="hljs-template-variable">&#123;属性&#125;</span><span class="xml"></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span></span><br></code></pre></td></tr></table></figure></li><li><p>链入式</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">将所有的样式放在一个或者多个以.css为扩展名的外部样式表文件中，通过<span class="hljs-tag">&lt;<span class="hljs-name">link</span> /&gt;</span>标记将外部样式表文件链接到HTML文档中<br></code></pre></td></tr></table></figure><p>语法格式：</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;CSS文件路径&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br></code></pre></td></tr></table></figure></li><li><p>导入式</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">与链入外部CSS基本相同，都是要创建一个单独的外部CSS文件，再引入到<span class="hljs-selector-tag">HTML</span>文档中。只不过语法和运作方式略有差别。<br></code></pre></td></tr></table></figure><p>语法格式：</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span>&gt;</span><span class="css"></span><br><span class="css"><span class="hljs-keyword">@import</span> url(<span class="hljs-string">&quot;外部样式表相对路径&quot;</span>);</span><br><span class="css"></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br></code></pre></td></tr></table></figure></li></ol><h2 id="链入式和导入式的区别：">1.1. 链入式和导入式的区别：</h2><ol><li>隶属关系不同：link属于HTML标签，@import是CSS提供的载入方式</li><li>加载时间及顺序不同：link先将外部的CSS文件加载到网页中，然后再进行编译显示。而@import是浏览器先将HTML结构呈现出来，再把外部的CSS文件加载到网页中，当网速较慢的时候会先显示没有CSS的效果，加载完毕再渲染画面</li><li>兼容性不同@import只有IE5以上的版本才能识别，而link标签没有这个问题</li><li>DOM模型控制样式：使用JavaScript控制DOM改变样式时，只能使用link标签，而@import不受DOM模型的影响</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>html</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>html</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>6.4CSS3样式特性和常用样式属性</title>
+    <link href="/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.4CSS3%E6%A0%B7%E5%BC%8F%E7%89%B9%E6%80%A7%E5%92%8C%E5%B8%B8%E7%94%A8%E6%A0%B7%E5%BC%8F%E5%B1%9E%E6%80%A7/"/>
+    <url>/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.4CSS3%E6%A0%B7%E5%BC%8F%E7%89%B9%E6%80%A7%E5%92%8C%E5%B8%B8%E7%94%A8%E6%A0%B7%E5%BC%8F%E5%B1%9E%E6%80%A7/</url>
+    
+    <content type="html"><![CDATA[<p>CSS3样式特性和常用样式属性。</p><span id="more"></span><h1 id="CSS3样式的特性">1. CSS3样式的特性</h1><p>有四种特性：</p><ol><li><p>继承性</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">特定的CSS属性向下传递到其子孙元素的特性<br></code></pre></td></tr></table></figure><p>例子：</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">如果设置了<span class="hljs-selector-tag">p</span>的样式，那么<span class="hljs-selector-tag">span</span>将继承<span class="hljs-selector-tag">p</span>的样式<br></code></pre></td></tr></table></figure></li><li><p>特殊性</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">当多个规则应用于同一个元素时，权重高的优先<br></code></pre></td></tr></table></figure><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs clean">优先级：（由高到低）<br>ID选择器-&gt;类选择器-&gt;标签选择器-&gt;通用选择器<br></code></pre></td></tr></table></figure></li><li><p>层叠性</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">当同一个元素设置有多个样式，且具有相同的特殊性，CSS规范将根据样式的先后顺序，后定义的先应用<br></code></pre></td></tr></table></figure><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs clean">样式的优先级：（由高到低）<br>内联-&gt;内嵌-&gt;外链-&gt;外导<br></code></pre></td></tr></table></figure></li><li><p>重要性</p><figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elm">当标签的选择器的属性值后面加上!important之后，该属性设置的优先权将高于一切其他样式规则<br></code></pre></td></tr></table></figure></li></ol><h1 id="CSS3常用的样式属性">2. CSS3常用的样式属性</h1><p>CSS样式中包含了对文本、段落、背景、边框、位置、列表、光标效果等众多属性的设置，CSS通过对属性的设置，可以控制网页中几乎所有的元素</p><h2 id="字体文本样式">2.1. 字体文本样式</h2><ol><li><p>设置网页中字体样式</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">定义文本字体、大小、加粗、风格（斜体）、变形等<br></code></pre></td></tr></table></figure></li><li><p>设置文本的样式</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">定义文本颜色、字符间距、对齐、装饰、缩进等<br></code></pre></td></tr></table></figure><table><thead><tr><th>功能</th><th>属性名</th><th>描述</th></tr></thead><tbody><tr><td>文本颜色</td><td>color</td><td>设置文本颜色</td></tr><tr><td>字体类型</td><td>font-family</td><td>设置文本的字体</td></tr><tr><td>字体风格</td><td>font-style</td><td>设置字体的样式，取值normal正常、italic斜体、oblique倾斜</td></tr><tr><td>字体加粗</td><td>font-weight</td><td>设置字体的粗细，取值可以时bolder、bold、normal、lighter或100-900之间的9个等级</td></tr><tr><td>字体大小</td><td>font-size</td><td>设置文本大小，值可以是绝对或者相对值</td></tr><tr><td>行间距</td><td>line-height</td><td>设置文本的行高，即两文本线之间的距离</td></tr><tr><td>字体简写</td><td>font</td><td>属性的简写可用于一次设置元素字体的两个或多个方面</td></tr><tr><td></td><td></td><td></td></tr></tbody></table></li></ol><h2 id="CSS中与长度相关的属性的取值方法">2.2. CSS中与长度相关的属性的取值方法</h2><h3 id="相对尺寸">2.2.1. 相对尺寸</h3><p>继承该元素属性前一个属性的单位值</p><p>em是相对长度单位</p><h3 id="绝对尺寸">2.2.2. 绝对尺寸</h3><p>尺寸大小受后面紧跟的单位限制，这种取值方法不会随显示器分辨率变化而变化，也不会因显示设备的不同而不同，其取值是固定的</p><p>pt是绝对长度单位</p><h3 id="常见的长度单位的含义">2.2.3. 常见的长度单位的含义</h3><table><thead><tr><th>长度单位</th><th>含义</th></tr></thead><tbody><tr><td>em</td><td>元素字体的高度，相对长度单位</td></tr><tr><td>ex</td><td>字母的高度，相对长度单位</td></tr><tr><td>px</td><td>像素，相对显示器分辨率而言，相对长度单位</td></tr><tr><td>cm</td><td>厘米，绝对长度单位</td></tr><tr><td>mm</td><td>毫米，绝对长度单位</td></tr><tr><td>in</td><td>英寸，绝对长度单位，1in=2.4cm</td></tr><tr><td>pt</td><td>磅，绝对长度单位，1pt=1/72英寸</td></tr><tr><td>pc</td><td>派卡，绝对长度单位，1pc=12pt</td></tr></tbody></table><h2 id="关键字表示大小">2.3. 关键字表示大小</h2><h3 id="绝对尺寸关键字">2.3.1. 绝对尺寸关键字</h3><p>xx-small、x-small、small、medium、large、x-large、xx-large</p><h3 id="相对尺寸关键字">2.3.2. 相对尺寸关键字</h3><p>larger相对于上一个关键字、smaller相对于上一个关键字</p><h2 id="网页中的文本样式属性">2.4. 网页中的文本样式属性</h2><table><thead><tr><th>功能</th><th>属性名</th><th>描述</th></tr></thead><tbody><tr><td>行间距</td><td>line-height</td><td>设置文本段落中两行基线之间的距离</td></tr><tr><td>字符间距</td><td>letter-spacing</td><td>设置字符或者字母间的间隔</td></tr><tr><td>字间距</td><td>word-spacing</td><td>设置字单词之间的标准间隔，默认为0、normal</td></tr><tr><td>水平对齐</td><td>text-align</td><td>设置文本的水平对齐方式left、right、center、justify</td></tr><tr><td>垂直对齐</td><td>vertical-align</td><td>设置文本的垂直对齐方式，bottom、top、middle</td></tr><tr><td>缩进文本</td><td>text-indent</td><td>设置行的缩进大小，值可以为正或负，单位em、px、%</td></tr><tr><td>字符转换</td><td>text-transform</td><td>设置文本中的字母大小写，none、uppercase、lowercase、capitalize</td></tr><tr><td>文本修饰</td><td>text-decoration</td><td>设置段落中需要强调的文字，none、underline、overline、line-through、blink</td></tr><tr><td>修饰线样式</td><td>text-decoration-style</td><td>设置修饰线的样式，solid、double、dotted、dashed、wavy</td></tr><tr><td>修饰线颜色</td><td>text-decoration-color</td><td>设置修饰线颜色</td></tr><tr><td>文本阴影</td><td>text-shadow</td><td>设置文本阴影效果</td></tr><tr><td>文本溢出</td><td>text-overflow</td><td>控制页面中溢出的文本内容。修剪文本不显示溢出内容clip，显示省略号代替被修剪文本内容ellopsis</td></tr><tr><td>文本填充色</td><td>text-fill-color</td><td>设置文本填充颜色</td></tr><tr><td>文本描边框</td><td>text-stroke-width</td><td>设置文本描边框的宽度值</td></tr><tr><td>文本描边色</td><td>text-stroke-color</td><td>设置文本描边颜色</td></tr></tbody></table><h2 id="背景样式">2.5. 背景样式</h2><p>略样式</p><h2 id="边框样式">2.6. 边框样式</h2><p>理解网页的box结构：在CSS当中，把容纳文本、图片等内容的显示区域叫做box，包括四个部分</p><ol><li>对象本身Content</li><li>围绕对象的空格填充Padding</li><li>对象的边框Border</li><li>围绕边框的对象间隙Margin</li></ol><p>略样式</p><h2 id="列表样式">2.7. 列表样式</h2>]]></content>
     
     
     <categories>
@@ -1017,11 +1067,11 @@
   
   
   <entry>
-    <title>6.4CSS3样式特性和常用样式属性</title>
-    <link href="/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.4CSS3%E6%A0%B7%E5%BC%8F%E7%89%B9%E6%80%A7%E5%92%8C%E5%B8%B8%E7%94%A8%E6%A0%B7%E5%BC%8F%E5%B1%9E%E6%80%A7/"/>
-    <url>/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.4CSS3%E6%A0%B7%E5%BC%8F%E7%89%B9%E6%80%A7%E5%92%8C%E5%B8%B8%E7%94%A8%E6%A0%B7%E5%BC%8F%E5%B1%9E%E6%80%A7/</url>
+    <title>7.3DIV+CSS网页布局</title>
+    <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.3DIV+CSS%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80/"/>
+    <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.3DIV+CSS%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80/</url>
     
-    <content type="html"><![CDATA[<p>CSS3样式特性和常用样式属性。</p><span id="more"></span><h1 id="CSS3样式的特性">1. CSS3样式的特性</h1><p>有四种特性：</p><ol><li><p>继承性</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">特定的CSS属性向下传递到其子孙元素的特性<br></code></pre></td></tr></table></figure><p>例子：</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">如果设置了<span class="hljs-selector-tag">p</span>的样式，那么<span class="hljs-selector-tag">span</span>将继承<span class="hljs-selector-tag">p</span>的样式<br></code></pre></td></tr></table></figure></li><li><p>特殊性</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">当多个规则应用于同一个元素时，权重高的优先<br></code></pre></td></tr></table></figure><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs clean">优先级：（由高到低）<br>ID选择器-&gt;类选择器-&gt;标签选择器-&gt;通用选择器<br></code></pre></td></tr></table></figure></li><li><p>层叠性</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">当同一个元素设置有多个样式，且具有相同的特殊性，CSS规范将根据样式的先后顺序，后定义的先应用<br></code></pre></td></tr></table></figure><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs clean">样式的优先级：（由高到低）<br>内联-&gt;内嵌-&gt;外链-&gt;外导<br></code></pre></td></tr></table></figure></li><li><p>重要性</p><figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elm">当标签的选择器的属性值后面加上!important之后，该属性设置的优先权将高于一切其他样式规则<br></code></pre></td></tr></table></figure></li></ol><h1 id="CSS3常用的样式属性">2. CSS3常用的样式属性</h1><p>CSS样式中包含了对文本、段落、背景、边框、位置、列表、光标效果等众多属性的设置，CSS通过对属性的设置，可以控制网页中几乎所有的元素</p><h2 id="字体文本样式">2.1. 字体文本样式</h2><ol><li><p>设置网页中字体样式</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">定义文本字体、大小、加粗、风格（斜体）、变形等<br></code></pre></td></tr></table></figure></li><li><p>设置文本的样式</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">定义文本颜色、字符间距、对齐、装饰、缩进等<br></code></pre></td></tr></table></figure><table><thead><tr><th>功能</th><th>属性名</th><th>描述</th></tr></thead><tbody><tr><td>文本颜色</td><td>color</td><td>设置文本颜色</td></tr><tr><td>字体类型</td><td>font-family</td><td>设置文本的字体</td></tr><tr><td>字体风格</td><td>font-style</td><td>设置字体的样式，取值normal正常、italic斜体、oblique倾斜</td></tr><tr><td>字体加粗</td><td>font-weight</td><td>设置字体的粗细，取值可以时bolder、bold、normal、lighter或100-900之间的9个等级</td></tr><tr><td>字体大小</td><td>font-size</td><td>设置文本大小，值可以是绝对或者相对值</td></tr><tr><td>行间距</td><td>line-height</td><td>设置文本的行高，即两文本线之间的距离</td></tr><tr><td>字体简写</td><td>font</td><td>属性的简写可用于一次设置元素字体的两个或多个方面</td></tr><tr><td></td><td></td><td></td></tr></tbody></table></li></ol><h2 id="CSS中与长度相关的属性的取值方法">2.2. CSS中与长度相关的属性的取值方法</h2><h3 id="相对尺寸">2.2.1. 相对尺寸</h3><p>继承该元素属性前一个属性的单位值</p><p>em是相对长度单位</p><h3 id="绝对尺寸">2.2.2. 绝对尺寸</h3><p>尺寸大小受后面紧跟的单位限制，这种取值方法不会随显示器分辨率变化而变化，也不会因显示设备的不同而不同，其取值是固定的</p><p>pt是绝对长度单位</p><h3 id="常见的长度单位的含义">2.2.3. 常见的长度单位的含义</h3><table><thead><tr><th>长度单位</th><th>含义</th></tr></thead><tbody><tr><td>em</td><td>元素字体的高度，相对长度单位</td></tr><tr><td>ex</td><td>字母的高度，相对长度单位</td></tr><tr><td>px</td><td>像素，相对显示器分辨率而言，相对长度单位</td></tr><tr><td>cm</td><td>厘米，绝对长度单位</td></tr><tr><td>mm</td><td>毫米，绝对长度单位</td></tr><tr><td>in</td><td>英寸，绝对长度单位，1in=2.4cm</td></tr><tr><td>pt</td><td>磅，绝对长度单位，1pt=1/72英寸</td></tr><tr><td>pc</td><td>派卡，绝对长度单位，1pc=12pt</td></tr></tbody></table><h2 id="关键字表示大小">2.3. 关键字表示大小</h2><h3 id="绝对尺寸关键字">2.3.1. 绝对尺寸关键字</h3><p>xx-small、x-small、small、medium、large、x-large、xx-large</p><h3 id="相对尺寸关键字">2.3.2. 相对尺寸关键字</h3><p>larger相对于上一个关键字、smaller相对于上一个关键字</p><h2 id="网页中的文本样式属性">2.4. 网页中的文本样式属性</h2><table><thead><tr><th>功能</th><th>属性名</th><th>描述</th></tr></thead><tbody><tr><td>行间距</td><td>line-height</td><td>设置文本段落中两行基线之间的距离</td></tr><tr><td>字符间距</td><td>letter-spacing</td><td>设置字符或者字母间的间隔</td></tr><tr><td>字间距</td><td>word-spacing</td><td>设置字单词之间的标准间隔，默认为0、normal</td></tr><tr><td>水平对齐</td><td>text-align</td><td>设置文本的水平对齐方式left、right、center、justify</td></tr><tr><td>垂直对齐</td><td>vertical-align</td><td>设置文本的垂直对齐方式，bottom、top、middle</td></tr><tr><td>缩进文本</td><td>text-indent</td><td>设置行的缩进大小，值可以为正或负，单位em、px、%</td></tr><tr><td>字符转换</td><td>text-transform</td><td>设置文本中的字母大小写，none、uppercase、lowercase、capitalize</td></tr><tr><td>文本修饰</td><td>text-decoration</td><td>设置段落中需要强调的文字，none、underline、overline、line-through、blink</td></tr><tr><td>修饰线样式</td><td>text-decoration-style</td><td>设置修饰线的样式，solid、double、dotted、dashed、wavy</td></tr><tr><td>修饰线颜色</td><td>text-decoration-color</td><td>设置修饰线颜色</td></tr><tr><td>文本阴影</td><td>text-shadow</td><td>设置文本阴影效果</td></tr><tr><td>文本溢出</td><td>text-overflow</td><td>控制页面中溢出的文本内容。修剪文本不显示溢出内容clip，显示省略号代替被修剪文本内容ellopsis</td></tr><tr><td>文本填充色</td><td>text-fill-color</td><td>设置文本填充颜色</td></tr><tr><td>文本描边框</td><td>text-stroke-width</td><td>设置文本描边框的宽度值</td></tr><tr><td>文本描边色</td><td>text-stroke-color</td><td>设置文本描边颜色</td></tr></tbody></table><h2 id="背景样式">2.5. 背景样式</h2><p>略样式</p><h2 id="边框样式">2.6. 边框样式</h2><p>理解网页的box结构：在CSS当中，把容纳文本、图片等内容的显示区域叫做box，包括四个部分</p><ol><li>对象本身Content</li><li>围绕对象的空格填充Padding</li><li>对象的边框Border</li><li>围绕边框的对象间隙Margin</li></ol><p>略样式</p><h2 id="列表样式">2.7. 列表样式</h2>]]></content>
+    <content type="html"><![CDATA[<p>DIV+CSS网页布局。</p><span id="more"></span><h1 id="DIV-CSS网页布局名词解释">1. DIV+CSS网页布局名词解释</h1><p>核心是盒子模型，通过对盒子进行CSS样式定义，借助CSS对盒子定位，这样就称为DIV+CSS布局</p><h2 id="标签">1.1. 标签</h2><p>header、nav、aside、article</p><h1 id="为什么使用DIV-CSS">2. 为什么使用DIV+CSS</h1><h2 id="这样布局的优点">2.1. 这样布局的优点</h2><ol><li>利于搜索引擎的检索和排名</li><li>代码精简，网页加载更快</li><li>定位更准确</li><li>更容易被其他设备访问</li></ol><h1 id="如何进行DIV-CSS布局">3. 如何进行DIV+CSS布局</h1><p>四个步骤：</p><ol><li>整体上对页面进行分块</li><li>按照分块的设计使用DIV标记，包裹区块元素，设计HTML的主体内容</li><li>编辑CSS，设计盒子的定位及在盒中的元素样式</li><li>连编</li></ol><h1 id="DIV-CSS实例">4. DIV+CSS实例</h1><h2 id="常见的布局形式">4.1. 常见的布局形式</h2><p>单列布局：header、article、footer</p><p>1-2-1布局：header、article、aside、footer</p><p>1-3-1布局：header、article、aside、aside、footer</p>]]></content>
     
     
     <categories>
@@ -1067,36 +1117,11 @@
   
   
   <entry>
-    <title>7.3DIV+CSS网页布局</title>
-    <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.3DIV+CSS%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80/"/>
-    <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.3DIV+CSS%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80/</url>
+    <title>7.4.2CSS3-弹性盒布局</title>
+    <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.2CSS3-%E5%BC%B9%E6%80%A7%E7%9B%92%E5%B8%83%E5%B1%80/"/>
+    <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.2CSS3-%E5%BC%B9%E6%80%A7%E7%9B%92%E5%B8%83%E5%B1%80/</url>
     
-    <content type="html"><![CDATA[<p>DIV+CSS网页布局。</p><span id="more"></span><h1 id="DIV-CSS网页布局名词解释">1. DIV+CSS网页布局名词解释</h1><p>核心是盒子模型，通过对盒子进行CSS样式定义，借助CSS对盒子定位，这样就称为DIV+CSS布局</p><h2 id="标签">1.1. 标签</h2><p>header、nav、aside、article</p><h1 id="为什么使用DIV-CSS">2. 为什么使用DIV+CSS</h1><h2 id="这样布局的优点">2.1. 这样布局的优点</h2><ol><li>利于搜索引擎的检索和排名</li><li>代码精简，网页加载更快</li><li>定位更准确</li><li>更容易被其他设备访问</li></ol><h1 id="如何进行DIV-CSS布局">3. 如何进行DIV+CSS布局</h1><p>四个步骤：</p><ol><li>整体上对页面进行分块</li><li>按照分块的设计使用DIV标记，包裹区块元素，设计HTML的主体内容</li><li>编辑CSS，设计盒子的定位及在盒中的元素样式</li><li>连编</li></ol><h1 id="DIV-CSS实例">4. DIV+CSS实例</h1><h2 id="常见的布局形式">4.1. 常见的布局形式</h2><p>单列布局：header、article、footer</p><p>1-2-1布局：header、article、aside、footer</p><p>1-3-1布局：header、article、aside、aside、footer</p>]]></content>
-    
-    
-    <categories>
-      
-      <category>html</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>html</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>6.3在网页中应用CSS的方式</title>
-    <link href="/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.3%E5%9C%A8%E7%BD%91%E9%A1%B5%E4%B8%AD%E5%BA%94%E7%94%A8CSS%E7%9A%84%E6%96%B9%E5%BC%8F/"/>
-    <url>/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.3%E5%9C%A8%E7%BD%91%E9%A1%B5%E4%B8%AD%E5%BA%94%E7%94%A8CSS%E7%9A%84%E6%96%B9%E5%BC%8F/</url>
-    
-    <content type="html"><![CDATA[<p>在网页中应用CSS的方式。</p><span id="more"></span><h1 id="CSS3应用方法">1. CSS3应用方法</h1><p>CSS样式能够以分离网页内容和样式的形式很好的控制网页的显示。在网页中应用CSS样式有4种方法：</p><ol><li><p>内联式</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">通过标记style属性直接把CSS样式添加到<span class="hljs-selector-tag">HTML</span>标签中<br></code></pre></td></tr></table></figure><p>语法格式：</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;标记名 <span class="hljs-attribute">style</span>=<span class="hljs-string">&quot;&quot;</span>&gt;&lt;/标记名&gt;<br></code></pre></td></tr></table></figure></li><li><p>内嵌式</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">将CSS样式代码添加到HTML文档的<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>头部中，并用<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span>标记定义<br></code></pre></td></tr></table></figure><p>语法格式：</p><figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs dust"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span>&gt;</span></span><br><span class="xml">选择器</span><span class="hljs-template-variable">&#123;属性&#125;</span><span class="xml"></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span></span><br></code></pre></td></tr></table></figure></li><li><p>链入式</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">将所有的样式放在一个或者多个以.css为扩展名的外部样式表文件中，通过<span class="hljs-tag">&lt;<span class="hljs-name">link</span> /&gt;</span>标记将外部样式表文件链接到HTML文档中<br></code></pre></td></tr></table></figure><p>语法格式：</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;CSS文件路径&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br></code></pre></td></tr></table></figure></li><li><p>导入式</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">与链入外部CSS基本相同，都是要创建一个单独的外部CSS文件，再引入到<span class="hljs-selector-tag">HTML</span>文档中。只不过语法和运作方式略有差别。<br></code></pre></td></tr></table></figure><p>语法格式：</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span>&gt;</span><span class="css"></span><br><span class="css"><span class="hljs-keyword">@import</span> url(<span class="hljs-string">&quot;外部样式表相对路径&quot;</span>);</span><br><span class="css"></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br></code></pre></td></tr></table></figure></li></ol><h2 id="链入式和导入式的区别：">1.1. 链入式和导入式的区别：</h2><ol><li>隶属关系不同：link属于HTML标签，@import是CSS提供的载入方式</li><li>加载时间及顺序不同：link先将外部的CSS文件加载到网页中，然后再进行编译显示。而@import是浏览器先将HTML结构呈现出来，再把外部的CSS文件加载到网页中，当网速较慢的时候会先显示没有CSS的效果，加载完毕再渲染画面</li><li>兼容性不同@import只有IE5以上的版本才能识别，而link标签没有这个问题</li><li>DOM模型控制样式：使用JavaScript控制DOM改变样式时，只能使用link标签，而@import不受DOM模型的影响</li></ol>]]></content>
+    <content type="html"><![CDATA[<p>CSS3-弹性盒布局。</p><span id="more"></span><h1 id="弹性盒布局">1. 弹性盒布局</h1><p>弹性盒是CSS3的一种新布局模式。它是一种当页面需要适应不同的屏幕大小及设备类型时确保元素拥有桥当排列的布局方式</p><ol><li>弹性盒组成<br>弹性容器的定义：选择器{display: flex;}</li><li>弹性容器的布局<br>按照子元素排列的方向不同，有横向和纵向排列两种方式，子元素的方向属性：选择器{flex-flow: 方向值 换行设置;}</li><li>子元素的布局<br>子元素在空间宽度上的分配，由flex属性设置</li></ol>]]></content>
     
     
     <categories>
@@ -1167,61 +1192,11 @@
   
   
   <entry>
-    <title>7.4.2CSS3-弹性盒布局</title>
-    <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.2CSS3-%E5%BC%B9%E6%80%A7%E7%9B%92%E5%B8%83%E5%B1%80/"/>
-    <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.2CSS3-%E5%BC%B9%E6%80%A7%E7%9B%92%E5%B8%83%E5%B1%80/</url>
-    
-    <content type="html"><![CDATA[<p>CSS3-弹性盒布局。</p><span id="more"></span><h1 id="弹性盒布局">1. 弹性盒布局</h1><p>弹性盒是CSS3的一种新布局模式。它是一种当页面需要适应不同的屏幕大小及设备类型时确保元素拥有桥当排列的布局方式</p><ol><li>弹性盒组成<br>弹性容器的定义：选择器{display: flex;}</li><li>弹性容器的布局<br>按照子元素排列的方向不同，有横向和纵向排列两种方式，子元素的方向属性：选择器{flex-flow: 方向值 换行设置;}</li><li>子元素的布局<br>子元素在空间宽度上的分配，由flex属性设置</li></ol>]]></content>
-    
-    
-    <categories>
-      
-      <category>html</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>html</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>8.1JavaScript概念及其语法</title>
     <link href="/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.1.0JavaScript%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95/"/>
     <url>/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.1.0JavaScript%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95/</url>
     
     <content type="html"><![CDATA[<p>JavaScript概念及其语法。</p><span id="more"></span><h1 id="见8-1-1和8-1-2">1. 见8.1.1和8.1.2</h1>]]></content>
-    
-    
-    <categories>
-      
-      <category>html</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>html</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>8.1.1JavaScript概念及其语法上</title>
-    <link href="/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.1.1JavaScript%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95%E4%B8%8A/"/>
-    <url>/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.1.1JavaScript%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95%E4%B8%8A/</url>
-    
-    <content type="html"><![CDATA[<p>JavaScript概念及其语法上。</p><span id="more"></span><h1 id="JavaScript简介">1. JavaScript简介</h1><p>是一种脚本语言，是动态的、弱类型、基于原型的语言</p><p>特点：</p><ol><li>语法简单，易学易用</li><li>解释性语言</li><li>跨平台</li><li>基于对象和时间驱动</li><li>可用于客户端</li></ol><p>作用：</p><ol><li>动态改变网页内容</li><li>动态改变网页外观</li><li>验证表单数据</li><li>响应事件</li></ol><p>和java的区别：</p><ol><li>java是传统编程语言，javascript是脚本语言</li><li>java语言多用于服务器端，javascript主要用于客户端</li><li>java不能直接嵌入网页运行，javascript程序可以直接嵌入网页运行</li><li>java和javascript语法结构存在差异</li></ol><p>javascript开发和运行环境：</p><p>是一种脚本语言，不需要编译成二进制文件，以文本形式存在，任何编译器都可以作为他的开发环境，通常的开发环境有：记事本、UltraEdit、Dreamwaver</p><h1 id="在HTML5中使用JavaScript">2. 在HTML5中使用JavaScript</h1><p>有两种方法：内嵌式，外链式</p><h2 id="内嵌式">2.1. 内嵌式</h2><p>script标签，放在head标签中</p><h2 id="外链式">2.2. 外链式</h2><p>同一段代码需要被多个网页文件所使用的时候，使用外链式</p><h1 id="数据类型与变量">3. 数据类型与变量</h1><h1 id="运算符与表达式">4. 运算符与表达式</h1><h1 id="流程控制语句">5. 流程控制语句</h1><h1 id="函数">6. 函数</h1>]]></content>
     
     
     <categories>
@@ -1267,11 +1242,11 @@
   
   
   <entry>
-    <title>8.3数学对象</title>
-    <link href="/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.3%E6%95%B0%E5%AD%A6%E5%AF%B9%E8%B1%A1/"/>
-    <url>/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.3%E6%95%B0%E5%AD%A6%E5%AF%B9%E8%B1%A1/</url>
+    <title>8.1.1JavaScript概念及其语法上</title>
+    <link href="/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.1.1JavaScript%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95%E4%B8%8A/"/>
+    <url>/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.1.1JavaScript%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95%E4%B8%8A/</url>
     
-    <content type="html"><![CDATA[<p>数学对象。</p><span id="more"></span>]]></content>
+    <content type="html"><![CDATA[<p>JavaScript概念及其语法上。</p><span id="more"></span><h1 id="JavaScript简介">1. JavaScript简介</h1><p>是一种脚本语言，是动态的、弱类型、基于原型的语言</p><p>特点：</p><ol><li>语法简单，易学易用</li><li>解释性语言</li><li>跨平台</li><li>基于对象和时间驱动</li><li>可用于客户端</li></ol><p>作用：</p><ol><li>动态改变网页内容</li><li>动态改变网页外观</li><li>验证表单数据</li><li>响应事件</li></ol><p>和java的区别：</p><ol><li>java是传统编程语言，javascript是脚本语言</li><li>java语言多用于服务器端，javascript主要用于客户端</li><li>java不能直接嵌入网页运行，javascript程序可以直接嵌入网页运行</li><li>java和javascript语法结构存在差异</li></ol><p>javascript开发和运行环境：</p><p>是一种脚本语言，不需要编译成二进制文件，以文本形式存在，任何编译器都可以作为他的开发环境，通常的开发环境有：记事本、UltraEdit、Dreamwaver</p><h1 id="在HTML5中使用JavaScript">2. 在HTML5中使用JavaScript</h1><p>有两种方法：内嵌式，外链式</p><h2 id="内嵌式">2.1. 内嵌式</h2><p>script标签，放在head标签中</p><h2 id="外链式">2.2. 外链式</h2><p>同一段代码需要被多个网页文件所使用的时候，使用外链式</p><h1 id="数据类型与变量">3. 数据类型与变量</h1><h1 id="运算符与表达式">4. 运算符与表达式</h1><h1 id="流程控制语句">5. 流程控制语句</h1><h1 id="函数">6. 函数</h1>]]></content>
     
     
     <categories>
@@ -1297,6 +1272,56 @@
     <url>/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.1.3JavaScript%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95%E4%B8%8B/</url>
     
     <content type="html"><![CDATA[<p>JavaScript概念及其语法下。</p><span id="more"></span><h1 id="流程控制语句">1. 流程控制语句</h1><h2 id="顺序结构">1.1. 顺序结构</h2><h2 id="选择结构">1.2. 选择结构</h2><p>if switch</p><h2 id="循环结构">1.3. 循环结构</h2><p>while、do-while、for</p><h1 id="函数">2. 函数</h1>]]></content>
+    
+    
+    <categories>
+      
+      <category>html</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>html</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>8.2字符串对象</title>
+    <link href="/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.2%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AF%B9%E8%B1%A1/"/>
+    <url>/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.2%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AF%B9%E8%B1%A1/</url>
+    
+    <content type="html"><![CDATA[<p>字符串对象。</p><span id="more"></span>]]></content>
+    
+    
+    <categories>
+      
+      <category>html</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>html</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>8.3数学对象</title>
+    <link href="/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.3%E6%95%B0%E5%AD%A6%E5%AF%B9%E8%B1%A1/"/>
+    <url>/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.3%E6%95%B0%E5%AD%A6%E5%AF%B9%E8%B1%A1/</url>
+    
+    <content type="html"><![CDATA[<p>数学对象。</p><span id="more"></span>]]></content>
     
     
     <categories>
@@ -1392,31 +1417,6 @@
   
   
   <entry>
-    <title>9.3窗口对象</title>
-    <link href="/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.3%E7%AA%97%E5%8F%A3%E5%AF%B9%E8%B1%A1/"/>
-    <url>/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.3%E7%AA%97%E5%8F%A3%E5%AF%B9%E8%B1%A1/</url>
-    
-    <content type="html"><![CDATA[<p>窗口对象。</p><span id="more"></span>]]></content>
-    
-    
-    <categories>
-      
-      <category>html</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>html</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>9.2事件机制</title>
     <link href="/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.2%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6/"/>
     <url>/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.2%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6/</url>
@@ -1442,11 +1442,11 @@
   
   
   <entry>
-    <title>9.5表单对象</title>
-    <link href="/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.5%E8%A1%A8%E5%8D%95%E5%AF%B9%E8%B1%A1/"/>
-    <url>/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.5%E8%A1%A8%E5%8D%95%E5%AF%B9%E8%B1%A1/</url>
+    <title>9.3窗口对象</title>
+    <link href="/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.3%E7%AA%97%E5%8F%A3%E5%AF%B9%E8%B1%A1/"/>
+    <url>/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.3%E7%AA%97%E5%8F%A3%E5%AF%B9%E8%B1%A1/</url>
     
-    <content type="html"><![CDATA[<p>表单对象。</p><span id="more"></span>]]></content>
+    <content type="html"><![CDATA[<p>窗口对象。</p><span id="more"></span>]]></content>
     
     
     <categories>
@@ -1492,11 +1492,11 @@
   
   
   <entry>
-    <title>8.2字符串对象</title>
-    <link href="/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.2%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AF%B9%E8%B1%A1/"/>
-    <url>/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.2%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AF%B9%E8%B1%A1/</url>
+    <title>9.5表单对象</title>
+    <link href="/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.5%E8%A1%A8%E5%8D%95%E5%AF%B9%E8%B1%A1/"/>
+    <url>/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.5%E8%A1%A8%E5%8D%95%E5%AF%B9%E8%B1%A1/</url>
     
-    <content type="html"><![CDATA[<p>字符串对象。</p><span id="more"></span>]]></content>
+    <content type="html"><![CDATA[<p>表单对象。</p><span id="more"></span>]]></content>
     
     
     <categories>
@@ -1542,11 +1542,11 @@
   
   
   <entry>
-    <title>4.3表单的处理</title>
-    <link href="/gzguo/2020/11/03/Web/4%E6%9E%84%E5%BB%BAWeb%E8%A1%A8%E5%8D%95/4.3%E8%A1%A8%E5%8D%95%E7%9A%84%E5%A4%84%E7%90%86/"/>
-    <url>/gzguo/2020/11/03/Web/4%E6%9E%84%E5%BB%BAWeb%E8%A1%A8%E5%8D%95/4.3%E8%A1%A8%E5%8D%95%E7%9A%84%E5%A4%84%E7%90%86/</url>
+    <title>4.2表单的控件</title>
+    <link href="/gzguo/2020/11/03/Web/4%E6%9E%84%E5%BB%BAWeb%E8%A1%A8%E5%8D%95/4.2%E8%A1%A8%E5%8D%95%E7%9A%84%E6%8E%A7%E4%BB%B6/"/>
+    <url>/gzguo/2020/11/03/Web/4%E6%9E%84%E5%BB%BAWeb%E8%A1%A8%E5%8D%95/4.2%E8%A1%A8%E5%8D%95%E7%9A%84%E6%8E%A7%E4%BB%B6/</url>
     
-    <content type="html"><![CDATA[<p>表单的处理。</p><span id="more"></span><h1 id="表单的分组">1. 表单的分组</h1><p>使用fieldset元素将相关的元素组合在一起</p><h2 id="fieldset基本语法">1.1. fieldset基本语法</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css">&lt;<span class="hljs-selector-tag">form</span>&gt;<br>&lt;<span class="hljs-selector-tag">fieldset</span>&gt;  (表单的一个子容器，将所包含的内容以边框环绕的方式显示)<br>&lt;<span class="hljs-selector-tag">legend</span>&gt;&lt;/<span class="hljs-selector-tag">legend</span>&gt;  (为<span class="hljs-selector-tag">fieldset</span>边框添加相关的标题)<br>&lt;/<span class="hljs-selector-tag">fieldset</span>&gt;<br>&lt;/<span class="hljs-selector-tag">form</span>&gt;<br></code></pre></td></tr></table></figure><h1 id="表单的验证">2. 表单的验证</h1><p>表单验证主要时在用户提交表单之前对用户输入的数据进行验证，看数据是否合法</p><h2 id="Email-URL验证">2.1. Email/URL验证</h2><p>HTML5新增的Email/URL表单类型本身就是具有对表单数据进行验证的功能</p><h2 id="pattern验证">2.2. pattern验证</h2><p>使用pattern属性验证输入字段的模式，pattern属性具有对表单中输入字段模式进行验证的功能。适合于text、url、telephone、email、password等<input>类型</p><h3 id="pattern基本语法格式">2.2.1. pattern基本语法格式</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;input <span class="hljs-attribute">pattern</span>=<span class="hljs-string">&quot;regexp(正则表达式)&quot;</span>&gt;<br></code></pre></td></tr></table></figure><h1 id="表单添加组件说明">3. 表单添加组件说明</h1><p>使用label标签为扁担组件添加说明</p><h2 id="label标签">3.1. label标签</h2><p>label标签是描述表单字段用途的文本。label元素不会向用户呈现任何特殊的效果。不过它为鼠标用户改进了可用性。如果在label元素内点击文本，就会出发此控件。就是说，当用户选择该标签时，浏览器就会自动将焦点转移到和标签相关的表单控件上</p><h2 id="label标签的属性">3.2. label标签的属性</h2><ol><li>for：规定label绑定到哪个表单元素上，属性取值为表单元素的id</li><li>form：规定label字段所属的一个或多个表单。属性取值为formid</li></ol>]]></content>
+    <content type="html"><![CDATA[<p>表单的控件。</p><span id="more"></span><h1 id="input控件">1. input控件</h1><p>定义单行文本输入框、单选按钮、复选框、提交按钮、重置按钮等，要使用input控件</p><h2 id="常见的属性">1.1. 常见的属性</h2><ol><li><p>type：控件类型</p><figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mel">取值：<span class="hljs-keyword">text</span>、password、radio、checkbox、<span class="hljs-keyword">button</span>、submit、reset、<span class="hljs-keyword">file</span> <span class="hljs-keyword">image</span>、hidden<br></code></pre></td></tr></table></figure></li><li><p>name：控件名称</p></li><li><p>value：控件中的默认文本</p></li><li><p>size：控件名称在页面中显示宽度</p></li><li><p>readonly：控件内容为只读</p></li><li><p>disabled：首次加载的页面时是否禁用该控件（显示为灰色）</p></li><li><p>checked：定义选择控件默认值被选中</p></li><li><p>maxlength：控件允许输入最多的字符数</p></li></ol><h1 id="textarea控件">2. textarea控件</h1><p>可以创建多行文本输入框</p><h2 id="testarea基本语法">2.1. testarea基本语法</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;textarea <span class="hljs-attribute">cols</span>=<span class="hljs-string">&quot;每行中的字符数&quot;</span> <span class="hljs-attribute">rows</span>=<span class="hljs-string">&quot;显示的行数&quot;</span> <span class="hljs-attribute">wrap</span>=<span class="hljs-string">&quot;   &quot;</span>&gt;文本内容&lt;/testarea&gt;<br></code></pre></td></tr></table></figure><p>wrap是html5中的新属性：属性取值：</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs css">soft：当在表单提交时，<span class="hljs-selector-tag">textarea</span>中的文本不换行。默认值<br>hard：当在表单提交时，<span class="hljs-selector-tag">textarea</span>中的文本换行<br></code></pre></td></tr></table></figure><h1 id="select控件">3. select控件</h1><p>创建一个选择框</p><h2 id="select基本语法">3.1. select基本语法</h2><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">&lt;<span class="hljs-keyword">select</span> <span class="hljs-type">name</span>=&quot;控件名称&quot; size=&quot;表示可见选项的数目&quot; multiple(设定为多选)&gt;<br>&lt;<span class="hljs-keyword">option</span> <span class="hljs-keyword">value</span>=&quot;选项值&quot; selected(默认该选项被选中)&gt;  (表示指定区域中的一个选项)<br><br>&lt;/<span class="hljs-keyword">option</span>&gt;<br>&lt;/<span class="hljs-keyword">select</span>&gt;<br></code></pre></td></tr></table></figure><table><thead><tr><th>标签</th><th>标签功能</th><th>用到的属性</th><th>效果说明</th></tr></thead><tbody><tr><td>marquee</td><td>使标签中的内容滚动</td><td>bgcolor，direction，behavior</td><td>bgcolor代表滚动范围背景颜色；direction代表滚动方向；behavior代表滚动的方式</td></tr><tr><td>table</td><td>形成一个表格</td><td>tr,th,td</td><td>tr定义行；td定义每行的单元格；th用来定义标题栏</td></tr></tbody></table>]]></content>
     
     
     <categories>
@@ -1567,11 +1567,11 @@
   
   
   <entry>
-    <title>4.2表单的控件</title>
-    <link href="/gzguo/2020/11/03/Web/4%E6%9E%84%E5%BB%BAWeb%E8%A1%A8%E5%8D%95/4.2%E8%A1%A8%E5%8D%95%E7%9A%84%E6%8E%A7%E4%BB%B6/"/>
-    <url>/gzguo/2020/11/03/Web/4%E6%9E%84%E5%BB%BAWeb%E8%A1%A8%E5%8D%95/4.2%E8%A1%A8%E5%8D%95%E7%9A%84%E6%8E%A7%E4%BB%B6/</url>
+    <title>4.3表单的处理</title>
+    <link href="/gzguo/2020/11/03/Web/4%E6%9E%84%E5%BB%BAWeb%E8%A1%A8%E5%8D%95/4.3%E8%A1%A8%E5%8D%95%E7%9A%84%E5%A4%84%E7%90%86/"/>
+    <url>/gzguo/2020/11/03/Web/4%E6%9E%84%E5%BB%BAWeb%E8%A1%A8%E5%8D%95/4.3%E8%A1%A8%E5%8D%95%E7%9A%84%E5%A4%84%E7%90%86/</url>
     
-    <content type="html"><![CDATA[<p>表单的控件。</p><span id="more"></span><h1 id="input控件">1. input控件</h1><p>定义单行文本输入框、单选按钮、复选框、提交按钮、重置按钮等，要使用input控件</p><h2 id="常见的属性">1.1. 常见的属性</h2><ol><li><p>type：控件类型</p><figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mel">取值：<span class="hljs-keyword">text</span>、password、radio、checkbox、<span class="hljs-keyword">button</span>、submit、reset、<span class="hljs-keyword">file</span> <span class="hljs-keyword">image</span>、hidden<br></code></pre></td></tr></table></figure></li><li><p>name：控件名称</p></li><li><p>value：控件中的默认文本</p></li><li><p>size：控件名称在页面中显示宽度</p></li><li><p>readonly：控件内容为只读</p></li><li><p>disabled：首次加载的页面时是否禁用该控件（显示为灰色）</p></li><li><p>checked：定义选择控件默认值被选中</p></li><li><p>maxlength：控件允许输入最多的字符数</p></li></ol><h1 id="textarea控件">2. textarea控件</h1><p>可以创建多行文本输入框</p><h2 id="testarea基本语法">2.1. testarea基本语法</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;textarea <span class="hljs-attribute">cols</span>=<span class="hljs-string">&quot;每行中的字符数&quot;</span> <span class="hljs-attribute">rows</span>=<span class="hljs-string">&quot;显示的行数&quot;</span> <span class="hljs-attribute">wrap</span>=<span class="hljs-string">&quot;   &quot;</span>&gt;文本内容&lt;/testarea&gt;<br></code></pre></td></tr></table></figure><p>wrap是html5中的新属性：属性取值：</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs css">soft：当在表单提交时，<span class="hljs-selector-tag">textarea</span>中的文本不换行。默认值<br>hard：当在表单提交时，<span class="hljs-selector-tag">textarea</span>中的文本换行<br></code></pre></td></tr></table></figure><h1 id="select控件">3. select控件</h1><p>创建一个选择框</p><h2 id="select基本语法">3.1. select基本语法</h2><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">&lt;<span class="hljs-keyword">select</span> <span class="hljs-type">name</span>=&quot;控件名称&quot; size=&quot;表示可见选项的数目&quot; multiple(设定为多选)&gt;<br>&lt;<span class="hljs-keyword">option</span> <span class="hljs-keyword">value</span>=&quot;选项值&quot; selected(默认该选项被选中)&gt;  (表示指定区域中的一个选项)<br><br>&lt;/<span class="hljs-keyword">option</span>&gt;<br>&lt;/<span class="hljs-keyword">select</span>&gt;<br></code></pre></td></tr></table></figure><table><thead><tr><th>标签</th><th>标签功能</th><th>用到的属性</th><th>效果说明</th></tr></thead><tbody><tr><td>marquee</td><td>使标签中的内容滚动</td><td>bgcolor，direction，behavior</td><td>bgcolor代表滚动范围背景颜色；direction代表滚动方向；behavior代表滚动的方式</td></tr><tr><td>table</td><td>形成一个表格</td><td>tr,th,td</td><td>tr定义行；td定义每行的单元格；th用来定义标题栏</td></tr></tbody></table>]]></content>
+    <content type="html"><![CDATA[<p>表单的处理。</p><span id="more"></span><h1 id="表单的分组">1. 表单的分组</h1><p>使用fieldset元素将相关的元素组合在一起</p><h2 id="fieldset基本语法">1.1. fieldset基本语法</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css">&lt;<span class="hljs-selector-tag">form</span>&gt;<br>&lt;<span class="hljs-selector-tag">fieldset</span>&gt;  (表单的一个子容器，将所包含的内容以边框环绕的方式显示)<br>&lt;<span class="hljs-selector-tag">legend</span>&gt;&lt;/<span class="hljs-selector-tag">legend</span>&gt;  (为<span class="hljs-selector-tag">fieldset</span>边框添加相关的标题)<br>&lt;/<span class="hljs-selector-tag">fieldset</span>&gt;<br>&lt;/<span class="hljs-selector-tag">form</span>&gt;<br></code></pre></td></tr></table></figure><h1 id="表单的验证">2. 表单的验证</h1><p>表单验证主要时在用户提交表单之前对用户输入的数据进行验证，看数据是否合法</p><h2 id="Email-URL验证">2.1. Email/URL验证</h2><p>HTML5新增的Email/URL表单类型本身就是具有对表单数据进行验证的功能</p><h2 id="pattern验证">2.2. pattern验证</h2><p>使用pattern属性验证输入字段的模式，pattern属性具有对表单中输入字段模式进行验证的功能。适合于text、url、telephone、email、password等<input>类型</p><h3 id="pattern基本语法格式">2.2.1. pattern基本语法格式</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;input <span class="hljs-attribute">pattern</span>=<span class="hljs-string">&quot;regexp(正则表达式)&quot;</span>&gt;<br></code></pre></td></tr></table></figure><h1 id="表单添加组件说明">3. 表单添加组件说明</h1><p>使用label标签为扁担组件添加说明</p><h2 id="label标签">3.1. label标签</h2><p>label标签是描述表单字段用途的文本。label元素不会向用户呈现任何特殊的效果。不过它为鼠标用户改进了可用性。如果在label元素内点击文本，就会出发此控件。就是说，当用户选择该标签时，浏览器就会自动将焦点转移到和标签相关的表单控件上</p><h2 id="label标签的属性">3.2. label标签的属性</h2><ol><li>for：规定label绑定到哪个表单元素上，属性取值为表单元素的id</li><li>form：规定label字段所属的一个或多个表单。属性取值为formid</li></ol>]]></content>
     
     
     <categories>
@@ -1667,31 +1667,6 @@
   
   
   <entry>
-    <title>3.4全局属性</title>
-    <link href="/gzguo/2020/10/05/Web/3%E9%A1%B5%E9%9D%A2%E5%85%83%E7%B4%A0%E5%92%8C%E5%B1%9E%E6%80%A7/3.4%E5%85%A8%E5%B1%80%E5%B1%9E%E6%80%A7/"/>
-    <url>/gzguo/2020/10/05/Web/3%E9%A1%B5%E9%9D%A2%E5%85%83%E7%B4%A0%E5%92%8C%E5%B1%9E%E6%80%A7/3.4%E5%85%A8%E5%B1%80%E5%B1%9E%E6%80%A7/</url>
-    
-    <content type="html"><![CDATA[<p>全局属性。</p><span id="more"></span><h1 id="全局属性定义">1. 全局属性定义</h1><p>全局属性是对于任何一个标签都可以使用的属性。在HTML5中新增了一些全局属性，这些全局属性可以表达非常丰富的语义，也会额外提供很多的使用功能</p><h1 id="全局属性有哪些">2. 全局属性有哪些</h1><table><thead><tr><th>属性</th><th>描述</th></tr></thead><tbody><tr><td>accesskey</td><td>规定激活元素的快捷键</td></tr><tr><td>class</td><td>规定一个元素的一个或多个类名</td></tr><tr><td>contenteditable</td><td>规定元素内容是否可以编辑</td></tr><tr><td>contextmenu</td><td>规定元素的上下文菜单</td></tr><tr><td>data</td><td>用于存储页面或者应用程序的私有定制数据</td></tr><tr><td>dir</td><td>规定元素中内容的文本方向</td></tr><tr><td>draggable</td><td>规定元素是否可被拖动</td></tr><tr><td>dropzone</td><td>规定在拖动数据时是否进行复制、移动或链接</td></tr><tr><td>hidden</td><td>规定元素是否显现</td></tr><tr><td>id</td><td>规定元素的唯一id</td></tr><tr><td>lang</td><td>规定元素内容的语言</td></tr><tr><td>spellcheck</td><td>规定是否对元素进行拼写和语法检查</td></tr><tr><td>style</td><td>规定元素的行内CSS样式</td></tr><tr><td>tabindex</td><td>规定元素的tab键次序</td></tr><tr><td>title</td><td>规定有关元素的额外信息</td></tr><tr><td>translate</td><td>规定是否应该翻译元素内容</td></tr></tbody></table><h1 id="如何设置全局属性">3. 如何设置全局属性</h1><h2 id="hidden属性">3.1. hidden属性</h2><p>设置了hidden属性的段落将不再显示</p><h2 id="spellcheck属性">3.2. spellcheck属性</h2><p>拼写和语法检查的属性，可对拼写和语法进行检查并在下面画红线。只有元素可以编辑spellcheck属性才有意义，主要争对文本输入或者多行文本输入</p><h2 id="contenteditable属性">3.3. contenteditable属性</h2><p>规定是否允许用户编辑内容，通常在input标签中使用</p><h2 id="contextmenu属性">3.4. contextmenu属性</h2><p>规定元素上下文菜单，当用户右键点击元素时，会出现上下文菜单</p>]]></content>
-    
-    
-    <categories>
-      
-      <category>html</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>html</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>3.3文本层次语义元素及分组元素</title>
     <link href="/gzguo/2020/10/05/Web/3%E9%A1%B5%E9%9D%A2%E5%85%83%E7%B4%A0%E5%92%8C%E5%B1%9E%E6%80%A7/3.3%E6%96%87%E6%9C%AC%E5%B1%82%E6%AC%A1%E8%AF%AD%E4%B9%89%E5%85%83%E7%B4%A0%E5%8F%8A%E5%88%86%E7%BB%84%E5%85%83%E7%B4%A0/"/>
     <url>/gzguo/2020/10/05/Web/3%E9%A1%B5%E9%9D%A2%E5%85%83%E7%B4%A0%E5%92%8C%E5%B1%9E%E6%80%A7/3.3%E6%96%87%E6%9C%AC%E5%B1%82%E6%AC%A1%E8%AF%AD%E4%B9%89%E5%85%83%E7%B4%A0%E5%8F%8A%E5%88%86%E7%BB%84%E5%85%83%E7%B4%A0/</url>
@@ -1717,11 +1692,11 @@
   
   
   <entry>
-    <title>2.4图片标签</title>
-    <link href="/gzguo/2020/09/29/Web/2HTML5/2.4%E5%9B%BE%E7%89%87%E6%A0%87%E7%AD%BE/"/>
-    <url>/gzguo/2020/09/29/Web/2HTML5/2.4%E5%9B%BE%E7%89%87%E6%A0%87%E7%AD%BE/</url>
+    <title>3.4全局属性</title>
+    <link href="/gzguo/2020/10/05/Web/3%E9%A1%B5%E9%9D%A2%E5%85%83%E7%B4%A0%E5%92%8C%E5%B1%9E%E6%80%A7/3.4%E5%85%A8%E5%B1%80%E5%B1%9E%E6%80%A7/"/>
+    <url>/gzguo/2020/10/05/Web/3%E9%A1%B5%E9%9D%A2%E5%85%83%E7%B4%A0%E5%92%8C%E5%B1%9E%E6%80%A7/3.4%E5%85%A8%E5%B1%80%E5%B1%9E%E6%80%A7/</url>
     
-    <content type="html"><![CDATA[<p>图片标签。</p><span id="more"></span><h1 id="gif">1. gif</h1><p>支持动画、无损图像格式、支持透明</p><p>常用于小图标、LOFO及其他色彩相对单一的图像</p><h1 id="png">2. png</h1><p>相对于gif体积更小，支持alpha透明（全透明、半透明、全不透明）颜色过度更平滑、不支持动画、无损压缩</p><h1 id="jpg">3. jpg</h1><p>显色比上面两个多得多、有损压缩</p><h1 id="网页插入图像">4. 网页插入图像</h1><h2 id="body-background">4.1. body background</h2><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">&lt;<span class="hljs-keyword">body</span> background=<span class="hljs-string">&quot;&quot;</span>&gt;&lt;/<span class="hljs-keyword">body</span>&gt;<br></code></pre></td></tr></table></figure><h2 id="img">4.2. img</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;img <span class="hljs-attribute">src</span>=<span class="hljs-string">&quot;&quot;</span>&gt;<br></code></pre></td></tr></table></figure><ul><li>alt：规定图像的代替文本</li><li>src：规定图像的URL</li><li>height：规定图像的高度</li><li>ismap：把图象设置为服务器端图像映射</li><li>usemap：把图象设置为客户端图像映射</li><li>width：规定图像宽度</li></ul><h2 id="路径">4.3. 路径</h2><p>相对路径、绝对路径</p>]]></content>
+    <content type="html"><![CDATA[<p>全局属性。</p><span id="more"></span><h1 id="全局属性定义">1. 全局属性定义</h1><p>全局属性是对于任何一个标签都可以使用的属性。在HTML5中新增了一些全局属性，这些全局属性可以表达非常丰富的语义，也会额外提供很多的使用功能</p><h1 id="全局属性有哪些">2. 全局属性有哪些</h1><table><thead><tr><th>属性</th><th>描述</th></tr></thead><tbody><tr><td>accesskey</td><td>规定激活元素的快捷键</td></tr><tr><td>class</td><td>规定一个元素的一个或多个类名</td></tr><tr><td>contenteditable</td><td>规定元素内容是否可以编辑</td></tr><tr><td>contextmenu</td><td>规定元素的上下文菜单</td></tr><tr><td>data</td><td>用于存储页面或者应用程序的私有定制数据</td></tr><tr><td>dir</td><td>规定元素中内容的文本方向</td></tr><tr><td>draggable</td><td>规定元素是否可被拖动</td></tr><tr><td>dropzone</td><td>规定在拖动数据时是否进行复制、移动或链接</td></tr><tr><td>hidden</td><td>规定元素是否显现</td></tr><tr><td>id</td><td>规定元素的唯一id</td></tr><tr><td>lang</td><td>规定元素内容的语言</td></tr><tr><td>spellcheck</td><td>规定是否对元素进行拼写和语法检查</td></tr><tr><td>style</td><td>规定元素的行内CSS样式</td></tr><tr><td>tabindex</td><td>规定元素的tab键次序</td></tr><tr><td>title</td><td>规定有关元素的额外信息</td></tr><tr><td>translate</td><td>规定是否应该翻译元素内容</td></tr></tbody></table><h1 id="如何设置全局属性">3. 如何设置全局属性</h1><h2 id="hidden属性">3.1. hidden属性</h2><p>设置了hidden属性的段落将不再显示</p><h2 id="spellcheck属性">3.2. spellcheck属性</h2><p>拼写和语法检查的属性，可对拼写和语法进行检查并在下面画红线。只有元素可以编辑spellcheck属性才有意义，主要争对文本输入或者多行文本输入</p><h2 id="contenteditable属性">3.3. contenteditable属性</h2><p>规定是否允许用户编辑内容，通常在input标签中使用</p><h2 id="contextmenu属性">3.4. contextmenu属性</h2><p>规定元素上下文菜单，当用户右键点击元素时，会出现上下文菜单</p>]]></content>
     
     
     <categories>
@@ -1747,6 +1722,31 @@
     <url>/gzguo/2020/09/29/Web/2HTML5/2.3%E6%96%87%E6%9C%AC%E6%8E%A7%E5%88%B6%E6%A0%87%E7%AD%BE/</url>
     
     <content type="html"><![CDATA[<p>文本控制标签。</p><span id="more"></span><h1 id="标题段落标签">1. 标题段落标签</h1><h2 id="hi（双）">1.1. hi（双）</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">设定<span class="hljs-selector-tag">HTML</span>页面中段落的级数<br></code></pre></td></tr></table></figure><h2 id="p（双）">1.2. p（双）</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">划分段落，控制文本位置<br></code></pre></td></tr></table></figure><h1 id="文本格式标签">2. 文本格式标签</h1><h2 id="br（单）">2.1. br（单）</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">定义换行<br></code></pre></td></tr></table></figure><h2 id="hr（单）">2.2. hr（单）</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">定义水平线<br></code></pre></td></tr></table></figure><ol><li>Size：宽</li><li>Width：长</li><li>Align：对齐方式</li><li>Noshade：无阴影属性</li><li>Color：颜色</li></ol><h2 id="div（双）">2.3. div（双）</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">定义大块显示区<br></code></pre></td></tr></table></figure><h2 id="文本修饰标签（双）">2.4. 文本修饰标签（双）</h2><ol><li><p>font：字体样式</p><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">里面的size属性值为<span class="hljs-number">1</span><span class="hljs-number">-7</span>，默认为<span class="hljs-number">3</span><br></code></pre></td></tr></table></figure></li><li><p>b：相当于strong</p></li><li><p>i：斜体</p></li><li><p>big：比周围文本大一个字体尺寸</p></li><li><p>small</p></li><li><p>s：删除线</p></li><li><p>u：下划线</p></li><li><p>sup：上标形式</p></li><li><p>sub：下标形式</p></li><li><p>strong</p></li><li><p>mark：带有记号的方式显示</p></li></ol><h2 id="span（双）">2.5. span（双）</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">行内标签，用来组合文档中的行内元素<br></code></pre></td></tr></table></figure><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">span</span>和<span class="hljs-selector-tag">div</span>的主要区别<br>    <span class="hljs-selector-tag">span</span>不换行，<span class="hljs-selector-tag">div</span>换行<br>    <span class="hljs-selector-tag">span</span>不能包含<span class="hljs-selector-tag">div</span>，<span class="hljs-selector-tag">div</span>可以包含<span class="hljs-selector-tag">span</span><br></code></pre></td></tr></table></figure><h1 id="特殊字符标签">3. 特殊字符标签</h1><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs 1c">可用于设定数学公式、版权信息中的特殊字符。通常以“<span class="hljs-meta">&amp;”开始，以“;”结束</span><br>如<span class="hljs-meta">&amp;gt;代表&gt;</span><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>html</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>html</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>2.4图片标签</title>
+    <link href="/gzguo/2020/09/29/Web/2HTML5/2.4%E5%9B%BE%E7%89%87%E6%A0%87%E7%AD%BE/"/>
+    <url>/gzguo/2020/09/29/Web/2HTML5/2.4%E5%9B%BE%E7%89%87%E6%A0%87%E7%AD%BE/</url>
+    
+    <content type="html"><![CDATA[<p>图片标签。</p><span id="more"></span><h1 id="gif">1. gif</h1><p>支持动画、无损图像格式、支持透明</p><p>常用于小图标、LOFO及其他色彩相对单一的图像</p><h1 id="png">2. png</h1><p>相对于gif体积更小，支持alpha透明（全透明、半透明、全不透明）颜色过度更平滑、不支持动画、无损压缩</p><h1 id="jpg">3. jpg</h1><p>显色比上面两个多得多、有损压缩</p><h1 id="网页插入图像">4. 网页插入图像</h1><h2 id="body-background">4.1. body background</h2><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">&lt;<span class="hljs-keyword">body</span> background=<span class="hljs-string">&quot;&quot;</span>&gt;&lt;/<span class="hljs-keyword">body</span>&gt;<br></code></pre></td></tr></table></figure><h2 id="img">4.2. img</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;img <span class="hljs-attribute">src</span>=<span class="hljs-string">&quot;&quot;</span>&gt;<br></code></pre></td></tr></table></figure><ul><li>alt：规定图像的代替文本</li><li>src：规定图像的URL</li><li>height：规定图像的高度</li><li>ismap：把图象设置为服务器端图像映射</li><li>usemap：把图象设置为客户端图像映射</li><li>width：规定图像宽度</li></ul><h2 id="路径">4.3. 路径</h2><p>相对路径、绝对路径</p>]]></content>
     
     
     <categories>
@@ -1967,6 +1967,106 @@
   
   
   <entry>
+    <title>1.0学习Web前的小知识</title>
+    <link href="/gzguo/2020/09/28/Web/1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/1.0%E5%88%9D%E5%A7%8BWeb/"/>
+    <url>/gzguo/2020/09/28/Web/1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/1.0%E5%88%9D%E5%A7%8BWeb/</url>
+    
+    <content type="html"><![CDATA[<p>介绍了浏览器、W3C、Html的基本概念。以及网页的基本结构。</p><span id="more"></span><h1 id="小知识点">1. 小知识点</h1><h2 id="浏览器">1.1. 浏览器</h2><p>常见的浏览器：Opra、FireFox、InternetExplorer、Safari、Chrome(用户最多)、QQ浏览器</p><p>安卓的浏览器：(安卓是Google团队开发的) 安卓的浏览器本质上是Chrome。苹果的浏览器：Safari</p><p>微信的网页是由QQ浏览器支持的</p><h2 id="W3C">1.2. W3C</h2><p>W3C：软件行业最庞大、最权威的组织，它制定了很多的行业标准。W3C：World Wide Web Consortium 万维网联盟 ，不是公司，<strong>是非营利的组织</strong>，没有总部。</p><p>W3C在世界上建立了四个中心：麻省理工学院、欧洲数学与信息学研究联盟、东京庆应大学、北京航空航天大学</p><p>类似的组织：<strong>OpenSSL</strong>(全世界80%以上的网络通信都使用了OpenSSL提供的加密工具来保证信息的安全)</p><h2 id="HTML">1.3. HTML</h2><p>H5：HTML5 &lt; web前端</p><p>这些&lt;标记文字&gt;不再是普通的文字内容，他们不会显示在页面上，每个标记都有自己的作用，这些标记超越了普通文本的意义，叫做HyperText(超文本)他们全部以标记的形式来书写。所以我们才叫HTML(超文本标记语言 HyperText Markup Language)</p><h2 id="三者的关系">1.4. 三者的关系</h2><p>浏览器是网页的载体，网页需要在浏览器里运行，编写网页的语言叫HTML，规则由W3C制定。</p><h1 id="IDE">2. IDE</h1><p>编译工具(器)：HbuilderX(VSCode、Sublime Text、WebStorm、Atom)</p><p>我们现在的HTML是HTML5(2014年) 相对于HTML(1997) 是一个重大的突破</p><p>我们要注意代码缩进，使用电脑上的tab键进行代码缩进</p><h2 id="网页的基本结构">2.1. 网页的基本结构</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span> <span class="hljs-comment">&lt;!--这句声明，就是告诉浏览器，请使用HTML5的标准来解析这个网页--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span> <span class="hljs-comment">&lt;!--head表示网页的头部，这里的信息都是对网页的整体说明--&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span> = <span class="hljs-string">&quot;utf-8&quot;</span> /&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>这是网页的标题<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span> <span class="hljs-comment">&lt;!--body表示网页的身体，网页的主要内容都写在这里--&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><br>            P标签代表段落，因此这里的内容会单独占一行<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>        <span class="hljs-comment">&lt;!--这里的内容不会显示在页面上，它通常用来注释我们的程序代码--&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>html</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>html</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>1.1Web前端开发概述</title>
+    <link href="/gzguo/2020/09/28/Web/1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/1.1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/"/>
+    <url>/gzguo/2020/09/28/Web/1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/1.1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/</url>
+    
+    <content type="html"><![CDATA[<p>简单介绍了html、css、javascript。</p><span id="more"></span><h1 id="学习内容">1. 学习内容</h1><h2 id="Html标记">1.1. Html标记</h2><p>Hyper Text Markup   超文本标记语言。主要是通过HTML标记对网页中的文本、图片、声音等内容进行描述。最新版本是HTML5</p><h2 id="css样式">1.2. css样式</h2><p>Cascading Style Sheets   层叠样式表。是一种用来表现HTML或者XML文件样式的计算机语言。CSS提供了丰富的样式，控制格式的、控制布局的、控制动态效果的等。最新版是2010年推出的CSS3。CSS3通过模块化结构使设计者可以及时的调整模块的内容，方便版本的更新与发布，同时也增添了很多的新功能</p><h2 id="JavaScript的内置函数">1.3. JavaScript的内置函数</h2><p>1995年最初由Netscape（网景公司）的BrendanEich（瑞登·艾克）设计，后来Netscape为了营销考虑，与Sun微系统达成协议，将其改名为javascript。javascript是一种基于对象和事件驱动并具有相对安全性的客户端脚本语言。运用这个脚本语言可以给HEML网页添加动态功能，响应用户的各种操作。</p><h1 id="Web前端开发概述">2. Web前端开发概述</h1><h2 id="什么是Web？">2.1. 什么是Web？</h2><p>Web是Internet上最受欢迎的一种多媒体服务系统，整个系统由Web服务器、浏览器和通信协议组成。</p><h2 id="什么是Web开发？">2.2. 什么是Web开发？</h2><p>包括：浏览器端页面的制作、服务器端程序的编写</p><h2 id="Web前端开发">2.3. Web前端开发</h2><p>Web前端开发的主要工作是把UI(User Interface用户界面)的设计图按照W3C标准做成html页面，用CSS进行布局，并且用javascript脚本语言实现页面上的前端互动</p><h2 id="浏览器">2.4. 浏览器</h2><p>浏览器是指可以显示网页服务器或者文件系统HTML文件内容，并让用户与这些文件交互的一种软件</p><h2 id="Html5">2.5. Html5</h2><p>Html5是W3C组织2014年建议的标准，因此不是所有的浏览器都支持Html5，同一浏览器对Html5的支持情况也不同</p><h2 id="Web标准">2.6. Web标准</h2><p>Web标准是由W3C和其他标准化组织指定的一系列标准的集合，该标准用来创建和解释基于Web的内容，网页部分的标准通过三部分来描述：结构标准、表现标准、行为标准。</p><h3 id="结构标准">2.6.1. 结构标准</h3><p>用于对于网页元素进行整理和分类，相当于搭建房子的框架。</p><h3 id="表现标准">2.6.2. 表现标准</h3><p>用于设置网页元素的版式、颜色、大小等外观样式，相当于房子的装修，但是房子没有任何功能。</p><h3 id="行为标准">2.6.3. 行为标准</h3><p>是对网页模型的定义以及交互的编写，相当于给房子增加了功能，让房子具有功能性，使用户和房子有更好的交互。</p><h3 id="标准的实现方式">2.6.4. 标准的实现方式</h3><p>上面三个标准分别对应HTML、CSS、JavaScript（Web前端开发的基本应用技术）。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>html</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>html</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>2.1HTML5语法基础</title>
+    <link href="/gzguo/2020/09/28/Web/2HTML5/2.1HTML5%E8%AF%AD%E6%B3%95%E5%9F%BA%E7%A1%80/"/>
+    <url>/gzguo/2020/09/28/Web/2HTML5/2.1HTML5%E8%AF%AD%E6%B3%95%E5%9F%BA%E7%A1%80/</url>
+    
+    <content type="html"><![CDATA[<p>关于h1 单标签 meta 文档规范的总结。</p><span id="more"></span><h1 id="HTML文档结构">1. HTML文档结构</h1><p>完整的HTML文件包括头部和主体两大部分，文档结构由<html><head></head><body>这三大元素组成。<!DOCTYPE html>   是文档类型声名：HTML5中用这一行代码进行说明，位于所有的文档标签之前，告知浏览器应按照什么方式对页面文档进行解析。</body></html></p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure><h2 id="html">1.1. html</h2><p>所有的文档都是以html标签开始和结束，所有的内容都需要放在html标签之中。</p><h2 id="head">1.2. head</h2><p>head主要存放：标题、元信息、CSS样式、JavaScript脚本。</p><h2 id="body">1.3. body</h2><p>网页的正文，包括图片、表格、段落、音频、视屏等</p><h1 id="HTML标签">2. HTML标签</h1><h2 id="h1">2.1. h1</h2><p>标题标签一共有六种，是网页html中对中文标题进行着重强调的标签。h1-h6依次显示重要性的递减。</p><h2 id="单标签">2.2. 单标签</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>   换行<br><span class="hljs-tag">&lt;<span class="hljs-name">hr</span>&gt;</span>   横线<br></code></pre></td></tr></table></figure><h2 id="注释">2.3. 注释</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-comment">&lt;!--********--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">comment</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">comment</span>&gt;</span><br></code></pre></td></tr></table></figure><h2 id="meta">2.4. meta</h2><p>meta标签主要分为两大类，一类对页面进行设置，另一类对搜索引擎进行设置。</p><ol><li>对页面进行设置的格式：<meta http-equiv="名称" content="值"></li><li>对搜索引擎进行设置的格式：<meta name="名称" content="值"></li></ol><h3 id="http-equiv用法示例">2.4.1. http-equiv用法示例</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-comment">&lt;!--页面使用国标汉字码gb2312--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">Meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;Content-Type&quot;</span> <span class="hljs-attr">Content</span>=<span class="hljs-string">&quot;text/html&quot;</span>;<span class="hljs-attr">Charset</span>=<span class="hljs-string">&quot;gb2312&quot;</span>/&gt;</span><br><br><span class="hljs-comment">&lt;!--页面停留20秒后跳转到www.educoder.net--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">Meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;Refresh&quot;</span>  <span class="hljs-attr">Content</span>=<span class="hljs-string">&quot;20;Url=www.educoder.net&quot;</span>/&gt;</span> <br><br><span class="hljs-comment">&lt;!--网页于2020年7月26号8点过期--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">Meta</span> <span class="hljs-attr">http-equiv</span> =<span class="hljs-string">“Expires”</span>  <span class="hljs-attr">Content</span>=<span class="hljs-string">“Thur,26</span> <span class="hljs-attr">Jul</span> <span class="hljs-attr">2020</span> <span class="hljs-attr">08:00:00</span> <span class="hljs-attr">GMT</span>”/&gt;</span> <br><br><span class="hljs-comment">&lt;!--设置cookie并进行页面缓存--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">Meta</span> <span class="hljs-attr">http-equiv</span> =<span class="hljs-string">“Set-Cookie”</span> <span class="hljs-attr">Content</span>=<span class="hljs-string">“cookievalue</span> = <span class="hljs-string">xxx;</span> <span class="hljs-attr">expires</span>= <span class="hljs-string">Thur,26</span> <span class="hljs-attr">Jul</span> <span class="hljs-attr">2020</span> <span class="hljs-attr">08:00:00</span> <span class="hljs-attr">GMT</span>; <span class="hljs-attr">path</span>=<span class="hljs-string">/”</span>&gt;</span> <br></code></pre></td></tr></table></figure><h3 id="name用法示例">2.4.2. name用法示例</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-comment">&lt;!--用于标注网页的作者和Email--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">Meta</span> <span class="hljs-attr">name</span> = <span class="hljs-string">“Author”</span>  <span class="hljs-attr">Content</span> = <span class="hljs-string">“刘明，Liuming@sina.com”</span> /&gt;</span> <br><br><span class="hljs-comment">&lt;!--为搜索引擎提供网站简介--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">Meta</span> <span class="hljs-attr">name</span> =<span class="hljs-string">“Description”</span>  <span class="hljs-attr">Content</span> =<span class="hljs-string">“网站简介”/</span>&gt;</span> <br><br><span class="hljs-comment">&lt;!--为搜索引擎提供关键字--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;keywords&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;漫步时尚广场,时尚,购物,影视,餐饮&quot;</span>/&gt;</span> <br><br><span class="hljs-comment">&lt;!--为搜索引擎提供编辑器类型--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;generator&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;Dreamweaver CS6&quot;</span>/&gt;</span> <br><br><span class="hljs-comment">&lt;!--为搜索引擎提供提供最新版本信息--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">“revised</span>&quot; <span class="hljs-attr">content</span>=<span class="hljs-string">“David,2020/8/8“/</span>&gt;</span> <br></code></pre></td></tr></table></figure><h3 id="charset">2.4.3. charset</h3><p>charset是HTML5新增的字符编码属性。属性取值必须是标准字符集的名称，常用的字符编码如下：</p><ol><li>ISO-8859-1：国际标准化组织针对不同的字母表/语言定义的标准字符集（ 拉丁字母表的字符编码），是浏览器默认的字符集</li><li>utf-8：Unicode 联盟开发的标准，utf-8 是网页和电子邮件的首选编码。</li><li>gb2312：信息交换用汉字编码字符集，中国国家标准总局1980年发布。适用于汉字处理、汉字通信等系统之间的信息交换。用法示例：</li></ol><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-comment">&lt;!--设置utf-8字符编码标准--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">utf-8/</span>&gt;</span> <br></code></pre></td></tr></table></figure><h1 id="HTML文档的编写规范">3. HTML文档的编写规范</h1><ol><li>所有的标签均以&lt;开始、以&gt;结束</li><li>根据标签的类型，正确输入标签，单个标签最好在右尖括号前面加一个/，如换行标签是单标签<br>，成对的标签最好同时输入起始标签和结束标签，以免忘记</li><li>标签可以嵌套使用名单时不能交叉使用</li><li>在HTML代码中不区分大小写</li><li>标签中可以设置各种属性，属性值建议用双引号标注起来</li><li>书写开始与结束标签时，在左尖括号与标签名或斜杠/之间不能留有多余的空格，否则浏览器对标签不能识别，导致错误标签直接显示在页面上，影响页面的美观效果</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>html</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>html</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>2.2HTML文档头部的标签</title>
+    <link href="/gzguo/2020/09/28/Web/2HTML5/2.2HTML%E6%96%87%E6%A1%A3%E5%A4%B4%E9%83%A8%E7%9B%B8%E5%85%B3%E7%9A%84%E6%A0%87%E7%AD%BE/"/>
+    <url>/gzguo/2020/09/28/Web/2HTML5/2.2HTML%E6%96%87%E6%A1%A3%E5%A4%B4%E9%83%A8%E7%9B%B8%E5%85%B3%E7%9A%84%E6%A0%87%E7%AD%BE/</url>
+    
+    <content type="html"><![CDATA[<p>头部标签。</p><span id="more"></span><h1 id="title">1. title</h1><p>主要用于定义HTML页面的标题，即给网页取一个名字，必须位于<head>之内</head></p><h2 id="title的作用：">1.1. title的作用：</h2><ul><li>在浏览器的标题栏中显示</li><li>可以用作默认的快捷方式或者收藏夹的名称</li><li>可以作为搜索引擎结果中的页面标题</li></ul><h2 id="应用时应注意">1.2. 应用时应注意</h2><ul><li>一个网页只能有一个标题</li><li>标题的长度不超过64个字符数</li><li>标题标记对之间不允许有其他的标签存在</li></ul><h1 id="meta">2. meta</h1><p>用于定义页面的元信息，可重复出现在<head>头部标记中，详细信息在   HTML5语法标准中。</head></p><h1 id="link">3. link</h1><p>用link来引用外部的文件，一个页面允许使用多个link标记引用多个外部文件。</p><h1 id="style">4. style</h1><p>用于为HTML文档定义样式信息，位于<head>之中。</head></p><h1 id="script">5. script</h1><p>用于在HTML页面中加载脚本文件：如javascript。</p><h1 id="base">6. base</h1><p>描述了基本的链接地址/链接目标，该标签作为HTML文档中所有的链接标签的默认链接。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>html</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>html</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>linux</title>
     <link href="/gzguo/2020/09/28/linux/1%E5%91%BD%E4%BB%A4/linux%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/"/>
     <url>/gzguo/2020/09/28/linux/1%E5%91%BD%E4%BB%A4/linux%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/</url>
@@ -2092,56 +2192,6 @@
   
   
   <entry>
-    <title>linux</title>
-    <link href="/gzguo/2020/09/28/linux/2%E6%93%8D%E4%BD%9C/%E9%83%A8%E7%BD%B2jar%E5%8C%85/"/>
-    <url>/gzguo/2020/09/28/linux/2%E6%93%8D%E4%BD%9C/%E9%83%A8%E7%BD%B2jar%E5%8C%85/</url>
-    
-    <content type="html"><![CDATA[<p>部署jar包到服务器上，只需要四步！！！</p><span id="more"></span><h1 id="查看8080端口占用">1. 查看8080端口占用</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">netstat -ntulp | grep <span class="hljs-number">8080</span><br></code></pre></td></tr></table></figure><h1 id="杀死8080端口">2. 杀死8080端口</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">kill <span class="hljs-number">-9</span> ****<br></code></pre></td></tr></table></figure><h1 id="部署jar包">3. 部署jar包</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">nohup java -jar **** &gt; ***.txt &amp;<br></code></pre></td></tr></table></figure><h1 id="清除txt文件内容">4. 清除txt文件内容</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">echo <span class="hljs-string">&quot;&quot;</span> &gt; <span class="hljs-built_in">log</span>.txt<br></code></pre></td></tr></table></figure>]]></content>
-    
-    
-    <categories>
-      
-      <category>linux</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>linux</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>1.0学习Web前的小知识</title>
-    <link href="/gzguo/2020/09/28/Web/1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/1.0%E5%88%9D%E5%A7%8BWeb/"/>
-    <url>/gzguo/2020/09/28/Web/1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/1.0%E5%88%9D%E5%A7%8BWeb/</url>
-    
-    <content type="html"><![CDATA[<p>介绍了浏览器、W3C、Html的基本概念。以及网页的基本结构。</p><span id="more"></span><h1 id="小知识点">1. 小知识点</h1><h2 id="浏览器">1.1. 浏览器</h2><p>常见的浏览器：Opra、FireFox、InternetExplorer、Safari、Chrome(用户最多)、QQ浏览器</p><p>安卓的浏览器：(安卓是Google团队开发的) 安卓的浏览器本质上是Chrome。苹果的浏览器：Safari</p><p>微信的网页是由QQ浏览器支持的</p><h2 id="W3C">1.2. W3C</h2><p>W3C：软件行业最庞大、最权威的组织，它制定了很多的行业标准。W3C：World Wide Web Consortium 万维网联盟 ，不是公司，<strong>是非营利的组织</strong>，没有总部。</p><p>W3C在世界上建立了四个中心：麻省理工学院、欧洲数学与信息学研究联盟、东京庆应大学、北京航空航天大学</p><p>类似的组织：<strong>OpenSSL</strong>(全世界80%以上的网络通信都使用了OpenSSL提供的加密工具来保证信息的安全)</p><h2 id="HTML">1.3. HTML</h2><p>H5：HTML5 &lt; web前端</p><p>这些&lt;标记文字&gt;不再是普通的文字内容，他们不会显示在页面上，每个标记都有自己的作用，这些标记超越了普通文本的意义，叫做HyperText(超文本)他们全部以标记的形式来书写。所以我们才叫HTML(超文本标记语言 HyperText Markup Language)</p><h2 id="三者的关系">1.4. 三者的关系</h2><p>浏览器是网页的载体，网页需要在浏览器里运行，编写网页的语言叫HTML，规则由W3C制定。</p><h1 id="IDE">2. IDE</h1><p>编译工具(器)：HbuilderX(VSCode、Sublime Text、WebStorm、Atom)</p><p>我们现在的HTML是HTML5(2014年) 相对于HTML(1997) 是一个重大的突破</p><p>我们要注意代码缩进，使用电脑上的tab键进行代码缩进</p><h2 id="网页的基本结构">2.1. 网页的基本结构</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span> <span class="hljs-comment">&lt;!--这句声明，就是告诉浏览器，请使用HTML5的标准来解析这个网页--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span> <span class="hljs-comment">&lt;!--head表示网页的头部，这里的信息都是对网页的整体说明--&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span> = <span class="hljs-string">&quot;utf-8&quot;</span> /&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>这是网页的标题<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span> <span class="hljs-comment">&lt;!--body表示网页的身体，网页的主要内容都写在这里--&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><br>            P标签代表段落，因此这里的内容会单独占一行<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>        <span class="hljs-comment">&lt;!--这里的内容不会显示在页面上，它通常用来注释我们的程序代码--&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>]]></content>
-    
-    
-    <categories>
-      
-      <category>html</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>html</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>分布式基本概念</title>
     <link href="/gzguo/2020/09/28/linux/2%E6%93%8D%E4%BD%9C/%E5%88%86%E5%B8%83%E5%BC%8F%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/"/>
     <url>/gzguo/2020/09/28/linux/2%E6%93%8D%E4%BD%9C/%E5%88%86%E5%B8%83%E5%BC%8F%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</url>
@@ -2167,73 +2217,23 @@
   
   
   <entry>
-    <title>1.1Web前端开发概述</title>
-    <link href="/gzguo/2020/09/28/Web/1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/1.1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/"/>
-    <url>/gzguo/2020/09/28/Web/1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/1.1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/</url>
+    <title>linux</title>
+    <link href="/gzguo/2020/09/28/linux/2%E6%93%8D%E4%BD%9C/%E9%83%A8%E7%BD%B2jar%E5%8C%85/"/>
+    <url>/gzguo/2020/09/28/linux/2%E6%93%8D%E4%BD%9C/%E9%83%A8%E7%BD%B2jar%E5%8C%85/</url>
     
-    <content type="html"><![CDATA[<p>简单介绍了html、css、javascript。</p><span id="more"></span><h1 id="学习内容">1. 学习内容</h1><h2 id="Html标记">1.1. Html标记</h2><p>Hyper Text Markup   超文本标记语言。主要是通过HTML标记对网页中的文本、图片、声音等内容进行描述。最新版本是HTML5</p><h2 id="css样式">1.2. css样式</h2><p>Cascading Style Sheets   层叠样式表。是一种用来表现HTML或者XML文件样式的计算机语言。CSS提供了丰富的样式，控制格式的、控制布局的、控制动态效果的等。最新版是2010年推出的CSS3。CSS3通过模块化结构使设计者可以及时的调整模块的内容，方便版本的更新与发布，同时也增添了很多的新功能</p><h2 id="JavaScript的内置函数">1.3. JavaScript的内置函数</h2><p>1995年最初由Netscape（网景公司）的BrendanEich（瑞登·艾克）设计，后来Netscape为了营销考虑，与Sun微系统达成协议，将其改名为javascript。javascript是一种基于对象和事件驱动并具有相对安全性的客户端脚本语言。运用这个脚本语言可以给HEML网页添加动态功能，响应用户的各种操作。</p><h1 id="Web前端开发概述">2. Web前端开发概述</h1><h2 id="什么是Web？">2.1. 什么是Web？</h2><p>Web是Internet上最受欢迎的一种多媒体服务系统，整个系统由Web服务器、浏览器和通信协议组成。</p><h2 id="什么是Web开发？">2.2. 什么是Web开发？</h2><p>包括：浏览器端页面的制作、服务器端程序的编写</p><h2 id="Web前端开发">2.3. Web前端开发</h2><p>Web前端开发的主要工作是把UI(User Interface用户界面)的设计图按照W3C标准做成html页面，用CSS进行布局，并且用javascript脚本语言实现页面上的前端互动</p><h2 id="浏览器">2.4. 浏览器</h2><p>浏览器是指可以显示网页服务器或者文件系统HTML文件内容，并让用户与这些文件交互的一种软件</p><h2 id="Html5">2.5. Html5</h2><p>Html5是W3C组织2014年建议的标准，因此不是所有的浏览器都支持Html5，同一浏览器对Html5的支持情况也不同</p><h2 id="Web标准">2.6. Web标准</h2><p>Web标准是由W3C和其他标准化组织指定的一系列标准的集合，该标准用来创建和解释基于Web的内容，网页部分的标准通过三部分来描述：结构标准、表现标准、行为标准。</p><h3 id="结构标准">2.6.1. 结构标准</h3><p>用于对于网页元素进行整理和分类，相当于搭建房子的框架。</p><h3 id="表现标准">2.6.2. 表现标准</h3><p>用于设置网页元素的版式、颜色、大小等外观样式，相当于房子的装修，但是房子没有任何功能。</p><h3 id="行为标准">2.6.3. 行为标准</h3><p>是对网页模型的定义以及交互的编写，相当于给房子增加了功能，让房子具有功能性，使用户和房子有更好的交互。</p><h3 id="标准的实现方式">2.6.4. 标准的实现方式</h3><p>上面三个标准分别对应HTML、CSS、JavaScript（Web前端开发的基本应用技术）。</p>]]></content>
+    <content type="html"><![CDATA[<p>部署jar包到服务器上，只需要四步！！！</p><span id="more"></span><h1 id="查看8080端口占用">1. 查看8080端口占用</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">netstat -ntulp | grep <span class="hljs-number">8080</span><br></code></pre></td></tr></table></figure><h1 id="杀死8080端口">2. 杀死8080端口</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">kill <span class="hljs-number">-9</span> ****<br></code></pre></td></tr></table></figure><h1 id="部署jar包">3. 部署jar包</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">nohup java -jar **** &gt; ***.txt &amp;<br></code></pre></td></tr></table></figure><h1 id="清除txt文件内容">4. 清除txt文件内容</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">echo <span class="hljs-string">&quot;&quot;</span> &gt; <span class="hljs-built_in">log</span>.txt<br></code></pre></td></tr></table></figure>]]></content>
     
     
     <categories>
       
-      <category>html</category>
+      <category>linux</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>html</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>2.1HTML5语法基础</title>
-    <link href="/gzguo/2020/09/28/Web/2HTML5/2.1HTML5%E8%AF%AD%E6%B3%95%E5%9F%BA%E7%A1%80/"/>
-    <url>/gzguo/2020/09/28/Web/2HTML5/2.1HTML5%E8%AF%AD%E6%B3%95%E5%9F%BA%E7%A1%80/</url>
-    
-    <content type="html"><![CDATA[<p>关于h1 单标签 meta 文档规范的总结。</p><span id="more"></span><h1 id="HTML文档结构">1. HTML文档结构</h1><p>完整的HTML文件包括头部和主体两大部分，文档结构由<html><head></head><body>这三大元素组成。<!DOCTYPE html>   是文档类型声名：HTML5中用这一行代码进行说明，位于所有的文档标签之前，告知浏览器应按照什么方式对页面文档进行解析。</body></html></p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure><h2 id="html">1.1. html</h2><p>所有的文档都是以html标签开始和结束，所有的内容都需要放在html标签之中。</p><h2 id="head">1.2. head</h2><p>head主要存放：标题、元信息、CSS样式、JavaScript脚本。</p><h2 id="body">1.3. body</h2><p>网页的正文，包括图片、表格、段落、音频、视屏等</p><h1 id="HTML标签">2. HTML标签</h1><h2 id="h1">2.1. h1</h2><p>标题标签一共有六种，是网页html中对中文标题进行着重强调的标签。h1-h6依次显示重要性的递减。</p><h2 id="单标签">2.2. 单标签</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>   换行<br><span class="hljs-tag">&lt;<span class="hljs-name">hr</span>&gt;</span>   横线<br></code></pre></td></tr></table></figure><h2 id="注释">2.3. 注释</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-comment">&lt;!--********--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">comment</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">comment</span>&gt;</span><br></code></pre></td></tr></table></figure><h2 id="meta">2.4. meta</h2><p>meta标签主要分为两大类，一类对页面进行设置，另一类对搜索引擎进行设置。</p><ol><li>对页面进行设置的格式：<meta http-equiv="名称" content="值"></li><li>对搜索引擎进行设置的格式：<meta name="名称" content="值"></li></ol><h3 id="http-equiv用法示例">2.4.1. http-equiv用法示例</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-comment">&lt;!--页面使用国标汉字码gb2312--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">Meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;Content-Type&quot;</span> <span class="hljs-attr">Content</span>=<span class="hljs-string">&quot;text/html&quot;</span>;<span class="hljs-attr">Charset</span>=<span class="hljs-string">&quot;gb2312&quot;</span>/&gt;</span><br><br><span class="hljs-comment">&lt;!--页面停留20秒后跳转到www.educoder.net--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">Meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;Refresh&quot;</span>  <span class="hljs-attr">Content</span>=<span class="hljs-string">&quot;20;Url=www.educoder.net&quot;</span>/&gt;</span> <br><br><span class="hljs-comment">&lt;!--网页于2020年7月26号8点过期--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">Meta</span> <span class="hljs-attr">http-equiv</span> =<span class="hljs-string">“Expires”</span>  <span class="hljs-attr">Content</span>=<span class="hljs-string">“Thur,26</span> <span class="hljs-attr">Jul</span> <span class="hljs-attr">2020</span> <span class="hljs-attr">08:00:00</span> <span class="hljs-attr">GMT</span>”/&gt;</span> <br><br><span class="hljs-comment">&lt;!--设置cookie并进行页面缓存--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">Meta</span> <span class="hljs-attr">http-equiv</span> =<span class="hljs-string">“Set-Cookie”</span> <span class="hljs-attr">Content</span>=<span class="hljs-string">“cookievalue</span> = <span class="hljs-string">xxx;</span> <span class="hljs-attr">expires</span>= <span class="hljs-string">Thur,26</span> <span class="hljs-attr">Jul</span> <span class="hljs-attr">2020</span> <span class="hljs-attr">08:00:00</span> <span class="hljs-attr">GMT</span>; <span class="hljs-attr">path</span>=<span class="hljs-string">/”</span>&gt;</span> <br></code></pre></td></tr></table></figure><h3 id="name用法示例">2.4.2. name用法示例</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-comment">&lt;!--用于标注网页的作者和Email--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">Meta</span> <span class="hljs-attr">name</span> = <span class="hljs-string">“Author”</span>  <span class="hljs-attr">Content</span> = <span class="hljs-string">“刘明，Liuming@sina.com”</span> /&gt;</span> <br><br><span class="hljs-comment">&lt;!--为搜索引擎提供网站简介--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">Meta</span> <span class="hljs-attr">name</span> =<span class="hljs-string">“Description”</span>  <span class="hljs-attr">Content</span> =<span class="hljs-string">“网站简介”/</span>&gt;</span> <br><br><span class="hljs-comment">&lt;!--为搜索引擎提供关键字--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;keywords&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;漫步时尚广场,时尚,购物,影视,餐饮&quot;</span>/&gt;</span> <br><br><span class="hljs-comment">&lt;!--为搜索引擎提供编辑器类型--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;generator&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;Dreamweaver CS6&quot;</span>/&gt;</span> <br><br><span class="hljs-comment">&lt;!--为搜索引擎提供提供最新版本信息--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">“revised</span>&quot; <span class="hljs-attr">content</span>=<span class="hljs-string">“David,2020/8/8“/</span>&gt;</span> <br></code></pre></td></tr></table></figure><h3 id="charset">2.4.3. charset</h3><p>charset是HTML5新增的字符编码属性。属性取值必须是标准字符集的名称，常用的字符编码如下：</p><ol><li>ISO-8859-1：国际标准化组织针对不同的字母表/语言定义的标准字符集（ 拉丁字母表的字符编码），是浏览器默认的字符集</li><li>utf-8：Unicode 联盟开发的标准，utf-8 是网页和电子邮件的首选编码。</li><li>gb2312：信息交换用汉字编码字符集，中国国家标准总局1980年发布。适用于汉字处理、汉字通信等系统之间的信息交换。用法示例：</li></ol><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-comment">&lt;!--设置utf-8字符编码标准--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">utf-8/</span>&gt;</span> <br></code></pre></td></tr></table></figure><h1 id="HTML文档的编写规范">3. HTML文档的编写规范</h1><ol><li>所有的标签均以&lt;开始、以&gt;结束</li><li>根据标签的类型，正确输入标签，单个标签最好在右尖括号前面加一个/，如换行标签是单标签<br>，成对的标签最好同时输入起始标签和结束标签，以免忘记</li><li>标签可以嵌套使用名单时不能交叉使用</li><li>在HTML代码中不区分大小写</li><li>标签中可以设置各种属性，属性值建议用双引号标注起来</li><li>书写开始与结束标签时，在左尖括号与标签名或斜杠/之间不能留有多余的空格，否则浏览器对标签不能识别，导致错误标签直接显示在页面上，影响页面的美观效果</li></ol>]]></content>
-    
-    
-    <categories>
-      
-      <category>html</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>html</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>2.2HTML文档头部的标签</title>
-    <link href="/gzguo/2020/09/28/Web/2HTML5/2.2HTML%E6%96%87%E6%A1%A3%E5%A4%B4%E9%83%A8%E7%9B%B8%E5%85%B3%E7%9A%84%E6%A0%87%E7%AD%BE/"/>
-    <url>/gzguo/2020/09/28/Web/2HTML5/2.2HTML%E6%96%87%E6%A1%A3%E5%A4%B4%E9%83%A8%E7%9B%B8%E5%85%B3%E7%9A%84%E6%A0%87%E7%AD%BE/</url>
-    
-    <content type="html"><![CDATA[<p>头部标签。</p><span id="more"></span><h1 id="title">1. title</h1><p>主要用于定义HTML页面的标题，即给网页取一个名字，必须位于<head>之内</head></p><h2 id="title的作用：">1.1. title的作用：</h2><ul><li>在浏览器的标题栏中显示</li><li>可以用作默认的快捷方式或者收藏夹的名称</li><li>可以作为搜索引擎结果中的页面标题</li></ul><h2 id="应用时应注意">1.2. 应用时应注意</h2><ul><li>一个网页只能有一个标题</li><li>标题的长度不超过64个字符数</li><li>标题标记对之间不允许有其他的标签存在</li></ul><h1 id="meta">2. meta</h1><p>用于定义页面的元信息，可重复出现在<head>头部标记中，详细信息在   HTML5语法标准中。</head></p><h1 id="link">3. link</h1><p>用link来引用外部的文件，一个页面允许使用多个link标记引用多个外部文件。</p><h1 id="style">4. style</h1><p>用于为HTML文档定义样式信息，位于<head>之中。</head></p><h1 id="script">5. script</h1><p>用于在HTML页面中加载脚本文件：如javascript。</p><h1 id="base">6. base</h1><p>描述了基本的链接地址/链接目标，该标签作为HTML文档中所有的链接标签的默认链接。</p>]]></content>
-    
-    
-    <categories>
-      
-      <category>html</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>html</tag>
+      <tag>linux</tag>
       
     </tags>
     
