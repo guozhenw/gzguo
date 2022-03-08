@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="学习jvm、jre、jdk之间的关系；statement，preparedstatement，callablestatement之间的关系">
+  <meta name="description" content="IT">
   <meta name="author" content="Little scholar">
   <meta name="keywords" content="IT">
   
-  <title>jvm - Learing</title>
+  <title>Learing</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -146,7 +146,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="jvm">
+            <span class="h2" id="subtitle" title="">
               
             </span>
 
@@ -156,7 +156,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-22 21:17" pubdate>
+      <time datetime="2022-02-22 22:50" pubdate>
         2022年2月22日 晚上
       </time>
     </span>
@@ -168,7 +168,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      724 字
+      43 字
     </span>
   
 
@@ -178,7 +178,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      1
        分钟
     </span>
   
@@ -217,57 +217,18 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">jvm</h1>
+            <h1 style="display: none"></h1>
             
             <div class="markdown-body">
-              <p>学习jvm、jre、jdk之间的关系；statement，preparedstatement，callablestatement之间的关系</p>
-<span id="more"></span>
+              <p>springMVC的常用注解   +</p>
+<figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs qml">&lt;<span class="hljs-built_in">url</span>-pattern&gt;<span class="hljs-regexp">/&lt;/u</span>rl-pattern&gt;<br>捕获WEB容器的所有请求。包括静态资源的请求和前端控制器的请求。<br></code></pre></td></tr></table></figure>
 
-<h1 id="jvm">1. jvm</h1><h2 id="jvm、jre、jdk的定义">1.1. jvm、jre、jdk的定义</h2><p>JRE(JavaRuntimeEnvironment，Java运行环境)，也就是Java平台。所有的Java 程序都要在JRE下才能运行。</p>
-<p>JDK(Java Development Kit)是程序开发者用来来编译、调试java程序用的开发工具包。JDK的工具也是Java程序，也需要JRE才能运行。为了保持JDK的独立性和完整性，在JDK的安装过程中，JRE也是 安装的一部分。所以，在JDK的安装目录下有一个名为jre的目录，用于存放JRE文件。</p>
-<p>JVM(JavaVirtualMachine，Java虚拟机)是JRE的一部分。它是一个虚构出来的计算机，是通过在实际的计算机上仿真模拟各种计算机功能来实现的。JVM有自己完善的硬件架构，如处理器、堆栈、寄存器等，还具有相应的指令系统。Java语言最重要的特点就是跨平台运行。使用JVM就是为了支持与操作系统无关，实现跨平台。</p>
-<h2 id="jvm、jre、jdk三者之间的关系：">1.2. jvm、jre、jdk三者之间的关系：</h2><blockquote>
-<p>jdk比jre多了编译器；jre比jvm多了类库（jvm执行class需要jrelib类库的支持，尤其是rt.jar）；</p>
-<p>jvm+lib=jre；jdk中有javac.exe，而jre里面没有，javac.exe是开发者需要的，而用户不需要。</p>
-</blockquote>
-<p><img src="C:\Users\郭振\AppData\Roaming\Typora\typora-user-images\image-20220222092310310.png" srcset="/gzguo/img/loading.gif" lazyload alt="image-20220222092310310"></p>
-<h2 id="jvm详解（未完成）">1.3. jvm详解（未完成）</h2><p>jvm内存模型图：</p>
-<p><img src="C:\Users\郭振\AppData\Roaming\Typora\typora-user-images\image-20220222091957689.png" srcset="/gzguo/img/loading.gif" lazyload alt="image-20220222091957689"></p>
-<h1 id="statement">2. statement</h1><h2 id="statement、preparedstatement、callablestatement的区别">2.1. statement、preparedstatement、callablestatement的区别</h2><ol>
-<li>Statement、PreparedStatement和CallableStatement都是接口(interface)。 </li>
-<li>Statement继承自Wrapper、PreparedStatement继承自Statement、CallableStatement继承自PreparedStatement。 </li>
-<li>Statement接口提供了执行语句和获取结果的基本方法；PreparedStatement接口添加了处理 IN 参数的方法；CallableStatement接口添加了处理 OUT 参数的方法。</li>
-<li>Statement: 普通的不带参的查询SQL；支持批量更新,批量删除; PreparedStatement: 可变参数的SQL,编译一次,执行多次,效率高; 安全性好，有效防止Sql注入等问题; 支持批量更新,批量删除; CallableStatement: 继承自PreparedStatement,支持带参数的SQL操作; 支持调用存储过程,提供了对输出和输入/输出参数(INOUT)的支持; </li>
-</ol>
-<h2 id="应用场景">2.2. 应用场景</h2><h3 id="statement-1">2.2.1. statement</h3><p>Statement每次执行sql语句，数据库都要执行sql语句的编译 ， 最好用于仅执行一次查询并返回结果的情形，效率高于PreparedStatement。 </p>
-<h3 id="preparedstatement">2.2.2. preparedstatement</h3><p>PreparedStatement是预编译的，使用PreparedStatement有几个好处 ：</p>
-<ol>
-<li>在执行<strong>可变参数</strong>的一条SQL时，PreparedStatement比Statement的效率高，因为DBMS预编译一条SQL当然会比多次编译一条SQL的效率要高</li>
-<li>安全性好，有效防止Sql注入等问题。 </li>
-<li>对于多次重复执行的语句，使用PreparedStament效率会更高一点，并且在这种情况下也比较适合使用batch；</li>
-<li>代码的可读性和可维护性。</li>
-</ol>
-<h3 id="联系">2.2.3. 联系</h3><p>statement加上预输入就是preparedstatement；preparedstatement加上out输出就是callablestatement。</p>
 
             </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/gzguo/categories/java/">java</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/gzguo/tags/java/">java</a>
-                    
-                  </div>
                 
               </div>
               
@@ -282,12 +243,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/gzguo/2022/02/22/%E4%B8%9C%E8%BD%AF/springboot/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/gzguo/2022/01/07/mysql/1.5mysql%E9%87%8D%E6%B8%B8/">
-                        <span class="hidden-mobile">1.5mysql</span>
+                      <a href="/gzguo/2022/02/22/java%E7%89%9B%E5%AE%A2%E7%9F%A5%E8%AF%86%E7%82%B9/2%E5%B0%8F%E7%B1%B3%E6%A8%A1%E6%8B%9F%E9%9D%A2%E8%AF%95/">
+                        <span class="hidden-mobile">牛客小米模拟面试</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
