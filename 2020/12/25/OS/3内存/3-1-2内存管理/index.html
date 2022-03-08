@@ -30,7 +30,7 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/agate.min.css" />
     
   
 
@@ -52,6 +52,14 @@
 <link  rel="stylesheet" href="/gzguo/css/main.css" />
 
 <!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/gzguo/css/mac.css">
+<link rel="stylesheet" href="/gzguo/css/toubudaziji.css">
+<link rel="stylesheet" href="/gzguo/css/shubiao.css#.css">
+<link rel="stylesheet" href="/gzguo/css/gundong.css">
+<link rel="stylesheet" href="/gzguo/css/APlayer.min.css">
+
 
 
   <script id="fluid-configs">
@@ -230,19 +238,19 @@
 <h2 id="连续分配">1.1. 连续分配</h2><p>连续分配：为用户进程分配的必须是一个连续的内存空间</p>
 <ol>
 <li><p>单一连续分配</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs">内存被分为系统区和用户区。系统区通常在低地址部分，用于存放操作系统进程的相关数据。用户区用于存放用户进程的相关数据，用户程序独占整个用户区空间。<br>优点：实现简单，没有外部碎片，不需要内存保护<br>缺点：有内部碎片<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">内存被分为系统区和用户区。系统区通常在低地址部分，用于存放操作系统进程的相关数据。用户区用于存放用户进程的相关数据，用户程序独占整个用户区空间。<br>优点：实现简单，没有外部碎片，不需要内存保护<br>缺点：有内部碎片<br></code></pre></div></td></tr></table></figure></li>
 <li><p>固定分区分配</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs">分为固定分区，每个分区中只能装入一道作业，可以分区大小相等，也可以是分区大小不等<br>分区说明表：对内存中的分区进行说明（用数据结构来表示）<br>优点：实现简单，没有外部碎片<br>缺点：程序太大要采用覆盖技术、会产生内部碎片内存利用率低<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">分为固定分区，每个分区中只能装入一道作业，可以分区大小相等，也可以是分区大小不等<br>分区说明表：对内存中的分区进行说明（用数据结构来表示）<br>优点：实现简单，没有外部碎片<br>缺点：程序太大要采用覆盖技术、会产生内部碎片内存利用率低<br></code></pre></div></td></tr></table></figure></li>
 <li><p>动态分区分配</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">可变分区分配：不会预先划分内存分区，而是在进程装入内存的时候，根据进程大小动态的建立分区<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">可变分区分配：不会预先划分内存分区，而是在进程装入内存的时候，根据进程大小动态的建立分区<br></code></pre></div></td></tr></table></figure></li>
 </ol>
 <h2 id="非连续分配">1.2. 非连续分配</h2><h1 id="内存空间扩充">2. 内存空间扩充</h1><p>从逻辑上对内存进行扩充</p>
 <p>技术：</p>
 <ol>
 <li><p>覆盖技术</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs">内存中分为一个固定区和若干个覆盖区<br>需要常驻内存段放在固定区中 ，调入后就不再调出（除非运行结束）<br>不常用的端放在覆盖区，需要用到时调入内存，用不到时调出内存<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">内存中分为一个固定区和若干个覆盖区<br>需要常驻内存段放在固定区中 ，调入后就不再调出（除非运行结束）<br>不常用的端放在覆盖区，需要用到时调入内存，用不到时调出内存<br></code></pre></div></td></tr></table></figure></li>
 <li><p>交换技术</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs">内存空间紧张时，系统将内存中的某些进程暂时换出内存，把外存中某些具备运行条件的进程换入内存<br>存在一个对换区<br>注意：PCB是常驻内存的，不会被换出<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">内存空间紧张时，系统将内存中的某些进程暂时换出内存，把外存中某些具备运行条件的进程换入内存<br>存在一个对换区<br>注意：PCB是常驻内存的，不会被换出<br></code></pre></div></td></tr></table></figure></li>
 <li><p>虚拟存储技术</p>
 </li>
 </ol>
@@ -298,8 +306,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/gzguo/2020/12/25/OS/2%E8%BF%9B%E7%A8%8B/2-1-1%E8%BF%9B%E7%A8%8B%E5%AE%9A%E4%B9%89/">
-                        <span class="hidden-mobile">2-1-1进程定义</span>
+                      <a href="/gzguo/2020/12/24/OS/1%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/1-2%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/">
+                        <span class="hidden-mobile">1-2操作系统概念</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -495,6 +503,16 @@
   
 
 
+
+
+  
+<script src="/gzguo/js/boom.js"></script>
+<script src="/gzguo/js/anime.min.js"></script>
+<script src="/gzguo/js/qipao.js"></script>
+<script src="/gzguo/js/timeDate.js"></script>
+<script src="/gzguo/js/APlayer.min.js"></script>
+<script src="/gzguo/js/Meting.min.js"></script>
+<script src="/gzguo/js/caidai.js"></script>
 
 
 

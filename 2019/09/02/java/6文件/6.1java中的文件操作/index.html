@@ -30,7 +30,7 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/agate.min.css" />
     
   
 
@@ -52,6 +52,14 @@
 <link  rel="stylesheet" href="/gzguo/css/main.css" />
 
 <!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/gzguo/css/mac.css">
+<link rel="stylesheet" href="/gzguo/css/toubudaziji.css">
+<link rel="stylesheet" href="/gzguo/css/shubiao.css#.css">
+<link rel="stylesheet" href="/gzguo/css/gundong.css">
+<link rel="stylesheet" href="/gzguo/css/APlayer.min.css">
+
 
 
   <script id="fluid-configs">
@@ -224,10 +232,10 @@
 <span id="more"></span>
 
 <p>我们的程序和硬盘中的文件需要建立联系，建立联系的东西就是File。注意File并不是文件本身。我们需要操作io流来操作文件的内容</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;<br>        System.out.println(File.pathSeparator);<br>        System.out.println(File.separator);<br>        <span class="hljs-comment">//路径的表示形式</span><br>        String path = <span class="hljs-string">&quot;E:\\xp\\test\\2.jpg&quot;</span>;<br>        <span class="hljs-comment">//这个可以做到跨平台，如果不是动态生成，那么不建议使用</span><br>        path = <span class="hljs-string">&quot;E:&quot;</span>+File.separator+<span class="hljs-string">&quot;xp&quot;</span>+File.separator+<span class="hljs-string">&quot;test&quot;</span>+File.separator+<span class="hljs-number">2.</span>jpg;<br>        path = <span class="hljs-string">&quot;E:/xp/test/2.jpg&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;<br>        System.out.println(File.pathSeparator);<br>        System.out.println(File.separator);<br>        <span class="hljs-comment">//路径的表示形式</span><br>        String path = <span class="hljs-string">&quot;E:\\xp\\test\\2.jpg&quot;</span>;<br>        <span class="hljs-comment">//这个可以做到跨平台，如果不是动态生成，那么不建议使用</span><br>        path = <span class="hljs-string">&quot;E:&quot;</span>+File.separator+<span class="hljs-string">&quot;xp&quot;</span>+File.separator+<span class="hljs-string">&quot;test&quot;</span>+File.separator+<span class="hljs-number">2.</span>jpg;<br>        path = <span class="hljs-string">&quot;E:/xp/test/2.jpg&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 
 <p>相对路径和绝对路径：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;<br>        String parentPath = <span class="hljs-string">&quot;E:/xp/test&quot;</span>;<br>        String name = <span class="hljs-string">&quot;2.jpg&quot;</span>;<br>        <span class="hljs-comment">//相对路径</span><br>        File src = <span class="hljs-keyword">new</span> File(parentPath,name);<br>        src = <span class="hljs-keyword">new</span> File(<span class="hljs-keyword">new</span> File(parentPath),name);<br>        <span class="hljs-comment">//输出</span><br>        System.out.println(src.getName());<br>        System.out,println(src.getPath());<br>        <span class="hljs-comment">//绝对路径</span><br>        src = <span class="hljs-keyword">new</span> File(<span class="hljs-string">&quot;E:/xp/test/2.jpg&quot;</span>);<br>        System.out.println(src.getName());<br>        System.out.println(src.getPath());<br>        <span class="hljs-comment">//没有盘符，在项目的工作空间构建</span><br>        src = <span class="hljs-keyword">new</span> File(<span class="hljs-string">&quot;test.txt&quot;</span>);<br>        System.out.println(src.getName());<br>        System.out.println(src.getPath());<br>        System.out.println(src.getAbsolutePath());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;<br>        String parentPath = <span class="hljs-string">&quot;E:/xp/test&quot;</span>;<br>        String name = <span class="hljs-string">&quot;2.jpg&quot;</span>;<br>        <span class="hljs-comment">//相对路径</span><br>        File src = <span class="hljs-keyword">new</span> File(parentPath,name);<br>        src = <span class="hljs-keyword">new</span> File(<span class="hljs-keyword">new</span> File(parentPath),name);<br>        <span class="hljs-comment">//输出</span><br>        System.out.println(src.getName());<br>        System.out,println(src.getPath());<br>        <span class="hljs-comment">//绝对路径</span><br>        src = <span class="hljs-keyword">new</span> File(<span class="hljs-string">&quot;E:/xp/test/2.jpg&quot;</span>);<br>        System.out.println(src.getName());<br>        System.out.println(src.getPath());<br>        <span class="hljs-comment">//没有盘符，在项目的工作空间构建</span><br>        src = <span class="hljs-keyword">new</span> File(<span class="hljs-string">&quot;test.txt&quot;</span>);<br>        System.out.println(src.getName());<br>        System.out.println(src.getPath());<br>        System.out.println(src.getAbsolutePath());<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 
 
             </div>
@@ -470,6 +478,16 @@
   
 
 
+
+
+  
+<script src="/gzguo/js/boom.js"></script>
+<script src="/gzguo/js/anime.min.js"></script>
+<script src="/gzguo/js/qipao.js"></script>
+<script src="/gzguo/js/timeDate.js"></script>
+<script src="/gzguo/js/APlayer.min.js"></script>
+<script src="/gzguo/js/Meting.min.js"></script>
+<script src="/gzguo/js/caidai.js"></script>
 
 
 

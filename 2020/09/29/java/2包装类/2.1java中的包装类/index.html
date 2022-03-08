@@ -30,7 +30,7 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/agate.min.css" />
     
   
 
@@ -52,6 +52,14 @@
 <link  rel="stylesheet" href="/gzguo/css/main.css" />
 
 <!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/gzguo/css/mac.css">
+<link rel="stylesheet" href="/gzguo/css/toubudaziji.css">
+<link rel="stylesheet" href="/gzguo/css/shubiao.css#.css">
+<link rel="stylesheet" href="/gzguo/css/gundong.css">
+<link rel="stylesheet" href="/gzguo/css/APlayer.min.css">
+
 
 
   <script id="fluid-configs">
@@ -225,13 +233,13 @@
 
 <h1 id="包装类">1. 包装类</h1><p>包装类的作用：将基本类型包装成对象</p>
 <p>主要介绍一下Integer</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java">Integer.MAX_VALUE; <span class="hljs-comment">//查看int类型的范围的最大值</span><br>Integer.toHexString(); <span class="hljs-comment">//转化为8进制</span><br>Integer.parseInt(); <span class="hljs-comment">//强转为Integer对象</span><br><span class="hljs-keyword">new</span> Integer(); <span class="hljs-comment">//强转为Integer对象</span><br>Integer.intValue(); <span class="hljs-comment">//强转为真正的数字</span><br>String str = <span class="hljs-number">234</span>+<span class="hljs-string">&quot;&quot;</span>; <span class="hljs-comment">//将数字转为字符串</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">Integer.MAX_VALUE; <span class="hljs-comment">//查看int类型的范围的最大值</span><br>Integer.toHexString(); <span class="hljs-comment">//转化为8进制</span><br>Integer.parseInt(); <span class="hljs-comment">//强转为Integer对象</span><br><span class="hljs-keyword">new</span> Integer(); <span class="hljs-comment">//强转为Integer对象</span><br>Integer.intValue(); <span class="hljs-comment">//强转为真正的数字</span><br>String str = <span class="hljs-number">234</span>+<span class="hljs-string">&quot;&quot;</span>; <span class="hljs-comment">//将数字转为字符串</span><br></code></pre></div></td></tr></table></figure>
 
 <h1 id="自动装箱、拆箱">2. 自动装箱、拆箱</h1><p>自动装箱：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">Integer a = <span class="hljs-number">1000</span>; <span class="hljs-comment">//jdk5.0以前这样写是错的</span><br><span class="hljs-comment">//之后有了自动装箱，编译器帮我们改进代码,变成了如下的样子：</span><br><span class="hljs-comment">//Integer a = new Integer(1000);</span><br><span class="hljs-comment">//a还是对象</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">Integer a = <span class="hljs-number">1000</span>; <span class="hljs-comment">//jdk5.0以前这样写是错的</span><br><span class="hljs-comment">//之后有了自动装箱，编译器帮我们改进代码,变成了如下的样子：</span><br><span class="hljs-comment">//Integer a = new Integer(1000);</span><br><span class="hljs-comment">//a还是对象</span><br></code></pre></div></td></tr></table></figure>
 
 <p>自动拆箱：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">int</span> c = <span class="hljs-keyword">new</span> Integer(<span class="hljs-number">1500</span>); <span class="hljs-comment">//jdk5.0以前这样写是错的</span><br><span class="hljs-comment">//编译改进：new Integer(1500).intValue();</span><br><br>Integer b = <span class="hljs-number">2000</span>;<br><span class="hljs-keyword">int</span> c = b; <span class="hljs-comment">//编译改进：b.intValue();</span><br><span class="hljs-comment">//如果 b=null ，编译器会报java.lang.NullPointerException</span><br><span class="hljs-comment">//表面上没有调用任何方法，实际上调用了b的intValue() b是空，就会报空指针</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">int</span> c = <span class="hljs-keyword">new</span> Integer(<span class="hljs-number">1500</span>); <span class="hljs-comment">//jdk5.0以前这样写是错的</span><br><span class="hljs-comment">//编译改进：new Integer(1500).intValue();</span><br><br>Integer b = <span class="hljs-number">2000</span>;<br><span class="hljs-keyword">int</span> c = b; <span class="hljs-comment">//编译改进：b.intValue();</span><br><span class="hljs-comment">//如果 b=null ，编译器会报java.lang.NullPointerException</span><br><span class="hljs-comment">//表面上没有调用任何方法，实际上调用了b的intValue() b是空，就会报空指针</span><br></code></pre></div></td></tr></table></figure>
 
 <p>注意：</p>
 <p>装箱的时候：-128到127之间的数依然被认为是基本数据类型</p>
@@ -247,22 +255,22 @@
 <li>java中时间表示的说白了也是数字，是从：标准纪元1970.1.1 0点开始到某个时刻的毫秒数，类型是long</li>
 </ul>
 <h2 id="DateFormat">3.1. DateFormat</h2><p>SimpleDateFormat</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">System.currentTimeMillis(); <span class="hljs-comment">//得到当前时间</span><br>format<br>parse<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">System.currentTimeMillis(); <span class="hljs-comment">//得到当前时间</span><br>format<br>parse<br></code></pre></div></td></tr></table></figure>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java">DateFormat df = <span class="hljs-keyword">new</span> SimpleDateFormat(<span class="hljs-string">&quot;yyyy年MM月dd日 hh:mm:ss,属于本年的低w周&quot;</span>); <br><span class="hljs-comment">//这个规定了输出格式</span><br><br>Date d = <span class="hljs-keyword">new</span> Date(<span class="hljs-number">123213123L</span>);<br>String str = df.format(d);<br>System.out.println(str); <span class="hljs-comment">//1970年01月02日</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">DateFormat df = <span class="hljs-keyword">new</span> SimpleDateFormat(<span class="hljs-string">&quot;yyyy年MM月dd日 hh:mm:ss,属于本年的低w周&quot;</span>); <br><span class="hljs-comment">//这个规定了输出格式</span><br><br>Date d = <span class="hljs-keyword">new</span> Date(<span class="hljs-number">123213123L</span>);<br>String str = df.format(d);<br>System.out.println(str); <span class="hljs-comment">//1970年01月02日</span><br></code></pre></div></td></tr></table></figure>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java">String str = <span class="hljs-string">&quot;1977-7-7&quot;</span>;<br><span class="hljs-comment">//必须要有格式化，还得和上面的字符串相对应</span><br>DateFormat df = <span class="hljs-keyword">new</span> SimpleDateFormat(<span class="hljs-string">&quot;yyyy-MM-dd&quot;</span>);<br><span class="hljs-keyword">try</span>&#123;<br>    Date d = df.parse(str);<br>    System.out.println(d);<br>&#125; <span class="hljs-keyword">catch</span> &#123;<br>    e.printStackTrace();<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">String str = <span class="hljs-string">&quot;1977-7-7&quot;</span>;<br><span class="hljs-comment">//必须要有格式化，还得和上面的字符串相对应</span><br>DateFormat df = <span class="hljs-keyword">new</span> SimpleDateFormat(<span class="hljs-string">&quot;yyyy-MM-dd&quot;</span>);<br><span class="hljs-keyword">try</span>&#123;<br>    Date d = df.parse(str);<br>    System.out.println(d);<br>&#125; <span class="hljs-keyword">catch</span> &#123;<br>    e.printStackTrace();<br>&#125;<br></code></pre></div></td></tr></table></figure>
 
 <h2 id="Calendar">3.2. Calendar</h2><p>GregorianCalendar</p>
 <p>月份：一月是0，二月是1，以此类推，12月是11</p>
 <p>星期：星期日是一，星期六是七</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;<br>    Calendar c = <span class="hljs-keyword">new</span> GregorianCalendar();<br>    c.set(<span class="hljs-number">2001</span>,Calendar.FEBRUARY,<span class="hljs-number">10</span>,<span class="hljs-number">12</span>,<span class="hljs-number">23</span>,<span class="hljs-number">34</span>);<br>    Date d = c.getTime();<br>    System.out,println(d);<br>    <span class="hljs-comment">//输出结果：Sat Feb 10 12:23:34 CST 2001</span><br>    <span class="hljs-comment">//可以添加天数或者月数</span><br>    <span class="hljs-comment">//前面是类型，后面是数量</span><br>    c.add(Calendar.YEAR,<span class="hljs-number">30</span>);<br>    <span class="hljs-comment">//想减的话就把30换成-30</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span></span>&#123;<br>    Calendar c = <span class="hljs-keyword">new</span> GregorianCalendar();<br>    c.set(<span class="hljs-number">2001</span>,Calendar.FEBRUARY,<span class="hljs-number">10</span>,<span class="hljs-number">12</span>,<span class="hljs-number">23</span>,<span class="hljs-number">34</span>);<br>    Date d = c.getTime();<br>    System.out,println(d);<br>    <span class="hljs-comment">//输出结果：Sat Feb 10 12:23:34 CST 2001</span><br>    <span class="hljs-comment">//可以添加天数或者月数</span><br>    <span class="hljs-comment">//前面是类型，后面是数量</span><br>    c.add(Calendar.YEAR,<span class="hljs-number">30</span>);<br>    <span class="hljs-comment">//想减的话就把30换成-30</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
 
 <h1 id="file">4. file</h1><p>java.io.File：文件和目录路径名的抽象表现形式</p>
 <p>通过File对象可以访问文件的属性</p>
 <p>通过File对象创建空文件或目录(在该对象所指的文件或目录不存在的情况下)</p>
 <p>file里面有很多的方法，可以精确的操作某个文件，可以去网上百度一下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java">File f = <span class="hljs-keyword">new</span> File(<span class="hljs-string">&quot;d:/src/TestObject.java&quot;</span>);<br>f.createNewFile(); <span class="hljs-comment">//创建文件</span><br>f.delete(); <span class="hljs-comment">//删除文件</span><br>f.isFile(); <span class="hljs-comment">//判断是不是文件</span><br>f.isDirectory(); <span class="hljs-comment">//判断是不是目录</span><br>f.mkdirs(); <span class="hljs-comment">//创建目录</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">File f = <span class="hljs-keyword">new</span> File(<span class="hljs-string">&quot;d:/src/TestObject.java&quot;</span>);<br>f.createNewFile(); <span class="hljs-comment">//创建文件</span><br>f.delete(); <span class="hljs-comment">//删除文件</span><br>f.isFile(); <span class="hljs-comment">//判断是不是文件</span><br>f.isDirectory(); <span class="hljs-comment">//判断是不是目录</span><br>f.mkdirs(); <span class="hljs-comment">//创建目录</span><br></code></pre></div></td></tr></table></figure>
 
 
             </div>
@@ -298,9 +306,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/gzguo/2020/09/29/java/3%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%89%B9%E6%AE%8A%E7%B1%BB/3.3java%E7%9A%84%E7%89%B9%E6%AE%8A%E7%B1%BB/">
+                      <a href="/gzguo/2020/09/29/java/3%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%89%B9%E6%AE%8A%E7%B1%BB/3.2java%E7%89%B9%E6%80%A7%E5%92%8C%E6%95%B0%E7%BB%84/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">3.3java的特殊类</span>
+                        <span class="hidden-mobile">3.2java特性和数组</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -308,8 +316,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/gzguo/2020/09/28/Web/1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/1.1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/">
-                        <span class="hidden-mobile">1.1Web前端开发概述</span>
+                      <a href="/gzguo/2020/09/28/Web/1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/1.0%E5%88%9D%E5%A7%8BWeb/">
+                        <span class="hidden-mobile">1.0学习Web前的小知识</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -505,6 +513,16 @@
   
 
 
+
+
+  
+<script src="/gzguo/js/boom.js"></script>
+<script src="/gzguo/js/anime.min.js"></script>
+<script src="/gzguo/js/qipao.js"></script>
+<script src="/gzguo/js/timeDate.js"></script>
+<script src="/gzguo/js/APlayer.min.js"></script>
+<script src="/gzguo/js/Meting.min.js"></script>
+<script src="/gzguo/js/caidai.js"></script>
 
 
 

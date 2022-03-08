@@ -30,7 +30,7 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/agate.min.css" />
     
   
 
@@ -52,6 +52,14 @@
 <link  rel="stylesheet" href="/gzguo/css/main.css" />
 
 <!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/gzguo/css/mac.css">
+<link rel="stylesheet" href="/gzguo/css/toubudaziji.css">
+<link rel="stylesheet" href="/gzguo/css/shubiao.css#.css">
+<link rel="stylesheet" href="/gzguo/css/gundong.css">
+<link rel="stylesheet" href="/gzguo/css/APlayer.min.css">
+
 
 
   <script id="fluid-configs">
@@ -226,25 +234,25 @@
 <h1 id="CSS3应用方法">1. CSS3应用方法</h1><p>CSS样式能够以分离网页内容和样式的形式很好的控制网页的显示。在网页中应用CSS样式有4种方法：</p>
 <ol>
 <li><p>内联式</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">通过标记style属性直接把CSS样式添加到<span class="hljs-selector-tag">HTML</span>标签中<br></code></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css">通过标记style属性直接把CSS样式添加到<span class="hljs-selector-tag">HTML</span>标签中<br></code></pre></div></td></tr></table></figure>
 
 <p>语法格式：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;标记名 <span class="hljs-attribute">style</span>=<span class="hljs-string">&quot;&quot;</span>&gt;&lt;/标记名&gt;<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight routeros"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs routeros">&lt;标记名 <span class="hljs-attribute">style</span>=<span class="hljs-string">&quot;&quot;</span>&gt;&lt;/标记名&gt;<br></code></pre></div></td></tr></table></figure></li>
 <li><p>内嵌式</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">将CSS样式代码添加到HTML文档的<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>头部中，并用<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span>标记定义<br></code></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml">将CSS样式代码添加到HTML文档的<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>头部中，并用<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span>标记定义<br></code></pre></div></td></tr></table></figure>
 
 <p>语法格式：</p>
-<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs dust"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span></span><br><span class="xml">	<span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span>&gt;</span></span><br><span class="xml">		选择器</span><span class="hljs-template-variable">&#123;属性&#125;</span><span class="xml"></span><br><span class="xml">	<span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span></span><br></code></pre></td></tr></table></figure></li>
+<figure class="highlight dust"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs dust"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span></span><br><span class="xml">	<span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span>&gt;</span></span><br><span class="xml">		选择器</span><span class="hljs-template-variable">&#123;属性&#125;</span><span class="xml"></span><br><span class="xml">	<span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span></span><br></code></pre></div></td></tr></table></figure></li>
 <li><p>链入式</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">将所有的样式放在一个或者多个以.css为扩展名的外部样式表文件中，通过<span class="hljs-tag">&lt;<span class="hljs-name">link</span> /&gt;</span>标记将外部样式表文件链接到HTML文档中<br></code></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml">将所有的样式放在一个或者多个以.css为扩展名的外部样式表文件中，通过<span class="hljs-tag">&lt;<span class="hljs-name">link</span> /&gt;</span>标记将外部样式表文件链接到HTML文档中<br></code></pre></div></td></tr></table></figure>
 
 <p>语法格式：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;CSS文件路径&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;CSS文件路径&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br></code></pre></div></td></tr></table></figure></li>
 <li><p>导入式</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">与链入外部CSS基本相同，都是要创建一个单独的外部CSS文件，再引入到<span class="hljs-selector-tag">HTML</span>文档中。只不过语法和运作方式略有差别。<br></code></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css">与链入外部CSS基本相同，都是要创建一个单独的外部CSS文件，再引入到<span class="hljs-selector-tag">HTML</span>文档中。只不过语法和运作方式略有差别。<br></code></pre></div></td></tr></table></figure>
 
 <p>语法格式：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span>&gt;</span><span class="css"></span><br><span class="css">		<span class="hljs-keyword">@import</span> url(<span class="hljs-string">&quot;外部样式表相对路径&quot;</span>);</span><br><span class="css">	</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span>&gt;</span><span class="css"></span><br><span class="css">		<span class="hljs-keyword">@import</span> url(<span class="hljs-string">&quot;外部样式表相对路径&quot;</span>);</span><br><span class="css">	</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br></code></pre></div></td></tr></table></figure></li>
 </ol>
 <h2 id="链入式和导入式的区别：">1.1. 链入式和导入式的区别：</h2><ol>
 <li>隶属关系不同：link属于HTML标签，@import是CSS提供的载入方式</li>
@@ -286,9 +294,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.2CSS3%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/">
+                      <a href="/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.1CSS%E6%A6%82%E8%BF%B0/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">6.2CSS3的基本语法</span>
+                        <span class="hidden-mobile">6.1CSS概述</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -296,8 +304,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.4CSS3%E6%A0%B7%E5%BC%8F%E7%89%B9%E6%80%A7%E5%92%8C%E5%B8%B8%E7%94%A8%E6%A0%B7%E5%BC%8F%E5%B1%9E%E6%80%A7/">
-                        <span class="hidden-mobile">6.4CSS3样式特性和常用样式属性</span>
+                      <a href="/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.2CSS3%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/">
+                        <span class="hidden-mobile">6.2CSS3的基本语法</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -493,6 +501,16 @@
   
 
 
+
+
+  
+<script src="/gzguo/js/boom.js"></script>
+<script src="/gzguo/js/anime.min.js"></script>
+<script src="/gzguo/js/qipao.js"></script>
+<script src="/gzguo/js/timeDate.js"></script>
+<script src="/gzguo/js/APlayer.min.js"></script>
+<script src="/gzguo/js/Meting.min.js"></script>
+<script src="/gzguo/js/caidai.js"></script>
 
 
 

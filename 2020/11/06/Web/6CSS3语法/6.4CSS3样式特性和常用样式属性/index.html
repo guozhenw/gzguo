@@ -30,7 +30,7 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/agate.min.css" />
     
   
 
@@ -52,6 +52,14 @@
 <link  rel="stylesheet" href="/gzguo/css/main.css" />
 
 <!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/gzguo/css/mac.css">
+<link rel="stylesheet" href="/gzguo/css/toubudaziji.css">
+<link rel="stylesheet" href="/gzguo/css/shubiao.css#.css">
+<link rel="stylesheet" href="/gzguo/css/gundong.css">
+<link rel="stylesheet" href="/gzguo/css/APlayer.min.css">
+
 
 
   <script id="fluid-configs">
@@ -226,27 +234,27 @@
 <h1 id="CSS3样式的特性">1. CSS3样式的特性</h1><p>有四种特性：</p>
 <ol>
 <li><p>继承性</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">特定的CSS属性向下传递到其子孙元素的特性<br></code></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">特定的CSS属性向下传递到其子孙元素的特性<br></code></pre></div></td></tr></table></figure>
 
 <p>例子：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">如果设置了<span class="hljs-selector-tag">p</span>的样式，那么<span class="hljs-selector-tag">span</span>将继承<span class="hljs-selector-tag">p</span>的样式<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css">如果设置了<span class="hljs-selector-tag">p</span>的样式，那么<span class="hljs-selector-tag">span</span>将继承<span class="hljs-selector-tag">p</span>的样式<br></code></pre></div></td></tr></table></figure></li>
 <li><p>特殊性</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">当多个规则应用于同一个元素时，权重高的优先<br></code></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">当多个规则应用于同一个元素时，权重高的优先<br></code></pre></div></td></tr></table></figure>
 
-<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs clean">优先级：（由高到低）<br>ID选择器-&gt;类选择器-&gt;标签选择器-&gt;通用选择器<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight clean"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs clean">优先级：（由高到低）<br>ID选择器-&gt;类选择器-&gt;标签选择器-&gt;通用选择器<br></code></pre></div></td></tr></table></figure></li>
 <li><p>层叠性</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">当同一个元素设置有多个样式，且具有相同的特殊性，CSS规范将根据样式的先后顺序，后定义的先应用<br></code></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">当同一个元素设置有多个样式，且具有相同的特殊性，CSS规范将根据样式的先后顺序，后定义的先应用<br></code></pre></div></td></tr></table></figure>
 
-<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs clean">样式的优先级：（由高到低）<br>内联-&gt;内嵌-&gt;外链-&gt;外导<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight clean"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs clean">样式的优先级：（由高到低）<br>内联-&gt;内嵌-&gt;外链-&gt;外导<br></code></pre></div></td></tr></table></figure></li>
 <li><p>重要性</p>
-<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elm">当标签的选择器的属性值后面加上!important之后，该属性设置的优先权将高于一切其他样式规则<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight elm"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs elm">当标签的选择器的属性值后面加上!important之后，该属性设置的优先权将高于一切其他样式规则<br></code></pre></div></td></tr></table></figure></li>
 </ol>
 <h1 id="CSS3常用的样式属性">2. CSS3常用的样式属性</h1><p>CSS样式中包含了对文本、段落、背景、边框、位置、列表、光标效果等众多属性的设置，CSS通过对属性的设置，可以控制网页中几乎所有的元素</p>
 <h2 id="字体文本样式">2.1. 字体文本样式</h2><ol>
 <li><p>设置网页中字体样式</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">定义文本字体、大小、加粗、风格（斜体）、变形等<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">定义文本字体、大小、加粗、风格（斜体）、变形等<br></code></pre></div></td></tr></table></figure></li>
 <li><p>设置文本的样式</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">定义文本颜色、字符间距、对齐、装饰、缩进等<br></code></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">定义文本颜色、字符间距、对齐、装饰、缩进等<br></code></pre></div></td></tr></table></figure>
 
 <table>
 <thead>
@@ -472,9 +480,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.3%E5%9C%A8%E7%BD%91%E9%A1%B5%E4%B8%AD%E5%BA%94%E7%94%A8CSS%E7%9A%84%E6%96%B9%E5%BC%8F/">
+                      <a href="/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.2CSS3%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">6.3在网页中应用CSS的方式</span>
+                        <span class="hidden-mobile">6.2CSS3的基本语法</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -679,6 +687,16 @@
   
 
 
+
+
+  
+<script src="/gzguo/js/boom.js"></script>
+<script src="/gzguo/js/anime.min.js"></script>
+<script src="/gzguo/js/qipao.js"></script>
+<script src="/gzguo/js/timeDate.js"></script>
+<script src="/gzguo/js/APlayer.min.js"></script>
+<script src="/gzguo/js/Meting.min.js"></script>
+<script src="/gzguo/js/caidai.js"></script>
 
 
 

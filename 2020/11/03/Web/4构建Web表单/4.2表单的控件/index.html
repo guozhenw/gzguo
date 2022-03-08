@@ -30,7 +30,7 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/agate.min.css" />
     
   
 
@@ -52,6 +52,14 @@
 <link  rel="stylesheet" href="/gzguo/css/main.css" />
 
 <!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/gzguo/css/mac.css">
+<link rel="stylesheet" href="/gzguo/css/toubudaziji.css">
+<link rel="stylesheet" href="/gzguo/css/shubiao.css#.css">
+<link rel="stylesheet" href="/gzguo/css/gundong.css">
+<link rel="stylesheet" href="/gzguo/css/APlayer.min.css">
+
 
 
   <script id="fluid-configs">
@@ -226,7 +234,7 @@
 <h1 id="input控件">1. input控件</h1><p>定义单行文本输入框、单选按钮、复选框、提交按钮、重置按钮等，要使用input控件</p>
 <h2 id="常见的属性">1.1. 常见的属性</h2><ol>
 <li><p>type：控件类型</p>
-<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mel">取值：<span class="hljs-keyword">text</span>、password、radio、checkbox、<span class="hljs-keyword">button</span>、submit、reset、<span class="hljs-keyword">file</span> <span class="hljs-keyword">image</span>、hidden<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight mel"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs mel">取值：<span class="hljs-keyword">text</span>、password、radio、checkbox、<span class="hljs-keyword">button</span>、submit、reset、<span class="hljs-keyword">file</span> <span class="hljs-keyword">image</span>、hidden<br></code></pre></div></td></tr></table></figure></li>
 <li><p>name：控件名称</p>
 </li>
 <li><p>value：控件中的默认文本</p>
@@ -243,15 +251,15 @@
 </li>
 </ol>
 <h1 id="textarea控件">2. textarea控件</h1><p>可以创建多行文本输入框</p>
-<h2 id="testarea基本语法">2.1. testarea基本语法</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;textarea <span class="hljs-attribute">cols</span>=<span class="hljs-string">&quot;每行中的字符数&quot;</span> <span class="hljs-attribute">rows</span>=<span class="hljs-string">&quot;显示的行数&quot;</span> <span class="hljs-attribute">wrap</span>=<span class="hljs-string">&quot;   &quot;</span>&gt;文本内容&lt;/testarea&gt;<br></code></pre></td></tr></table></figure>
+<h2 id="testarea基本语法">2.1. testarea基本语法</h2><figure class="highlight routeros"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs routeros">&lt;textarea <span class="hljs-attribute">cols</span>=<span class="hljs-string">&quot;每行中的字符数&quot;</span> <span class="hljs-attribute">rows</span>=<span class="hljs-string">&quot;显示的行数&quot;</span> <span class="hljs-attribute">wrap</span>=<span class="hljs-string">&quot;   &quot;</span>&gt;文本内容&lt;/testarea&gt;<br></code></pre></div></td></tr></table></figure>
 
 <p>wrap是html5中的新属性：属性取值：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs css">soft：当在表单提交时，<span class="hljs-selector-tag">textarea</span>中的文本不换行。默认值<br>hard：当在表单提交时，<span class="hljs-selector-tag">textarea</span>中的文本换行<br></code></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css">soft：当在表单提交时，<span class="hljs-selector-tag">textarea</span>中的文本不换行。默认值<br>hard：当在表单提交时，<span class="hljs-selector-tag">textarea</span>中的文本换行<br></code></pre></div></td></tr></table></figure>
 
 
 
 <h1 id="select控件">3. select控件</h1><p>创建一个选择框</p>
-<h2 id="select基本语法">3.1. select基本语法</h2><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">&lt;<span class="hljs-keyword">select</span> <span class="hljs-type">name</span>=&quot;控件名称&quot; size=&quot;表示可见选项的数目&quot; multiple(设定为多选)&gt;<br>	&lt;<span class="hljs-keyword">option</span> <span class="hljs-keyword">value</span>=&quot;选项值&quot; selected(默认该选项被选中)&gt;  (表示指定区域中的一个选项)<br>		<br>	&lt;/<span class="hljs-keyword">option</span>&gt;<br>&lt;/<span class="hljs-keyword">select</span>&gt;<br></code></pre></td></tr></table></figure>
+<h2 id="select基本语法">3.1. select基本语法</h2><figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql">&lt;<span class="hljs-keyword">select</span> <span class="hljs-type">name</span>=&quot;控件名称&quot; size=&quot;表示可见选项的数目&quot; multiple(设定为多选)&gt;<br>	&lt;<span class="hljs-keyword">option</span> <span class="hljs-keyword">value</span>=&quot;选项值&quot; selected(默认该选项被选中)&gt;  (表示指定区域中的一个选项)<br>		<br>	&lt;/<span class="hljs-keyword">option</span>&gt;<br>&lt;/<span class="hljs-keyword">select</span>&gt;<br></code></pre></div></td></tr></table></figure>
 
 <table>
 <thead>
@@ -516,6 +524,16 @@
   
 
 
+
+
+  
+<script src="/gzguo/js/boom.js"></script>
+<script src="/gzguo/js/anime.min.js"></script>
+<script src="/gzguo/js/qipao.js"></script>
+<script src="/gzguo/js/timeDate.js"></script>
+<script src="/gzguo/js/APlayer.min.js"></script>
+<script src="/gzguo/js/Meting.min.js"></script>
+<script src="/gzguo/js/caidai.js"></script>
 
 
 

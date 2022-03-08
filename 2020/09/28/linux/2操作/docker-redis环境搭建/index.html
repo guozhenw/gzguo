@@ -30,7 +30,7 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/agate.min.css" />
     
   
 
@@ -52,6 +52,14 @@
 <link  rel="stylesheet" href="/gzguo/css/main.css" />
 
 <!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/gzguo/css/mac.css">
+<link rel="stylesheet" href="/gzguo/css/toubudaziji.css">
+<link rel="stylesheet" href="/gzguo/css/shubiao.css#.css">
+<link rel="stylesheet" href="/gzguo/css/gundong.css">
+<link rel="stylesheet" href="/gzguo/css/APlayer.min.css">
+
 
 
   <script id="fluid-configs">
@@ -223,15 +231,15 @@
               <p>安装docker下的redis、启动、暂停。</p>
 <span id="more"></span>
 
-<h1 id="下载redis镜像">1. 下载redis镜像</h1><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">docker</span> pull redis   下载redis最新镜像<br></code></pre></td></tr></table></figure>
+<h1 id="下载redis镜像">1. 下载redis镜像</h1><figure class="highlight nginx"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs nginx"><span class="hljs-attribute">docker</span> pull redis   下载redis最新镜像<br></code></pre></div></td></tr></table></figure>
 
 <p>镜像都是从dockerhub中下载的</p>
-<h1 id="启动镜像">2. 启动镜像</h1><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker run -p <span class="hljs-number">6379</span>:<span class="hljs-number">6378</span> --name redis -v <span class="hljs-regexp">/mydata/</span>redis<span class="hljs-regexp">/data:/</span>data -v <span class="hljs-regexp">/mydata/</span>redis<span class="hljs-regexp">/conf/</span>redis.conf:<span class="hljs-regexp">/etc/</span>redis<span class="hljs-regexp">/redis.conf -d redis redis-server /</span>etc<span class="hljs-regexp">/redis/</span>redis.conf<br></code></pre></td></tr></table></figure>
+<h1 id="启动镜像">2. 启动镜像</h1><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">docker run -p <span class="hljs-number">6379</span>:<span class="hljs-number">6378</span> --name redis -v <span class="hljs-regexp">/mydata/</span>redis<span class="hljs-regexp">/data:/</span>data -v <span class="hljs-regexp">/mydata/</span>redis<span class="hljs-regexp">/conf/</span>redis.conf:<span class="hljs-regexp">/etc/</span>redis<span class="hljs-regexp">/redis.conf -d redis redis-server /</span>etc<span class="hljs-regexp">/redis/</span>redis.conf<br></code></pre></div></td></tr></table></figure>
 
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">-d redis redis-server <span class="hljs-regexp">/etc/</span>redis/redis.conf   redis启动的额外要求，以配置文件启动<br></code></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">-d redis redis-server <span class="hljs-regexp">/etc/</span>redis/redis.conf   redis启动的额外要求，以配置文件启动<br></code></pre></div></td></tr></table></figure>
 
 <p>原先的镜像中没有配置文件，我们需要在服务器中创建好目录</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">mkdir -p <span class="hljs-regexp">/mydata/</span>redis/conf<br>touch <span class="hljs-regexp">/mydata/</span>redis<span class="hljs-regexp">/conf/</span>redis.conf<br></code></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">mkdir -p <span class="hljs-regexp">/mydata/</span>redis/conf<br>touch <span class="hljs-regexp">/mydata/</span>redis<span class="hljs-regexp">/conf/</span>redis.conf<br></code></pre></div></td></tr></table></figure>
 
 
             </div>
@@ -474,6 +482,16 @@
   
 
 
+
+
+  
+<script src="/gzguo/js/boom.js"></script>
+<script src="/gzguo/js/anime.min.js"></script>
+<script src="/gzguo/js/qipao.js"></script>
+<script src="/gzguo/js/timeDate.js"></script>
+<script src="/gzguo/js/APlayer.min.js"></script>
+<script src="/gzguo/js/Meting.min.js"></script>
+<script src="/gzguo/js/caidai.js"></script>
 
 
 

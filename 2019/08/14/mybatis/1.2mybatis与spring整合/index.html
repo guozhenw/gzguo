@@ -30,7 +30,7 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/agate.min.css" />
     
   
 
@@ -52,6 +52,14 @@
 <link  rel="stylesheet" href="/gzguo/css/main.css" />
 
 <!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/gzguo/css/mac.css">
+<link rel="stylesheet" href="/gzguo/css/toubudaziji.css">
+<link rel="stylesheet" href="/gzguo/css/shubiao.css#.css">
+<link rel="stylesheet" href="/gzguo/css/gundong.css">
+<link rel="stylesheet" href="/gzguo/css/APlayer.min.css">
+
 
 
   <script id="fluid-configs">
@@ -272,7 +280,7 @@
 <p>创建的时候可以让他继承一下之前的pojo类，这样可以简化后台代码</p>
 <p>resultMap：</p>
 <p>使用resultMap将查询结果映射到Order对象中，在orders类中添加user属性，将关联查询出来的用户信息映射到orders对象中的user属性中</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">&#123;% asset_img 1565493794869.png This is an image %&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">&#123;% asset_img 1565493794869.png This is an image %&#125;<br></code></pre></div></td></tr></table></figure>
 
 <p><img src="/images/1565493794869.png" srcset="/gzguo/img/loading.gif" lazyload></p>
 <p>实体类orders里面的实体类user</p>
@@ -336,13 +344,13 @@
 <p>在UserMapper.xml中开启二级缓存，UserMapper.xml下的sql执行完成后会存储到他的缓存区域（HashMap）</p>
 <p>开启本Mapper namespace下的二级缓存：<cache></cache></p>
 <p>调用pojo类实现序列化接口：为了将缓存数据取出执行反序化操作，因为二级缓存数据介质多种多样，不一定在内存</p>
-<h2 id="禁用二级缓存">2.5. 禁用二级缓存</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">userCatch</span> = <span class="hljs-string">&quot;false&quot;</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h2 id="禁用二级缓存">2.5. 禁用二级缓存</h2><figure class="highlight html"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">userCatch</span> = <span class="hljs-string">&quot;false&quot;</span>&gt;</span><br></code></pre></div></td></tr></table></figure>
 
 <p>这样配置的话，这条语句每次都会去数据库查询，禁用二级缓存。针对每次查询都需要最新的数据sql</p>
 <h2 id="总结">2.6. 总结</h2><p>一般情况下，执行完commit操作都需要刷新缓存，flushCache = “true”代表刷新缓存，这样可以避免数据库脏读</p>
 <h2 id="刷新缓存">2.7. 刷新缓存</h2><p>刷新缓存是清空缓存，在mapper的同一个namespace中，如果有其他insert、update、delete操作后需要刷新缓存，如果不刷新缓存就会出现脏读</p>
 <p>设置statement配置中的flushCache = “true”属性，默认情况下为true即刷新缓存，如果改成false则不会刷新。使用缓存时会出现脏读,如下：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">insert</span> <span class="hljs-attr">id</span> = <span class="hljs-string">&quot;insertUser&quot;</span> <span class="hljs-attr">parameterType</span> = <span class="hljs-string">&quot;User&quot;</span> <span class="hljs-attr">flushCache</span> = <span class="hljs-string">&quot;true&quot;</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">insert</span> <span class="hljs-attr">id</span> = <span class="hljs-string">&quot;insertUser&quot;</span> <span class="hljs-attr">parameterType</span> = <span class="hljs-string">&quot;User&quot;</span> <span class="hljs-attr">flushCache</span> = <span class="hljs-string">&quot;true&quot;</span>&gt;</span><br></code></pre></div></td></tr></table></figure>
 
 <h2 id="mybatis整合ehcache">2.8. mybatis整合ehcache</h2><p>ehcache是一个分布式缓存框架</p>
 <h3 id="分布缓存">2.8.1. 分布缓存</h3><p>我们的系统为了提高系统并发、性能，一般对系统进行分布式部署（集群部署方式）</p>
@@ -355,7 +363,7 @@
 <p>整合eacache：</p>
 <p>1.导入包</p>
 <p>2.实现cache类（配置mapper中的type为ehcache接口的实现类型）</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">cache</span> <span class="hljs-attr">type</span> = <span class="hljs-string">&quot;org.mybatis.caches.ehcache.EhcacheCache&quot;</span>/&gt;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">cache</span> <span class="hljs-attr">type</span> = <span class="hljs-string">&quot;org.mybatis.caches.ehcache.EhcacheCache&quot;</span>/&gt;</span><br></code></pre></div></td></tr></table></figure>
 
 <h3 id="加入ehcache的配置文件">2.8.3. 加入ehcache的配置文件</h3><p><img src="/images/1565593058004.png" srcset="/gzguo/img/loading.gif" lazyload></p>
 <p>在classpath下配置ehcache.xml</p>
@@ -372,16 +380,16 @@
 <p>mybatis和spring的整合包：早期ibatis和spring整合是由spring官方提供，mybatis和spring整合由mybatis提供</p>
 <h2 id="SqlSessionFactory">3.3. SqlSessionFactory</h2><p><strong>在applicationContext.xml中配置sqlSessionFactory和数据源</strong></p>
 <p>sqlSessionFactory在mybatis的spring的整合包下：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">beans</span>&gt;</span><br>    <span class="hljs-comment">&lt;!--加载配置文件--&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">context:property-placeholder</span> <span class="hljs-attr">location</span>=<span class="hljs-string">&quot;classpath:db.properties&quot;</span>&gt;</span><br>    <span class="hljs-comment">&lt;!--数据源，使用dbcp或者（c3p0）--&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;dataSource&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;org.apache.commons.dbcp.BasicDataSource&quot;</span> <span class="hljs-attr">destory-method</span>=<span class="hljs-string">&quot;close&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;driverClassName&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;jdbc.driver&#125;&quot;</span>/&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;url&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;jdbc.url&#125;&quot;</span>/&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;username&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;jdbc.username&#125;&quot;</span>/&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;password&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;jdbc.password&#125;&quot;</span>/&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;maxActive&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;10&quot;</span>/&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;maxIdle&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;5&quot;</span>/&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">beans</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">beans</span>&gt;</span><br>    <span class="hljs-comment">&lt;!--加载配置文件--&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">context:property-placeholder</span> <span class="hljs-attr">location</span>=<span class="hljs-string">&quot;classpath:db.properties&quot;</span>&gt;</span><br>    <span class="hljs-comment">&lt;!--数据源，使用dbcp或者（c3p0）--&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;dataSource&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;org.apache.commons.dbcp.BasicDataSource&quot;</span> <span class="hljs-attr">destory-method</span>=<span class="hljs-string">&quot;close&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;driverClassName&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;jdbc.driver&#125;&quot;</span>/&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;url&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;jdbc.url&#125;&quot;</span>/&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;username&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;jdbc.username&#125;&quot;</span>/&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;password&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;$&#123;jdbc.password&#125;&quot;</span>/&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;maxActive&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;10&quot;</span>/&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;maxIdle&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;5&quot;</span>/&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">beans</span>&gt;</span><br></code></pre></div></td></tr></table></figure>
 
 <h2 id="原始dao开发">3.4. 原始dao开发</h2><h3 id="mapper-xml">3.4.1. mapper.xml</h3><p>创建mapper.xml</p>
 <p>在SqlMapConfig.xml中加载User.xml</p>
 <h3 id="dao">3.4.2. dao</h3><p>dao接口实现需要注入SqlSessionFactory，通过spring进行注入</p>
 <p>这里为了更好的让大家看见，这里用spring声明配置方式，配置dao的bean</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;userDao class=&quot;</span><span class="hljs-attr">cn.itcast.ssm.dao.UserDaoImpl</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;SessionFactory&quot;</span>/&gt;</span> <br><span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;userDao class=&quot;</span><span class="hljs-attr">cn.itcast.ssm.dao.UserDaoImpl</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;SessionFactory&quot;</span>/&gt;</span> <br><span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br></code></pre></div></td></tr></table></figure>
 
 <p>让UserDaoImpl实现类继承SqlSessionDaoSupport（extends SqlSessionDaoSupport ）。继承的这个东西里面有创建会话工厂的代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//继承了这个东西之后，创建会话的方法</span><br>SqlSession sqlSession = <span class="hljs-keyword">this</span>.getSqlSession();<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//继承了这个东西之后，创建会话的方法</span><br>SqlSession sqlSession = <span class="hljs-keyword">this</span>.getSqlSession();<br></code></pre></div></td></tr></table></figure>
 
 <p>在applicationContext.xml中配置dao</p>
 <h2 id="mapper代理开发">3.5. mapper代理开发</h2><h4 id="mapper-xml-1">3.5.0.1. mapper.xml</h4><h1 id="mybatis逆向工程">4. mybatis逆向工程</h1><h2 id="什么是逆向工程？">4.1. 什么是逆向工程？</h2><p>mybatis需要程序员自己写sql语句，mybatis官方提供逆向工程，针对单表来生成代码，mybatis执行所需要的代码（mapper.java\mapper.xml\po）</p>
@@ -623,6 +631,16 @@
   
 
 
+
+
+  
+<script src="/gzguo/js/boom.js"></script>
+<script src="/gzguo/js/anime.min.js"></script>
+<script src="/gzguo/js/qipao.js"></script>
+<script src="/gzguo/js/timeDate.js"></script>
+<script src="/gzguo/js/APlayer.min.js"></script>
+<script src="/gzguo/js/Meting.min.js"></script>
+<script src="/gzguo/js/caidai.js"></script>
 
 
 

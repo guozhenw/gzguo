@@ -30,7 +30,7 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/agate.min.css" />
     
   
 
@@ -52,6 +52,14 @@
 <link  rel="stylesheet" href="/gzguo/css/main.css" />
 
 <!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/gzguo/css/mac.css">
+<link rel="stylesheet" href="/gzguo/css/toubudaziji.css">
+<link rel="stylesheet" href="/gzguo/css/shubiao.css#.css">
+<link rel="stylesheet" href="/gzguo/css/gundong.css">
+<link rel="stylesheet" href="/gzguo/css/APlayer.min.css">
+
 
 
   <script id="fluid-configs">
@@ -241,7 +249,7 @@
 <p>中级调度（内存调度）：外存到内存（面向进程）（挂起到就绪）</p>
 <p>低级调度（进程调度）：<strong>内存–&gt;CPU</strong>（就绪到运行）</p>
 <h1 id="补充知识">4. 补充知识</h1><p>与挂起状态相关的<strong>七状态模型</strong>：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">暂时调入到外存等待的进程状态为挂起状态<br>挂起态又可以分为就绪挂起、阻塞挂起两种<br></code></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">暂时调入到外存等待的进程状态为挂起状态<br>挂起态又可以分为就绪挂起、阻塞挂起两种<br></code></pre></div></td></tr></table></figure>
 
 <p>五状态模型–&gt;七状态模型（新增两种状态）</p>
 <p>就绪–&gt;挂起（就绪挂起）</p>
@@ -249,7 +257,7 @@
 <p>阻塞挂起等待的事件出现–&gt;就绪挂起</p>
 <p>创建态–&gt;就绪挂起</p>
 <p>运行态–&gt;就绪挂起</p>
-<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs x86asm">挂起和阻塞的区别：<br>    两种都是暂时不能得到<span class="hljs-meta">CPU</span>服务<br>    挂起是将进程调入外存，而阻塞态下的进程还在内存中<br></code></pre></td></tr></table></figure>
+<figure class="highlight x86asm"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs x86asm">挂起和阻塞的区别：<br>    两种都是暂时不能得到<span class="hljs-meta">CPU</span>服务<br>    挂起是将进程调入外存，而阻塞态下的进程还在内存中<br></code></pre></div></td></tr></table></figure>
 
 
             </div>
@@ -285,9 +293,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-2-2%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6/">
+                      <a href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-1-5%E7%BA%BF%E7%A8%8B/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">2-2-2进程调度</span>
+                        <span class="hidden-mobile">2-1-5线程</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -295,8 +303,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-2-4%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/">
-                        <span class="hidden-mobile">2-2-4调度算法</span>
+                      <a href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-2-2%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6/">
+                        <span class="hidden-mobile">2-2-2进程调度</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -492,6 +500,16 @@
   
 
 
+
+
+  
+<script src="/gzguo/js/boom.js"></script>
+<script src="/gzguo/js/anime.min.js"></script>
+<script src="/gzguo/js/qipao.js"></script>
+<script src="/gzguo/js/timeDate.js"></script>
+<script src="/gzguo/js/APlayer.min.js"></script>
+<script src="/gzguo/js/Meting.min.js"></script>
+<script src="/gzguo/js/caidai.js"></script>
 
 
 

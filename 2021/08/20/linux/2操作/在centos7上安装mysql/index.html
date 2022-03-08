@@ -30,7 +30,7 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/agate.min.css" />
     
   
 
@@ -52,6 +52,14 @@
 <link  rel="stylesheet" href="/gzguo/css/main.css" />
 
 <!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/gzguo/css/mac.css">
+<link rel="stylesheet" href="/gzguo/css/toubudaziji.css">
+<link rel="stylesheet" href="/gzguo/css/shubiao.css#.css">
+<link rel="stylesheet" href="/gzguo/css/gundong.css">
+<link rel="stylesheet" href="/gzguo/css/APlayer.min.css">
+
 
 
   <script id="fluid-configs">
@@ -223,10 +231,10 @@
               <p>linux的相关操作，安装了mariadb。</p>
 <span id="more"></span>
 
-<h3 id="下载最小化的虚拟机之后的联网问题：">0.0.1. 下载最小化的虚拟机之后的联网问题：</h3><figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs llvm">nmcli <span class="hljs-keyword">c</span> show   显示网卡<br>nmcli <span class="hljs-keyword">c</span> up 网卡名   启动该网卡<br>ping -<span class="hljs-keyword">c</span> <span class="hljs-number">3</span> www.baidu.com   访问三次<br></code></pre></td></tr></table></figure>
-<h3 id="下载mariadb">0.0.2. 下载mariadb</h3><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta">yum install -y mariadb-<span class="hljs-keyword">server</span> mariadb<br></code></pre></td></tr></table></figure>
-<h3 id="下载好之后相关">0.0.3. 下载好之后相关</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs awk">systemctl status mariadb   查看状态（和防火墙类似）<br>systemctl start mariadb   启动mariadb<br> <br>mysql -uroot   无密码登录<br>use mysql;   进入数据库<br>update user set password=password(<span class="hljs-string">&#x27;newpassword&#x27;</span>) where user=<span class="hljs-string">&#x27;root&#x27;</span>;   修改密码<br>flush privileges;   刷新权限<br><span class="hljs-keyword">exit</span>   退出<br><br>mysql -uroot -proot   再次登录需要输入密码<br></code></pre></td></tr></table></figure>
-<h3 id="用navicat连接mariadb">0.0.4. 用navicat连接mariadb</h3><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">ip addr   查看ip地址<br><span class="hljs-keyword">grant</span> <span class="hljs-keyword">all</span> <span class="hljs-keyword">privileges</span> <span class="hljs-keyword">on</span> *.* <span class="hljs-keyword">to</span> <span class="hljs-string">&#x27;root&#x27;</span>@<span class="hljs-string">&#x27;%&#x27;</span> identified <span class="hljs-keyword">by</span> <span class="hljs-string">&#x27;密码&#x27;</span>;   对root授权<br><span class="hljs-keyword">grant</span> <span class="hljs-keyword">all</span> <span class="hljs-keyword">privileges</span> <span class="hljs-keyword">on</span> *.* <span class="hljs-keyword">to</span> <span class="hljs-string">&#x27;root&#x27;</span>@<span class="hljs-string">&#x27;ip地址&#x27;</span> identified <span class="hljs-keyword">by</span> <span class="hljs-string">&#x27;密码&#x27;</span>;   在数据库中为ip地址授权<br>flush <span class="hljs-keyword">privileges</span>;   授权之后记得刷新权限<br><br>systemctl status firewalld   查看防火墙状态<br>systemctl stop firewalld   关闭防火墙<br></code></pre></td></tr></table></figure>
+<h3 id="下载最小化的虚拟机之后的联网问题：">0.0.1. 下载最小化的虚拟机之后的联网问题：</h3><figure class="highlight llvm"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs llvm">nmcli <span class="hljs-keyword">c</span> show   显示网卡<br>nmcli <span class="hljs-keyword">c</span> up 网卡名   启动该网卡<br>ping -<span class="hljs-keyword">c</span> <span class="hljs-number">3</span> www.baidu.com   访问三次<br></code></pre></div></td></tr></table></figure>
+<h3 id="下载mariadb">0.0.2. 下载mariadb</h3><figure class="highlight axapta"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs axapta">yum install -y mariadb-<span class="hljs-keyword">server</span> mariadb<br></code></pre></div></td></tr></table></figure>
+<h3 id="下载好之后相关">0.0.3. 下载好之后相关</h3><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">systemctl status mariadb   查看状态（和防火墙类似）<br>systemctl start mariadb   启动mariadb<br> <br>mysql -uroot   无密码登录<br>use mysql;   进入数据库<br>update user set password=password(<span class="hljs-string">&#x27;newpassword&#x27;</span>) where user=<span class="hljs-string">&#x27;root&#x27;</span>;   修改密码<br>flush privileges;   刷新权限<br><span class="hljs-keyword">exit</span>   退出<br><br>mysql -uroot -proot   再次登录需要输入密码<br></code></pre></div></td></tr></table></figure>
+<h3 id="用navicat连接mariadb">0.0.4. 用navicat连接mariadb</h3><figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql">ip addr   查看ip地址<br><span class="hljs-keyword">grant</span> <span class="hljs-keyword">all</span> <span class="hljs-keyword">privileges</span> <span class="hljs-keyword">on</span> *.* <span class="hljs-keyword">to</span> <span class="hljs-string">&#x27;root&#x27;</span>@<span class="hljs-string">&#x27;%&#x27;</span> identified <span class="hljs-keyword">by</span> <span class="hljs-string">&#x27;密码&#x27;</span>;   对root授权<br><span class="hljs-keyword">grant</span> <span class="hljs-keyword">all</span> <span class="hljs-keyword">privileges</span> <span class="hljs-keyword">on</span> *.* <span class="hljs-keyword">to</span> <span class="hljs-string">&#x27;root&#x27;</span>@<span class="hljs-string">&#x27;ip地址&#x27;</span> identified <span class="hljs-keyword">by</span> <span class="hljs-string">&#x27;密码&#x27;</span>;   在数据库中为ip地址授权<br>flush <span class="hljs-keyword">privileges</span>;   授权之后记得刷新权限<br><br>systemctl status firewalld   查看防火墙状态<br>systemctl stop firewalld   关闭防火墙<br></code></pre></div></td></tr></table></figure>
 <blockquote>
 <p>老师的笔记网址：<br><a target="_blank" rel="noopener" href="https://note.youdao.com/ynoteshare1/index.html?id=e2247fa8c88ba10fe7411d7f6cfc7c48&amp;type=note">https://note.youdao.com/ynoteshare1/index.html?id=e2247fa8c88ba10fe7411d7f6cfc7c48&amp;type=note</a></p>
 </blockquote>
@@ -471,6 +479,16 @@
   
 
 
+
+
+  
+<script src="/gzguo/js/boom.js"></script>
+<script src="/gzguo/js/anime.min.js"></script>
+<script src="/gzguo/js/qipao.js"></script>
+<script src="/gzguo/js/timeDate.js"></script>
+<script src="/gzguo/js/APlayer.min.js"></script>
+<script src="/gzguo/js/Meting.min.js"></script>
+<script src="/gzguo/js/caidai.js"></script>
 
 
 

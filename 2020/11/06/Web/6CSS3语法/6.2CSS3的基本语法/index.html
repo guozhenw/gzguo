@@ -30,7 +30,7 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/agate.min.css" />
     
   
 
@@ -52,6 +52,14 @@
 <link  rel="stylesheet" href="/gzguo/css/main.css" />
 
 <!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/gzguo/css/mac.css">
+<link rel="stylesheet" href="/gzguo/css/toubudaziji.css">
+<link rel="stylesheet" href="/gzguo/css/shubiao.css#.css">
+<link rel="stylesheet" href="/gzguo/css/gundong.css">
+<link rel="stylesheet" href="/gzguo/css/APlayer.min.css">
+
 
 
   <script id="fluid-configs">
@@ -230,11 +238,11 @@
 </ol>
 <h2 id="说明">1.2. 说明</h2><ol>
 <li><p>如果属性的值是由多个单词组成，并且单词之间有空格，那么必须给值加上引号，如字体的名称经常是几个单词的组合</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">p</span>&#123;<br>	<span class="hljs-attribute">font-family</span>:<span class="hljs-string">&quot;Times New Roman&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">p</span>&#123;<br>	<span class="hljs-attribute">font-family</span>:<span class="hljs-string">&quot;Times New Roman&quot;</span><br>&#125;<br></code></pre></div></td></tr></table></figure></li>
 <li><p>如果需要对一个选择符指定多个属性时，用分号将属性分开</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">p</span>&#123;<br>	<span class="hljs-attribute">text-align</span>:center;<span class="hljs-attribute">color</span>:red;<span class="hljs-attribute">font-family</span>:宋体<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">p</span>&#123;<br>	<span class="hljs-attribute">text-align</span>:center;<span class="hljs-attribute">color</span>:red;<span class="hljs-attribute">font-family</span>:宋体<br>&#125;<br></code></pre></div></td></tr></table></figure></li>
 <li><p>相同属性组合起来称为选择符组。如果需要给选择符组定义属性和值，只要用逗号将选择符分开即可。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">p</span>,<span class="hljs-selector-tag">table</span>&#123;<br>	<span class="hljs-attribute">font-size</span>:<span class="hljs-number">10pt</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">p</span>,<span class="hljs-selector-tag">table</span>&#123;<br>	<span class="hljs-attribute">font-size</span>:<span class="hljs-number">10pt</span><br>&#125;<br></code></pre></div></td></tr></table></figure></li>
 <li><p>CSS3对空格和大小写一般不敏感</p>
 </li>
 <li><p>为CSS添加注释时，只需要用/**/将注释包裹起来即可</p>
@@ -243,21 +251,21 @@
 <h1 id="选择器及其应用">2. 选择器及其应用</h1><p>选择器也可以称之为选择符，在HTML中不同的标签是用不同的选择器来控制的</p>
 <h2 id="选择器的类型">2.1. 选择器的类型</h2><ol>
 <li><p>通用选择器</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">通用选择器用*表示，他是所有选择器中作用范围最广的，能匹配页面内的所有元素<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">通用选择器用*表示，他是所有选择器中作用范围最广的，能匹配页面内的所有元素<br></code></pre></div></td></tr></table></figure></li>
 <li><p>标签选择器</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">指用<span class="hljs-selector-tag">HTML</span>标签名称作为选择器，按标签名称分类，为页面中某一类标签指定统一的CSS样式<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css">指用<span class="hljs-selector-tag">HTML</span>标签名称作为选择器，按标签名称分类，为页面中某一类标签指定统一的CSS样式<br></code></pre></div></td></tr></table></figure></li>
 <li><p>类选择器</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">用来为一系列的网页元素定义相同的显示样式。类选择器使用.（英文符号）进行标识，后面紧跟类名<br></code></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">用来为一系列的网页元素定义相同的显示样式。类选择器使用.（英文符号）进行标识，后面紧跟类名<br></code></pre></div></td></tr></table></figure>
 
 <p>类名定义是区分大小写的</p>
 </li>
 <li><p>id选择器</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c">用来为唯一的网页元素定义显示样式。ID选择器使用<span class="hljs-meta">#进行标识，后面紧跟Id名</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight 1c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs 1c">用来为唯一的网页元素定义显示样式。ID选择器使用<span class="hljs-meta">#进行标识，后面紧跟Id名</span><br></code></pre></div></td></tr></table></figure>
 
 <p>id名定义是区分大小写的</p>
 </li>
 <li><p>伪类选择器</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">伪类是可以向某些选择器添加特殊效果的、一组CSS预定义好的类，不需要进行id和<span class="hljs-keyword">class</span>属性的声明，就能自动的被支持<span class="hljs-symbol">CSS</span>的浏览器所识别<br></code></pre></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs angelscript">伪类是可以向某些选择器添加特殊效果的、一组CSS预定义好的类，不需要进行id和<span class="hljs-keyword">class</span>属性的声明，就能自动的被支持<span class="hljs-symbol">CSS</span>的浏览器所识别<br></code></pre></div></td></tr></table></figure>
 
 <table>
 <thead>
@@ -305,19 +313,19 @@
 </tbody></table>
 </li>
 <li><p>群组选择器</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">当几个元素样式属性一样的时候，可以共同调用一个声明，元素之间用逗号分隔<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">当几个元素样式属性一样的时候，可以共同调用一个声明，元素之间用逗号分隔<br></code></pre></div></td></tr></table></figure></li>
 <li><p>派生选择器</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">也叫后代选择器<br>派生选择器允许你根据文档上下文关系来确定某个标签的样式。在派生选择器中，每一个选择器对象之间使用空格作为分隔符，除了可以派生一级后代，也可以派生出多级后代<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">也叫后代选择器<br>派生选择器允许你根据文档上下文关系来确定某个标签的样式。在派生选择器中，每一个选择器对象之间使用空格作为分隔符，除了可以派生一级后代，也可以派生出多级后代<br></code></pre></div></td></tr></table></figure></li>
 <li><p>属性选择器</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">用于选择拥有指定属性的HRML元素设置样式<br></code></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">用于选择拥有指定属性的HRML元素设置样式<br></code></pre></div></td></tr></table></figure>
 
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">属性选择器包含了：属性选择器、属性值选择器、包含选择器、连接字符选择器、子串选择器、后缀选择器<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">属性选择器包含了：属性选择器、属性值选择器、包含选择器、连接字符选择器、子串选择器、后缀选择器<br></code></pre></div></td></tr></table></figure></li>
 <li><p>组合选择器</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">又称为子元素选择器<br>用于选区某个元素的直接子元素（间接子元素不适用）子选择器元素之间使用大于号隔开<br></code></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">又称为子元素选择器<br>用于选区某个元素的直接子元素（间接子元素不适用）子选择器元素之间使用大于号隔开<br></code></pre></div></td></tr></table></figure>
 
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">相邻兄弟选择器<br>用于选择紧接在某元素之后的兄弟。相邻选择器元素之间使用+隔开<br></code></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">相邻兄弟选择器<br>用于选择紧接在某元素之后的兄弟。相邻选择器元素之间使用+隔开<br></code></pre></div></td></tr></table></figure>
 
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">普通兄弟选择器<br>用于选择具有相同父元素的元素。普通兄弟选择器元素之间使用~分开<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">普通兄弟选择器<br>用于选择具有相同父元素的元素。普通兄弟选择器元素之间使用~分开<br></code></pre></div></td></tr></table></figure></li>
 </ol>
 
             </div>
@@ -353,9 +361,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.1CSS%E6%A6%82%E8%BF%B0/">
+                      <a href="/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.3%E5%9C%A8%E7%BD%91%E9%A1%B5%E4%B8%AD%E5%BA%94%E7%94%A8CSS%E7%9A%84%E6%96%B9%E5%BC%8F/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">6.1CSS概述</span>
+                        <span class="hidden-mobile">6.3在网页中应用CSS的方式</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -363,8 +371,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.3%E5%9C%A8%E7%BD%91%E9%A1%B5%E4%B8%AD%E5%BA%94%E7%94%A8CSS%E7%9A%84%E6%96%B9%E5%BC%8F/">
-                        <span class="hidden-mobile">6.3在网页中应用CSS的方式</span>
+                      <a href="/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.4CSS3%E6%A0%B7%E5%BC%8F%E7%89%B9%E6%80%A7%E5%92%8C%E5%B8%B8%E7%94%A8%E6%A0%B7%E5%BC%8F%E5%B1%9E%E6%80%A7/">
+                        <span class="hidden-mobile">6.4CSS3样式特性和常用样式属性</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -560,6 +568,16 @@
   
 
 
+
+
+  
+<script src="/gzguo/js/boom.js"></script>
+<script src="/gzguo/js/anime.min.js"></script>
+<script src="/gzguo/js/qipao.js"></script>
+<script src="/gzguo/js/timeDate.js"></script>
+<script src="/gzguo/js/APlayer.min.js"></script>
+<script src="/gzguo/js/Meting.min.js"></script>
+<script src="/gzguo/js/caidai.js"></script>
 
 
 
