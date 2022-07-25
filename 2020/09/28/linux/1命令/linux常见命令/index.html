@@ -176,7 +176,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      330 字
+      497 字
     </span>
   
 
@@ -186,7 +186,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      7
        分钟
     </span>
   
@@ -245,6 +245,12 @@
 
 <h1 id="添加swag分区">4. 添加swag分区</h1><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">dd <span class="hljs-keyword">if</span>=/dev/zero of=/swapfile bs=<span class="hljs-number">1</span>M count=<span class="hljs-number">1024</span><br>mkswap /swapfile<br>swapon /swapfile<br><span class="hljs-built_in">free</span> -m<br></code></pre></div></td></tr></table></figure>
 
+<h1 id="配置环境变量">5. 配置环境变量</h1><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">vim /etc/profile<br>source /etc/profile<br>    <br><span class="hljs-keyword">export</span> JAVA_HOME=/usr/local/jdk1<span class="hljs-number">.8</span><span class="hljs-number">.0</span>_181<br><span class="hljs-keyword">export</span> CLASSPATH=.:$JAVA_HOME/lib:$JAVA_HOME/jre/lib:$CLASSPATH<br><span class="hljs-keyword">export</span> PATH=$&#123;JAVA_HOME&#125;/bin:$PATH<br><span class="hljs-keyword">export</span> HADOOP_HOME=/usr/local/hadoop/<br><span class="hljs-keyword">export</span> HADOOP_CONF_DIR=$&#123;HADOOP_HOME&#125;/etc/hadoop<br><span class="hljs-keyword">export</span> HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native<br><span class="hljs-keyword">export</span> HADOOP_OPTS=<span class="hljs-string">&quot;-Djava.library.path=$HADOOP_HOME/lib:$HADOOP_COMMON_LIB_NATIVE_DIR&quot;</span><br><span class="hljs-keyword">export</span> HBASE_HOME=/usr/local/hbase<br><span class="hljs-keyword">export</span> PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HBASE_HOME/bin<br><span class="hljs-keyword">export</span> HIVE_HOME=/usr/local/apache-hive<span class="hljs-number">-3.0</span><span class="hljs-number">.0</span>-bin<br><span class="hljs-keyword">export</span> PATH=$PATH:$HIVE_HOME/bin<br></code></pre></div></td></tr></table></figure>
+
+
+
+<h1 id="配置网卡">6. 配置网卡</h1><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">cd /etc/sysconfig/network-scripts<br>vi ifcfg-ens33<br><span class="hljs-comment">//修改为以下内容</span><br>TYPE=Ethernet<br>PROXY_METHOD=none<br>BROWSER_ONLY=no<br>BOOTPROTO=dhcp<br>DEFROUTE=yes<br>IPV4_FAILURE_FATAL=no<br>IPV6INIT=yes<br>IPV6_AUTOCONF=yes<br>IPV6_DEFROUTE=yes<br>IPV6_FAILURE_FATAL=no<br>IPV6_ADDR_GEN_MODE=stable-privacy<br>NAME=ens33<br>UUID=2900a067-aa1c-4b9e-89af-beb948efd17d<br>DEVICE=ens33<br>ONBOOT=yes<br><span class="hljs-comment">//刷新网络</span><br>systemctl restart network<br><span class="hljs-comment">//关闭防火墙</span><br>systemctl stop firewalld   <span class="hljs-comment">//禁用防火墙</span><br>systemctl disable firewalld   <span class="hljs-comment">//停止并禁用开机启动</span><br>systemctl status firewalld.service   <span class="hljs-comment">//查看防火墙状态</span><br></code></pre></div></td></tr></table></figure>
+
 
             </div>
             <hr>
@@ -279,9 +285,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/gzguo/2020/09/28/Web/2HTML5/2.2HTML%E6%96%87%E6%A1%A3%E5%A4%B4%E9%83%A8%E7%9B%B8%E5%85%B3%E7%9A%84%E6%A0%87%E7%AD%BE/">
+                      <a href="/gzguo/2020/09/28/Web/1Web%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0/1.0%E5%88%9D%E5%A7%8BWeb/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">2.2HTML文档头部的标签</span>
+                        <span class="hidden-mobile">1.0学习Web前的小知识</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -289,8 +295,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/gzguo/2020/09/28/linux/2%E6%93%8D%E4%BD%9C/docker-redis%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-                        <span class="hidden-mobile">docker-redis环境搭建</span>
+                      <a href="/gzguo/2020/09/28/linux/2%E6%93%8D%E4%BD%9C/docker%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+                        <span class="hidden-mobile">docker环境搭建</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
