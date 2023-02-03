@@ -176,7 +176,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      183 字
+      188 字
     </span>
   
 
@@ -231,19 +231,7 @@
               <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <h2 id="文件夹安全性问题">0.1. 文件夹安全性问题</h2><ol>
 <li><p>问题描述：</p>
-<blockquote>
-<p>fatal: detected dubious ownership in repository at ‘D:/contact/hexo/.deploy_git’<br>To add an exception for this directory, call:</p>
-<p>​    git config –global –add safe.directory D:/contact/hexo/.deploy_git</p>
-<p>Set the environment variable GIT_TEST_DEBUG_UNSAFE_DIRECTORIES=true and run<br>again for more information.<br>FATAL {<br>  err: Error: Spawn failed</p>
-<div class="hljs code-wrapper"><pre><code>  at ChildProcess.&lt;anonymous&gt; (D:\contact\hexo\node_modules\hexo-util\lib\spawn.js:51:21)
-  at ChildProcess.emit (events.js:315:20)
-  at ChildProcess.cp.emit (D:\contact\hexo\node_modules\cross-spawn\lib\enoent.js:34:29)
-  at Process.ChildProcess._handle.onexit (internal/child_process.js:276:12) &#123;
-code: 128
-</code></pre></div>
-<p>  }<br>} Something’s wrong. Maybe you can find the solution here: %s <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">https://hexo.io/docs/troubleshooting.html</a></p>
-</blockquote>
-</li>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">fatal: detected dubious ownership in repository at <span class="hljs-string">&#x27;D:/contact/hexo/.deploy_git&#x27;</span><br>To add an exception <span class="hljs-keyword">for</span> <span class="hljs-keyword">this</span> directory, call:<br><br>​	git config --global --add safe.directory D:/contact/hexo/.deploy_git<br><br>Set the environment variable GIT_TEST_DEBUG_UNSAFE_DIRECTORIES=<span class="hljs-keyword">true</span> and run<br>again <span class="hljs-keyword">for</span> more information.<br>FATAL &#123;<br>  err: Error: Spawn failed<br>      at ChildProcess.&lt;anonymous&gt; (D:\contact\hexo\node_modules\hexo-util\lib\spawn.js:<span class="hljs-number">51</span>:<span class="hljs-number">21</span>)<br>      at ChildProcess.emit (events.js:<span class="hljs-number">315</span>:<span class="hljs-number">20</span>)<br>      at ChildProcess.cp.emit (D:\contact\hexo\node_modules\cross-spawn\lib\enoent.js:<span class="hljs-number">34</span>:<span class="hljs-number">29</span>)<br>      at Process.ChildProcess._handle.onexit (internal/child_process.js:<span class="hljs-number">276</span>:<span class="hljs-number">12</span>) &#123;<br>    code: <span class="hljs-number">128</span><br>  &#125;<br>&#125; Something<span class="hljs-string">&#x27;s wrong. Maybe you can find the solution here: %s https://hexo.io/docs/troubleshooting.html</span><br></code></pre></div></td></tr></table></figure></li>
 <li><p>问题解决：</p>
 <p>git config –global –add safe.directory “*”;</p>
 <p>相关链接：<a target="_blank" rel="noopener" href="https://blog.51cto.com/u_15740728/5805813">https://blog.51cto.com/u_15740728/5805813</a></p>
@@ -283,9 +271,9 @@ code: 128
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/gzguo/2019/11/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/1%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                      <a href="/gzguo/2019/09/28/hello-world/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">初识数据结构</span>
+                        <span class="hidden-mobile">Hello World</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -293,8 +281,8 @@ code: 128
                   <article class="post-next col-6">
                     
                     
-                      <a href="/gzguo/2019/09/28/hello-world/">
-                        <span class="hidden-mobile">Hello World</span>
+                      <a href="/gzguo/2019/09/07/java/10%E6%AD%A3%E5%88%99/10.1java%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+                        <span class="hidden-mobile">10.1java的正则表达式</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
