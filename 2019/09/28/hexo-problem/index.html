@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="nginx静态服务器搭建。">
+  <meta name="description" content="IT">
   <meta name="author" content="Little scholar">
   <meta name="keywords" content="IT">
   
-  <title>nginx静态服务器搭建 - Learing</title>
+  <title>Hexo Problem - Learing</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -154,7 +154,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="nginx静态服务器搭建">
+            <span class="h2" id="subtitle" title="Hexo Problem">
               
             </span>
 
@@ -164,8 +164,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-09-28 21:17" pubdate>
-        2020年9月28日 晚上
+      <time datetime="2019-09-28 21:17" pubdate>
+        2019年9月28日 晚上
       </time>
     </span>
   
@@ -176,7 +176,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      240 字
+      183 字
     </span>
   
 
@@ -225,34 +225,28 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">nginx静态服务器搭建</h1>
+            <h1 style="display: none">Hexo Problem</h1>
             
             <div class="markdown-body">
-              <p>nginx静态服务器搭建。</p>
-<span id="more"></span>
-
-<h1 id="nginx服务本地无法访问">1. nginx服务本地无法访问</h1><h2 id="查看nginx配置">1.1. 查看nginx配置</h2><figure class="highlight excel"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs excel">nginx -<span class="hljs-built_in">t</span>   #查看nginx配置是否正确  也可以切换到nginx的安装目录下的sbin目录下，执行<span class="hljs-symbol">:</span> ./nginx -<span class="hljs-built_in">t</span><br></code></pre></div></td></tr></table></figure>
-
-<h2 id="查看nginx是否启动">1.2. 查看nginx是否启动</h2><figure class="highlight perl"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs perl">ps -ef | <span class="hljs-keyword">grep</span> nginx  <span class="hljs-comment">#查看nginx端口</span><br></code></pre></div></td></tr></table></figure>
-
-<h2 id="重新启动nginx">1.3. 重新启动nginx</h2><figure class="highlight ebnf"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs ebnf"><span class="hljs-attribute">nginx -s reload</span><br></code></pre></div></td></tr></table></figure>
-
-<p>报错：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs linux">[root@izbp13r6miebokqjpa59gxz conf]# nginx -s reload<br>nginx: [alert] kill(2469, 1) failed (3: No such process)<br></code></pre></div></td></tr></table></figure>
-
-<h2 id="去nginx的sbin下重启">1.4. 去nginx的sbin下重启</h2><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk"><span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/nginx/</span>sbin   去这个目录下   <br>./nginx   执行这个命令<br></code></pre></div></td></tr></table></figure>
-
-<p>忽然间就好了，查看的文档中写的</p>
-<h1 id="vsftpd">2. vsftpd</h1><h2 id="虽然nginx可以访问了，但ftp还是不能访问">2.1. 虽然nginx可以访问了，但ftp还是不能访问</h2><figure class="highlight livecodeserver"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs livecodeserver">systemctl <span class="hljs-built_in">start</span> vsftpd   重启<span class="hljs-keyword">ftp</span>服务 新<br>service vsftpd restart   重启<span class="hljs-keyword">ftp</span>服务<br></code></pre></div></td></tr></table></figure>
-
-<h2 id="vsftpd的默认配置文件">2.2. vsftpd的默认配置文件</h2><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk"><span class="hljs-regexp">/etc/</span>vsftpd/vsftpd_conf<br></code></pre></div></td></tr></table></figure>
-
-<h2 id="最后尽然是访问路径不对">2.3. 最后尽然是访问路径不对</h2><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">ftp:<span class="hljs-regexp">//</span><span class="hljs-number">112.124</span>.<span class="hljs-number">17.86</span><span class="hljs-regexp">/www/im</span>ages   ftp的访问路径<br>http:<span class="hljs-regexp">//</span><span class="hljs-number">112.124</span>.<span class="hljs-number">17.86</span>/images   nginx的访问路径<br></code></pre></div></td></tr></table></figure>
-
-<h1 id="nginx配置">3. nginx配置</h1><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">user ftpuser<br>autoindex on<br>root <span class="hljs-regexp">/home/</span>ftpuser<span class="hljs-regexp">/www/</span><br></code></pre></div></td></tr></table></figure>
-
-<h1 id="vsftpd配置">4. vsftpd配置</h1><figure class="highlight ini"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs ini"><span class="hljs-attr">anonymous_enable</span>=<span class="hljs-literal">NO</span><br><span class="hljs-attr">pasv_enable</span>=<span class="hljs-literal">YES</span><br><span class="hljs-attr">pasv_min_port</span>=<span class="hljs-number">50000</span><br><span class="hljs-attr">pasv_max_port</span>=<span class="hljs-number">60000</span><br></code></pre></div></td></tr></table></figure>
-
+              <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="文件夹安全性问题">0.1. 文件夹安全性问题</h2><ol>
+<li><p>问题描述：</p>
+<p>fatal: detected dubious ownership in repository at ‘D:/contact/hexo/.deploy_git’<br>To add an exception for this directory, call:</p>
+<p>​    git config –global –add safe.directory D:/contact/hexo/.deploy_git</p>
+<p>Set the environment variable GIT_TEST_DEBUG_UNSAFE_DIRECTORIES=true and run<br>again for more information.<br>FATAL {<br>  err: Error: Spawn failed</p>
+<div class="hljs code-wrapper"><pre><code>  at ChildProcess.&lt;anonymous&gt; (D:\contact\hexo\node_modules\hexo-util\lib\spawn.js:51:21)
+  at ChildProcess.emit (events.js:315:20)
+  at ChildProcess.cp.emit (D:\contact\hexo\node_modules\cross-spawn\lib\enoent.js:34:29)
+  at Process.ChildProcess._handle.onexit (internal/child_process.js:276:12) &#123;
+code: 128
+</code></pre></div>
+<p>  }<br>} Something’s wrong. Maybe you can find the solution here: %s <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">https://hexo.io/docs/troubleshooting.html</a></p>
+</li>
+<li><p>问题解决：</p>
+<p>git config –global –add safe.directory “*”;</p>
+<p>相关链接：<a target="_blank" rel="noopener" href="https://blog.51cto.com/u_15740728/5805813">https://blog.51cto.com/u_15740728/5805813</a></p>
+</li>
+</ol>
 
             </div>
             <hr>
@@ -262,7 +256,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/gzguo/categories/linux/">linux</a>
+                      <a class="hover-with-bg" href="/gzguo/categories/html/">html</a>
                     
                   </div>
                 
@@ -270,7 +264,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/gzguo/tags/linux/">linux</a>
+                      <a class="hover-with-bg" href="/gzguo/tags/html/">html</a>
                     
                   </div>
                 
@@ -287,9 +281,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/gzguo/2020/09/28/linux/2%E6%93%8D%E4%BD%9C/docker%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+                      <a href="/gzguo/2019/11/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/1%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">docker环境搭建</span>
+                        <span class="hidden-mobile">初识数据结构</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -297,8 +291,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/gzguo/2020/09/28/linux/2%E6%93%8D%E4%BD%9C/%E5%88%86%E5%B8%83%E5%BC%8F%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/">
-                        <span class="hidden-mobile">分布式基本概念</span>
+                      <a href="/gzguo/2019/09/28/hello-world/">
+                        <span class="hidden-mobile">Hello World</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
