@@ -176,7 +176,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      43 字
+      8k 字
     </span>
   
 
@@ -186,7 +186,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      93
        分钟
     </span>
   
@@ -228,14 +228,637 @@
             <h1 style="display: none">初识JVM</h1>
             
             <div class="markdown-body">
-              <center>引言：JVM 内存结构有关内容，不包括 GC 部分。<center>
-
+              <p>引言：JVM 内存结构有关内容，不包括 GC 部分。</p>
 <span id="more"></span>
 
-<h1 id="开始了解Java虚拟机内存结构">1. 开始了解Java虚拟机内存结构</h1><blockquote>
+<h1 id="开始了解-Java-虚拟机内存结构">1. 开始了解 Java 虚拟机内存结构</h1><blockquote>
 <p>前言：Java 真正的核心从这里开始</p>
 </blockquote>
-</center></center>
+<h2 id="JVM-体系">1.1. JVM 体系</h2><h3 id="JVM-特点">1.1.1. JVM 特点</h3><blockquote>
+<p>语言无关性:</p>
+<p>Java—— 跨平台的语言</p>
+<p>Java—— 跨语言的平台</p>
+</blockquote>
+<p>Java 虚拟机不关心你是否使用了 Java 语言编写，她<strong>只关心 Class 文件</strong></p>
+<p>只要这个 class 文件符合规范，那么他就可以运行，至于是 Java 还是 Scala 还是其他，no care</p>
+<p>所以说，<strong>JVM 可以不可以运行其他语言编写的程序呢？</strong></p>
+<p>答案：可以的，只要该语言的编译器生成合乎规范的 class 文件即可</p>
+<h3 id="java-代码的执行流程">1.1.2. java 代码的执行流程</h3><p>基本流程</p>
+<ol>
+<li>编写 java 代码，最终得到 .java 文件</li>
+<li>编译器对 .java 文件进行编译，下面是编译的过程：<ol>
+<li>词法分析</li>
+<li>语法分析</li>
+<li>语法树/抽象语法树</li>
+<li>语义分析</li>
+<li>注解抽象语法树</li>
+<li>字节码生成器，生成 .class 文件</li>
+</ol>
+</li>
+<li>虚拟机读取 .class 文件，过程如下：<ol>
+<li>类加载器：加载用到的类</li>
+<li>字节码校验器，校验是否合规</li>
+<li>两种执行方式<ul>
+<li>翻译字节码（解释执行）</li>
+<li>JIT 编译器（编译执行）</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="JVM-指令集架构">1.1.3. JVM 指令集架构</h3><p>有两种指令集架构：</p>
+<ul>
+<li><em>栈式架构</em>：<ul>
+<li>设计和实现简单，全部使用零地址指令分配</li>
+<li>不需要硬件支持，更好的跨平台</li>
+<li>指令集更小</li>
+<li>执行性能没有寄存器架构高</li>
+</ul>
+</li>
+<li>寄存器架构：类似于 X86 汇编语言<ul>
+<li>依赖硬件，不同的公司产的 CPU 可能指令集就不同，例如 X86 和 MIPS，就是两种指令集</li>
+</ul>
+</li>
+</ul>
+<p>栈式架构虽然性能低一点，但是可以更好的跨平台，所以 JVM 选择了兼容性更强的栈式架构</p>
+<h3 id="JVM-的生命周期">1.1.4. JVM 的生命周期</h3><ol>
+<li>JVM 启动<ul>
+<li>启动：由引导类加载器 <code>BootStrap class loader</code> 创建一个初始类来实现 JVM 的启动</li>
+</ul>
+</li>
+<li>JVM 执行<ul>
+<li>JVM 启动的唯一原因就是要执行 Java 程序，但是对于操作系统来说，没有 java 程序。所以在操作系统的视角，我们运行的是 JVM 线程</li>
+</ul>
+</li>
+<li>虚拟机的退出<ul>
+<li>退出的几种情况：<ul>
+<li>正常执行结束</li>
+<li>执行中遇到了错误、异常，被迫中止</li>
+<li>操作系统主动叫停</li>
+<li>某个线程主动调用了 Runtime 类或 System 类的 exit 方法，或者 Runtime 类的 halt 方法，并且 Java 安全管理器允许他执行，导致虚拟机退出</li>
+<li>除此外，还有 JNI（Java Native Interface）规范描述的一些情况</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="HotSpot">1.1.5. HotSpot</h3><blockquote>
+<p>HotSpot 是什么？</p>
+</blockquote>
+<ol>
+<li><p>一种 VM 的实现方式</p>
+<p>2000 年，JDK1.3 发布，Java HotSpot virtual machine 正式发布</p>
+<p>HotSpot VM 是 Sun JDK 与 Open JDK 默认的 JVM</p>
+<p><strong>采用解释器与即时编译器 JIT 并存的结构</strong></p>
+<p>目前，HotSpot VM 是广泛的 JVM 实现，主要学习的也就是这个！</p>
+</li>
+<li><p>一种技术：热点代码探测技术</p>
+<p>Java 原先是把源代码编译为字节码在虚拟机执行，这样执行速度较慢</p>
+<p>而 HotSpot 将常用的部分代码编译为本地（原生，native代码），这样显著的提高了性能</p>
+</li>
+</ol>
+<h2 id="JVM-结构">1.2. JVM 结构</h2><blockquote>
+<p>基本结构</p>
+</blockquote>
+<ul>
+<li>Class Loader：类加载器子系统</li>
+<li>Runtime Data Areas：运行时数据区</li>
+<li>Execution Engine：执行引擎</li>
+</ul>
+<p>接下来一一介绍。。。</p>
+<h2 id="Class-Loader-类加载器子系统">1.3. Class Loader 类加载器子系统</h2><h3 id="Class-Loader-的作用">1.3.1. Class Loader 的作用</h3><ol>
+<li>负责从文件系统或网络中加载 Class 文件</li>
+<li>只负责加载，可以不保证运行（Execution Engine 决定是否执行）</li>
+<li>加载到的类信息存放在 Method Area 方法区</li>
+</ol>
+<hr>
+<p>我们编写一个 .java 文件的类，例如 Car，到在 JVM 中创建实例，有这几个过程：</p>
+<ol>
+<li>首先 .java 文件被转化为 .class 文件</li>
+<li>其次 .class 文件被加载到 JVM 中，并且生成 DNA 元数据模板</li>
+<li>最后，JVM 根据 DNA 元数据模板生成多个 Car 对象</li>
+</ol>
+<p>Class Loader 在这个过程中主要负责把 .class 文件送到 JVM，就好像是一个快递员</p>
+<h3 id="类加载的过程">1.3.2. 类加载的过程</h3><p>总共有三大步：</p>
+<ol>
+<li>加载 Loading</li>
+<li>链接 Linking</li>
+<li>初始化 Initialization</li>
+</ol>
+<p>下面详细介绍。。。</p>
+<h4 id="Loading-加载">1.3.2.1. Loading 加载</h4><ol>
+<li>通过一个类的全限定名获取此类的二进制字节流，类的全限定名就是项目中的类路径 + 类名。例如：com.gz.example.Test</li>
+<li>将这个字节流所代表的 <em>静态存储结构</em> 转化为 <em>方法区</em> 的 <em>运行时数据结构</em></li>
+<li>在内存中生成一个代表这个类的 java.lang.class 对象，作为方法区对这个类的各种数据访问的入口</li>
+</ol>
+<hr>
+<p>对与加载源的补充，.class 文件可以来自于：</p>
+<ul>
+<li>本地直接加载</li>
+<li>网络获取</li>
+<li>zip 压缩包直接读取的（jar、war格式的基础）</li>
+<li>运行时自动生成（动态代理技术）</li>
+<li>其他文件生成（如：JSP文件）</li>
+<li>从加密文件中获取（防止反编译）</li>
+</ul>
+<h4 id="Linking-链接">1.3.2.2. Linking 链接</h4><p>链接有三个步骤：</p>
+<ol>
+<li>验证 verify<ul>
+<li>目的：为了保证 .class 文件内容符合当前虚拟机的规范。例如，我是 HotSpot VM ，但是你给了我 TaoBao VM 的字节码文件，我在Linking 链接的时候就会卡住，因为我处理不了除了 HotSpot VM 之外其他类型的字节码文件</li>
+<li>包括四种验证：文件格式验证、元数据验证、字节码验证、符号引用验证</li>
+</ul>
+</li>
+<li>准备 Prepare<ul>
+<li>为类变量分配内存，并设置默认初始值（此时并不会给真正的值，初始化时才会给真正的值）</li>
+<li>注意：<ul>
+<li>对于 final 修饰的变量，在编译的时候就已经分配了内存，在此阶段只是显示初始化</li>
+<li>不会为实例变量初始化，因为实例变量会随着对象一起分配到堆区中</li>
+</ul>
+</li>
+<li>PS<ul>
+<li>类变量：即类的变量，即用 static 修饰的变量，类变量信息会放在<em>方法区</em>中</li>
+<li>实例变量：对象的变量，没有用 static 修饰，会存放在 Java 堆中</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>解析 Resolve<ul>
+<li>目的：将常量池中的符号引用转换为直接引用。（假如程序中用到 System.out.println，那么符号引用就会引入 java.lang.System 包，紧接着把符号引用转换为直接引用）</li>
+<li>注意：<ul>
+<li>实际上，解析过程通常在 JVM 初始化完成之后才会执行</li>
+</ul>
+</li>
+<li>PS：<ul>
+<li>符号引用：一组符号描述所引用的目标</li>
+<li>直接引用：指针、相对位移量或一个间接定位到目标的句柄</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="Initialization-初始化">1.3.2.3. Initialization 初始化</h4><p>初始化阶段就是执行 类构造器的 clinit 方法的过程</p>
+<blockquote>
+<p>ps：</p>
+<p>​    此方法不需要定义，是javac编译器自动收集类中所有类变量的赋值动作和静态代码块中的语句合并而来</p>
+</blockquote>
+<p>只要程序中有静态代码块或是对于普通类变量（指没有 final 修饰），就会出现 clinit 方法</p>
+<hr>
+<p>注意：</p>
+<ul>
+<li><p>类构造器中的 clinit 方法不同于类的构造器（即 clinit 方法和 init 方法是不同的，每个类的构造器中都有 init 方法，但是并不是所有的类的构造器中都有 clinit 方法）</p>
+</li>
+<li><p>类构造器方法按照顺序执行初始化，谁在前面谁先初始化</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Hello</span> </span>&#123;<br>    <span class="hljs-keyword">static</span> &#123;<br>        temp = <span class="hljs-number">2</span>;<br>    &#125;<br>    <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> temp = <span class="hljs-number">1</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        System.out.println(temp); <span class="hljs-comment">//输出 1</span><br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Hello</span> </span>&#123;<br>    <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> temp = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">static</span> &#123;<br>        temp = <span class="hljs-number">2</span>;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        System.out.println(temp); <span class="hljs-comment">//输出 2</span><br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure></li>
+<li><p>final 修饰的类变量不会在 clinit 方法中初始化</p>
+</li>
+<li><p>如果该类有父类，会确保父类 clinit 方法先执行</p>
+</li>
+<li><p>虚拟机必须保证，一个类的 clinit 方法会在并发下被同步加锁（即这个方法只会执行一次）</p>
+</li>
+</ul>
+<h3 id="类加载器分类">1.3.3. 类加载器分类</h3><p>JVM 规范定义，所有派生自 ClassLoader 的类加载器都划分为自定义类加载器</p>
+<p>所有的分类有两大类</p>
+<ul>
+<li>引导类加载器（BootStrap ClassLoader）：没有继承ClassLoader</li>
+<li>自定义类加载器（User-Define ClassLoader）：</li>
+</ul>
+<hr>
+<p>最常见的类加载器：</p>
+<ol>
+<li><p>引导类加载器（BootStrap ClassLoader）：</p>
+<ul>
+<li>使用 C/C++ 实现，在 JVM 内部</li>
+<li>用来加载 java 核心库（JAVA_HOME/jre/lib/rt.jar、resources.jar、sun.boot.class.path路径下的内容，用于提供 JVM 自身运行所需要的类）（比如 String 类、Integer 类等核心类库）</li>
+<li>并没有继承 ClassLoader，没有父加载器</li>
+<li>加载另外两个加载器，是他们的父加载器</li>
+<li>出于安全考虑，只会加载包名为 java，javax，sun 开头的类</li>
+<li>如果一个类使用 name.class.getClassLoader 方法获取到 NULL 说明它是由引导类加载器加载的</li>
+</ul>
+</li>
+<li><p>扩展类加载器（Extension ClassLoader）：</p>
+<ul>
+<li>Java 语言编写，是 sun.misc.Launcher$ExtensionClassLoader 的内部类</li>
+<li>间接继承自 ClassLoader</li>
+<li>从 java.ext.dirs 系统属性指定目录中加载类库，或从 JDK 安装目录 jre/lib/ext 子目录下加载类库。如果我们写的 jar 也在这里，也会由扩展类加载器自动加载。</li>
+</ul>
+</li>
+<li><p>应用程序类加载器（App ClassLoader，也叫系统类加载器 System ClassLoader）</p>
+<ul>
+<li><p>java 语言编写，Launcher 内部类</p>
+</li>
+<li><p>父类为扩展器加载器</p>
+</li>
+<li><p>负责加载环境变量 classpath 或系统属性 java.class.path 指定路径下的类库</p>
+</li>
+<li><p>加载自定义的类，可以使用 ClassLoader.getSystemClassLoader() 获取</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">ClassLoader classLoader = ClassLoaderTest.class.getClassLoader();<br>System.out.println(classLoader);<br><span class="hljs-comment">// sun.misc.Launcher$AppClassLoader@18b4aac2 自定义类使用AppClassLoader加载</span><br>ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();<br>System.out.println(systemClassLoader);<br><span class="hljs-comment">// sun.misc.Launcher$AppClassLoader@18b4aac2 与上面的相同！！</span><br></code></pre></div></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h3 id="三个类加载器之间的关系">1.3.4. 三个类加载器之间的关系</h3><p>BootStrap ClassLoader 包含 Extension ClassLoader 包含 System ClassLoader</p>
+<p><img src="http://img.yesmylord.cn//image-20210714185226307.png" srcset="/gzguo/img/loading.gif" lazyload alt="img"></p>
+<p>注意：</p>
+<ol>
+<li>他们之间不是继承关系，也不是上层下层的关系</li>
+<li>可以理解为等级制度</li>
+</ol>
+<p>真正的关系如下图：</p>
+<p><img src="http://img.yesmylord.cn//image-20210714185343482.png" srcset="/gzguo/img/loading.gif" lazyload alt="ClassLoader继承关系"></p>
+<h3 id="自定义类加载器">1.3.5. 自定义类加载器</h3><h4 id="什么时候会去自定义类加载器">1.3.5.1. 什么时候会去自定义类加载器</h4><ul>
+<li>隔离加载类（防止用中间件导致命名空间冲突）</li>
+<li>修改类的加载方式</li>
+<li>扩展加载源</li>
+<li>防止源码泄露（可以对指定的字节码文件进行解密）</li>
+</ul>
+<h4 id="实现自定义类加载器的步骤">1.3.5.2. 实现自定义类加载器的步骤</h4><ol>
+<li>继承 ClassLoader 类</li>
+<li>实现 findClass 方法（JDK 1.2 前是重写 loadClass 方法）</li>
+<li>如果没有太复杂的需求，可以继承 URLClassLoader 类，避免自己去编写 findClass 方法及其获取字节流的方式</li>
+</ol>
+<hr>
+<p>ClassLoader 是一个抽象类，除了 BootStrap ClassLoader，其余全部继承了 ClassLoader 类，他的抽象方法如下：</p>
+<ul>
+<li>getParent()：返回该类加载器的超类加载器</li>
+<li>loadClass(String name)：加载名称为 name 的类，返回 java.lang.Class 类</li>
+<li>findClass(String name)：查找名称为 name 的类，返回 java.lang.Class 类</li>
+<li>defineClass(String name, byte[] b, int off, int len)：把字节数组 b 中的内容转换为一个 java 类，返回结果为 java.lang.Class 类的实例</li>
+<li>resolveClass(Class&lt;?&gt; c)：连接指定的一个 Java 类</li>
+</ul>
+<h3 id="获取-ClassLoader-的途径">1.3.6. 获取 ClassLoader 的途径</h3><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//【法一】：通过当前类的Class对象来获取</span><br>ToGetClassLoader.class.getClassLoader();<br><span class="hljs-comment">//【法二】：获取当前线程上下文的ClassLoader</span><br>Thread.currentThread().getContextClassLoader();<br><span class="hljs-comment">//【法三】：ClassLoader获取AppClassLoader</span><br>ClassLoader.getSystemClassLoader();<br><span class="hljs-comment">//【法四】：通过获取AppClassLoader，进而获取ExtensionClassLoader</span><br>ClassLoader.getSystemClassLoader().getParent();<br></code></pre></div></td></tr></table></figure>
+
+<h3 id="双亲委派机制">1.3.7. 双亲委派机制</h3><blockquote>
+<p>双亲委派机制：</p>
+<p>​    加载 class 文件时，把加载请求逐级向上级递交，上级加载器不加载此 class 时，才会交由低级的加载器加载</p>
+</blockquote>
+<p>如图：</p>
+<p><img src="http://img.yesmylord.cn//image-20210714223831305.png" srcset="/gzguo/img/loading.gif" lazyload alt="双亲委派机制"></p>
+<p>当我们加载自定义的一个类时，也会走这么一个流程：</p>
+<p>会一级一级的向上传递，然后引导类加载器和扩展类加载器都说自己不加载，才会轮到系统类加载器加载。</p>
+<h4 id="面试常见问题：如何将自己写的-java-lang-String-类导入-JVM">1.3.7.1. 面试常见问题：如何将自己写的 java.lang.String 类导入 JVM</h4><p>答：</p>
+<p>如果是 java.lang 包下的内容，是无法加载的，因为双亲委派机制的存在，java.lang 包下的内容全部会被引导类加载器加载。即使我们使用了自定义的类加载器去加载，规避双亲委派机制，但也会被<em>沙箱安全机制</em>拦截，报出安全异常。</p>
+<hr>
+<p>详细见下面的表格：</p>
+<table>
+<thead>
+<tr>
+<th>包路径不为 <code>java.lang</code></th>
+<th>包路径为 <code>java.lang</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>通过应用类加载器加载成功</td>
+<td>当从程序内部加载自定义类时，加载失败，默认加载 Java 中的 String；当从外部加载时（即写自定义类加载器），加载失败，Java 加载类时存在检测机制，不允许加载任何包路径以 <code>java.</code> 开头的自定义类</td>
+</tr>
+</tbody></table>
+<h4 id="双亲委派机制的优势">1.3.7.2. 双亲委派机制的优势</h4><ol>
+<li><p>避免类的重复加载</p>
+<p>一个类只会由一个类加载器加载，不会出现多个加载器加载一个类的情况</p>
+</li>
+<li><p>保护程序的安全，防止核心 API 被随意修改</p>
+</li>
+</ol>
+<h3 id="其他">1.3.8. 其他</h3><p>JVM 中表示两个 class 对象是否为同一个类的两个必要条件</p>
+<ul>
+<li>类的限定名必须一致</li>
+<li>加载这个类的 ClassLoader 必须相同</li>
+</ul>
+<hr>
+<p>JVM 必须知道一个类由哪个加载器加载的！</p>
+<p>对于非启动类加载器加载的类，JVM 会将类加载器的引用作为类型信息的一部分放在方法区</p>
+<p>JVM 解析一个类型到另一个类型的引用时，JVM 需要保证两个类加载器是相同的</p>
+<hr>
+<p>类的主动使用与被动使用（类的主动使用和被动使用的区别在于，有没有类加载过程中的初始化过程）</p>
+<p>主动使用，有七种情况：</p>
+<ul>
+<li>创建类的实例</li>
+<li>访问某个类或接口的静态变量，或者对静态变量赋值</li>
+<li>调用静态方法</li>
+<li>反射</li>
+<li>初始化一个类的子类</li>
+<li>JVM 启动时被标明为启动类的类</li>
+<li>JDK 7 开始提供的动态语言</li>
+</ul>
+<h2 id="Runtime-Data-Area-运行时数据区">1.4. Runtime Data Area 运行时数据区</h2><h3 id="Runtime-Data-Area-的基本结构">1.4.1. Runtime Data Area 的基本结构</h3><p>有五大部分：</p>
+<ul>
+<li>方法区 Method Area（在 JDK 1.8 后叫<em>元数据区</em>）</li>
+<li>堆 Heap</li>
+<li>程序计数器 Program Count Register（PC）</li>
+<li>本地方法栈 Native Method Stack（NMS）</li>
+<li>虚拟机栈 JVM Stack（VMS）</li>
+</ul>
+<p>其中，方法区和堆，每个进程一份（即整个 JVM 只有一个方法区和堆）。程序计数器、本地方法栈和虚拟机栈，每个线程各有一份，所有的线程共用一份进程的方法区和堆</p>
+<p>而且，JVM 中的线程与操作系统的线程是一一映射关系的。JVM 对应的是一个 进程。</p>
+<h3 id="PC">1.4.2. PC</h3><blockquote>
+<p>PC 程序计数器：不同于 CPU 内的 PC，是一种模仿的抽象，也叫程序钩子</p>
+</blockquote>
+<h4 id="功能">1.4.2.1. 功能</h4><p>PC 寄存器用来存储指向下一条指令的地址，也即将要执行的指令代码。由执行引擎（Execution Engine）读取下一条指令。</p>
+<h4 id="特点">1.4.2.2. 特点</h4><ol>
+<li>小而精：占用很小的一块内存，处于运行速度最快的区域</li>
+<li>线程私有，和线程共存亡</li>
+<li>不会发生 OOM（Out Of Memory）</li>
+<li>记录当前方法的 JVM 指令地址（若执行 Native Method，则 PC 是 undefined）</li>
+</ol>
+<blockquote>
+<p>当前方法：任何时间线程只能有一个方法在执行，这个方法就在当前虚拟机栈栈顶</p>
+</blockquote>
+<h4 id="例子">1.4.2.3. 例子</h4><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PC</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-comment">// -1 0 1 2 3 4 5 由 iconst_m1 0 1 2 3 4 5 指令执行</span><br>        <span class="hljs-comment">// 其他使用 bipush 值 指令执行</span><br>        <span class="hljs-keyword">int</span> a = <span class="hljs-number">10</span>;     <span class="hljs-comment">// bipush 10</span><br>        <span class="hljs-keyword">int</span> b = <span class="hljs-number">3</span>;      <span class="hljs-comment">// iconst_3</span><br>        <span class="hljs-keyword">int</span> k = a - b;  <span class="hljs-comment">// isub</span><br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<p>反编译后，如下：</p>
+<p><img src="http://img.yesmylord.cn//image-20210715180146397.png" srcset="/gzguo/img/loading.gif" lazyload alt="程序反编译后"></p>
+<p>左边的红色数字，代表指令地址（偏移地址），右边代表具体的指令</p>
+<p>PC 在这个过程中会存放偏移地址，执行引擎会从 PC 中读取位置，再去执行指令</p>
+<h4 id="两个问题">1.4.2.4. 两个问题</h4><blockquote>
+<p>1.使用 PC 存储字节码指令地址有什么用？或者说为什么要使用 PC 记录当前线程的执行线程？</p>
+</blockquote>
+<p>因为 CPU 会不停的切换线程，当切换回此线程时，得知道从哪里开始继续执行任务，所以就使用 PC 这个结构来存储指令地址</p>
+<p>然后字节码解释器就通过改变 PC 的值来明确下一条应该执行什么样的字节码指令</p>
+<blockquote>
+<p>2.PC 寄存器为什么要设置线程私有？</p>
+</blockquote>
+<p>如果不设置线程私有的话，就得把 PC 的值存到某个地方，这样切换线程的时候，需要不停的存 PC 读 PC，增大了切换线程的消耗。要是给每一个线程一个 PC，就可以取消切换线程的开销。</p>
+<h3 id="JVM-Stack">1.4.3. JVM Stack</h3><blockquote>
+<p>硬骨头</p>
+</blockquote>
+<h4 id="功能-1">1.4.3.1. 功能</h4><p>保存程序运行期间的局部变量（8 中基本数据对象、引用对象的地址）、部分结果、参与方法的返回和调用</p>
+<h4 id="特点-1">1.4.3.2. 特点</h4><ul>
+<li>线程私有，与线程共存亡</li>
+<li>存储的基本单位：栈帧（Stack Frame）</li>
+<li>速度仅次于PC</li>
+<li>不存在垃圾回收问题，但是存在 Stack Overflow 和 Out Of Memory</li>
+<li>JVM 对其有两个操作：入栈、出栈</li>
+</ul>
+<h4 id="栈的-Stack-Overflow-与-OOM">1.4.3.3. 栈的 Stack Overflow 与 OOM</h4><p>JVM 允许栈可以是固定不变的，也可以是动态增长的：</p>
+<ul>
+<li>固定不变：线程创建时就指定了具体的大小，如果此线程的运行过程中，超出最大容量，那么会报出 Stack Overflow Error 异常</li>
+<li>动态增长：栈可以自己动态增长，但是在尝试扩展时，无法申请到足够的内存，或者在创建线程时，内存达不到申请的需求，会抛出 OOM 异常</li>
+</ul>
+<p>总结就是，超出了栈范围会报 Stack Overflow Error 异常。申请不到内存会报 OOM 异常。</p>
+<blockquote>
+<p>可以使用 Java 的 -Xss 参数设置栈内存大小：</p>
+<p>java -Xss1m //设置1Mb的内存；k代表Kb；g代表Gb</p>
+</blockquote>
+<h4 id="栈帧（Stack-Frame）">1.4.3.4. 栈帧（Stack Frame）</h4><p>栈帧的特点：</p>
+<ul>
+<li><em>每一个方法对应一个栈帧</em></li>
+<li>栈帧是一个内存区块，是一个数据集，维系着方法执行过程中的各种数据信息</li>
+<li>处于栈顶的栈帧，叫做当前栈帧；对应的方法，称为当前方法；对应执行这个方法的类，就叫做当前类</li>
+<li>执行引擎运行的所有字节码指令只对当前栈帧进行操作</li>
+<li>若该方法调用其他方法，则会创建新的栈帧，压入栈中，待其运行完成后，出栈</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>不同的线程所含的栈帧不允许相互引用</li>
+<li>如果方法嵌套使用，内方法的返回值会传回外方法的栈帧</li>
+<li>方法中有两种方式将栈帧弹出：<ul>
+<li>return 语句</li>
+<li>throw 抛出异常</li>
+</ul>
+</li>
+</ul>
+<hr>
+<blockquote>
+<p>栈帧的结构：</p>
+</blockquote>
+<p>有五个部分：</p>
+<ul>
+<li>局部变量表 Local Variables（LV）</li>
+<li>操作数栈 Oprand Stack（或叫表达式栈 OS）</li>
+<li>动态链接 Dynamic Linking（或叫 指向运行时常量池的方法引用）</li>
+<li>方法返回地址 Return Address（或叫 方法正常退出或异常退出的定义）</li>
+<li>一些附加信息</li>
+</ul>
+<p>有时候也把最后三个归为一类，叫栈帧区</p>
+<p>下面具体来介绍他们：</p>
+<hr>
+<h5 id="局部变量表">1.4.3.4.1. 局部变量表</h5><ul>
+<li>是一个数组（int byte char short 等均为数字；bool 转换 0 表示假，非 0 表示真；引用类型可以使用地址，也为数字）</li>
+<li>局部变量表在栈中，栈线程私有，因此不存在数据安全性的问题</li>
+<li>局部变量表所需的容量大小在编译期就确定下来，保存在方法的 code 属性的 maximum local variables 数据项中，在方法运行期间不会改变</li>
+<li>方法嵌套的次数由栈的大小决定。（如果一个方法的参数和局部变量越多，使得局部变量表变大，那么嵌套次数就会变少）</li>
+<li>局部变量表只在当前方法调用中有效</li>
+</ul>
+<hr>
+<p>局部变量表还有一个概念就是插槽 Slot，Slot 是局部变量表的最基本存储单元，他有这样几个特点：</p>
+<ul>
+<li><p>byte、short、char、bool 存储前会被转换为 int</p>
+</li>
+<li><p>32位以内占用一个 slot（包括引用类型和 returnAddress）；64位占用两个 slot ，如 long、double</p>
+</li>
+<li><p>JVM 给每一个槽都分配一个索引，通过这个索引则可以取到值；方法被调用时，他的方法参数和局部变量都会按照顺序被复制到局部变量表的一个 slot 上</p>
+</li>
+<li><p>对于构造方法和实例方法，会自动引入一个 this 变量，放在 index 为 0 的插槽（也就是第一个插槽）</p>
+<p>举个例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>    <span class="hljs-keyword">char</span> a = <span class="hljs-string">&#x27;c&#x27;</span>;<br>    <span class="hljs-keyword">long</span> i = <span class="hljs-number">10000000L</span>;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> b = <span class="hljs-number">10</span>;<br>    System.out.println(b);<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<p><img src="http://img.yesmylord.cn//image-20210715224443888.png" srcset="/gzguo/img/loading.gif" lazyload alt="slot占用图"></p>
+<p><img src="http://img.yesmylord.cn//image-20210715231135515.png" srcset="/gzguo/img/loading.gif" lazyload alt="实例方法this参数"></p>
+<p><img src="http://img.yesmylord.cn//image-20210715231437173.png" srcset="/gzguo/img/loading.gif" lazyload alt="构造方法也有this参数"></p>
+</li>
+<li><p>槽也可以重用，如果过了局部变量的作用域，那么下面的变量会占用此槽</p>
+<p>例如：一个实例方法</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test2</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> a = <span class="hljs-number">10</span>;<br>    <span class="hljs-keyword">int</span> b = <span class="hljs-number">100</span>;<br>    &#123;<br>        <span class="hljs-keyword">int</span> c = a+b;<br>    &#125;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; i&lt; <span class="hljs-number">10</span>;i++)&#123;<br>        System.out.println(<span class="hljs-number">2</span>);<br>    &#125;<br>    <span class="hljs-keyword">int</span> d = a + b;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<p>假如槽不重用，那么会有几个槽呢？</p>
+<p>有六个（this、a、b、c、i、d）</p>
+<p>但实际上只有四个</p>
+<p>JVM 执行这个方法时，执行过程如下：</p>
+<ol>
+<li>实例方法 <code>this</code> 来一个槽 (slot: 0)</li>
+<li>变量 <code>a b</code> 各来一个槽 (slot: 1, 2)</li>
+<li>有 <code>c</code> 再来一个槽 (slot: 3)</li>
+<li>诶，<code>c</code> 消失了，那就让 <code>i</code> 用 <code>c</code> 的槽吧 (slot: 3)</li>
+<li>诶，<code>i</code> 也无了，变量 <code>d</code> 去用吧 (slot: 3)</li>
+</ol>
+</li>
+</ul>
+<hr>
+<p>另外，学习 Java 基础的时候，我们知道：</p>
+<p><strong>类变量可以不给初值使用，但是局部变量不行</strong></p>
+<p>现在我们知道原因了，因为：</p>
+<p>类在加载过程中，有<strong>加载、链接、初始化</strong>三个过程，而第二步链接又有<strong>验证、准备、解析</strong>三个过程，在准备阶段，所有的类变量会被给默认值，到了初始化阶段才会将程序员给变量的值赋值给类变量。</p>
+<p>但是对于局部变量来说，一个方法的局部变量表就没这么多过程了，如果没给初始值，系统也不知道这个值是多少，也就没法使用</p>
+<ul>
+<li>对于 GC 来说，<strong>局部变量表所直接引用或间接引用的对象，都不会被回收</strong></li>
+</ul>
+<p>所以 Java 性能调优，局部变量表可以大作文章！</p>
+<h5 id="操作数栈">1.4.3.4.2. 操作数栈</h5><p>基于<strong>数组</strong>实现的栈，也叫<strong>表达式栈</strong></p>
+<p>作用：</p>
+<ul>
+<li>根据字节码指令，往栈中写入数据和读出数据（即<strong>入栈与出栈</strong>）</li>
+<li>保存计算的中间过程，作为运算结果的<strong>临时</strong>存储空间</li>
+<li>操作数栈相当于 JVM 的<strong>临时工作区</strong>，在方法开始调用时，此栈是空的</li>
+<li>操作数栈有其栈深度，在编译器就已确定，保存在 Code 属性中，为 max_stack 的值<ul>
+<li>32bit 占一个栈深度，64bit 占两个栈深度</li>
+</ul>
+</li>
+<li>虽然是基于数组实现的，但不能直接用索引访问，只能进行入栈与出栈操作</li>
+<li>如果方法<strong>有返回值</strong>，其返回值会被压入<strong>当前栈帧</strong>的<strong>操作数栈</strong>，并更新 PC，执行下一条指令</li>
+<li>Java 虚拟机的解释引擎是<strong>基于栈的执行引擎</strong>，指的就是操作数栈</li>
+</ul>
+<p><strong>了解</strong>：</p>
+<p>一个新技术：<strong>栈顶缓存技术</strong>（ToS Top-of-Stack Cashing）</p>
+<p>指：将栈顶的元素全部存储在 CPU 的寄存器当中</p>
+<p>原因：JVM 是基于栈式的指令，虽然零地址的使用简单，但是会增大入栈和出栈的次数（即增多了对内存的访问次数），所以提出了此项技术。</p>
+<h5 id="动态链接">1.4.3.4.3. 动态链接</h5><p>在栈帧中的一个指向运行时常量池中方法的引用</p>
+<p>例如这样一段简单的代码</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">int</span> c = <span class="hljs-number">100</span>;<br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">()</span></span>&#123;<br>	<span class="hljs-keyword">int</span> a = <span class="hljs-number">10</span>;<br>	<span class="hljs-keyword">int</span> b = <span class="hljs-number">0</span>;<br>	c++;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<p> 先简单分析一下，局部变量表应该有三个槽：this、a、b、JclassLib 如下，重点关注7：</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"> <span class="hljs-number">0</span> bipush <span class="hljs-number">10</span><br> <span class="hljs-number">2</span> istore_1<br> <span class="hljs-number">3</span> iconst_0<br> <span class="hljs-number">4</span> istore_2<br> <span class="hljs-number">5</span> aload_0<br> <span class="hljs-number">6</span> dup<br> <span class="hljs-number">7</span> getfield #<span class="hljs-number">2</span> &lt;Slot.c : I&gt; <span class="hljs-comment">//这里的#2 就指向了常量区</span><br><span class="hljs-number">10</span> iconst_1<br><span class="hljs-number">11</span> iadd<br><span class="hljs-number">12</span> putfield #<span class="hljs-number">2</span> &lt;Slot.c : I&gt;<br><span class="hljs-number">15</span> <span class="hljs-keyword">return</span><br></code></pre></div></td></tr></table></figure>
+
+<p>局部常量区：#2 指向了常量区，对应又有 #8 和 #37，然后依次找下去，#10 中对应的就是这个变量的名字 c，#11 代表的类型是 int；</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">Constant pool:<br>...<br>#<span class="hljs-number">2</span> = Fieldref           #<span class="hljs-number">8.</span>#<span class="hljs-number">37</span>         <span class="hljs-comment">// Slot.c:I</span><br>...<br>#<span class="hljs-number">8</span> = Class              #<span class="hljs-number">44</span>            <span class="hljs-comment">// Slot</span><br>...<br>#<span class="hljs-number">10</span> = Utf8               c<br>#<span class="hljs-number">11</span> = Utf8               I<br>...<br>#<span class="hljs-number">37</span> = NameAndType        #<span class="hljs-number">10</span>:#<span class="hljs-number">11</span>        <span class="hljs-comment">// c:I</span><br>...<br>#<span class="hljs-number">44</span> = Utf8               Slot<br></code></pre></div></td></tr></table></figure>
+
+<h5 id="方法返回地址">1.4.3.4.4. 方法返回地址</h5><p>存放调用改方法的PC寄存器的值</p>
+<p>一个方法结束，本质上是当前栈帧出栈额过程：</p>
+<ul>
+<li>正常结束：调用者的 PC 的值作为返回地址</li>
+<li>出现异常退出：返回地址要通过异常表来确定，栈帧中一般不会保存这部分信息</li>
+</ul>
+<p>两种退出的方式的区别就在于，异常退出的方法不会给上层调用者返回任何的信息</p>
+<h5 id="一些附加的信息">1.4.3.4.5. 一些附加的信息</h5><p>为了给程序调试提供支持的信息</p>
+<h4 id="关于-JVM-栈的几个问题">1.4.3.5. 关于 JVM 栈的几个问题</h4><blockquote>
+<p>1.举例栈溢出的情况</p>
+</blockquote>
+<p>答：Stack Overflow 栈溢出，栈中存放栈帧，每一个栈帧代表一个方法，日常变成中，递归调用方法时，当栈帧累计增加起来，就会导致栈的大小不足，导致栈溢出</p>
+<blockquote>
+<p>2.-Xss 调整栈大小，就能不出现 Stack Overflow 吗？</p>
+</blockquote>
+<p>答：当然不能，无论多大的栈内存，都有可能用完。不过栈越大，能跑的方法也越多，有时候调整栈变大，会解决 Stack Overflow 的问题。</p>
+<blockquote>
+<p>3.垃圾回收是否涉及到 JVM 栈</p>
+</blockquote>
+<p>答：垃圾回收不涉及 VMS，只有方法区和堆才涉及 GC 操作。</p>
+<p>VMS：Virtual Mechine Stack（虚拟机栈）</p>
+<blockquote>
+<p>4.方法中定义的局部变量是否线程安全？</p>
+</blockquote>
+<p>答：线程安全：</p>
+<ul>
+<li>只有一个线程可以操作此数据，必是线程安全的；</li>
+<li>若有多个线程可以操作此数据，那这个数据就是共享数据，若没有进行同步，则存在安全问题；</li>
+</ul>
+<p>StringBuilder 是一个线程不安全的类（StringBuffer 是线程安全的）</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">// 线程安全</span><br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">a</span><span class="hljs-params">()</span> </span>&#123;<br>    StringBuilder sb = <span class="hljs-keyword">new</span> StringBuilder();<br>    sb.append(<span class="hljs-number">1</span>);<br>    sb.append(<span class="hljs-string">&quot;2&quot;</span>);<br>&#125;<br><span class="hljs-comment">// 线程不安全</span><br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">b</span><span class="hljs-params">(StringBuilder sb)</span> </span>&#123;<br>    sb.append(<span class="hljs-number">1</span>);<br>    sb.append(<span class="hljs-string">&quot;2&quot;</span>);<br>&#125;<br><span class="hljs-comment">// 线程不安全</span><br><span class="hljs-function"><span class="hljs-keyword">private</span> StringBuilder <span class="hljs-title">a</span><span class="hljs-params">()</span> </span>&#123;<br>    StringBuilder sb = <span class="hljs-keyword">new</span> StringBuilder();<br>    sb.append(<span class="hljs-number">1</span>);<br>    sb.append(<span class="hljs-string">&quot;2&quot;</span>);<br>    <span class="hljs-keyword">return</span> sb;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<p>a 方法中是线程安全的，因为 a 中的 StringBuilder 始终都是在 VMS 内的，每个线程的 VMS 是独占的，所以就不存在线程安全的问题；</p>
+<p>b 方法中线程不安全，因为 b 中的 StringBuilder 是一个引用，这个对象存在的位置在堆中，堆不是线程独占的，所以有可能多个线程争抢，就存在线程安全问题；</p>
+<p>c 方法线程不安全，因为他将 StringBuilder 返回出去（逃逸），没有完全在 VMS 内产生，又在 VMS 内消亡，所以会有线程安全问题</p>
+<p>总结：方法内什么样的局部变量不会出现线程安全问题呢？就是即在方法内产生，又在方法内消亡的局部变量。</p>
+<h3 id="Native-Method-Stack">1.4.4. Native Method Stack</h3><p>VMS 用来管理 java 方法调用，NMS 来管理本地方法调用</p>
+<p>作用：</p>
+<ul>
+<li>登记方法中使用到的本地方法</li>
+</ul>
+<p>注意，当调用本地方法的时候，就不再受虚拟机控制了！</p>
+<h3 id="Java-Heap">1.4.5. Java Heap</h3><blockquote>
+<p>yinggutou 骨头🤣+1</p>
+</blockquote>
+<h4 id="特点-2">1.4.5.1. 特点</h4><ul>
+<li>进程共有，一个 JVM 只有一个堆内存</li>
+<li>JVM 最大的一块内存空间</li>
+<li>内存大小可以调节，物理上不必连续，逻辑上连续（使用参数 -Xms10m -Xmx20m 设置堆最小10m，最大20m）</li>
+<li>线程可以在此划分私有缓冲区（Thread Local Allocation Buffer，TLAB）</li>
+<li>方法区结束后，堆中的对象不会被马上移除，只有 GC 时才会移除</li>
+</ul>
+<h4 id="堆内存结构">1.4.5.2. 堆内存结构</h4><blockquote>
+<p>JDK 1.7 堆空间</p>
+</blockquote>
+<ul>
+<li>年轻代：又可以分为两部分<ul>
+<li>Eden 伊甸园区</li>
+<li>Survivor 区<ul>
+<li>Survivor 0 区</li>
+<li>Survivor 1 区</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>老年区</li>
+<li>永久代：不属于堆空间的一部分，只是逻辑上分到了这一部分</li>
+</ul>
+<blockquote>
+<p>JDK 1.8 堆空间</p>
+</blockquote>
+<p>逻辑上堆分为：年轻代、老年代、元空间</p>
+<p>年轻代与老年代没有变化</p>
+<ul>
+<li>元空间：物理上在直接内存内，不在堆中</li>
+</ul>
+<h4 id="堆内存的设置">1.4.5.3. 堆内存的设置</h4><p>堆内存在 JVM 建立时就确定了，可以通过参数来设置堆空间（新生代 + 老年代）大小：</p>
+<figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js">-Xms 表示堆区的起始内存 等价于 -XX:InitialHeapSize<br>-Xmx 表示堆区的最大内存 等价于 -XX:MaxHeapSize<br></code></pre></div></td></tr></table></figure>
+
+<p>如果堆区内存超过设置的最大内存，就会出现 OOM 错误</p>
+<p>通常设置两个值为相同的值，是为了 GC 清理完堆区后，不需要重新分隔计算堆区的大小，从而提高性能</p>
+<p>默认初始化值，按电脑内存不同而不同，大致关系如下：</p>
+<ul>
+<li>起始内存的值 = 电脑内存大小 / 64</li>
+<li>最大内存的值 = 电脑内存 / 4</li>
+</ul>
+<p>查看自己 JVM 堆内存的 Demo</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HeapMem</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-comment">// 查看堆空间大小</span><br>        <span class="hljs-keyword">long</span> initialMemory = Runtime.getRuntime().totalMemory();<br>        <span class="hljs-keyword">long</span> maxMemory = Runtime.getRuntime().maxMemory();<br>        System.out.println(<span class="hljs-string">&quot;-Xms: &quot;</span>+ initialMemory / <span class="hljs-number">1024</span> / <span class="hljs-number">1024</span> + <span class="hljs-string">&quot;M&quot;</span>);<br>        System.out.println(<span class="hljs-string">&quot;-XmX: &quot;</span>+maxMemory / <span class="hljs-number">1024</span> / <span class="hljs-number">1024</span> + <span class="hljs-string">&quot;M&quot;</span>);<br>        System.out.println(<span class="hljs-string">&quot;系统内存大小（用-Xms来计算）&quot;</span> + initialMemory * <span class="hljs-number">64.0</span> / <span class="hljs-number">1024</span> + <span class="hljs-string">&quot;G&quot;</span>);<br>        System.out.println(<span class="hljs-string">&quot;系统内存大小（用-Xmx来计算）&quot;</span> + maxMemory * <span class="hljs-number">4.0</span> / <span class="hljs-number">1024</span> + <span class="hljs-string">&quot;G&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<p>运行结果：（我的电脑是 16 GB）</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">-Xms: 245M<br>-XmX: 3614M<br>系统内存大小（用-Xms来计算）<span class="hljs-number">1.</span>6089088E7G<br>系统内存大小（用-Xmx来计算）<span class="hljs-number">1.</span>4804992E7G<br></code></pre></div></td></tr></table></figure>
+
+<p>注意这里得到的值，并不是实际的堆空间大小，他只包括老年代与部分新生代（伊甸园区 + 任一个 Survivor 区），因此会小一些</p>
+<p>可以证实一下：</p>
+<p>给这个 demo 睡一会</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HeapMem</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        ...<br>        <span class="hljs-keyword">try</span> &#123;<br>            Thread.sleep(<span class="hljs-number">1000000</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<p>设置参数启动</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">-Xms600m<br>-Xmx600m<br></code></pre></div></td></tr></table></figure>
+
+<p>打开 cmd</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">输入jps<br></code></pre></div></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">-Xms: 575M<br>-XmX: 575M<br>系统内存大小（用-Xms来计算）<span class="hljs-number">3.</span>76832E7G<br>系统内存大小（用-Xmx来计算）<span class="hljs-number">2355200.</span>0G<br></code></pre></div></td></tr></table></figure>
+
+<p>打开 cmd，输入如下内容：（可以用 jstat 命令来查看内存）</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">jstat -gc <span class="hljs-number">12688</span><br></code></pre></div></td></tr></table></figure>
+
+<p>我们加一下 <code>( S0C + S1C + EC + OC )/ 1024 = 600M</code></p>
+<p><code>SOC / 1024 = 25M</code> ，输出结果少了 25M，验证了猜想</p>
+<p>（也可以直接用 **<code>-XX:+PrintGCDetails</code> 参数 ** 来打印内容）</p>
+<h4 id="新生代与老年代">1.4.5.4. 新生代与老年代</h4><ul>
+<li><p>默认比例：新生代：老年代 = 1:2</p>
+<p>可以通过参数进行设置 -XX:NewRatio=n 其中 n 表示一个数字，例如 5，那么新生代与老年代比例就为 1:5（开发中不会修改这个参数）</p>
+</li>
+<li><p>新生代中，Eden 与另外两个 Survivor 区的比例时 8:1:1</p>
+<p>这个数值也可以调整：-XX:SurvivorRatio=8</p>
+<p>但去验证一下，会发现其实并不是完全的 8:1:1，因为默认开启自适应，JVM 会自动进行调整（但就算显示关闭自适应，也不会是 8:1:1，只有显示声明参数设 -XX:SurvivorRatio=8，才会使 8:1:1）</p>
+</li>
+<li><p>几乎所有的 java 对象都在 Eden 区被 new（例外：直接 new 了一个大于 Eden 区的对象）</p>
+</li>
+<li><p>绝大部分 java 对象都在新生代被销毁了</p>
+</li>
+</ul>
+<h4 id="对象的分配过程">1.4.5.5. 对象的分配过程</h4><blockquote>
+<p>重要</p>
+</blockquote>
+<p>一个对象被分配，有以下流程：</p>
+<ol>
+<li>new 对象</li>
+<li>先放到 Eden 区（优先 Eden 区的 TLAB）<ul>
+<li>Eden 区已满 3</li>
+<li>Eden 区未满：直接放入</li>
+</ul>
+</li>
+<li>触发</li>
+</ol>
+<p><img src="D:\yonyou\typora\photo\image-20230207170827557.png" srcset="/gzguo/img/loading.gif" lazyload alt="image-20230207170827557"></p>
+<p><a target="_blank" rel="noopener" href="https://gfjira.yyrd.com/secure/Dashboard.jspa?selectPageId=20833">https://gfjira.yyrd.com/secure/Dashboard.jspa?selectPageId=20833</a></p>
+<h2 id="文章相关链接">1.5. 文章相关链接</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1PJ411n7xZ">尚硅谷 JVM 教程</a>：强推，最强 JVM 视频教程</li>
+<li><a href="https://github.com/TangBean/understanding-the-jvm">《深入理解 Java 虚拟机》阅读笔记</a>：省下看书的时间</li>
+<li>《深入理解 Java 虚拟机》：书还是要看的</li>
+<li>JMM 参考 1：<a target="_blank" rel="noopener" href="https://blog.csdn.net/guoguo527/article/details/116432225?ops_request_misc=%7B%22request_id%22:%22162917169316780261986543%22,%22scm%22:%2220140713.130102334..%22%7D&request_id=162917169316780261986543&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-116432225.first_rank_v2_pc_rank_v29&utm_term=jmm&spm=1018.2226.3001.4187">博客</a></li>
+<li>JMM 参考 2：<a target="_blank" rel="noopener" href="https://blog.csdn.net/javazejian/article/details/72772461?ops_request_misc=%7B%22request_id%22:%22162918225216780271546106%22,%22scm%22:%2220140713.130102334.pc_all.%22%7D&request_id=162918225216780271546106&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_v2~hot_rank-1-72772461.first_rank_v2_pc_rank_v29&utm_term=jmm&spm=1018.2226.3001.4187">博客</a></li>
+</ol>
+
             </div>
             <hr>
             <div>
@@ -269,12 +892,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/gzguo/2023/02/08/%E4%B8%AD%E9%97%B4%E4%BB%B6/SpringCloud/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">初识SpringCloud</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/gzguo/2023/02/03/jvm/%E5%88%9D%E8%AF%86GC/">
-                        <span class="hidden-mobile">初识GC</span>
+                      <a href="/gzguo/2023/02/03/other/20230203/">
+                        <span class="hidden-mobile">为什么要写文档？</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -1,0 +1,812 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/gzguo/img/favicon.png">
+  <link rel="icon" href="/gzguo/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="引言：SpringCloud的基础内容，入门理解。">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
+  
+  <title>初识SpringCloud - Learing</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/gzguo/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/agate.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/gzguo/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/gzguo/css/mac.css">
+<link rel="stylesheet" href="/gzguo/css/toubudaziji.css">
+<link rel="stylesheet" href="/gzguo/css/shubiao.css#.css">
+<link rel="stylesheet" href="/gzguo/css/gundong.css">
+<link rel="stylesheet" href="/gzguo/css/APlayer.min.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/gzguo/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"gc226JcELJOJ7J0n4C9IDFd1-gzGzoHsz","app_key":"Ix9equHpEbmzuf2eGJmCgvaB","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/gzguo/js/utils.js" ></script>
+  <script  src="/gzguo/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/gzguo/">&nbsp;<strong>Jarvis</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/gzguo/img/bj.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="初识SpringCloud">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2023-02-08 12:00" pubdate>
+        2023年2月8日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      68
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+    <a href="https://github.com/gzguo/gzguo" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#FD6C6C; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">初识SpringCloud</h1>
+            
+            <div class="markdown-body">
+              <p>引言：SpringCloud的基础内容，入门理解。</p>
+<span id="more"></span>
+
+<h1 id="SpringCloud">1. SpringCloud</h1><h2 id="分布式">1.1. 分布式</h2><blockquote>
+<p>集群是什么？</p>
+</blockquote>
+<p>我有一个商城网站，开发完成之后部署到了 Linux 服务其上。突然有一天访问人数大幅度增加，网站变得很慢。我该怎么办？</p>
+<ul>
+<li>给 Linux 服务器增加配置，增加内存和外存。</li>
+</ul>
+<p>又过了一段时间，访问网站的人更多了，但是现在 Linux 服务器已经是顶配了，我又该怎么办？</p>
+<ul>
+<li>再买一台 Linux 服务器，把我的项目同时部署到两台服务器上。在用户访问的时候，我把请求做一个分流，这样两台服务器就可以互相分担访问请求太多的压力了！</li>
+</ul>
+<blockquote>
+<p>分布式是什么？</p>
+</blockquote>
+<p>分布式是我开发了一个项目，在部署的时候，我把一个项目根据服务的不同拆开。把各个服务部署到不同的 Linux 服务器上，这些服务通过各自的网络协议互相访问。</p>
+<ul>
+<li>分不同的服务有什么意义呢？</li>
+</ul>
+<p>问得好，首先，我们肯定有访问量高的服务，相对而言也有访问量比较低的服务，这个时候，通过我们的分析，我们可以把访问量高的服务放在好一点的服务器上，从而可以提高我们的效率。不仅仅如此，通过功能拆分，我们的模块之间相互独立，这样可以便于扩展、复用性高。</p>
+<blockquote>
+<p>集群和分布式可以同时使用吗？</p>
+</blockquote>
+<p>集群和分布式并不冲突，可以有分布式集群</p>
+<p>相当于我的商城项目分成了销售服务、首页轮播服务、购物车服务。分服务就是分布式。</p>
+<p>现在我把销售服务搞了2份到两个服务器上，这就是集群。</p>
+<p>上面的这种情况就是分布式集群。</p>
+<blockquote>
+<p>分布式、微服务、SOA有什么区别，有什么相同点？</p>
+</blockquote>
+<p>目前，不了解的话，可以把分布式、微服务、SOA 都理解成分布式！</p>
+<p>// TODO 下来了解一下微服务和 SOA</p>
+<p>参考资料：</p>
+<ul>
+<li>分布式与集群的区别是什么？<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/20004877">https://www.zhihu.com/question/20004877</a></li>
+<li>分布式、集群、微服务、SOA 之间的区别<a target="_blank" rel="noopener" href="https://blog.csdn.net/heatdeath/article/details/79038795">https://blog.csdn.net/heatdeath/article/details/79038795</a></li>
+</ul>
+<h3 id="分布式–CAP理论">1.1.1. 分布式–CAP理论</h3><blockquote>
+<p>什么是 CAP？</p>
+</blockquote>
+<ul>
+<li><p>C，<code>consistency</code>：数据一致性</p>
+<ul>
+<li>所有的节点都有最新的数据<ul>
+<li>这里的节点就是分布式分出来的某个服务</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>A，<code>availability</code>：可用性</p>
+<ul>
+<li>数据具备高可用性</li>
+</ul>
+</li>
+<li><p>P，<code>partition-tolerance</code>：分区容忍性</p>
+<ul>
+<li><p>容忍网络出现分区，分区之间的网络不可达</p>
+<ul>
+<li><blockquote>
+<p>什么是分区？</p>
+</blockquote>
+<p>分区就是出现网络问题之后，节点之间不能联通，出现断口，把原先完整的网络分成了几个区域</p>
+<figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js">开始：<br>a -&gt; b -&gt; c -&gt; a<br>c -&gt; b -&gt; a -&gt; c（所有的节点都是可以连通的）<br>网络出现问题后：<br>a -&gt; b -&gt; c<br>c -&gt; b -&gt; a（现在 c 不能直接到 a，a 也不能直接到 c）<br><br>这里自己可以理解一下，a 不一定就是起始，c 也不一定就是终止。这个调用关系可以理解为是从中间断开的！<br></code></pre></div></td></tr></table></figure></li>
+<li><blockquote>
+<p>出现分区之后，我们是否允许访问的请求继续成功？</p>
+</blockquote>
+<ul>
+<li>如果允许继续访问，那么 c 发生的变化传不到 a。这个时候我们就是选择了可用性（availability），抛弃了数据一致性（consitency）</li>
+<li>如果不允许继续访问，要等到 a 和 c 之间恢复通信之后才可以继续访问。这个时候我们就选择了数据一致性（consitency），放弃了可用性（aivilability）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="分布式–CAP理论梳理">1.1.2. 分布式–CAP理论梳理</h3><p>一般来说，CAP 中的 P 是不可或缺的。P（分区容忍性 partition-tolerance），这个网络问题是客观存在的，也就是说分区问题是客观存在的，我们要保证出现分区的时候也可以正常运行。</p>
+<p>CAP 是无法兼顾的，从上面的例子也可以看出，我们可以选 AP，也可以选 CP。但是，要注意的是：不是说选了 AP，C 就完全抛弃了。不是说选了 CP，A 就完全抛弃了</p>
+<p>在 CAP 理论中，C 所代表的一致性是强一致性（每一个节点必须是最新版本），其实一致性还有其他的级别：</p>
+<ul>
+<li>弱一致性：弱一致性是相对于强一致性而言，它不保证总能得到最新的值；</li>
+<li>最终一致性（eventual consistency）：放宽了对事件的要求，在被调完成操作响应后的某个时间点，被调多个节点的数据最终达成一致。</li>
+</ul>
+<p>A 所代表的一致性也可以定义成 0-100 的连续区间</p>
+<ul>
+<li>容错可用性：每年可容忍停机1min</li>
+<li>极高可用性：~~5min</li>
+<li>具有故障自动恢复能力的可用性：~~53min</li>
+<li>高可用性：~~8.8h</li>
+<li>商品可用性：~~43.8min</li>
+</ul>
+<p>所以，CAP 理论定义的其实是在容忍网络分区的条件下，“强一致性”和“极致可用性”无法同时达到</p>
+<p>参考资料：</p>
+<ul>
+<li>CAP理论中的P到底是个什么意思？<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/54105974">https://www.zhihu.com/question/54105974</a></li>
+<li>浅谈分布式系统的基本问题：可用性与一致性：<a target="_blank" rel="noopener" href="https://m.aliyun.com/yunqi/articles/2709">https://m.aliyun.com/yunqi/articles/2709</a></li>
+<li>分布式系统的CAP理论：<a target="_blank" rel="noopener" href="http://www.hollischuang.com/archives/666">http://www.hollischuang.com/archives/666</a></li>
+<li>为什么CAP理论在舍弃P的情况下，可以有完美的CA？<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/285878189">https://www.zhihu.com/question/285878189</a></li>
+<li>不懂点CAP理论，你好意思说你是做分布式的吗？<a target="_blank" rel="noopener" href="http://www.yunweipai.com/archives/8432.html">http://www.yunweipai.com/archives/8432.html</a></li>
+</ul>
+<p>扩展阅读：</p>
+<ul>
+<li>浅谈分布式事务：<a target="_blank" rel="noopener" href="https://m.aliyun.com/yunqi/articles/230242">https://m.aliyun.com/yunqi/articles/230242</a></li>
+</ul>
+<h2 id="SpringCloud-就是这么简单">1.2. SpringCloud 就是这么简单</h2><p>单从概念来说，是非常容易理解的。下面来熟悉一下 SpringCloud 最基础的知识。</p>
+<h3 id="为什么需要-SpringCloud？">1.2.1. 为什么需要 SpringCloud？</h3><p>前面提到了分布式，我们要把自己的项目拆开不同的服务。但是拆会出现各种各样的问题，而 SpringCloud 提供了一整套的解决方案！</p>
+<p>SpringCloud 的基本功能：</p>
+<ul>
+<li>服务治理：SpringCloud Eureka</li>
+<li>客户端负载均衡：SpringCloud Ribbon</li>
+<li>服务器容错保护：SpringCloud Hystrix</li>
+<li>声明式服务调用：SpringCloud Zuul</li>
+<li>API 网关服务：SpringCloud Zuul</li>
+<li>分布式配置中心：SpringCloud Config</li>
+</ul>
+<p>SpringCloud 的高级功能：</p>
+<ul>
+<li>消息总线：SpringCloud Bus</li>
+<li>消息驱动的微服务：SpringCloud Stream</li>
+<li>分布式服务跟踪：SpringCloud Sleuth</li>
+</ul>
+<h3 id="引出-Eureka">1.2.2. 引出 Eureka</h3><blockquote>
+<p>现在我们把项目分成了很多的服务，每个服务之间的通讯要怎么实现？</p>
+</blockquote>
+<p>子系统之间并不在一个环境下，需要远程调用。远程调用可能会用到 httpClient、WebService 等等这些技术。</p>
+<p>在远程调用的时候，我们可以直接用 ip 地址调用。</p>
+<blockquote>
+<p>直接用 ip 地址调用有一个小问题？有一天我们的 ip 地址变了怎么办？</p>
+</blockquote>
+<p>为了解决微服务架构中的服务实例维护问题（ip 地址），产生了大量的服务治理框架和产品。这些框架和产品的实现都围绕着服务注册与服务发现机制来完成对微服务实例的自动化管理。</p>
+<p>在 SpringCloud 中我们的服务治理框架一般使用的就是 Eureka</p>
+<blockquote>
+<p>Eureka 怎么解决 ip 地址会发生变化的问题？</p>
+</blockquote>
+<p>创建一个新的服务 Server#，将之前项目中分出来的服务都注册到新服务 Server#上，用新服务 Server#来维护这些已经注册进来的信息。</p>
+<p>项目中分出来的服务只需要取 Server#上的注册清单（注册清单上写着服务名和对应的服务 ip 地址），分出来的服务不再调用具体的 ip，而是调用清单上的服务名。</p>
+<h3 id="Eureka-细节">1.2.3. Eureka 细节</h3><p>Eureka 专门用于给其他服务注册的那个服务称为 Eureka Server（服务注册中心），其余注册到 Eureka Server 的服务叫 Eureka Client</p>
+<p>在 Eureka Server 一般我们会这样配置：</p>
+<figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js">register-<span class="hljs-keyword">with</span>-eureka:<span class="hljs-literal">false</span> # <span class="hljs-literal">false</span> 表示不向注册中心注册自己<br>fetch-registry:<span class="hljs-literal">false</span> # <span class="hljs-literal">false</span> 表示自己端就是注册中心，我的职责就是维护服务实例，并不需要取检索服务<br></code></pre></div></td></tr></table></figure>
+
+<hr>
+<p>Eureka Client 分为服务提供者和服务消费者</p>
+<ul>
+<li>但很有可能，某个服务既是服务提供者，又是服务消费者</li>
+</ul>
+<p>如果在网上看到 SpringCloud 的某个服务配置没有“注册”到 Eureka-Server 也不用过于惊讶（但是它可以获取 Eureka 服务清单）</p>
+<ul>
+<li>很可能只是作者把该服务认作为单纯的服务消费者，单纯的服务消费者是无需对外提供服务的，所以也就不需要出现在服务清单上了，也就无需注册到 Eureka Server 中了</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js">eureka:<br> client:<br>  register-<span class="hljs-keyword">with</span>-eureka: <span class="hljs-literal">false</span> # 当前微服务不注册到eureka中(消费端)<br>  service-url: <br>   defaultZone: http:<span class="hljs-comment">//eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/ </span><br></code></pre></div></td></tr></table></figure>
+
+<hr>
+<p>Eureka 治理机制：</p>
+<ul>
+<li>服务提供者<ul>
+<li>服务注册：启动的时候会通过发送 REST 请求的方式将自己注册到 Eureka Server 服务上，同时带上了自身服务的一些元数据信息</li>
+<li>服务续约：在注册完服务后，服务提供者会维护一个心跳用来持续告诉 Eureka Server“我还活着”</li>
+<li>服务下线：当服务实例进行正常的关闭操作时，它会触发一个服务下线的 REST 请求给 Eureka Server，告诉服务注册中心“我要下线了”</li>
+</ul>
+</li>
+<li>服务消费者<ul>
+<li>获取服务：当我们启动服务消费者的时候，它会发送一个 REST 请求给服务注册中心，来获取上面注册的服务清单</li>
+<li>服务调用：服务消费者在获取到服务清单后，通过服务名可以获得具体提供服务的实例名和该实例的元数据信息。在进行服务调用的时候，优先访问同处一个 Zone 中的服务提供方</li>
+</ul>
+</li>
+<li>Eureka Server（服务注册中心）<ul>
+<li>失效剔除：默认每隔一段时间（默认为60秒）将从当前清单中超时（默认为90秒）没有续约的服务剔除出去</li>
+<li>自我保护：Eureka Server 运行期间，会统计心跳失败的比例，在15分钟之内是否低于85%（通常由于网络不稳定导致）。Eureka Server会将当前的实例注册信息保护起来，让这些实例不会过期，尽可能保护这些注册信息。</li>
+</ul>
+</li>
+</ul>
+<p>优秀博文：</p>
+<ul>
+<li>Spring Cloud Eureka详解：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sunhuiliang85/article/details/76222517">https://blog.csdn.net/sunhuiliang85/article/details/76222517</a></li>
+<li>《Spring Cloud Netflix》 – 服务注册和服务发现-Eureka 的使用：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/26472547">https://zhuanlan.zhihu.com/p/26472547</a></li>
+<li>微服务架构：Eureka参数配置项详解：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/fangfuhai/p/7070325.html">https://www.cnblogs.com/fangfuhai/p/7070325.html</a></li>
+</ul>
+<h3 id="引出-RestTemplate-和-Ribbon">1.2.4. 引出 RestTemplate 和 Ribbon</h3><p>通过 Eureka 服务治理框架，我们可以通过服务名来获取具体的服务实例位置了（IP）。一般使用 SpringCloud 的时候不需要自己手动创建 HttpClient 来进行远程调用。</p>
+<p>可以使用 Spring 封装好的 RestTemplate 工具类，使用起来很简单。</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">// 传统的方式，直接显示写死IP是不好的！</span><br>  <span class="hljs-comment">//private static final String REST_URL_PREFIX = &quot;http://localhost:8001&quot;;</span><br><br>  <span class="hljs-comment">// 服务实例名</span><br>  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String REST_URL_PREFIX = <span class="hljs-string">&quot;http://MICROSERVICECLOUD-DEPT&quot;</span>;<br><br>  <span class="hljs-comment">/**</span><br><span class="hljs-comment">   * 使用 使用restTemplate访问restful接口非常的简单粗暴无脑。 (url, requestMap,</span><br><span class="hljs-comment">   * ResponseBean.class)这三个参数分别代表 REST请求地址、请求参数、HTTP响应转换被转换成的对象类型。</span><br><span class="hljs-comment">   */</span><br>  <span class="hljs-meta">@Autowired</span><br>  <span class="hljs-keyword">private</span> RestTemplate restTemplate;<br><br>  <span class="hljs-meta">@RequestMapping(value = &quot;/consumer/dept/add&quot;)</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">add</span><span class="hljs-params">(Dept dept)</span> </span>&#123;<br>      <span class="hljs-keyword">return</span> restTemplate.postForObject(REST_URL_PREFIX + <span class="hljs-string">&quot;/dept/add&quot;</span>, dept, Boolean.class);<br>  &#125;<br></code></pre></div></td></tr></table></figure>
+
+<hr>
+<p>为了实现服务的高可用，我们可以将服务提供者集群。集群的意思就是多搞几台服务器，上面部署同样的服务！</p>
+<p>现在想要将上面部署的多个相同服务合理分摊用户的请求（专业来说就是 负载均衡），可能你想到的会是 nginx；</p>
+<p>其实 SpringCloud 也支持负载均衡的功能，只不过它是客户端的负载均衡，这个功能实现就是 Ribbon！</p>
+<hr>
+<p>负载均衡又区分了两种类型：</p>
+<ul>
+<li>客户端负载均衡（Ribbon）<ul>
+<li>服务实例的清单在客户端，客户端进行负载均衡算法分配</li>
+<li>（从上面我们已经知道了：客户端可以从 Eureka Server 中得到一份服务清单，在发送请求的时候通过负载均衡算法，在多个服务器之间选择一个进行访问）</li>
+</ul>
+</li>
+<li>服务端负载均衡（Nginx）<ul>
+<li>服务实例的清单在服务端，服务器进行负载均衡算法分配</li>
+</ul>
+</li>
+</ul>
+<h3 id="Ribbon-细节">1.2.5. Ribbon 细节</h3><p>Ribbon 是支持负载均衡，默认的负载均衡策略是轮询，我们也是可以根据自己的实际需求来自定义负载均衡策略的</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MySelfRule</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> IRule <span class="hljs-title">myRule</span><span class="hljs-params">()</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-comment">//return new RandomRule();// Ribbon默认是轮询，我自定义为随机</span><br>        <span class="hljs-comment">//return new RoundRobinRule();// Ribbon默认是轮询，我自定义为随机</span><br><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> RandomRule_ZY();<span class="hljs-comment">// 我自定义为每台机器5次</span><br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<p>实现起来也很简单，继承 AbstractLoadBalancerRule 类，重写 public Server choose（ILoadBalancer 1b， Object key）即可</p>
+<p>SpringCloud 在 CAP 理论是选择了 AP 的，在 Ribbon 中还可以配置<em>重试机制</em>的（有兴趣的可以去看看）</p>
+<p>优秀博文：</p>
+<ul>
+<li>撸一撸Spring Cloud Ribbon的原理-负载均衡策略：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/kongxianghai/p/8477781.html">https://www.cnblogs.com/kongxianghai/p/8477781.html</a></li>
+</ul>
+<h3 id="引出-Hystrix">1.2.6. 引出 Hystrix</h3><p>到目前为止，我们的服务看起来已经很好了。我们有分布式服务，可以用 Eureka 来进行优化，避免直接写死 IP。真正写代码调用的时候还有 RestTemplate 来帮助我们解析服务名为 ip；我们还有集群，我们的集群可以交给 Ribbon 来进行负载均衡（默认轮询、客户端）</p>
+<blockquote>
+<p>但是，如果我们在调用多个远程服务时，某个服务出现延迟，会怎么样？？</p>
+</blockquote>
+<p>在<em>高并发</em>的情况下，由于单个服务的<em>延迟</em>，可能导致所有的请求都处于延迟状态，甚至在几秒钟就使服务处于负载饱和的状态，资源耗尽，直到不可用，最终导致这个分布式系统都不可用，这就是“雪崩”</p>
+<p>针对上诉的问题，SpringCloud Hystrix 实现了<em>短路器、线程隔离</em>等一系列服务保护功能。</p>
+<ul>
+<li>Fallback（失败快速返回）：当某个服务单元发生故障（类似用电器发生短路）之后，通过断路器的故障监控（类似熔断保险丝），<em>向调用方返回一个错误响应，而不是长时间的等待</em>。这样就不会使得线程因调用故障服务被长时间占用不释放，避免了故障在分布式系统中的蔓延。</li>
+<li>资源/依赖隔离（线程池隔离）：它为<em>每一个依赖服务创建一个独立的线程池</em>，这样就算某个依赖服务出现延迟高的情况，也只是对该依赖服务的调用产生影响，而不会拖慢到其他服务</li>
+</ul>
+<p>Hystrix 提供了几个熔断的关键参数：滑动窗口大小（20）、熔断器开关间隔（5s）、错误率（50%）</p>
+<ul>
+<li>每当 20 个请求中，有 50% 失败时，熔断器就会打开，此时再调用此服务，将会直接返回失败，不再调用远程服务。</li>
+<li>知道5s钟之后，重新检测该触发条件，判断是否把熔断器关闭，或者继续打开</li>
+</ul>
+<p>Hystrix 还有请求合并、请求缓存这样强大的功能，在此我就不具体说明了，有兴趣的同学可以继续深入学习。</p>
+<h3 id="Hystrix-仪表盘">1.2.7. Hystrix 仪表盘</h3><p>Hystrix 仪表盘：主要用来实时监控 Hystrix 的各项指标信息。通过 Hystrix Dashboard 反馈的实时信息，可以帮助我们快速发现系统中存在的问题，从而即使采取应对措施。相当于一个预言家。</p>
+<p>除了可以开启单个实例的监控页面之外，还有一个监控端点 <code>/turbine,stream</code>是对集群使用的。从端点的命名中们可以引入 Turbine，通过它来汇集监控信息，并将聚合后的信息提供给 HystrixDashboard 来集中展示和监控。</p>
+<p>参考资料：</p>
+<ul>
+<li>Hystrix ，为什么说它是每个系统不可或缺的开源框架？<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/34304136">https://zhuanlan.zhihu.com/p/34304136</a></li>
+<li>深入理解Hystrix之文档翻译：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/28523060">https://zhuanlan.zhihu.com/p/28523060</a></li>
+<li>谈谈我对服务熔断、服务降级的理解：<a target="_blank" rel="noopener" href="https://blog.csdn.net/guwei9111986/article/details/51649240">https://blog.csdn.net/guwei9111986/article/details/51649240</a></li>
+<li>Hystrix几篇文章《青芒》：<a target="_blank" rel="noopener" href="https://segmentfault.com/u/yedge/articles">https://segmentfault.com/u/yedge/articles</a></li>
+</ul>
+<h3 id="引出-Feign">1.2.8. 引出 Feign</h3><p>上面已经介绍了 Ribbon 和 Hystrix 了，可以发现的是：他两作为基础工具类框架广泛地应用在各个微服务实现中，我们也发现对这两个框架的使用几乎是同时发现的。</p>
+<p>为了简化我们的开发，SpringCloud Feign出现了！它基于 Netflix Feign 实现，整合了 SpringCloud Ribbon 与 SpringCloud Hystrix，除了整合这两者的强大功能之外，它还提供了声明式的服务调用（不再通过 RestTemplate）</p>
+<blockquote>
+<p>Feign 是一种声明式、模板化的 HTTP 客户端。在 SpringCloud 中使用 Feign，我们可以做到使用 HTTP 请求远程服务时能与调用本地方法一样的编码体验，开发者完全感知不到这是远程方法，更感知不到这个是 HTTP 请求。</p>
+</blockquote>
+<hr>
+<p>下面就来简单看看 Feign 是怎么优雅的实现远程调用的：</p>
+<p>服务绑定：</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">// value ---&gt;指定调用哪个服务</span><br><span class="hljs-comment">// fallbackFactory---&gt;熔断器的降级提示</span><br><span class="hljs-meta">@FeignClient(value = &quot;MICROSERVICECLOUD-DEPT&quot;, fallbackFactory = DeptClientServiceFallbackFactory.class)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">DeptClientService</span> </span>&#123;<br><br><br>    <span class="hljs-comment">// 采用Feign我们可以使用SpringMVC的注解来对服务进行绑定！</span><br>    <span class="hljs-meta">@RequestMapping(value = &quot;/dept/get/&#123;id&#125;&quot;, method = RequestMethod.GET)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Dept <span class="hljs-title">get</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable(&quot;id&quot;)</span> <span class="hljs-keyword">long</span> id)</span></span>;<br><br>    <span class="hljs-meta">@RequestMapping(value = &quot;/dept/list&quot;, method = RequestMethod.GET)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Dept&gt; <span class="hljs-title">list</span><span class="hljs-params">()</span></span>;<br><br>    <span class="hljs-meta">@RequestMapping(value = &quot;/dept/add&quot;, method = RequestMethod.POST)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">add</span><span class="hljs-params">(Dept dept)</span></span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<p>Feign中使用熔断器：</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Feign中使用断路器</span><br><span class="hljs-comment"> * 这里主要是处理异常出错的情况(降级/熔断时服务不可用，fallback就会找到这里来)</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Component</span> <span class="hljs-comment">// 不要忘记添加，不要忘记添加</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DeptClientServiceFallbackFactory</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">FallbackFactory</span>&lt;<span class="hljs-title">DeptClientService</span>&gt; </span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> DeptClientService <span class="hljs-title">create</span><span class="hljs-params">(Throwable throwable)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> DeptClientService() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> Dept <span class="hljs-title">get</span><span class="hljs-params">(<span class="hljs-keyword">long</span> id)</span> </span>&#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Dept().setDeptno(id).setDname(<span class="hljs-string">&quot;该ID：&quot;</span> + id + <span class="hljs-string">&quot;没有没有对应的信息,Consumer客户端提供的降级信息,此刻服务Provider已经关闭&quot;</span>)<br>                        .setDb_source(<span class="hljs-string">&quot;no this database in MySQL&quot;</span>);<br>            &#125;<br><br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Dept&gt; <span class="hljs-title">list</span><span class="hljs-params">()</span> </span>&#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>            &#125;<br><br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">add</span><span class="hljs-params">(Dept dept)</span> </span>&#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>            &#125;<br>        &#125;;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<p>调用：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/2BGWl1qPxib3LiaOIcUWPt6eU6UmOJhnk0wS2ZdEFAobePJkXcXRP4bYL3DoT9PZib7icHcyaad3szIvmgMPDib5XSw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" srcset="/gzguo/img/loading.gif" lazyload alt="图片"></p>
+<h3 id="引出-Zuul">1.2.9. 引出 Zuul</h3><p>目前还有两个比较麻烦的问题：</p>
+<ol>
+<li>路由规则与服务实例的维护问题：外层的负载均衡（nginx）需要维护所有的服务实例清单</li>
+<li>签名校验、登录校验冗余问题：为了保证对外服务的安全性，我们在服务端实现的微服务接口，往往都会有一定的权限校验机制，但是我们的服务是独立的，我们不得不在这些应用中都是先这样一套校验逻辑，这就会造成校验逻辑的冗余。</li>
+</ol>
+<hr>
+<p>SpringCloud Zuul 解决这两个问题的方法：</p>
+<ul>
+<li>SpringCloud Zuul 通过与 SpringCloud Eureka 进行整合，将自身注册为服务治理下的应用，同时从 Eureka 中获得了所有其他微服务的实例信息。外层调用都必须通过 API 网关，使得将维护服务实例的工作交给了服务治理框架自动完成。</li>
+<li>在 API 网关服务上进行统一调用来对微服务接口做前置过滤，以实现对微服务接口的拦截和校验</li>
+</ul>
+<p>Zuul 天生就拥有线程隔离和断路器的自我保护功能，以及对服务调用的客户端负载均衡功能，也就是说：Zuul也是支持 Hystrix 和 Ribbon。</p>
+<p>关于 Zuul 还有很多知识点：</p>
+<ul>
+<li>路由匹配（动态路由）</li>
+<li>过滤器实现（动态过滤器）</li>
+<li>默认会过滤掉 Cookie 与敏感的 HTTP 头信息（额外配置）</li>
+</ul>
+<h3 id="对-Zuul-的疑问">1.2.10. 对 Zuul 的疑问</h3><p>Zuul 支持 Ribbon 和 Hystrix，也能够实现客户端的负载均衡。我们的 Feign 不也是实现客户端的负载均衡和 Hystrix 的吗？既然 Zuul 已经能够实现了，那我们的 Feign 还有必要吗？</p>
+<p>可以这样理解：</p>
+<ul>
+<li>Zuul 是对外暴露了唯一接口相当于路由的是 controller 的请求，而 Ribbon 和 Feign 路由了 service 请求。</li>
+<li>Zuul 做最外层请求的负载均衡，而 Ribbon 和 Feign 做的是系统内部各个微服务的 service 的调用的负载均衡</li>
+</ul>
+<hr>
+<p>有了 Zuul，还需要 Nginx 吗？他两可以一起使用吗？</p>
+<ul>
+<li>我的理解：Zuul 和 Nginx 可以一起使用的（毕竟我们的 Zuul 也是可以搭成集群来实现高可用的），要不要一起使用得看架构的复杂程度了（业务）</li>
+</ul>
+<p>参考资料：</p>
+<ul>
+<li>微服务与API网关（上）: 为什么需要API网关？：<a target="_blank" rel="noopener" href="http://blog.didispace.com/hzf-ms-apigateway-1/">http://blog.didispace.com/hzf-ms-apigateway-1/</a></li>
+<li>谈谈 API 网关：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b52a2773e75f">https://www.jianshu.com/p/b52a2773e75f</a></li>
+<li>谈谈微服务中的 API 网关（API Gateway）：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/savorboard/p/api-gateway.html">https://www.cnblogs.com/savorboard/p/api-gateway.html</a></li>
+<li>API网关性能比较：NGINX vs. ZUUL vs. Spring Cloud Gateway ：<a target="_blank" rel="noopener" href="http://www.360doc.com/content/18/0208/05/46368139_728502763.shtml">http://www.360doc.com/content/18/0208/05/46368139_728502763.shtml</a></li>
+<li>谈API网关的背景、架构以及落地方案：<a target="_blank" rel="noopener" href="http://www.infoq.com/cn/news/2016/07/API-background-architecture-floo">http://www.infoq.com/cn/news/2016/07/API-background-architecture-floo</a></li>
+<li>zuul和nginx：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/37385481">https://zhuanlan.zhihu.com/p/37385481</a></li>
+</ul>
+<h3 id="引出-SpringCloud-Config">1.2.11. 引出 SpringCloud Config</h3><p>随着业务的扩展，我们的服务会越来越多，每个服务都有自己的配置文件。</p>
+<p>既然是配置文件，给我们的配置难免会有改动，比如说密码，一旦改动，所有的服务都得修改配置文件！</p>
+<blockquote>
+<p>在分布式系统中，某一个基础服务信息变更，都很可能会引起一系列的更新和重启！</p>
+</blockquote>
+<p>SpringCloud Config 项目是一个解决分布式系统的配置管理方案。它包含了 Client 和 Server 两个部分，server 提供配置文件的存储、以接口的形式将配置文件的内容提供出去，client 通过接口获取数据、并依据此数据初始化自己的应用</p>
+<ul>
+<li><p>简单来说，使用 SpringCloud Config 就是将配置文件放到统一的位置管理（比如 GitHub），客户端通过接口去获取这些配置文件</p>
+</li>
+<li><p>在 GitHub 上修改某个配置文件，应用加载的就是修改后的配置文件。</p>
+</li>
+<li><p>SpringCloud Config其他的知识：</p>
+<ul>
+<li>在SpringCloud Config的服务端， 对于配置仓库的默认<strong>实现采用了Git</strong>，我们也可以配置SVN。</li>
+<li>配置文件内的信息<strong>加密和解密</strong></li>
+<li>修改了配置文件，希望不用重启来<strong>动态刷新配置</strong>，配合Spring  Cloud Bus 使用~</li>
+</ul>
+<p>使用SpringCloud Config可能的疑问：application.yml和 bootstrap.yml区别</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/BlogNetSpace/p/8469033.html">https://www.cnblogs.com/BlogNetSpace/p/8469033.html</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="总结">1.3. 总结</h2><p>SpringCloud系列文章参考资料：</p>
+<ul>
+<li>史上最简单的 SpringCloud 教程 | 终章<a target="_blank" rel="noopener" href="https://blog.csdn.net/forezp/article/details/70148833">https://blog.csdn.net/forezp/article/details/70148833</a></li>
+<li>Spring Cloud基础教程《程序员DD》<a target="_blank" rel="noopener" href="http://blog.didispace.com/Spring-Cloud%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">http://blog.didispace.com/Spring-Cloud%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/</a></li>
+<li>Spring Cloud 系列文章《纯洁的微笑》：<a target="_blank" rel="noopener" href="http://www.ityouknow.com/spring-cloud.html">http://www.ityouknow.com/spring-cloud.html</a></li>
+<li>SpringCloud系列文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/woshimrf/tag/SpringCloud/">https://www.cnblogs.com/woshimrf/tag/SpringCloud/</a></li>
+<li>SpringCloud系列文章《狂小白》：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/huangjuncong/tag/SpringCloud/">https://www.cnblogs.com/huangjuncong/tag/SpringCloud/</a></li>
+<li>SpringCloud官方文档：<a target="_blank" rel="noopener" href="http://projects.spring.io/spring-cloud/">http://projects.spring.io/spring-cloud/</a></li>
+<li>Spring Cloud 中文文档：<a target="_blank" rel="noopener" href="https://springcloud.cc/spring-cloud-dalston.html#_appendix_compendium_of_configuration_properties">https://springcloud.cc/spring-cloud-dalston.html#_appendix_compendium_of_configuration_properties</a></li>
+</ul>
+<p>参考书籍：</p>
+<ul>
+<li>《SpringCloud 微服务实战》</li>
+</ul>
+<p>SpringCloud GitHub Demo(看完文章的同学可以自己练手玩玩，写好了ReadMe了)：</p>
+<ul>
+<li><a href="https://github.com/ZhongFuCheng3y/msc-Demo">https://github.com/ZhongFuCheng3y/msc-Demo</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/gzguo/categories/SpringCloud/">SpringCloud</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/gzguo/tags/SpringCloud/">SpringCloud</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/gzguo/2023/02/04/jvm/%E5%88%9D%E5%A7%8BJVM/">
+                        <span class="hidden-mobile">初识JVM</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"gc226JcELJOJ7J0n4C9IDFd1-gzGzoHsz","appKey":"Ix9equHpEbmzuf2eGJmCgvaB","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/gzguo/js/events.js" ></script>
+<script  src="/gzguo/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/gzguo/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script defer src="/gzguo/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+<script src="/gzguo/js/boom.js"></script>
+<script src="/gzguo/js/anime.min.js"></script>
+<script src="/gzguo/js/qipao.js"></script>
+<script src="/gzguo/js/timeDate.js"></script>
+<script src="/gzguo/js/APlayer.min.js"></script>
+<script src="/gzguo/js/Meting.min.js"></script>
+<script src="/gzguo/js/caidai.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/gzguo/js/boot.js" ></script>
+
+
+</body>
+</html>
