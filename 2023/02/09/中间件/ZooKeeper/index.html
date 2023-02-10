@@ -176,7 +176,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      12 字
+      1.2k 字
     </span>
   
 
@@ -186,7 +186,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      12
        分钟
     </span>
   
@@ -230,6 +230,101 @@
             <div class="markdown-body">
               <p>引言：ZooKeeper的基础内容，入门理解。</p>
 <span id="more"></span>
+
+<h1 id="ZooKeeper">1. ZooKeeper</h1><h2 id="Zookeeper-是什么">1.1. Zookeeper 是什么</h2><p>非常经典，学习一个东西之前先大概查一下他的概念，大致了解一下！</p>
+<blockquote>
+<p>Zookepper定义？</p>
+</blockquote>
+<ul>
+<li>Zookeeper 主要服务于分布式系统，可以用 ZooKeeper来做：<em>统一配置管理</em>、<em>统一命名服务</em>、<em>分布式锁</em>、<em>集群管理</em></li>
+<li>使用分布式系统就无法避免对节点管理的问题（需要实时感知节点的状态、对节点进行统一管理等等），而由这些问题处理起来可能相对麻烦和提高了系统的复杂性，ZooKeeper 作为一个能够通用解决这些问题的中间件就应运而生了。</li>
+</ul>
+<blockquote>
+<p>为什么 ZooKeeper 可以干这么多？</p>
+</blockquote>
+<p>从上面我们可以知道，可以用 ZooKeeper 来做：统一配置管理、统一命名服务、分布式锁、集群管理。</p>
+<blockquote>
+<p>ZooKeeper 为什么可以干这么多呢？</p>
+</blockquote>
+<p>通过<em>监听 + Znode 节点（持久/短暂[临时]）</em>，ZooKeeper 就可以玩出这么多花样了</p>
+<p>下面具体说一下 监听 + Znode 节点（持久/短暂[临时]）</p>
+<h3 id="Znode-节点持久-短暂-临时">1.1.1. Znode 节点持久/短暂[临时]</h3><p>ZooKeeper 的数据结构，跟 Unix 文件系统非常类似，可以看作是一棵树，每个节点叫做 ZNode。每一个节点可以通过路径来标识。</p>
+<blockquote>
+<p>那么 ZooKeeper 这颗树有什么特点呢？</p>
+</blockquote>
+<p>ZooKeeper 的节点我们称之为 Znode，Znode 分为两种类型：</p>
+<ul>
+<li>短暂/临时（Ephemeral）：当客户端和服务端断开连接后，所创建的 Znode 会自动删除</li>
+<li>持久（Persistent）：当客户端和服务端断开连接后，所创建的 Znode 不会自动删除</li>
+</ul>
+<blockquote>
+<p>ZooKeeper 和 Redis 一样，也是 C/S 结构（分为客户端和服务端）</p>
+</blockquote>
+<h3 id="监听">1.1.2. 监听</h3><p>在上面我们已经简单知道了 ZooKeeper 的数据结构了，ZooKeeper 还配合了监听器才能够做那么多事的。</p>
+<p>常见的监听场景有以下两项：</p>
+<ul>
+<li>监听 Znode 节点的数据变化</li>
+<li>监听子节点的增减变化</li>
+</ul>
+<h2 id="ZooKeeper-是怎么做到的？">1.2. ZooKeeper 是怎么做到的？</h2><p>下面看一下 ZooKeeper 是怎么做统一配置管理、统一命名服务、分布式锁、集群管理的：</p>
+<h3 id="统一配置管理">1.2.1. 统一配置管理</h3><p>把所有服务中相同的配置项抽出来，把这个配置文件放在 ZooKeeper 中的 Znode 节点中。需要这份配置文件的服务都监听这个节点，一旦发生变化就需要及时响应。</p>
+<p>参考资料：</p>
+<ul>
+<li><p>基于zookeeper实现统一配置管理</p>
+</li>
+<li><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/u011320740/article/details/78742625">https://blog.csdn.net/u011320740/article/details/78742625</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="统一命名服务">1.2.2. 统一命名服务</h3><p>统一命名就是管理 ip，给 ip 起名字</p>
+<h3 id="分布式锁">1.2.3. 分布式锁</h3><p>锁的资料：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI4Njg5MDA5NA==&mid=2247484989&idx=1&sn=7beaa0db8b29cc8758c7846fe04dfbd2&chksm=ebd7473cdca0ce2a7aea8e6e2a22a5c183b8be3f1cdc93f8d7c3842a560eb5668071cebe5e37&token=948022247&lang=zh_CN&scene=21#wechat_redirect">Java锁？分布式锁？乐观锁？行锁？</a></li>
+</ul>
+<blockquote>
+<p>分布式锁 ZooKeeper 怎么实现？</p>
+</blockquote>
+<p>系统访问 ZooKeeper 的 Znode 节点的时候会创建带顺序号的临时/短暂（Ephemeral_Sequenrial）节点，比如，系统 A 创建了 id_00000 节点，系统 B 创建了 id_000001 节点，系统 C 创建了…</p>
+<p>创建号节点之后，系统开始查看目前自己是不是最小的节点，如果是就可以拿到执行锁，执行完毕之后删除临时节点。如果不是，就需要监听的节点变化。</p>
+<h3 id="集群管理">1.2.4. 集群管理</h3><p>系统访问 ZooKeeper 的 Znode 节点时会创建临时节点，系统如果挂了，对应的临时节点也就挂了。其他系统可以通过监听节点变化来感知到系统是否挂了。</p>
+<p>新增也是同理！</p>
+<hr>
+<p>除了能感知节点的上下线变化，ZooKeeper 还可以实现动态选举 Master 的功能。</p>
+<p>原理很简单，如果想要实现动态选举 Master 的功能，Znode 节点的类型是带顺序号的临时节点</p>
+<ul>
+<li>ZooKeeper 每次会选举最小编号的作为 Master，如果 Master 挂了，自然对应的 Znode 节点就会删除，然后让最小编号作为 Master，这样就可以实现动态选举的功能了</li>
+</ul>
+<h2 id="最后">1.3. 最后</h2><p>这篇文章主要讲解了ZooKeeper的入门相关的知识，ZooKeeper通过<strong>Znode的节点类型+监听机制</strong>就实现那么多好用的功能了！</p>
+<p>当然了，ZooKeeper要考虑的事没那么简单的，后面有机会深入的话，我还会继续分享，希望这篇文章对大家有所帮助~</p>
+<p>参考资料：</p>
+<ul>
+<li><p>分布式服务框架 Zookeeper</p>
+</li>
+<li><ul>
+<li><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/opensource/os-cn-zookeeper/index.html">https://www.ibm.com/developerworks/cn/opensource/os-cn-zookeeper/index.html</a></li>
+</ul>
+</li>
+<li><p>ZooKeeper初识整理(老酒装新瓶)</p>
+</li>
+<li><ul>
+<li><a target="_blank" rel="noopener" href="https://lxkaka.wang/2017/12/21/zookeeper/">https://lxkaka.wang/2017/12/21/zookeeper/</a></li>
+</ul>
+</li>
+<li><p>ZooKeeper</p>
+</li>
+<li><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/sunshine-long/p/9057191.html">https://www.cnblogs.com/sunshine-long/p/9057191.html</a></li>
+</ul>
+</li>
+<li><p>ZooKeeper 的应用场景</p>
+</li>
+<li><ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/59669985">https://zhuanlan.zhihu.com/p/59669985</a></li>
+</ul>
+</li>
+</ul>
+
             </div>
             <hr>
             <div>
@@ -265,7 +360,7 @@
                     
                       <a href="/gzguo/2023/02/10/%E4%B8%AD%E9%97%B4%E4%BB%B6/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">初始消息队列</span>
+                        <span class="hidden-mobile">初识消息队列</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
