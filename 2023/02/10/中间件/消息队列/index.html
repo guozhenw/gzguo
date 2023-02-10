@@ -1,0 +1,578 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/gzguo/img/favicon.png">
+  <link rel="icon" href="/gzguo/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="引言：消息队列的基础内容，入门理解。">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
+  
+  <title>初始消息队列 - Learing</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/gzguo/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/agate.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/gzguo/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/gzguo/css/mac.css">
+<link rel="stylesheet" href="/gzguo/css/toubudaziji.css">
+<link rel="stylesheet" href="/gzguo/css/shubiao.css#.css">
+<link rel="stylesheet" href="/gzguo/css/gundong.css">
+<link rel="stylesheet" href="/gzguo/css/APlayer.min.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/gzguo/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"gc226JcELJOJ7J0n4C9IDFd1-gzGzoHsz","app_key":"Ix9equHpEbmzuf2eGJmCgvaB","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/gzguo/js/utils.js" ></script>
+  <script  src="/gzguo/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/gzguo/">&nbsp;<strong>Jarvis</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/gzguo/img/bj.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="初始消息队列">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2023-02-10 12:00" pubdate>
+        2023年2月10日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      14
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+    <a href="https://github.com/gzguo/gzguo" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#FD6C6C; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">初始消息队列</h1>
+            
+            <div class="markdown-body">
+              <p>引言：消息队列的基础内容，入门理解。</p>
+<span id="more"></span>
+
+<h1 id="消息队列">1. 消息队列</h1><p>消息队列（Message Queue）：把传递的信息存在队列中</p>
+<p>队列（Queue）：一种先进先出的数据结构</p>
+<p>目前在 java 里，已经实现了不少的队列了！那为什么还要消息队列这种<em>中间件</em>呢？这就好像 java 有了 map，但是我们还需要 Redis！</p>
+<blockquote>
+<p>所以为什么有了队列还要有消息队列？</p>
+</blockquote>
+<p>在 java 中实现的队列为什么不能满足我们的需求？java 中的队列只是针对内存的，我们现在所说的消息队列针对的是多个服务之间的。</p>
+<p>黑话：</p>
+<ul>
+<li>生产者：往队列里面放东西的（放数据）</li>
+<li>消费者：取队列中的东西</li>
+</ul>
+<h2 id="消息队列的作用">1.1. 消息队列的作用</h2><h3 id="解耦">1.1.1. 解耦</h3><p>前提：A 中独有的一份数据</p>
+<p>过程：</p>
+<ul>
+<li>第一天可能有 B、C、D 需要，那么我们的类中就要把 A 中的数据传给 B、C、D。</li>
+<li>第二天 B 不要了，E 又需要了</li>
+<li>…</li>
+</ul>
+<p>结果：我们每天都得改代码，这样的话，还需要专人维护，很烦</p>
+<hr>
+<p>问题出现了，消息队列来解决</p>
+<p>有了消息队列，A 只要把信息写到消息队列中，谁想要谁自己取。这样和我 A 就没关系了。A 解耦了！</p>
+<h3 id="异步">1.1.2. 异步</h3><p>原先 A 中的数据，B、C、D 都要。</p>
+<p>顺序执行的话，总的时间就是 B+C+D</p>
+<p>放大消息队列中，异步之后，执行时间可能就是固定的 100ms，会有很大的效率提升</p>
+<h3 id="削峰-限流">1.1.3. 削峰/限流</h3><p>系统最大承载的请求量是 3000；现在一次性来了 5000，系统直接崩溃了！</p>
+<p>加一个消息队列，把请求放到消息队列里边，服务自己根据自己的处理能力去取请求，比如可以一次取两千、再取两千、最后取一千，成功处理完成。这样就可以避免系统崩溃。</p>
+<p>理论上来说，一次性取多少是可以由我们配置的！</p>
+<p>感觉这里消息队列的唯一好处就是可以排个序，先进来的用户请求可以先执行</p>
+<h2 id="使用消息队列会带来的很多问题">1.2. 使用消息队列会带来的很多问题</h2><p>java 中的队列/JDK实现的队列，虽然有很多种类，但都是简单的内存队列。</p>
+<p>下面我们看看消息队列可能要考虑的问题！</p>
+<h3 id="高可用">1.2.1. 高可用</h3><p>无论是我们使用消息队列来做解耦、异步还是削峰，<em>消息队列肯定不能是单机的</em>。试想一下，如果是单机消息队列，万一这台机器挂了，那我们整个系统就几乎不可用了。</p>
+<p>所以当我们项目中使用消息队列，都是集群/分布式的。要做集群/分布式就必然希望该消息队列能够提供现成的支持，而不是自己手写代码去实现。</p>
+<h3 id="数据丢失问题">1.2.2. 数据丢失问题</h3><blockquote>
+<p>我们将数据写到消息队列上，系统 B 和 C 还没来得及取消息队列的数据，就挂掉了。如果没有任何的措施，我们的数据就丢了。怎么解决这种情况呢？</p>
+</blockquote>
+<p>学过 Redis 的都知道，Redis 可以将数据持久化到磁盘上，万一 Redis 挂了，还能从磁盘将数据恢复过来。</p>
+<p>同样的，消息队列中的数据也需要存在别的地方，这样才能尽可能减少数据的丢失。</p>
+<blockquote>
+<p>那么问题来了，消息队列中的数据要存在哪呢？</p>
+</blockquote>
+<ul>
+<li>磁盘</li>
+<li>数据库</li>
+<li>Redis</li>
+<li>分布式文件系统</li>
+</ul>
+<p>同步存储还是异步存储？</p>
+<h3 id="消费者怎么得到消息队列的数据？">1.2.3. 消费者怎么得到消息队列的数据？</h3><blockquote>
+<p>消费者怎么从消息队列里边得到数据？有两种办法：</p>
+</blockquote>
+<ul>
+<li>生产者将数据放到消息队列中，消息队列有数据了，主动叫消费者去拿（俗称 push）</li>
+<li>消费者不断去轮询消息队列，看看有没有新的数据，如果有就消费（俗称 pull）</li>
+</ul>
+<h3 id="其他">1.2.4. 其他</h3><p>除了这些，我们在<strong>使用的时候</strong>还得考虑各种的问题：</p>
+<ul>
+<li>消息重复消费了怎么办啊？</li>
+<li>我想保证消息是<strong>绝对</strong>有顺序的怎么做？</li>
+<li>……..</li>
+</ul>
+<p>虽然消息队列给我们带来了那么多的好处，但同时我们发现引入消息队列也会<strong>提高系统的复杂性</strong>。市面上现在已经有不少消息队列轮子了，每种消息队列都有自己的特点，<strong>选取哪种MQ还得好好斟酌</strong>。</p>
+<h2 id="最后">1.3. 最后</h2><p>本文主要讲解了什么是消息队列，消息队列可以为我们带来什么好处，以及一个消息队列可能会涉及到哪些问题。希望给大家带来一定的帮助。</p>
+<p>参考资料：</p>
+<ul>
+<li><p>Kafka简明教程</p>
+</li>
+<li><ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/37405836">https://zhuanlan.zhihu.com/p/37405836</a></li>
+</ul>
+</li>
+<li><p>消息队列使用的四种场景介绍，有图有解析，一看就懂</p>
+</li>
+<li><ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/55712984">https://zhuanlan.zhihu.com/p/55712984</a></li>
+</ul>
+</li>
+<li><p>消息队列设计精要</p>
+</li>
+<li><ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/21479556">https://zhuanlan.zhihu.com/p/21479556</a></li>
+</ul>
+</li>
+<li><p>消息队列的使用场景是怎样的</p>
+</li>
+<li><ul>
+<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/34243607">https://www.zhihu.com/question/34243607</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/gzguo/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/gzguo/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/gzguo/2023/02/09/%E4%B8%AD%E9%97%B4%E4%BB%B6/ZooKeeper/">
+                        <span class="hidden-mobile">初识ZooKeeper</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"gc226JcELJOJ7J0n4C9IDFd1-gzGzoHsz","appKey":"Ix9equHpEbmzuf2eGJmCgvaB","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/gzguo/js/events.js" ></script>
+<script  src="/gzguo/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/gzguo/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script defer src="/gzguo/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+<script src="/gzguo/js/boom.js"></script>
+<script src="/gzguo/js/anime.min.js"></script>
+<script src="/gzguo/js/qipao.js"></script>
+<script src="/gzguo/js/timeDate.js"></script>
+<script src="/gzguo/js/APlayer.min.js"></script>
+<script src="/gzguo/js/Meting.min.js"></script>
+<script src="/gzguo/js/caidai.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/gzguo/js/boot.js" ></script>
+
+
+</body>
+</html>
