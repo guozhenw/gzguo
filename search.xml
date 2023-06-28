@@ -4,11 +4,136 @@
   
     
     <entry>
+      <title>maven入门</title>
+      <link href="/gzguo/2023/06/14/maven/%E5%85%A5%E9%97%A8/"/>
+      <url>/gzguo/2023/06/14/maven/%E5%85%A5%E9%97%A8/</url>
+      
+        <content type="html"><![CDATA[<p>maven入门</p><span id="more"></span>]]></content>
+      
+      
+      <categories>
+          
+          <category> maven入门 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> maven入门 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>初识redis</title>
+      <link href="/gzguo/2023/05/16/%E4%B8%AD%E9%97%B4%E4%BB%B6/redis/"/>
+      <url>/gzguo/2023/05/16/%E4%B8%AD%E9%97%B4%E4%BB%B6/redis/</url>
+      
+        <content type="html"><![CDATA[<p>引言：写点有意思的redis</p><span id="more"></span><h1 id="简单介绍">1. 简单介绍</h1><p>Redis is an open source，in-memory data structure store，used as a database，cache and message broker.</p><p>Redis 是一个开源的，基于内存的数据结构存储，可以用作数据库、缓存和消息中间件。</p><p>“Redis is written in ANSI C”–&gt;Redis由C语言编写</p><p>Redis 是基于内存，常用于缓存的一种技术，并且redis存储的方式是以 key-value 的形式。</p><p>为什么要用 Redis 而不是 map？</p><ul><li>key-value 不就是 Map，java 实现的 Map 是本地缓存，如果有多个机器的话，每个实例都需要保存一份本地缓存，缓存具有不一致性。</li><li>Redis 实现的是分布式缓存，如果有多台实例的话，每个实例都会共享一份缓存，缓存具有一致性。</li><li>java 的 Map 不是专业做缓存的，JVM 的内存太大容易挂掉。一般用做于容器来存储临时数据，缓存的数据随着 JVM 的销毁而结束。Map 所存储的数据结构，缓存机制等等都是需要程序员自己定义的。</li><li>Redis 是专业做缓存的，可以用几十个 G 内存来做缓存。Redis 一般用作于缓存，可以将缓存的数据保存在硬盘里，Redis 重启之后就可以将其恢复。原生提供丰富的数据结构、缓存过期机制等等很多简单好用的功能。</li></ul><p>为什么要用缓存？</p><ul><li>网站访问很慢，一般是数据库支撑不住。因为一般数据库的读写都要经过磁盘，读磁盘的速度很慢（相对于读内存来说）</li><li>mybatis、hibernate 不仅仅有一级缓存还有二级缓存这样的功能（终究来说还是本地缓存）。目的就是为了减少数据库的读写</li><li>使用缓存可以提高性能（缓存的查询比数据库查询快，内存和硬盘的速度不在一个量级）、提高并发能力，缓存会分担一部分请求，可以支持更高的并发</li></ul><h1 id="Redis-数据结构">2. Redis 数据结构</h1><p>常用的数据结构：String list hash set sortset</p><p>Redis 是由 key-value 存储的，Redis 的 key 一定是字符串，value 可以是上面的类型</p><p>Redis 并没有直接使用这些数据类型来存储键值，而是为键创建键对象，为值创建值对象。只不过键对象中的类型为 String</p><h2 id="SDS-简单动态字符串">2.1. SDS 简单动态字符串</h2><p>Redis 中的字符串跟 C 语言中的字符串，是<strong>有点差距的</strong>。</p><p>Redis 使用 sdshdr 结构来表示一个SDS值：</p><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">struct sdshdr&#123;<br><br>    <span class="hljs-comment">// 字节数组，用于保存字符串</span><br>    <span class="hljs-keyword">char</span> buf[];<br><br>    <span class="hljs-comment">// 记录buf数组中已使用的字节数量，也是字符串的长度</span><br>    <span class="hljs-keyword">int</span> len;<br><br>    <span class="hljs-comment">// 记录buf数组未使用的字节数量</span><br>    <span class="hljs-keyword">int</span> free;<br>&#125;<br></code></pre></div></td></tr></table></figure><p>使用SDS的好处：</p><ul><li>sdshdr 数据结构中用 len 属性记录了字符串的长度。那么获取字符串长度时，时间复杂度只需要 O(1)</li><li>SDS 不会出现溢出的问题，如果修改 SDS 时，空间不足。会先扩展空间，再进行修改！（内部实现了动态扩展机制）</li><li>SDS 减少内存分配次数（空间预分配机制）。在扩展空间时，除了分配修改时所必要的空间，还会分配额外的空闲空间（free 属性）</li><li>SDS 是二进制安全的，所有的 SDS API 都会以处理二进制的方式来处理 SDS 存放在 buf 数组里的数据</li></ul><h2 id="链表">2.2. 链表</h2><ul><li>无环双向链表</li><li>获取表头指针，表尾指针，链表节点长度的时间复杂度均为O(1)</li><li>链表使用 void* 指针来保存节点值，可以保存各种不同类型的值</li></ul><h2 id="哈希表">2.3. 哈希表</h2><p>字典其实就是在哈希表上再做了一层抽象</p><p>在 Redis 中，key-value 的数据结构底层就是哈希表实现的。在 java 中哈希表其实就是数组+链表的形式来构建的。</p><p>Redis 为了更好的使用，对哈希表进行了进一步的封装。</p><p>Redis 中的哈希算法和哈希冲突跟 java 的差不多，他们的差异：</p><ul><li>Redis 哈希冲突时，是将最新的节点添加到链表的表头</li><li>JDK 1.8 之后，java 在解决哈希冲突的时候，是将新的节点添加到链表的表尾</li></ul><h2 id="rehash-的过程">2.4. rehash 的过程</h2><p>Redis 专门用一个哈希表来进行 rehash。这和 java 的一次性直接 rehash 是有区别的。</p><p>在对哈希表进行扩容和收缩的过程中，rehash 过程并不是一次性完成的，而是渐进式的完成的。</p><p>Redis 在 rehash 的时候采用渐进式是因为：数据量过大的话，一次性 rehash 会有庞大的计算量，这可能会让服务器一段时间停止服务</p><p>Redis具体是rehash时这么干的：</p><ul><li>(1:在字典中维持一个索引计数器变量rehashidx，并将设置为0，表示rehash开始。</li><li>(2:在rehash期间每次对字典进行增加、查询、删除和更新操作时，<strong>除了执行指定命令外</strong>；还会将ht[0]中rehashidx索引上的值**rehash到ht[1]**，操作完成后rehashidx+1。</li><li>(3:字典操作不断执行，最终在某个时间点，所有的键值对完成rehash，这时<strong>将rehashidx设置为-1，表示rehash完成</strong></li><li>(4:在渐进式rehash过程中，字典会同时使用两个哈希表ht[0]和ht[1]，所有的更新、删除、查找操作也会在两个哈希表进行。例如要查找一个键的话，<strong>服务器会优先查找ht[0]，如果不存在，再查找ht[1]<strong>，诸如此类。此外当执行</strong>新增操作</strong>时，新的键值对**一律保存到ht[1]**，不再对ht[0]进行任何操作，以保证ht[0]的键值对数量只减不增，直至变为空表。</li></ul><h2 id="跳跃表">2.5. 跳跃表</h2><p>跳跃表（shiplist）是实现 sortset（有序集合）的底层数据结构之一。</p><p>什么是跳跃表？</p><ul><li>跳跃表是一种基于有序链表的扩展，简称调表</li><li>其实就是使用关键节点作为索引的一种结构</li></ul><p>Redis 的跳跃表实现由 zskiplist 和 zskiplistNode 两个结构组成。其中 axkiplist 保存跳跃表的信息（表头 表尾节点 长度），zskiplistNode 则表示跳跃表的节点。</p><h2 id="整数集合（intset）">2.6. 整数集合（intset）</h2><p>整数集合是 set （集合）的底层数据结构之一。当一个 set （集合）只包含整数值元素，并且元素的数量不多时，Redis 就会采用整数集合（intset）作为 set （集合）底层实现。</p><p>整数集合保证了元素是不会出现重复的，并且时有序的（从小到大排序）</p><h2 id="压缩列表（ziplist）">2.7. 压缩列表（ziplist）</h2><p>压缩列表（ziplist）时 list 和 hash 的底层实现之一。如果 list 的每个都是小整数值，或者是比较短的字符串，压缩列表（ziplist）作为 list 的底层实现。</p><p>压缩列表（ziplist）是 Redis 为了节约内存而开发的，是由一系列的特殊编码的连续内存块组成的顺序性数据结构。</p><h2 id="字符串对象">2.8. 字符串对象</h2><p>String 类型有三种编码格式：</p><ul><li>int：整数值，这个整数值可以使用 long 类型来表示<ul><li>如果是浮点数，那就用 embstr 或者 raw 编码。具体用哪个就看这个数的长度了</li></ul></li><li>embstr：字符串值，这个字符串值的长度小于32字节</li><li>raw：字符串值，这个字符串值的长度大于32字节</li></ul><p>embstr 和 raw 的区别：</p><ul><li>raw 分配内存和释放内存的次数是两次，embstr 是一次</li><li>embstr 编码的数据保存在一块连续的内存里面</li></ul><p>编码之间的转换：</p><ul><li>int 类型如果存的不再是一个整数值，则会从 int 转成 raw</li><li>embstr 是只读的，在修改的时候会从 embstr 转成 raw</li></ul><h2 id="列表">2.9. 列表</h2><p>1726027629926547470</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> redis </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> redis </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>代码随想录</title>
+      <link href="/gzguo/2023/05/08/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/1%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95/"/>
+      <url>/gzguo/2023/05/08/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/1%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95/</url>
+      
+        <content type="html"><![CDATA[<p>初识</p><span id="more"></span><h1 id="什么是O">1. 什么是O</h1><p>在算法导论中，大O指的是上界。把这个概念代入到我们的算法上，大O就代表的是最坏的运行时间的上界。</p><p>快排最坏的时间复杂度是O(n^2)，但是我们却说快排的时间复杂度是O(nlogn)，这是因为一般情况下快排的时间复杂度是nlogn</p><p>我们主要关心的还是一般情况下的数据形式。<strong>面试中说道算法的时间复杂度是多少指的都是一般情况</strong>。</p><p><strong>我们说的时间复杂度都是省略常数项系数的，是因为一般情况下都是默认数据规模足够的大，基于这样的事实，</strong></p><h1 id="数组">2. 数组</h1><p>C++的二维数组的内存地址是连续的</p><p>java的二维数组的内存地址不是连续的，但是一维数组的地址应该是连续的</p><h1 id="二分查找">3. 二分查找</h1><p>前提：找到数组中目标元素的下标</p><p>有序数组</p><p>没有重复元素</p><p>很好理解，主要的思想就是 </p><ol><li>先找第一个元素的下标和最后一个元素的下标，两个下标值相加除以二，找到中间下标。</li><li>根据中间下标去数组中拿到中间值。把要找的目标值和中间值进行对比。判断接下来去左边区间找还是在右边区间找</li><li>发现目标值和中间值相同时返回中间值的下标。发现左边下标已经大于右边下标，返回-1。</li></ol><p><strong>要知道数组的元素在内存地址中是连续的，不能单独删除数组中的某个元素，只能覆盖。</strong></p><h1 id="双指针法">4. 双指针法</h1><p>前提：删除数组中的元素</p><p>快慢指针法</p><p>快指针去找要删除的元素。</p><p>慢指针，指向删除元素之后新数据最后一个元素的下标位置</p><p>主要的思想：（覆盖）</p><ol><li>快指针找到要删除的元素之后，快指针继续往下走一个，慢指针原地不懂</li><li>快指针继续读当前下标对应的值，和目标删除值对比，相同的话，快指针继续往下走一个，慢指针不动</li><li>一直到快指针走完，程序结束</li></ol><p><strong>双指针法（快慢指针法）在数组和链表的操作中是非常常见的，很多考察数组、链表、字符串等操作的面试题，都使用双指针法。</strong></p><p>前提：有序数组的平方</p><p>之前的数组有序，但是可能存在负数</p><p>分析可知，最大的平方数一定在最左或者最右</p><p>主要的思想：</p><ol><li>最左最右都来一个指针，比较左右指针对应元素平方和的大小</li><li>大的往最后放，小的放倒数第二个</li><li>移动两个指针，继续重复第一步</li></ol><h1 id="滑动窗口">5. 滑动窗口</h1><p>前提：给一个数组，给一个目标值，求几个连续的子数组元素之和大于等于目标值的最小子数组长度</p><p>所谓滑动窗口，<strong>就是不断的调节子序列的起始位置和终止位置，从而得出我们要想的结果</strong>。</p><ol><li>其实还是双指针，开始两个指针都在开头。一个指针不断向后移动，和不动的指针形成窗口</li><li>计算窗口中元素的和，当和大于等于目标值的时候。不动的指针向后移动。不断移动的指针也向后移动。记录好符合条件的子数组长度</li><li>不断移动的指针超过下标后结束，返回结果</li></ol><h1 id="螺旋矩阵">6. 螺旋矩阵</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数据结构 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据结构 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>idea使用</title>
+      <link href="/gzguo/2023/04/22/%E6%97%A5%E5%B8%B8/idea/"/>
+      <url>/gzguo/2023/04/22/%E6%97%A5%E5%B8%B8/idea/</url>
+      
+        <content type="html"><![CDATA[<p>idea使用</p><span id="more"></span><p><img src="D:\yonyou\typora\photo\image-20230421152110088.png" alt="image-20230421152110088"></p><h1 id="在-project-里面搜索">1. 在 project 里面搜索</h1><p>shift + r</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> idea </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> idea </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>excel使用</title>
+      <link href="/gzguo/2023/04/21/%E6%97%A5%E5%B8%B8/excel/"/>
+      <url>/gzguo/2023/04/21/%E6%97%A5%E5%B8%B8/excel/</url>
+      
+        <content type="html"><![CDATA[<p>excel使用</p><span id="more"></span><p>excel怎么筛选重复的数据？</p><p>选中数据：菜单栏【数据】、【高级】</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> excel </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> excel </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>学学Vue</title>
       <link href="/gzguo/2023/04/18/Web/Vue/%E5%85%A5%E9%97%A8/"/>
       <url>/gzguo/2023/04/18/Web/Vue/%E5%85%A5%E9%97%A8/</url>
       
-        <content type="html"><![CDATA[<p>Vue入门</p><span id="more"></span>]]></content>
+        <content type="html"><![CDATA[<p>Vue入门</p><span id="more"></span><p>Vue说白了就是javaScript的框架，要学好Vue要先学好javascript</p><p>html 结构；css 表现；javaScript 行为</p><p>javaScript的知名框架：</p><ol><li>jQuery说白了也是一个javaScript的框架。优点是简化了DOM操作，缺点是频繁的操作DOM。</li><li>Angular：Google收购的前端框架，由一群Java程序员开发，基特点是将后台的MVC模式搬到了前端并增加了<strong>模块化开发</strong>的理念，与微软合作，采用TypeScript语法开发；对后台程序员友好，对前端程序员不太友好，缺点版本迭代不合理</li><li>React：Facebook 出品，一款高性能的JS前端框架；特点是提出了新概念<strong>【虚拟DOM】</strong>于减少真实DOM操作，在内存中模拟DOM操作，有效的提升了前端渲染效率;缺点是使用复杂，需要额外学习一门<strong>【JSX】</strong> 语言</li></ol><p>Vue的学习路线：</p><ul><li>Vue的核心概念：组件、数据绑定、指令</li><li>生命周期钩子、事件</li><li>路由、状态管理库（Vue Router和Vuex）</li><li>Vue和后端服务器通信：RESTful API或WebSocket。Vue和后端沟通的相关技术和协议：AJAX、Fetch、Axios、GraphQL</li></ul><h1 id="Vue">1. Vue</h1><h2 id="组件">1.1. 组件</h2><p>类似于方法。一个应用中的很多功能都是组件编写的，那么这个应用就是组件化应用。</p><p>使用方法：创建组件、注册组件、使用组件</p><p>对象式写法、函数式写法</p><p>例子：</p><figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js">&lt;div id=<span class="hljs-string">&quot;app&quot;</span>&gt;<br>      &lt;!-- <span class="hljs-number">3</span>、使用组件 --&gt;<br>      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">my-com</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">my-com</span>&gt;</span></span><br> &lt;/div&gt;<br>    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="javascript"><span class="xml">      <span class="hljs-comment">// 1、创建组件构造器</span></span></span><br><span class="javascript"><span class="xml">      <span class="hljs-keyword">const</span> myComponent = Vue.extend(&#123;</span></span><br><span class="javascript"><span class="xml">        <span class="hljs-attr">template</span>: <span class="hljs-string">`</span></span></span><br><span class="hljs-string"><span class="javascript"><span class="xml">          &lt;div&gt;</span></span></span><br><span class="hljs-string"><span class="javascript"><span class="xml">            &lt;h2&gt;组件标题&lt;/h2&gt;</span></span></span><br><span class="hljs-string"><span class="javascript"><span class="xml">            &lt;p&gt;我是组件中的一个段落内容&lt;/p&gt;</span></span></span><br><span class="hljs-string"><span class="javascript"><span class="xml">          &lt;/div&gt;</span></span></span><br><span class="hljs-string"><span class="javascript"><span class="xml">        `</span>,</span></span><br><span class="javascript"><span class="xml">      &#125;)</span></span><br><span class="javascript"><span class="xml">      <span class="hljs-comment">// 2、注册组件，并且定义组件标签的名称</span></span></span><br><span class="javascript"><span class="xml">      Vue.component(<span class="hljs-string">&quot;my-com&quot;</span>, myComponent)</span></span><br><span class="javascript"><span class="xml">      <span class="hljs-keyword">var</span> vm = <span class="hljs-keyword">new</span> Vue(&#123;</span></span><br><span class="javascript"><span class="xml">        <span class="hljs-attr">el</span>: <span class="hljs-string">&quot;#app&quot;</span>,</span></span><br><span class="javascript"><span class="xml">      &#125;)</span></span><br><span class="javascript"><span class="xml">    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br></code></pre></div></td></tr></table></figure><p>1、Vue.extend()：</p><ul><li>调用Vue.extend()创建的是一个组件构造器。</li><li>通常在创建组件构造器时，传入template代表我们自定义组件的模板。</li><li>该模板就是在使用到组件的地方，要显示的HTML代码。</li><li>事实上，这种写法在Vue2.x文档中基本看不到了，它会直接使用下面语法糖</li></ul><p>2、Vue.component():</p><ul><li>调用Vue.component()是将刚才的组件构造器注册为一个组件，并且给它起一个组件的标签名称。</li><li>因此需要传入两个参数：a、注册组件的标签名，b、组件构造器</li></ul><p>3、组件必须挂载在某个Vue实例下，否则不会生效</p><p>区别：</p><ol><li><p>全局注册</p><ul><li>我们可以使用 <a href="https://cn.vuejs.org/guide/essentials/application.html">Vue 应用实例</a>的 <code>app.component()</code> 方法，让组件在当前 Vue 应用中全局可用。</li></ul></li><li><p>局部注册</p><ul><li>局部注册也要使用<code>app.component()</code>方法</li><li>区别在于局部注册要省略vue.extend直接使用Vue.component(‘组件名称’,{})</li></ul><h2 id="数据绑定">1.2. 数据绑定</h2></li></ol><p>vue中有2种数据绑定的方式：<br>1.<strong>单向绑定(v-bind):</strong> 数据只能从data流向页面<br>2.<strong>双向绑定（v-model）</strong>：数据不仅能从data流向页面，还可以从页面流向data</p><figure class="highlight js"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js">单向数据绑定：&lt;input type=<span class="hljs-string">&quot;text&quot;</span> v-bind:value=<span class="hljs-string">&quot;name&quot;</span>&gt;<br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">br</span>/&gt;</span></span> <br>双向数据绑定：&lt;input type=<span class="hljs-string">&quot;text&quot;</span> v-model:value=<span class="hljs-string">&quot;name&quot;</span>&gt;<br>    <br>简写：<br>单项数据绑定：&lt;input type=<span class="hljs-string">&quot;text&quot;</span> :value=<span class="hljs-string">&quot;name&quot;</span>&gt;<br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">br</span>/&gt;</span></span> <br>双项数据绑定：&lt;input type=<span class="hljs-string">&quot;text&quot;</span> v-model=<span class="hljs-string">&quot;name&quot;</span>&gt; <span class="hljs-comment">//v-model:value 可以简写为 v-model，因为v-model默认收集的就是value值</span><br></code></pre></div></td></tr></table></figure><p>注意事项：</p><p>1.双向绑定一般用于表单元素<br>2.v-model:value 可以简写为 v-model，因为v-model默认收集的就是value值</p><h2 id="指令">1.3. 指令</h2><p>在vue中，指令是带有“v-”前缀的特殊特性（属性），指令特性的值预期是单个JavaScript表达式，语法为“v-指令:参数=”表达式””。Vue作用于HTML元素，指令提供了一些特殊的特性，将指令绑定在元素上时，指令会为绑定的目标元素添加一些特殊的行为；因此可以将指令看作特殊的HTML特性。</p><h1 id="路由">2. 路由</h1><p>vue-router：就是把东西从原地转到目的的。其中的东西就是信息，传输的路径就是网络。</p><h2 id="路由的机制">2.1. 路由的机制</h2><p>路由包括路由和转发</p><p>路由器 -&gt; 公网IP -&gt; 映射表 -&gt; 内网IP<br>映射表：[内网ip1:电脑标识1，内网ip2:电脑标识2]</p><p>hash路由</p><p>history路由</p>]]></content>
       
       
       <categories>
@@ -33,7 +158,7 @@
       <link href="/gzguo/2023/04/18/java/11%E5%BA%8F%E5%88%97%E5%8C%96/%E5%BA%8F%E5%88%97%E5%8C%96/"/>
       <url>/gzguo/2023/04/18/java/11%E5%BA%8F%E5%88%97%E5%8C%96/%E5%BA%8F%E5%88%97%E5%8C%96/</url>
       
-        <content type="html"><![CDATA[<p>java中的序列化、代理</p><span id="more"></span><h1 id="序列化">1. 序列化</h1><ol><li>序列化就是为了跨平台存储/网络传输的时候制定一个规则，在传输过去的时候就可以根据规则正确的反序列化出一个对象（把对象还原回来）</li><li>把对象拆成二进制数的时候，给拆出来的东西排序的过程就叫序列化。把二进制数还原成对象的时候根据当时拆的顺序还原对象的过程就叫做反序列化。</li><li>序列化是一种规则，既然是规则就有很多人来定义规则，常见的序列化方式有：JDK（不支持跨语言）、JSON、XML、Hessian、Kryo（不支持跨语言）、Thrift、Protostuff、FST（不支持跨语言）</li><li>选择协议的一些标准：协议是否支持跨平台、序列化的速度、序列化出来的大小</li><li>java怎么实现序列化：实现Serializable接口</li></ol><p>序列化常见的问题：</p><ul><li>static属性不能被序列化。原因：序列化保存的是对象的状态，静态变量属于类的状态，因此 序列化并不保存静态变量。</li><li>Transient：短暂的。这个关键词修饰的属性一般是 银行卡号、密码等的不想被序列化的属性。所以被Transient修饰的属性不可以被序列化</li><li>序列化版本号：这个版本号就和软件的版本号一样，你的软件版本号和官方的服务器的版本不一致的话，就会提醒你更新。主要的作用就是提示用户进行更新操作。我们的对象发生了变化之后（新增、修改、删除了一些属性，在修改之后反序列化就会出错），发生变化之后为了使反序列化同步得到最新的对象，我们就使用了版本号来告诉反序列化对象发生了修改，需要同步修改！<ul><li>工具生成的版本号：工具生成的版本号，只要你的产品发生了一点点的变化就会发生变化。用户不更新就没法玩了</li><li>自定义的版本号：自定义版本号的话，修改之后，开发者可以选择不发布，那么反序列化的时候还是之前的对象，不会影响到用户使用</li><li>大多数情况下，用户可以选择不更新，不更新只是无法体验新加的功能</li></ul></li><li>父类和子类的序列化，向下传递。父类序列化，子类就序列化。子类序列化。父类不会序列化。</li></ul><h1 id="代理">2. 代理</h1><ol><li>生活中的代理：代购、中介、商家</li><li>代理模式：客户类真正想访问的是目标类，但是真正可以访问到的类确是代理类。客户类对目标对象的访问是通过访问代理对象来实现的。（代理类和目标类要实现同一个接口）</li></ol><blockquote><p>有A、B、C三个类，A原来可以调用C类的方法，现在因为某种原因C类不允许A类调用其方法，但B类可以调用C类的方法。A类通过B类调用C类的方法。这里B是C的代理。</p><p>A通过代理B访问C ，这种模式就是代理模式。</p></blockquote><p>实现代理的方式：</p><ul><li>静态代理：<ul><li>代理类是自己手工实现的，代理的目标是确定的</li><li>实现简单、容易理解</li><li>目标类增加、代理类会成倍增加；接口中的实现修改会影响很大，很多的实现类、厂家类、代理类都得修改</li></ul></li><li>动态代理<ul><li>目标类很多的时候可以使用动态代理</li><li>动态指的是在程序执行的时候，调用JDK的方法才能创建代理类的对象</li><li>JDK动态代理：反射</li><li>CGLIB第三方工具库</li></ul></li></ul>]]></content>
+        <content type="html"><![CDATA[<p>java中的序列化、代理</p><span id="more"></span><h1 id="序列化">1. 序列化</h1><ol><li>序列化就是为了跨平台存储/网络传输的时候制定一个规则，在传输过去的时候就可以根据规则正确的反序列化出一个对象（把对象还原回来）</li><li>把对象拆成二进制数的时候，给拆出来的东西排序的过程就叫序列化。把二进制数还原成对象的时候根据当时拆的顺序还原对象的过程就叫做反序列化。</li><li>序列化是一种规则，既然是规则就有很多人来定义规则，常见的序列化方式有：JDK（不支持跨语言）、JSON、XML、Hessian、Kryo（不支持跨语言）、Thrift、Protostuff、FST（不支持跨语言）</li><li>选择协议的一些标准：协议是否支持跨平台、序列化的速度、序列化出来的大小</li><li>java怎么实现序列化：实现Serializable接口</li></ol><p>序列化常见的问题：</p><ul><li>static属性不能被序列化。原因：序列化保存的是对象的状态，静态变量属于类的状态，因此 序列化并不保存静态变量。</li><li>Transient：短暂的。这个关键词修饰的属性一般是 银行卡号、密码等的不想被序列化的属性。所以被Transient修饰的属性不可以被序列化</li><li>序列化版本号：这个版本号就和软件的版本号一样，你的软件版本号和官方的服务器的版本不一致的话，就会提醒你更新。主要的作用就是提示用户进行更新操作。我们的对象发生了变化之后（新增、修改、删除了一些属性，在修改之后反序列化就会出错），发生变化之后为了使反序列化同步得到最新的对象，我们就使用了版本号来告诉反序列化对象发生了修改，需要同步修改！<ul><li>工具生成的版本号：工具生成的版本号，只要你的产品发生了一点点的变化就会发生变化。用户不更新就没法玩了</li><li>自定义的版本号：自定义版本号的话，修改之后，开发者可以选择不发布，那么反序列化的时候还是之前的对象，不会影响到用户使用</li><li>大多数情况下，用户可以选择不更新，不更新只是无法体验新加的功能</li></ul></li><li>父类和子类的序列化，向下传递。父类序列化，子类就序列化。子类序列化。父类不会序列化。</li></ul><h1 id="代理">2. 代理</h1><ol><li>生活中的代理：代购、中介、商家</li><li>代理模式：客户类真正想访问的是目标类，但是真正可以访问到的类确是代理类。客户类对目标对象的访问是通过访问代理对象来实现的。（代理类和目标类要实现同一个接口）</li></ol><blockquote><p>有A、B、C三个类，A原来可以调用C类的方法，现在因为某种原因C类不允许A类调用其方法，但B类可以调用C类的方法。A类通过B类调用C类的方法。这里B是C的代理。</p><p>A通过代理B访问C ，这种模式就是代理模式。</p></blockquote><p>实现代理的方式：</p><ul><li>静态代理：<ul><li>代理类是自己手工实现的，代理的目标是确定的</li><li>实现简单、容易理解</li><li>目标类增加、代理类会成倍增加；接口中的实现修改会影响很大，很多的实现类、厂家类、代理类都得修改</li></ul></li><li>动态代理<ul><li>目标类很多的时候可以使用动态代理</li><li>动态指的是在程序执行的时候，调用JDK的方法才能创建代理类的对象</li><li>JDK动态代理：反射</li><li>CGLIB第三方工具库</li></ul></li></ul><h1 id="Spring-循环依赖">3. Spring 循环依赖</h1><p><strong>spring 怎么处理？</strong></p><ul><li>一级缓存：把实例化好的对象放进去</li><li>二级缓存：把半实例化的对象放进去（半实例化就是刚好能注入别的对象的对象）</li><li>三级缓存：把实例化对象的工厂放进去</li></ul><p><strong>二级缓存的重要性：</strong></p><p>防止A-&gt;B&amp;A-&gt;C&amp;BC-&gt;A（A注入B，A出入C，BC注入A）这种情况下，A注入BC的时候要保证注入的A是一样的，所以要用到二级缓存，而不能用三级缓存，因为新建两个A，这两个A不一定是一样的！</p><p>为了性能</p><p><strong>三级缓存的重要性：</strong></p><p>三级缓存是为了当对象需要扩展或者<strong>增强</strong>的时候，可以通过工厂来生成代理对象！</p><p>为了生成代理对象</p><p>单例对象的循环依赖，spring 是可以通过缓存来解的。</p><p>但是 spring 只会提前初始化<em>非抽象、单例 并且非懒加载的类</em>，多例的对象是不会被加载进缓存的。</p><p>构造器注入：构造器中把对象当作参数传进去，这种被当作参数的对象是不能被添加到三级缓存中的（A想要B的实例对象的时候，B没有三级缓存所以创建不出来。同样的B想要A的时候，A也没有三级缓存，A对象也创建不出来，就会互相死锁），spring 也解决不了</p>]]></content>
       
       
       <categories>
@@ -273,6 +398,32 @@
             <tag> jvm </tag>
             
         </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/gzguo/2022/08/18/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%A4%A7%E8%AF%9D%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+      <url>/gzguo/2022/08/18/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%A4%A7%E8%AF%9D%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</url>
+      
+        <content type="html"><![CDATA[<h1 id="概念">1. 概念</h1><p>数据</p><p>​    巧妇难为无米之炊，数据就是米</p><p>​    数据是描述客观事物的符号，是计算机中可以操作的对象，是能被计算机识别，并输入给计算机处理的符号集合。</p><p>​    数据不仅仅是整形、实型等数值类型，还可以是字符及声音、图像、视频等非数值类型。</p><p>​    可以被输入到计算机中，被计算机程序处理的符号 都可以称之为数据！</p><p>​    作为数值型数据，可以进行数值计算；对于非数值的字符数据等，可以通过编码的手段编程字符数据来处理。</p><p>数据元素</p><p>​    组成数据的、有一定意义的基本单位，在计算机中通常作为整体处理，也被称为记录</p><p>​    人类的数据元素就是人</p><p>​    </p><p>数据项</p><p>​    一个数据元素可以由若干的数据项组成</p><p>​    人的数据项就是眼、耳、鼻、手等</p><p>​    数据项是不可分割的最小单位</p><p>​    虽然数据项是最小的单位，但是真正遇到问题的时候，数据元素才是数据结构中建立数据模型的着眼点。</p><p>​    就好比我们讨论一部电影是，是讨论这部电影角色这样的“数据元素”，而不是针对这个角色的姓名或者年龄这样的“数据项”去研究分析</p><p>数据对象</p><p>​    是性质相同的数据元素的集合，是数据的子集。</p><p>​    什么是性质相同？是指数据元素具有相同数量和类型的数据项。人类中的人都有眼、耳、鼻、手等</p><p>​    数据对象是数据的子集。在实际应用中，处理的数据元素通常具有相同性质，在不产生混淆的情况下，我们都将数据对象简称为数据。</p><p>​    </p><p>结构</p><p>​    简单地理解就是关系。</p><p>​    严格来说，结构就是组成部分相互搭配和排列的方式。</p><p>​    不同的数据元素之间不是独立的，而是存在特定的关系，我们讲这些关系称为结构</p><p>数据结构：</p><p>​    是相互之间存在一种或者多种特定关系的数据元素的集合</p><p>​    是研究非数值计算的程序设计问题中的操作对象，以及他们之间的关系和操作等相关问题的学科</p><p>​    人们开始重视数据结构，认为程序设计的实质是对确定的问题选择一种好的结构，加上设计一种好的算法。数据结构在程序设计中占据了重要的地位。</p><p>​    程序设计   =   数据结构   +   算法</p><p>​    为了写一个好的程序，必须分析处理对象的特性及各对象之间存在的关系，这也就是研究数据结构的意义所在。</p><p>​    按照视点不同 我们把数据结构分为逻辑结构和物理结构</p><p>逻辑结构</p><p>​    是指数据对象中的数据元素之间的相互关系。</p><p>​    逻辑结构分为四种：集合结构、线性结构、树形结构、图形结构</p><p>​    逻辑结构是针对具体问题的，是为了解决某个问题，在对问题理解的基础上，选择一个合适的数据结构表示数据元素之间的逻辑关系。</p><p>集合结构</p><p>​    集合结构中的数据元素除了同属于同一个集合外，他们之间没有其他的关系。</p><p>线性结构</p><p>​    线性结构中的数据元素之间是一对一的关系</p><p>树形结构</p><p>​    树形结构中的数据元素之间存在一种一对多的层次关系</p><p>图形结构</p><p>​    图形结构的数据元素是多对多的关系</p><p>注意</p><p>​    我们把一个数据元素看做一个节点，用圆圈表示</p><p>​    元素之间的逻辑关系用节点之间的连线表示，如果这个关系是有方向的，那么用带箭头的连线表示。</p><p>物理结构</p><p>​    也叫存储结构</p><p>​    是指数据的逻辑结构在计算机中的存储形式</p><p>​    数据元素的存储结构形式有两种：顺序存储和链式存储</p><p>顺序存储</p><p>​    是把数据元素存放在地址连续的存储单元里，其数据间的逻辑关系和物理关系是一致的。</p><p>​    数组</p><p>链式存储</p><p>​    把数据元素处存放在任意的存储单元里，这组存储单元可以使连续的，也可以是不连续的。</p><p>​    数据元素的存储关系不能反映其逻辑关系，需要用一个指针存放数据元素的地址，这样通过地址就可以找到相关联的数据元素的位置。</p><p>​    无间道</p><p>总结</p><p>​    逻辑结构是面向问题的，而物理结构是面向计算机的，其基本的目标就是将数据及其逻辑关系存储到计算机的内存中。</p><p>数据类型</p><p>​    是指一组性质相同的值的集合 及 定义在此集合上的一些操作的总称</p><p>​    数据类型的出现是为了满足运算时内存开销的考虑，小的计算不要浪费太多的内存</p><p>​    在c中，数据类型可以分为两类，原子类型、结构类型</p><p>原子类型</p><p>​    是不可以再分解的基本类型，整形、实型、字符型等</p><p>结构类型</p><p>​    由若干的类型组合而成，是可以在分解的，整形数组</p><p>抽象</p><p>​    是指抽取出事务具有的普遍性的本质。是一种概括</p><p>抽象数据类型</p><p>​    Abstract Data Type ADT ，是指一个数学模型及定义在该模型上的一组操作</p><p>​    抽象数据类型体现了程序设计中问题的分解、抽象和信息隐藏的特性</p><p>算法</p><p>​    解决特定问题求解步骤的描述，在计算机中表现为指令的有限序列，并且每条指令表示一个或多个操作</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/gzguo/2022/08/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%A4%A7%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+      <url>/gzguo/2022/08/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%A4%A7%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
+      
+        <content type="html"><![CDATA[<h1 id="面向对象和设计原则">1. 面向对象和设计原则</h1><h2 id="代码无错就是优？—简单工厂模式">1.1. 代码无错就是优？—简单工厂模式</h2><h3 id="什么是可维护、可复用、可扩展、灵活性好">1.1.1. 什么是可维护、可复用、可扩展、灵活性好</h3><p>活字印刷是从刻板印刷发展而来的，活字印刷和之前的刻板印刷对比很好的体现了四大特性。</p><p>可维护：要改东西的话，只改需要改的东西就可以</p><p>可复用：我们之前写的功能代码，可能在目前这个类中用不到了，但是在之后的类中还有可能会用到</p><p>可扩展：有新的需求的话，只要加功能就行，不需要否定之前的工作</p><p>灵活性好：面对新的需求，我们的代码可以进行简单的顺序调整的操作就可以实现新需求</p><h3 id="uml类图">1.1.2. uml类图</h3><p>1、类图分三层</p><p>​    第一层是类名，如果是抽象类的话，要用斜体表示</p><p>​    第二层是类的特性，通常就是字段和属性</p><p>​    第三层是类的操作，通常是方法或行为</p><p><img src="D:\yonyou\typora\photo\image-20220818143044944.png" alt="image-20220818143044944"></p><p>2、接口</p><p>​    接口和类的最大区别是顶端有&lt;<interface>&gt;显示</interface></p><p>​    第一行是接口名称</p><p>​    第二行是接口方法</p><p>接口的棒棒糖表示法</p><p>​    <img src="D:\yonyou\typora\photo\image-20220818142642330.png" alt="image-20220818142642330"></p><p>3、继承关系</p><p>​    继承关系用空心三角形+实线来表示</p><p><img src="D:\yonyou\typora\photo\image-20220818143029770.png" alt="image-20220818143029770"></p><p>4、实现接口</p><p>​    实现接口用空心三角形+虚线来表示</p><p><img src="D:\yonyou\typora\photo\image-20220818143019560.png" alt="image-20220818143019560"></p><p>5、关联</p><p>​    association，在类中写一个private属性</p><p>​    关联关系用实现箭头表示</p><p><img src="D:\yonyou\typora\photo\image-20220818143057866.png" alt="image-20220818143057866"></p><p>6、聚合（大雁和雁群）</p><p>​    表示一种弱的‘拥有’关系，体现的是A对象可以包含B对象，但B对象不是A对象的一部分【DPE】</p><p>​    聚合关系用空心的菱形+实线箭头来表示</p><p><img src="D:\yonyou\typora\photo\image-20220818143301494.png" alt="image-20220818143301494"></p><p>7、合成（鸟和翅膀）</p><p>​    composition，也有翻译成组合的，是一种强的拥有关系，体现了严格的部分和整体的关系，部分和整体的生命周期一样【DPE】</p><p>​    合成关系用实心的菱形+实线箭头来表示</p><p><img src="D:\yonyou\typora\photo\image-20220818143518271.png" alt="image-20220818143518271"></p><p>​    在鸟类中，初始化时，实例化翅膀wing，他们之间同时生成。</p><p>​    合成关系的连线两端会有数字，这被称为基数，表明这一端的类可以有几个实例。如果一个类可以对应无数的实例，那就用n来表示。关联关系、聚合关系也可以有基数!</p><p>8、依赖</p><p>​    dependency，依赖关系用虚线箭头来表示</p><p><img src="D:\yonyou\typora\photo\image-20220818143931095.png" alt="image-20220818143931095"></p><h3 id="什么是简单工厂">1.1.3. 什么是简单工厂</h3><p>开发一个计算器功能的时候，我们可以把计算和显示的功能分开。这是封装特性</p><p>不仅这样，我们可以搞一个计算类，所有的加减乘除，开方乘方等的计算都继承这个计算类，重写计算类中的计算方法，这样可以降低我们代码中的耦合度，提高开发的效率。</p><p>当我们做完这些工作之后，我们就出现了一个新的问题，那我怎么知道用户是想做什么样的操作呢？</p><p>这时候我们就可以用工厂模式来解决这个问题，用户的请求操作到来之后，我们先把请求交给工厂，让工厂判断该交给哪个计算来处理，让这些计算类去处理就好了！</p><p>工厂解决了对象的创建问题，工厂尽量不要随意的改动！</p><h2 id="商场促销—策略模式">1.2. 商场促销—策略模式</h2><p><img src="D:\yonyou\typora\photo\image-20220818151052945.png" alt="image-20220818151052945"></p><p>通过上下文接口来执行不同的策略，通过构造方法输入策略，然后根据不同的策略执行不同的收费方法。</p><p>策略模式要在客户端选择，我们可以把简单工厂模式加入到上下文的构造方法中来帮助我们创建对象，这样会让客户端更加方便</p><p>但是我们现在还是在简单工厂模式中使用了switch语句，还是很不爽，如果想解决这个问题我们可以使用反射机制。</p><p>反射反射，程序员的快乐！</p><h2 id="拍摄UFO—单一职责原则">1.3. 拍摄UFO—单一职责原则</h2><p>单一职责原则srp，就一个类而言，应该仅有一个引起它变化的原因</p><h2 id="考研求职两不误—开放封闭原则">1.4. 考研求职两不误—开放封闭原则</h2><p>一国两制、弹性工作制</p><p>the open-closed principle 简称OCP，开闭原则</p><p>对扩展是开放的，但是对更改是封闭的</p><h2 id="依赖倒转原则">1.5. 依赖倒转原则</h2><p>电脑接口，，修电脑的时候什么坏了换什么！接口的重要性，没有接口的话，主板和内存条不匹配就只能把主板和内存条全部替换掉了！很不合理</p><p>A高层模块不应该依赖低层的模块。两个都应该依赖抽象</p><p>B抽象不应该依赖细节，细节应该依赖抽象</p><p><strong>里氏代换原则</strong></p><p>​    一个软件实体如果使用的是一个父类的话，那么一定适用于其子类，而且它察觉不出父类和子类对象的区别。</p><p>​    也就是说，在软件里面，把父类都替换成他的子类，程序的行为没有变化。</p><p>​    定义：子类型必须能够替换掉他们的父类类型（企鹅不是鸟）</p><p>​    正是因为里氏替换原则的出现才使得开放封闭原则成为了可能，对扩展新的子类开放，对修改其他子类封闭？</p><h2 id="装饰模式">1.6. 装饰模式</h2><p>​    动态的给一个对象添加一些额外的职责，就增加功能来说，装饰模式比生成子类更为灵活。</p><p><img src="D:\yonyou\typora\photo\image-20220818185714326.png" alt="image-20220818185714326"></p><h2 id="代理模式">1.7. 代理模式</h2><h1 id="设计模式（23）">2. 设计模式（23）</h1><h1 id="总结">3. 总结</h1><h1 id="附录">4. 附录</h1>]]></content>
+      
+      
       
     </entry>
     
@@ -617,61 +768,11 @@
     
     
     <entry>
-      <title>1-7运行机制体系结构</title>
-      <link href="/gzguo/2020/12/27/OS/1%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/1-7%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/"/>
-      <url>/gzguo/2020/12/27/OS/1%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/1-7%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/</url>
-      
-        <content type="html"><![CDATA[<p>操作系统的运行机制、内核以及体系结构。</p><span id="more"></span><h1 id="运行机制">1. 运行机制</h1><p>指令和代码：一行代码对应几行机器语言指令</p><p>由于安全性问题，将<strong>指令</strong>分为<strong>特权指令、非特权指令</strong></p><p>特权指令：内存清零，不允许用户程序使用</p><p>非特权指令：运算指令</p><p>判断CPU是否可以执行特权指令？<strong>处理机的两种状态</strong>：<strong>用户态（目态）、核心态（管态）</strong></p><p>处理机状态由程序状态字寄存器某个标志位来标识</p><p><strong>程序</strong>又被分为<strong>内核程序和应用程序</strong></p><h1 id="操作系统内核">2. 操作系统内核</h1><p>内核程序应该实现哪些功能？</p><p><strong>时钟管理、中断处理、原语</strong>（设备驱动、CPU切换）、<strong>对系统资源进行管理</strong>（进程管理、存储器管理、设备管理）</p><p>前面三个功能与硬件联系比较紧密，有的操作系统不会将最后一个划分到操作系统内核中</p><p>内核是计算机上配置的底层软件，是操作系统最基本、最核心的部分</p><p>实现操作系统内核功能的程序就是<strong>内核程序</strong></p><h1 id="操作系统体系机构">3. 操作系统体系机构</h1><p>时钟管理、中断处理、原语、[对系统资源进行管理]</p><p>对于最后一个是否划分到内核中又争议，所以有了操作系统的体系结构</p><p>操作系统的体系结构：<strong>大内核、微内核</strong></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> OS </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> OS </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>2-1-5线程</title>
       <link href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-1-5%E7%BA%BF%E7%A8%8B/"/>
       <url>/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-1-5%E7%BA%BF%E7%A8%8B/</url>
       
         <content type="html"><![CDATA[<p>引入线程之后的变化，线程的重要属性以及多线程。</p><span id="more"></span><h1 id="定义">1. 定义</h1><p>QQ可以进行很多的功能，但是进程是程序的一次执行</p><p>很多的功能不可能是由一个程序的顺序执行就能实现的</p><p>传统的进程是<strong>程序执行流</strong>的最小单位</p><p>因为有的进程可能需要同时执行很多的事情，而传统的进程只能串行的执行一系列程序。为此，<strong>引入了“线程”</strong>，来增加并发调度</p><p>引入了线程之后，<strong>线程就是程序执行流的最小单位，是一个基本的CPU执行单元</strong>。进程只作为除CPU之外的系统资源分配单元（<strong>系统资源是分配给进程的</strong>）。</p><h1 id="引入线程的变化">2. 引入线程的变化</h1><p>资源分配调度：<strong>进程是资源分配的基本单位，线程是调度的基本单位</strong></p><p>并发性：各线程之间也能并发，提升了并发速度</p><p>系统开销：系统开销减小（同一个进程内线程切换，不需要切换进程环境，系统开销小）</p><h1 id="线程的重要属性">3. 线程的重要属性</h1><ol><li>线程是处理机调度的单位</li><li>多个CPU计算机中，各个线程可占用不同的CPU</li><li>每个线程都有一个线程ID、线程控制块（TCB）</li><li>线程也有就绪、阻塞、运行三种基本状态</li><li>线程几乎不拥有系统资源</li><li>同一进程的不同线程之间共享进程的资源</li><li>由于共享内存地址空间，同意进程中的线程通信甚至无需系统干预</li><li>同一进程中的线程切换，不会引起进程的切换</li><li>不同的进程中的线程切换，会引起进程的切换</li><li>切换同进程内的线程，系统开销很小</li><li>切换进程，系统开销大</li></ol><h1 id="实现方式">4. 实现方式</h1><h2 id="用户级线程">4.1. 用户级线程</h2><p>由应用程序通过<strong>线程库</strong>来实现，所有的线程管理者工作都由应用程序负责（包括线程切换）</p><p>操作系统并意识不到线程的存在，但是用户可以感受到线程的存在</p><p>用户级线程就是从用户的视角可以看到的线程</p><h2 id="内核级线程">4.2. 内核级线程</h2><p>又称为 内核支持的线程</p><p>内核级的线程的管理工作由操作系统内核完成。内核级线程的切换必须在核心态下才能完成</p><p>内核级线程可以理解为从操作系统的角度可以看到的线程</p><p>内核级线程才是真正的处理机分配的单位</p><h1 id="多线程">5. 多线程</h1><p>在同时支持用户级线程和内核级线程的系统中，由几个用户级线程映射到几个内核级线程的问题引出了”多线程模型“的问题</p><p>多线程模型：</p><ol><li>多对一：多个用户级线程对应一个内核级线程（并发性较弱，系统开销小）</li><li>一对一：并发性很强，占用资源太多</li><li>多对多：多对一和一对一的组合模式，更加合理</li></ol>]]></content>
-      
-      
-      <categories>
-          
-          <category> OS </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> OS </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>2-2-3调度算法的评价指标</title>
-      <link href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-2-3%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E7%9A%84%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/"/>
-      <url>/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-2-3%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E7%9A%84%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/</url>
-      
-        <content type="html"><![CDATA[<p>调度算法的五大评价指标。</p><span id="more"></span><h1 id="系统利用率">1. 系统利用率</h1><p>利用率=忙碌时间/总时间</p><h1 id="系统吞吐量">2. 系统吞吐量</h1><p>单位时间内完成的作业的数量</p><p>系统吞吐量=总共完成了多少道作业/总共花了多长时间</p><h1 id="周转时间">3. 周转时间</h1><p>作业从提交给系统道作业完成的时间间隔</p><p>周转时间=作业完成时间-作业提交时间</p><p>平均周转时间=个作业周转时间之和/作业数</p><p>带权周转时间=作业周转时间/作业实际运行时间（越小越好，用户体验越好）</p><p>平均带权周转时间=各作业带权周转时间之和/作业数</p><h1 id="等待时间">4. 等待时间</h1><p>指进程/作业等待处理机状态时间之和，等待时间越长，用户满意度越低</p><p>对于作业来说：等待时间就是进程建立之后等待被服务的时间之和，等待IO完成期间也是被服务的，不算入等待时间</p><p>对于进程来说：不仅要考虑建立进程后的等待时间，还要加上作业在外存后备队列中等待的时间</p><h1 id="响应时间">5. 响应时间</h1><p>用户提交请求道首次产生响应所用的时间</p>]]></content>
       
       
       <categories>
@@ -722,6 +823,31 @@
       <url>/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-2-1%E5%A4%84%E7%90%86%E6%9C%BA%E8%B0%83%E5%BA%A6/</url>
       
         <content type="html"><![CDATA[<p>处理机调度的层次和他们之间的联系和对比。</p><span id="more"></span><h1 id="定义">1. 定义</h1><p>某种规则来决定处理任务的顺序，这就是调度研究的问题</p><p>处理机调度：由于CPU个数远远小于进程数，不可能同时处理所有的进程。要<strong>从就绪队列中按照一定的算法选择一个进程并将处理机分配给它运行，以实现进程的并发执行</strong></p><h1 id="层次">2. 层次</h1><h2 id="高级调度（作业调度）">2.1. 高级调度（作业调度）</h2><p>作业=多个进程</p><p>由于内存有限，<strong>作业</strong>无法全部放入内存，需要某种规则来决定将作业调入内存的顺序</p><p>高级调度是<strong>外存与内存之间</strong>的调度</p><p>每个作业<strong>只调入一次调出一次</strong></p><p>作业调度时会创建相应的PCB，调出时才撤销PCB</p><h2 id="中级调度（内存调度）">2.2. 中级调度（内存调度）</h2><p>引入了虚拟存储技术之后，可以将暂时不能运行的<strong>进程</strong>调至外存等待。等他重新具备了运行条件且内存有空的时候，再重新调入内存</p><p>这样做的目的是<strong>提高内存的利用率和系统的吞吐量</strong></p><p>暂时调到外存的状态叫做<strong>挂起状态</strong>，进程被调出内存，但是PCB会常驻内存，因为操作系统还要对这些未执行完的进程进行管理（挂起–&gt;挂起队列）</p><p>中级调度发生的频率比高级调度高，因为一个进程可能会多次被调出、调入内存</p><p>这里引入了七状态模型，详情见补充知识</p><h2 id="低级调度（进程调度）">2.3. 低级调度（进程调度）</h2><p>主要任务是按照某种方法和策略从就绪队列中选取一个进程，将<strong>处理机</strong>分配给他</p><p>进程调度是最基本的一种调度，频率很高，一般几十毫秒一次</p><h1 id="调度联系、对比">3. 调度联系、对比</h1><p>高级调度（作业调度）：外存到内存（面向作业）（无到创建到就绪）</p><p>中级调度（内存调度）：外存到内存（面向进程）（挂起到就绪）</p><p>低级调度（进程调度）：<strong>内存–&gt;CPU</strong>（就绪到运行）</p><h1 id="补充知识">4. 补充知识</h1><p>与挂起状态相关的<strong>七状态模型</strong>：</p><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">暂时调入到外存等待的进程状态为挂起状态<br>挂起态又可以分为就绪挂起、阻塞挂起两种<br></code></pre></div></td></tr></table></figure><p>五状态模型–&gt;七状态模型（新增两种状态）</p><p>就绪–&gt;挂起（就绪挂起）</p><p>阻塞–&gt;挂起（阻塞挂起）</p><p>阻塞挂起等待的事件出现–&gt;就绪挂起</p><p>创建态–&gt;就绪挂起</p><p>运行态–&gt;就绪挂起</p><figure class="highlight x86asm"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs x86asm">挂起和阻塞的区别：<br>    两种都是暂时不能得到<span class="hljs-meta">CPU</span>服务<br>    挂起是将进程调入外存，而阻塞态下的进程还在内存中<br></code></pre></div></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> OS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> OS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>2-2-3调度算法的评价指标</title>
+      <link href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-2-3%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E7%9A%84%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/"/>
+      <url>/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-2-3%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E7%9A%84%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/</url>
+      
+        <content type="html"><![CDATA[<p>调度算法的五大评价指标。</p><span id="more"></span><h1 id="系统利用率">1. 系统利用率</h1><p>利用率=忙碌时间/总时间</p><h1 id="系统吞吐量">2. 系统吞吐量</h1><p>单位时间内完成的作业的数量</p><p>系统吞吐量=总共完成了多少道作业/总共花了多长时间</p><h1 id="周转时间">3. 周转时间</h1><p>作业从提交给系统道作业完成的时间间隔</p><p>周转时间=作业完成时间-作业提交时间</p><p>平均周转时间=个作业周转时间之和/作业数</p><p>带权周转时间=作业周转时间/作业实际运行时间（越小越好，用户体验越好）</p><p>平均带权周转时间=各作业带权周转时间之和/作业数</p><h1 id="等待时间">4. 等待时间</h1><p>指进程/作业等待处理机状态时间之和，等待时间越长，用户满意度越低</p><p>对于作业来说：等待时间就是进程建立之后等待被服务的时间之和，等待IO完成期间也是被服务的，不算入等待时间</p><p>对于进程来说：不仅要考虑建立进程后的等待时间，还要加上作业在外存后备队列中等待的时间</p><h1 id="响应时间">5. 响应时间</h1><p>用户提交请求道首次产生响应所用的时间</p>]]></content>
       
       
       <categories>
@@ -942,31 +1068,6 @@
     
     
     <entry>
-      <title>2-3-6生产者和消费者</title>
-      <link href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-3-6%E7%94%9F%E4%BA%A7%E8%80%85%E5%92%8C%E6%B6%88%E8%B4%B9%E8%80%85/"/>
-      <url>/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-3-6%E7%94%9F%E4%BA%A7%E8%80%85%E5%92%8C%E6%B6%88%E8%B4%B9%E8%80%85/</url>
-      
-        <content type="html"><![CDATA[<p>信号量通过不同的操作解决五个问题（生产者和消费者问题）。</p><span id="more"></span><h1 id="生产者和消费者问题">1. 生产者和消费者问题</h1><p>系统中有一组生产者和消费者进程，生产者进程每次生产一个产品放入<strong>缓冲区</strong>，消费者进程每次从缓冲区取出一个产品并且使用</p><p>缓冲区是临界资源，必须互斥访问</p><p><strong>使用PV操作实现生产者消费者这些功能：</strong></p><p>一个同步一个互斥，实现互斥的P操作要放在实现同步的P操作之后，V操作顺序不会影响</p><h1 id="多生产者和多消费者">2. 多生产者和多消费者</h1><p>互斥信号量来实现生产者生产资源的问题</p><h1 id="吸烟者问题">3. 吸烟者问题</h1><p>先V后P</p><h1 id="读写者问题">4. 读写者问题</h1><h1 id="哲学家进餐问题">5. 哲学家进餐问题</h1><p>五个哲学家，只能吃饭和思考，每个人左右手边各一根筷子</p><p>需要持有两个临界资源才能吃饭，要避免死锁</p><ol><li>限制只能由四个哲学家同时进餐</li><li>奇数号哲学家只能拿左边的，偶数只能拿右边的</li><li>只有左右两只筷子都可以使用的时候再拿筷子（左右一起拿）</li></ol><p>哲学家进餐主要是为了解决死锁问题</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> OS </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> OS </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>2-4死锁</title>
       <link href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-4%E6%AD%BB%E9%94%81/"/>
       <url>/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-4%E6%AD%BB%E9%94%81/</url>
@@ -992,11 +1093,36 @@
     
     
     <entry>
-      <title>2-1-2进程状态</title>
-      <link href="/gzguo/2020/12/26/OS/2%E8%BF%9B%E7%A8%8B/2-1-2%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81/"/>
-      <url>/gzguo/2020/12/26/OS/2%E8%BF%9B%E7%A8%8B/2-1-2%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81/</url>
+      <title>2-3-6生产者和消费者</title>
+      <link href="/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-3-6%E7%94%9F%E4%BA%A7%E8%80%85%E5%92%8C%E6%B6%88%E8%B4%B9%E8%80%85/"/>
+      <url>/gzguo/2020/12/27/OS/2%E8%BF%9B%E7%A8%8B/2-3-6%E7%94%9F%E4%BA%A7%E8%80%85%E5%92%8C%E6%B6%88%E8%B4%B9%E8%80%85/</url>
       
-        <content type="html"><![CDATA[<p>进程的五大状态以及状态之间的转换。</p><span id="more"></span><h1 id="状态">1. 状态</h1><p>进程在执行的过程中，状态会有各种变化，为了方便进程的管理，操作系统需要将进程合理的划分为几种状态</p><p>其中运行、就绪、阻塞是最基本的三种状态</p><h2 id="运行">1.1. 运行</h2><p>占用CPU，并在CPU上运行</p><h2 id="就绪">1.2. 就绪</h2><p>已经具备运行条件，但是由于没有空闲的CPU，暂时不能运行</p><p>拥有了除了处理机之外的所有资源</p><h2 id="阻塞">1.3. 阻塞</h2><p>因等待某一事件而暂时不能运行</p><h2 id="创建">1.4. 创建</h2><p>程序开始之前需要进行创建，系统为其分配资源、初始化PCB</p><h2 id="终止">1.5. 终止</h2><p>程序执行结束或者出现bug之后需要终止/撤销，系统回收进程拥有的资源、撤销PCB</p><h1 id="状态之间的转换">2. 状态之间的转换</h1><p>创建==&gt;就绪==&gt;运行==&gt;阻塞==&gt;就绪==&gt;运行==&gt;终止</p><p>注意：</p><ol><li>不能由阻塞直接转换为运行状态（进入阻塞是进程主动请求的，需要进程在<strong>运行时</strong>才能发出）</li><li>不能由运行直接转换为阻塞状态</li><li>就绪到运行：进程被调度</li><li>运行到就绪：时间片到/CPU被其他高优先级的进程抢占</li><li>运行到阻塞：等待系统分配资源/等待事件发生（主动行为）</li><li>阻塞到就绪：资源分配到位，等待事件发生（被动行为）</li><li>创建到就绪：系统完成创建今晨改的相关工作</li><li>运行到终止：进程运行结束，或者出现不可修复的错误</li></ol>]]></content>
+        <content type="html"><![CDATA[<p>信号量通过不同的操作解决五个问题（生产者和消费者问题）。</p><span id="more"></span><h1 id="生产者和消费者问题">1. 生产者和消费者问题</h1><p>系统中有一组生产者和消费者进程，生产者进程每次生产一个产品放入<strong>缓冲区</strong>，消费者进程每次从缓冲区取出一个产品并且使用</p><p>缓冲区是临界资源，必须互斥访问</p><p><strong>使用PV操作实现生产者消费者这些功能：</strong></p><p>一个同步一个互斥，实现互斥的P操作要放在实现同步的P操作之后，V操作顺序不会影响</p><h1 id="多生产者和多消费者">2. 多生产者和多消费者</h1><p>互斥信号量来实现生产者生产资源的问题</p><h1 id="吸烟者问题">3. 吸烟者问题</h1><p>先V后P</p><h1 id="读写者问题">4. 读写者问题</h1><h1 id="哲学家进餐问题">5. 哲学家进餐问题</h1><p>五个哲学家，只能吃饭和思考，每个人左右手边各一根筷子</p><p>需要持有两个临界资源才能吃饭，要避免死锁</p><ol><li>限制只能由四个哲学家同时进餐</li><li>奇数号哲学家只能拿左边的，偶数只能拿右边的</li><li>只有左右两只筷子都可以使用的时候再拿筷子（左右一起拿）</li></ol><p>哲学家进餐主要是为了解决死锁问题</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> OS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> OS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>1-7运行机制体系结构</title>
+      <link href="/gzguo/2020/12/27/OS/1%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/1-7%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/"/>
+      <url>/gzguo/2020/12/27/OS/1%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/1-7%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/</url>
+      
+        <content type="html"><![CDATA[<p>操作系统的运行机制、内核以及体系结构。</p><span id="more"></span><h1 id="运行机制">1. 运行机制</h1><p>指令和代码：一行代码对应几行机器语言指令</p><p>由于安全性问题，将<strong>指令</strong>分为<strong>特权指令、非特权指令</strong></p><p>特权指令：内存清零，不允许用户程序使用</p><p>非特权指令：运算指令</p><p>判断CPU是否可以执行特权指令？<strong>处理机的两种状态</strong>：<strong>用户态（目态）、核心态（管态）</strong></p><p>处理机状态由程序状态字寄存器某个标志位来标识</p><p><strong>程序</strong>又被分为<strong>内核程序和应用程序</strong></p><h1 id="操作系统内核">2. 操作系统内核</h1><p>内核程序应该实现哪些功能？</p><p><strong>时钟管理、中断处理、原语</strong>（设备驱动、CPU切换）、<strong>对系统资源进行管理</strong>（进程管理、存储器管理、设备管理）</p><p>前面三个功能与硬件联系比较紧密，有的操作系统不会将最后一个划分到操作系统内核中</p><p>内核是计算机上配置的底层软件，是操作系统最基本、最核心的部分</p><p>实现操作系统内核功能的程序就是<strong>内核程序</strong></p><h1 id="操作系统体系机构">3. 操作系统体系机构</h1><p>时钟管理、中断处理、原语、[对系统资源进行管理]</p><p>对于最后一个是否划分到内核中又争议，所以有了操作系统的体系结构</p><p>操作系统的体系结构：<strong>大内核、微内核</strong></p>]]></content>
       
       
       <categories>
@@ -1042,11 +1168,61 @@
     
     
     <entry>
+      <title>2-1-2进程状态</title>
+      <link href="/gzguo/2020/12/26/OS/2%E8%BF%9B%E7%A8%8B/2-1-2%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81/"/>
+      <url>/gzguo/2020/12/26/OS/2%E8%BF%9B%E7%A8%8B/2-1-2%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81/</url>
+      
+        <content type="html"><![CDATA[<p>进程的五大状态以及状态之间的转换。</p><span id="more"></span><h1 id="状态">1. 状态</h1><p>进程在执行的过程中，状态会有各种变化，为了方便进程的管理，操作系统需要将进程合理的划分为几种状态</p><p>其中运行、就绪、阻塞是最基本的三种状态</p><h2 id="运行">1.1. 运行</h2><p>占用CPU，并在CPU上运行</p><h2 id="就绪">1.2. 就绪</h2><p>已经具备运行条件，但是由于没有空闲的CPU，暂时不能运行</p><p>拥有了除了处理机之外的所有资源</p><h2 id="阻塞">1.3. 阻塞</h2><p>因等待某一事件而暂时不能运行</p><h2 id="创建">1.4. 创建</h2><p>程序开始之前需要进行创建，系统为其分配资源、初始化PCB</p><h2 id="终止">1.5. 终止</h2><p>程序执行结束或者出现bug之后需要终止/撤销，系统回收进程拥有的资源、撤销PCB</p><h1 id="状态之间的转换">2. 状态之间的转换</h1><p>创建==&gt;就绪==&gt;运行==&gt;阻塞==&gt;就绪==&gt;运行==&gt;终止</p><p>注意：</p><ol><li>不能由阻塞直接转换为运行状态（进入阻塞是进程主动请求的，需要进程在<strong>运行时</strong>才能发出）</li><li>不能由运行直接转换为阻塞状态</li><li>就绪到运行：进程被调度</li><li>运行到就绪：时间片到/CPU被其他高优先级的进程抢占</li><li>运行到阻塞：等待系统分配资源/等待事件发生（主动行为）</li><li>阻塞到就绪：资源分配到位，等待事件发生（被动行为）</li><li>创建到就绪：系统完成创建今晨改的相关工作</li><li>运行到终止：进程运行结束，或者出现不可修复的错误</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> OS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> OS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>2-1-4进程通信</title>
       <link href="/gzguo/2020/12/26/OS/2%E8%BF%9B%E7%A8%8B/2-1-4%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/"/>
       <url>/gzguo/2020/12/26/OS/2%E8%BF%9B%E7%A8%8B/2-1-4%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/</url>
       
         <content type="html"><![CDATA[<p>进程之间的三种通信方式：共享存储、管道通信、消息传递。</p><span id="more"></span><p>进程通信就是进程之间的信息交换</p><p>进程是分配系统资源的单位，各进程拥有的内存地址空间是相对独立的</p><p>为了保证安全，进程之间不允许互相访问</p><p>但是进程之间的信息交换又是必须实现的，为了保证进程之间的安全通信，操作系统提供了一些方法</p><p>下面就是操作系统提供的三种进程通信的方式</p><h1 id="共享存储">1. 共享存储</h1><p>系统为两个进程分配一个共享空间，两个进程可以<strong>互斥的访问</strong>共享空间</p><p>互斥访问通过操作系统提供的同步互斥工具实现（P、V操作）</p><h2 id="基于数据结构的共享">1.1. 基于数据结构的共享</h2><p><strong>对每次传递的数据格式有限制</strong>，是一种低级的通信方式</p><h2 id="基于存储区的共享">1.2. 基于存储区的共享</h2><p>操作系统只提供共享存储区，数据结构、存放位置等的信息都由进程控制，相比之下，这是一种高级通信的方式</p><h1 id="管道通信">2. 管道通信</h1><p>管道就是特殊的共享文件/pipe文件（实质就是在内存中开辟一个固定大小的<strong>缓冲区</strong>）</p><p>注意：</p><ol><li>管道只能采用<strong>半双工通信</strong>（只能单向传输，想要实现双向可以设置两个管道）</li><li>各进程要互斥的访问管道</li><li>管道写满，写进程阻塞，等待读进程全部读走，管道变空，读进程阻塞</li><li>没有写满不能读，没有空不允许写</li><li>数据一旦被读出就会消失，所以<strong>读进程只能有一个</strong></li></ol><h1 id="消息传递">3. 消息传递</h1><p>进程间的数据交换以<strong>格式化的消息</strong>为单位，通过<strong>发送/接收消息两个原语</strong>进行数据交换</p><p>格式化的消息：<strong>消息头、消息体</strong></p><h2 id="直接通信方式">3.1. 直接通信方式</h2><p>消息直接挂到接收进程的<strong>消息缓冲队列上</strong></p><h2 id="间接通信方式">3.2. 间接通信方式</h2><p>消息先发送到<strong>中间实体（信箱）</strong>，也成为“信箱通信方式”</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> OS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> OS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>2-1-1进程定义</title>
+      <link href="/gzguo/2020/12/25/OS/2%E8%BF%9B%E7%A8%8B/2-1-1%E8%BF%9B%E7%A8%8B%E5%AE%9A%E4%B9%89/"/>
+      <url>/gzguo/2020/12/25/OS/2%E8%BF%9B%E7%A8%8B/2-1-1%E8%BF%9B%E7%A8%8B%E5%AE%9A%E4%B9%89/</url>
+      
+        <content type="html"><![CDATA[<p>进程的定义组成、组织方式以及特征。</p><span id="more"></span><h1 id="定义">1. 定义</h1><p>进程是为了解决什么问题而引入的？</p><p>先讲<strong>程序</strong>：就是一个指令序列</p><p>早期还是单道程序执行的时候，所有的资源都是一个程序的，不需要记录程序的存放位置。内存中只有<strong>程序段和数据段</strong>。</p><p>随着出现了多道程序技术，需要对程序的存放位置等的进行记录。系统会为每个运行的程序配置一个<strong>数据结构</strong>，这个数据结构称为<strong>程序控制块（PCB）</strong>，用来描述进程的各种信息（存储位置等）。内存中的<strong>程序段、数据段和进程控制块</strong>三部分构成了进程实体（进程映像）</p><p>一般来说，我们可以把进程实体称之为<strong>进程</strong>，所谓的创建进程，实际上就是创建进程实体中的PCB；撤销进程就是撤销进程实体中的PCB。</p><p>严格来说，进程实体和进程还是有区别的，进程实体是静态的，进程则是动态的。</p><p>注意：PCB是进程存在的唯一标志</p><p>从不同的角度，进程有不同的定义：</p><ol><li>进程是程序的一次执行过程</li><li>进程是一个程序及其数据在处理机上顺序执行时所发生的活动</li><li>进程是具有独立功能的程序在数据集合上运行的过程，它是系统进行资源分配和调度的一个独立单位</li></ol><h1 id="组成">2. 组成</h1><p>每个进程由哪些部分组成？</p><p>进程是由程序段、数据段和PCB三部分组成的</p><ol><li>程序段：程序代码</li><li>数据段：程序运行时使用、产生的运算数据</li><li>PCB：操作系统对进程管理所需的各种信息</li></ol><p>PCB中的信息：</p><ol><li>进程描述信息（进程标识符id、用户标识符id）</li><li>进程控制和管理信息（进程当前状态、进程优先级）</li><li>资源分配清单（程序段指针、数据段指针、键盘、鼠标）</li><li>处理机相关信息（各种寄存器值）</li></ol><h1 id="组织方式">3. 组织方式</h1><p>系统间的各个进程使如何被组织起来的？</p><p>进程的组成讨论进程内部，进程组织讨论进程之间</p><h2 id="链接方式">3.1. 链接方式</h2><p>根据状态将PCB分为多个队列，操作系统持有队列指针</p><ol><li>执行指针：CPU中正在运行的进程</li><li>就绪队列指针：指向当前处于就绪态的进程</li><li>阻塞队列指针：指向处于阻塞状态的进程</li></ol><h2 id="索引方式">3.2. 索引方式</h2><p>根据状态建立索引表，操作系统持有表的指针</p><ol><li>执行指针</li><li>就绪表指针</li><li>阻塞表指针</li></ol><h1 id="特征">4. 特征</h1><p>相比于程序，进程有哪些特征？</p><ol><li><strong>动态性</strong>：进程是程序的一次执行过程，是动态产生、变化和消亡的</li><li><strong>并发性</strong>：内存中有多个进程实体，各进程可以并发执行</li><li><strong>独立性</strong>：进程可以独立运行、独立获得资源、独立接受调度的基本单位</li><li><strong>异步性</strong>：不可预知的速度向前推进。操作系统提供“进程同步机制”来解决异步的问题</li><li><strong>结构性</strong>：每个进程都会配置一个PCB。结构上看，进程=程序段+数据段+PCB</li></ol>]]></content>
       
       
       <categories>
@@ -1097,31 +1273,6 @@
       <url>/gzguo/2020/12/25/OS/3%E5%86%85%E5%AD%98/3-1-2%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</url>
       
         <content type="html"><![CDATA[<p>内存的分配和扩充，以及地址转换和内存保护。</p><span id="more"></span><h1 id="内存空间的分配与回收">1. 内存空间的分配与回收</h1><p>操作系统怎么记录内存的分配情况</p><p>很多位置可以分配，具体该分配哪一块</p><p>运行结束之后，如何回收进程占用的内存</p><p>方法：</p><h2 id="连续分配">1.1. 连续分配</h2><p>连续分配：为用户进程分配的必须是一个连续的内存空间</p><ol><li><p>单一连续分配</p><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">内存被分为系统区和用户区。系统区通常在低地址部分，用于存放操作系统进程的相关数据。用户区用于存放用户进程的相关数据，用户程序独占整个用户区空间。<br>优点：实现简单，没有外部碎片，不需要内存保护<br>缺点：有内部碎片<br></code></pre></div></td></tr></table></figure></li><li><p>固定分区分配</p><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">分为固定分区，每个分区中只能装入一道作业，可以分区大小相等，也可以是分区大小不等<br>分区说明表：对内存中的分区进行说明（用数据结构来表示）<br>优点：实现简单，没有外部碎片<br>缺点：程序太大要采用覆盖技术、会产生内部碎片内存利用率低<br></code></pre></div></td></tr></table></figure></li><li><p>动态分区分配</p><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">可变分区分配：不会预先划分内存分区，而是在进程装入内存的时候，根据进程大小动态的建立分区<br></code></pre></div></td></tr></table></figure></li></ol><h2 id="非连续分配">1.2. 非连续分配</h2><h1 id="内存空间扩充">2. 内存空间扩充</h1><p>从逻辑上对内存进行扩充</p><p>技术：</p><ol><li><p>覆盖技术</p><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">内存中分为一个固定区和若干个覆盖区<br>需要常驻内存段放在固定区中 ，调入后就不再调出（除非运行结束）<br>不常用的端放在覆盖区，需要用到时调入内存，用不到时调出内存<br></code></pre></div></td></tr></table></figure></li><li><p>交换技术</p><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">内存空间紧张时，系统将内存中的某些进程暂时换出内存，把外存中某些具备运行条件的进程换入内存<br>存在一个对换区<br>注意：PCB是常驻内存的，不会被换出<br></code></pre></div></td></tr></table></figure></li><li><p>虚拟存储技术</p></li></ol><h1 id="地址转换">3. 地址转换</h1><p>为了使程序员写程序方便，程序员写程序时应该只关注指令、数据的逻辑地址。而逻辑地址到物理地址的转换（地址重定位）应该由操作系统负责，这样就保证了程序员不再关注物理内存</p><p>这里有三种装入方式（绝对、可重定位、动态运行时）</p><h1 id="内存保护">4. 内存保护</h1><p>用户进程不能访问操作系统的内存空间，也不能访问其他进程的空间</p><p>方法：</p><ol><li>上下限寄存器</li><li>重定位寄存器（基址寄存器）、界地址寄存器（限长寄存器）-&gt;存放进程的最大逻辑地址</li></ol>]]></content>
-      
-      
-      <categories>
-          
-          <category> OS </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> OS </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>2-1-1进程定义</title>
-      <link href="/gzguo/2020/12/25/OS/2%E8%BF%9B%E7%A8%8B/2-1-1%E8%BF%9B%E7%A8%8B%E5%AE%9A%E4%B9%89/"/>
-      <url>/gzguo/2020/12/25/OS/2%E8%BF%9B%E7%A8%8B/2-1-1%E8%BF%9B%E7%A8%8B%E5%AE%9A%E4%B9%89/</url>
-      
-        <content type="html"><![CDATA[<p>进程的定义组成、组织方式以及特征。</p><span id="more"></span><h1 id="定义">1. 定义</h1><p>进程是为了解决什么问题而引入的？</p><p>先讲<strong>程序</strong>：就是一个指令序列</p><p>早期还是单道程序执行的时候，所有的资源都是一个程序的，不需要记录程序的存放位置。内存中只有<strong>程序段和数据段</strong>。</p><p>随着出现了多道程序技术，需要对程序的存放位置等的进行记录。系统会为每个运行的程序配置一个<strong>数据结构</strong>，这个数据结构称为<strong>程序控制块（PCB）</strong>，用来描述进程的各种信息（存储位置等）。内存中的<strong>程序段、数据段和进程控制块</strong>三部分构成了进程实体（进程映像）</p><p>一般来说，我们可以把进程实体称之为<strong>进程</strong>，所谓的创建进程，实际上就是创建进程实体中的PCB；撤销进程就是撤销进程实体中的PCB。</p><p>严格来说，进程实体和进程还是有区别的，进程实体是静态的，进程则是动态的。</p><p>注意：PCB是进程存在的唯一标志</p><p>从不同的角度，进程有不同的定义：</p><ol><li>进程是程序的一次执行过程</li><li>进程是一个程序及其数据在处理机上顺序执行时所发生的活动</li><li>进程是具有独立功能的程序在数据集合上运行的过程，它是系统进行资源分配和调度的一个独立单位</li></ol><h1 id="组成">2. 组成</h1><p>每个进程由哪些部分组成？</p><p>进程是由程序段、数据段和PCB三部分组成的</p><ol><li>程序段：程序代码</li><li>数据段：程序运行时使用、产生的运算数据</li><li>PCB：操作系统对进程管理所需的各种信息</li></ol><p>PCB中的信息：</p><ol><li>进程描述信息（进程标识符id、用户标识符id）</li><li>进程控制和管理信息（进程当前状态、进程优先级）</li><li>资源分配清单（程序段指针、数据段指针、键盘、鼠标）</li><li>处理机相关信息（各种寄存器值）</li></ol><h1 id="组织方式">3. 组织方式</h1><p>系统间的各个进程使如何被组织起来的？</p><p>进程的组成讨论进程内部，进程组织讨论进程之间</p><h2 id="链接方式">3.1. 链接方式</h2><p>根据状态将PCB分为多个队列，操作系统持有队列指针</p><ol><li>执行指针：CPU中正在运行的进程</li><li>就绪队列指针：指向当前处于就绪态的进程</li><li>阻塞队列指针：指向处于阻塞状态的进程</li></ol><h2 id="索引方式">3.2. 索引方式</h2><p>根据状态建立索引表，操作系统持有表的指针</p><ol><li>执行指针</li><li>就绪表指针</li><li>阻塞表指针</li></ol><h1 id="特征">4. 特征</h1><p>相比于程序，进程有哪些特征？</p><ol><li><strong>动态性</strong>：进程是程序的一次执行过程，是动态产生、变化和消亡的</li><li><strong>并发性</strong>：内存中有多个进程实体，各进程可以并发执行</li><li><strong>独立性</strong>：进程可以独立运行、独立获得资源、独立接受调度的基本单位</li><li><strong>异步性</strong>：不可预知的速度向前推进。操作系统提供“进程同步机制”来解决异步的问题</li><li><strong>结构性</strong>：每个进程都会配置一个PCB。结构上看，进程=程序段+数据段+PCB</li></ol>]]></content>
       
       
       <categories>
@@ -1292,11 +1443,11 @@
     
     
     <entry>
-      <title>6.3在网页中应用CSS的方式</title>
-      <link href="/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.3%E5%9C%A8%E7%BD%91%E9%A1%B5%E4%B8%AD%E5%BA%94%E7%94%A8CSS%E7%9A%84%E6%96%B9%E5%BC%8F/"/>
-      <url>/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.3%E5%9C%A8%E7%BD%91%E9%A1%B5%E4%B8%AD%E5%BA%94%E7%94%A8CSS%E7%9A%84%E6%96%B9%E5%BC%8F/</url>
+      <title>6.1CSS概述</title>
+      <link href="/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.1CSS%E6%A6%82%E8%BF%B0/"/>
+      <url>/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.1CSS%E6%A6%82%E8%BF%B0/</url>
       
-        <content type="html"><![CDATA[<p>在网页中应用CSS的方式。</p><span id="more"></span><h1 id="CSS3应用方法">1. CSS3应用方法</h1><p>CSS样式能够以分离网页内容和样式的形式很好的控制网页的显示。在网页中应用CSS样式有4种方法：</p><ol><li><p>内联式</p><figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css">通过标记style属性直接把CSS样式添加到<span class="hljs-selector-tag">HTML</span>标签中<br></code></pre></div></td></tr></table></figure><p>语法格式：</p><figure class="highlight routeros"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs routeros">&lt;标记名 <span class="hljs-attribute">style</span>=<span class="hljs-string">&quot;&quot;</span>&gt;&lt;/标记名&gt;<br></code></pre></div></td></tr></table></figure></li><li><p>内嵌式</p><figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml">将CSS样式代码添加到HTML文档的<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>头部中，并用<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span>标记定义<br></code></pre></div></td></tr></table></figure><p>语法格式：</p><figure class="highlight dust"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs dust"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span>&gt;</span></span><br><span class="xml">选择器</span><span class="hljs-template-variable">&#123;属性&#125;</span><span class="xml"></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span></span><br></code></pre></div></td></tr></table></figure></li><li><p>链入式</p><figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml">将所有的样式放在一个或者多个以.css为扩展名的外部样式表文件中，通过<span class="hljs-tag">&lt;<span class="hljs-name">link</span> /&gt;</span>标记将外部样式表文件链接到HTML文档中<br></code></pre></div></td></tr></table></figure><p>语法格式：</p><figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;CSS文件路径&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br></code></pre></div></td></tr></table></figure></li><li><p>导入式</p><figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css">与链入外部CSS基本相同，都是要创建一个单独的外部CSS文件，再引入到<span class="hljs-selector-tag">HTML</span>文档中。只不过语法和运作方式略有差别。<br></code></pre></div></td></tr></table></figure><p>语法格式：</p><figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span>&gt;</span><span class="css"></span><br><span class="css"><span class="hljs-keyword">@import</span> url(<span class="hljs-string">&quot;外部样式表相对路径&quot;</span>);</span><br><span class="css"></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br></code></pre></div></td></tr></table></figure></li></ol><h2 id="链入式和导入式的区别：">1.1. 链入式和导入式的区别：</h2><ol><li>隶属关系不同：link属于HTML标签，@import是CSS提供的载入方式</li><li>加载时间及顺序不同：link先将外部的CSS文件加载到网页中，然后再进行编译显示。而@import是浏览器先将HTML结构呈现出来，再把外部的CSS文件加载到网页中，当网速较慢的时候会先显示没有CSS的效果，加载完毕再渲染画面</li><li>兼容性不同@import只有IE5以上的版本才能识别，而link标签没有这个问题</li><li>DOM模型控制样式：使用JavaScript控制DOM改变样式时，只能使用link标签，而@import不受DOM模型的影响</li></ol>]]></content>
+        <content type="html"><![CDATA[<p>CSS概述。</p><span id="more"></span><h1 id="CSS概念">1. CSS概念</h1><p>Cascading Style Sheets（层叠样式表）的缩写，它是一种对Web文档添加样式的简单机制，是一种表现HTML或XML等文件外观样式的计算机语言，是一种网页排版和布局设计的技术</p><h1 id="CSS特点">2. CSS特点</h1><p>纯CSS布局和结构式HTML相结合能帮助设计师分离外观与结构，与传统的表格布局相比，具有以下特点：</p><ol><li>网页载入更快</li><li>降低了流量费用</li><li>修改设计时效率更高</li><li>更容易被搜索引擎收录</li></ol><h1 id="CSS功能">3. CSS功能</h1><ol><li>灵活控制文字字体、颜色、大小、间距、风格及位置</li><li>随意设置文本块行高、缩进，并可加三维效果的边框</li><li>方便为元素设置不同的背景颜色和背景图片</li><li>精确控制网页中个元素的位置</li><li>可以与脚本语言相结合，产生各种动态效果</li></ol><h1 id="CSS样式发展历程">4. CSS样式发展历程</h1><figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">1996</span>年<span class="hljs-number">12</span>月：第一个CSS规范称为W<span class="hljs-number">3</span>C的推荐标准，提供有关字体、颜色、位置和文本属性的基本信息。较为全面的规定了文档的显示样式<br></code></pre></div></td></tr></table></figure><figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">1998</span>年<span class="hljs-number">5</span>月：CSS<span class="hljs-number">2</span>作为W<span class="hljs-number">3</span>C推荐标准发布，他在CSS<span class="hljs-number">1</span>的基础上扩充和改进了许多属性，推出了一套内容和表现效果分离的方式，用DIV分割元素，用样式来定义外观，是程序员在开发过程中不必考虑显示和界面，大大提升了开发的效率<br></code></pre></div></td></tr></table></figure><figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">2010</span>年<span class="hljs-number">12</span>月：CSS<span class="hljs-number">3</span>版本全新推出，通过模块化结构可以及时调整模块的内容，方便版本的更新与发布<br></code></pre></div></td></tr></table></figure><figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">2012</span>年<span class="hljs-number">9</span>月：开始设计CSS Level<span class="hljs-number">4</span>版本；但是到目前为止，极少数的功能被浏览器厂商所支持<br></code></pre></div></td></tr></table></figure><h1 id="CSS3前景">5. CSS3前景</h1><h2 id="CSS3的应用范围">5.1. CSS3的应用范围</h2><ol><li>按钮效果</li><li>制作柱形图</li><li>设计下拉菜单</li><li>图片阴影效果</li><li>文本框样式</li><li>字体效果</li><li>CSS3引用气泡</li><li>动画效果</li></ol><h1 id="支持CSS3的浏览器">6. 支持CSS3的浏览器</h1><h2 id="对于属性的支持">6.1. 对于属性的支持</h2><p>除了Transforms 3D属性没有浏览器支持以外，Windows平台下的、Chrome和Safari对其他属性全面支持。其次是Firefox和Opera</p><h2 id="对于选择器的支持">6.2. 对于选择器的支持</h2><p>CSS3增加了许多的CSS选择器，可以简单实现更强大的功能，目前除了IE9以下的浏览器版本已经全部支持CSS3的选择器</p><h2 id="浏览器的前缀">6.3. 浏览器的前缀</h2><p>为了让设计人员设计的一个效果被各个浏览器所识别，通常可以在样式代码前面添加浏览器前缀</p><figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css">-ms-<span class="hljs-attribute">transform</span>：rotate(<span class="hljs-number">30deg</span>);<span class="hljs-comment">/*IE9*/</span><br>-moz-<span class="hljs-attribute">transform</span>:<span class="hljs-built_in">rotate</span>(<span class="hljs-number">30deg</span>);<span class="hljs-comment">/*Firefox*/</span><br>-webkit-<span class="hljs-attribute">transform</span>:<span class="hljs-built_in">rotate</span>(<span class="hljs-number">30deg</span>);<span class="hljs-comment">/*Safari and Chrome*/</span><br>-<span class="hljs-number">0</span>-<span class="hljs-attribute">transform</span>:<span class="hljs-built_in">rotate</span>(<span class="hljs-number">30deg</span>);<span class="hljs-comment">/*Opera*/</span><br></code></pre></div></td></tr></table></figure>]]></content>
       
       
       <categories>
@@ -1342,36 +1493,11 @@
     
     
     <entry>
-      <title>6.1CSS概述</title>
-      <link href="/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.1CSS%E6%A6%82%E8%BF%B0/"/>
-      <url>/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.1CSS%E6%A6%82%E8%BF%B0/</url>
+      <title>6.3在网页中应用CSS的方式</title>
+      <link href="/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.3%E5%9C%A8%E7%BD%91%E9%A1%B5%E4%B8%AD%E5%BA%94%E7%94%A8CSS%E7%9A%84%E6%96%B9%E5%BC%8F/"/>
+      <url>/gzguo/2020/11/06/Web/6CSS3%E8%AF%AD%E6%B3%95/6.3%E5%9C%A8%E7%BD%91%E9%A1%B5%E4%B8%AD%E5%BA%94%E7%94%A8CSS%E7%9A%84%E6%96%B9%E5%BC%8F/</url>
       
-        <content type="html"><![CDATA[<p>CSS概述。</p><span id="more"></span><h1 id="CSS概念">1. CSS概念</h1><p>Cascading Style Sheets（层叠样式表）的缩写，它是一种对Web文档添加样式的简单机制，是一种表现HTML或XML等文件外观样式的计算机语言，是一种网页排版和布局设计的技术</p><h1 id="CSS特点">2. CSS特点</h1><p>纯CSS布局和结构式HTML相结合能帮助设计师分离外观与结构，与传统的表格布局相比，具有以下特点：</p><ol><li>网页载入更快</li><li>降低了流量费用</li><li>修改设计时效率更高</li><li>更容易被搜索引擎收录</li></ol><h1 id="CSS功能">3. CSS功能</h1><ol><li>灵活控制文字字体、颜色、大小、间距、风格及位置</li><li>随意设置文本块行高、缩进，并可加三维效果的边框</li><li>方便为元素设置不同的背景颜色和背景图片</li><li>精确控制网页中个元素的位置</li><li>可以与脚本语言相结合，产生各种动态效果</li></ol><h1 id="CSS样式发展历程">4. CSS样式发展历程</h1><figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">1996</span>年<span class="hljs-number">12</span>月：第一个CSS规范称为W<span class="hljs-number">3</span>C的推荐标准，提供有关字体、颜色、位置和文本属性的基本信息。较为全面的规定了文档的显示样式<br></code></pre></div></td></tr></table></figure><figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">1998</span>年<span class="hljs-number">5</span>月：CSS<span class="hljs-number">2</span>作为W<span class="hljs-number">3</span>C推荐标准发布，他在CSS<span class="hljs-number">1</span>的基础上扩充和改进了许多属性，推出了一套内容和表现效果分离的方式，用DIV分割元素，用样式来定义外观，是程序员在开发过程中不必考虑显示和界面，大大提升了开发的效率<br></code></pre></div></td></tr></table></figure><figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">2010</span>年<span class="hljs-number">12</span>月：CSS<span class="hljs-number">3</span>版本全新推出，通过模块化结构可以及时调整模块的内容，方便版本的更新与发布<br></code></pre></div></td></tr></table></figure><figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">2012</span>年<span class="hljs-number">9</span>月：开始设计CSS Level<span class="hljs-number">4</span>版本；但是到目前为止，极少数的功能被浏览器厂商所支持<br></code></pre></div></td></tr></table></figure><h1 id="CSS3前景">5. CSS3前景</h1><h2 id="CSS3的应用范围">5.1. CSS3的应用范围</h2><ol><li>按钮效果</li><li>制作柱形图</li><li>设计下拉菜单</li><li>图片阴影效果</li><li>文本框样式</li><li>字体效果</li><li>CSS3引用气泡</li><li>动画效果</li></ol><h1 id="支持CSS3的浏览器">6. 支持CSS3的浏览器</h1><h2 id="对于属性的支持">6.1. 对于属性的支持</h2><p>除了Transforms 3D属性没有浏览器支持以外，Windows平台下的、Chrome和Safari对其他属性全面支持。其次是Firefox和Opera</p><h2 id="对于选择器的支持">6.2. 对于选择器的支持</h2><p>CSS3增加了许多的CSS选择器，可以简单实现更强大的功能，目前除了IE9以下的浏览器版本已经全部支持CSS3的选择器</p><h2 id="浏览器的前缀">6.3. 浏览器的前缀</h2><p>为了让设计人员设计的一个效果被各个浏览器所识别，通常可以在样式代码前面添加浏览器前缀</p><figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css">-ms-<span class="hljs-attribute">transform</span>：rotate(<span class="hljs-number">30deg</span>);<span class="hljs-comment">/*IE9*/</span><br>-moz-<span class="hljs-attribute">transform</span>:<span class="hljs-built_in">rotate</span>(<span class="hljs-number">30deg</span>);<span class="hljs-comment">/*Firefox*/</span><br>-webkit-<span class="hljs-attribute">transform</span>:<span class="hljs-built_in">rotate</span>(<span class="hljs-number">30deg</span>);<span class="hljs-comment">/*Safari and Chrome*/</span><br>-<span class="hljs-number">0</span>-<span class="hljs-attribute">transform</span>:<span class="hljs-built_in">rotate</span>(<span class="hljs-number">30deg</span>);<span class="hljs-comment">/*Opera*/</span><br></code></pre></div></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> html </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> html </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>8.1JavaScript概念及其语法</title>
-      <link href="/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.1.0JavaScript%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95/"/>
-      <url>/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.1.0JavaScript%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95/</url>
-      
-        <content type="html"><![CDATA[<p>JavaScript概念及其语法。</p><span id="more"></span><h1 id="见8-1-1和8-1-2">1. 见8.1.1和8.1.2</h1>]]></content>
+        <content type="html"><![CDATA[<p>在网页中应用CSS的方式。</p><span id="more"></span><h1 id="CSS3应用方法">1. CSS3应用方法</h1><p>CSS样式能够以分离网页内容和样式的形式很好的控制网页的显示。在网页中应用CSS样式有4种方法：</p><ol><li><p>内联式</p><figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css">通过标记style属性直接把CSS样式添加到<span class="hljs-selector-tag">HTML</span>标签中<br></code></pre></div></td></tr></table></figure><p>语法格式：</p><figure class="highlight routeros"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs routeros">&lt;标记名 <span class="hljs-attribute">style</span>=<span class="hljs-string">&quot;&quot;</span>&gt;&lt;/标记名&gt;<br></code></pre></div></td></tr></table></figure></li><li><p>内嵌式</p><figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml">将CSS样式代码添加到HTML文档的<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>头部中，并用<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span>标记定义<br></code></pre></div></td></tr></table></figure><p>语法格式：</p><figure class="highlight dust"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs dust"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span>&gt;</span></span><br><span class="xml">选择器</span><span class="hljs-template-variable">&#123;属性&#125;</span><span class="xml"></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span></span><br></code></pre></div></td></tr></table></figure></li><li><p>链入式</p><figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml">将所有的样式放在一个或者多个以.css为扩展名的外部样式表文件中，通过<span class="hljs-tag">&lt;<span class="hljs-name">link</span> /&gt;</span>标记将外部样式表文件链接到HTML文档中<br></code></pre></div></td></tr></table></figure><p>语法格式：</p><figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;CSS文件路径&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br></code></pre></div></td></tr></table></figure></li><li><p>导入式</p><figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css">与链入外部CSS基本相同，都是要创建一个单独的外部CSS文件，再引入到<span class="hljs-selector-tag">HTML</span>文档中。只不过语法和运作方式略有差别。<br></code></pre></div></td></tr></table></figure><p>语法格式：</p><figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span>&gt;</span><span class="css"></span><br><span class="css"><span class="hljs-keyword">@import</span> url(<span class="hljs-string">&quot;外部样式表相对路径&quot;</span>);</span><br><span class="css"></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br></code></pre></div></td></tr></table></figure></li></ol><h2 id="链入式和导入式的区别：">1.1. 链入式和导入式的区别：</h2><ol><li>隶属关系不同：link属于HTML标签，@import是CSS提供的载入方式</li><li>加载时间及顺序不同：link先将外部的CSS文件加载到网页中，然后再进行编译显示。而@import是浏览器先将HTML结构呈现出来，再把外部的CSS文件加载到网页中，当网速较慢的时候会先显示没有CSS的效果，加载完毕再渲染画面</li><li>兼容性不同@import只有IE5以上的版本才能识别，而link标签没有这个问题</li><li>DOM模型控制样式：使用JavaScript控制DOM改变样式时，只能使用link标签，而@import不受DOM模型的影响</li></ol>]]></content>
       
       
       <categories>
@@ -1417,11 +1543,186 @@
     
     
     <entry>
-      <title>8.1.1JavaScript概念及其语法上</title>
-      <link href="/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.1.1JavaScript%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95%E4%B8%8A/"/>
-      <url>/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.1.1JavaScript%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95%E4%B8%8A/</url>
+      <title>7.1网页布局类型及CSS盒模型</title>
+      <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.1%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80%E7%B1%BB%E5%9E%8B%E5%8F%8ACSS%E7%9B%92%E6%A8%A1%E5%9E%8B/"/>
+      <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.1%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80%E7%B1%BB%E5%9E%8B%E5%8F%8ACSS%E7%9B%92%E6%A8%A1%E5%9E%8B/</url>
       
-        <content type="html"><![CDATA[<p>JavaScript概念及其语法上。</p><span id="more"></span><h1 id="JavaScript简介">1. JavaScript简介</h1><p>是一种脚本语言，是动态的、弱类型、基于原型的语言</p><p>特点：</p><ol><li>语法简单，易学易用</li><li>解释性语言</li><li>跨平台</li><li>基于对象和时间驱动</li><li>可用于客户端</li></ol><p>作用：</p><ol><li>动态改变网页内容</li><li>动态改变网页外观</li><li>验证表单数据</li><li>响应事件</li></ol><p>和java的区别：</p><ol><li>java是传统编程语言，javascript是脚本语言</li><li>java语言多用于服务器端，javascript主要用于客户端</li><li>java不能直接嵌入网页运行，javascript程序可以直接嵌入网页运行</li><li>java和javascript语法结构存在差异</li></ol><p>javascript开发和运行环境：</p><p>是一种脚本语言，不需要编译成二进制文件，以文本形式存在，任何编译器都可以作为他的开发环境，通常的开发环境有：记事本、UltraEdit、Dreamwaver</p><h1 id="在HTML5中使用JavaScript">2. 在HTML5中使用JavaScript</h1><p>有两种方法：内嵌式，外链式</p><h2 id="内嵌式">2.1. 内嵌式</h2><p>script标签，放在head标签中</p><h2 id="外链式">2.2. 外链式</h2><p>同一段代码需要被多个网页文件所使用的时候，使用外链式</p><h1 id="数据类型与变量">3. 数据类型与变量</h1><h1 id="运算符与表达式">4. 运算符与表达式</h1><h1 id="流程控制语句">5. 流程控制语句</h1><h1 id="函数">6. 函数</h1>]]></content>
+        <content type="html"><![CDATA[<p>网页布局类型及CSS盒模型。</p><span id="more"></span><h1 id="网页布局方式">1. 网页布局方式</h1><p>网页布局主要是指在页面中如何对标题、导航栏、主要内容、脚注、表单等各种主要构成元素进行一个合理的排版</p><h2 id="网页布局的类型">1.1. 网页布局的类型</h2><ol><li><p>固定式<br>用固定的宽度设计网页布局尺寸，这种布局有一个设置了固定宽度的外包裹，里面的各个模块也是固定宽度。<br>优点：</p><ol><li>设计师所设计的就是最终用户所看到的</li><li>设计简单，并且容易定制</li><li>在所有的浏览器中的宽度一样，不会收到图片、表单、视频和其他固定宽度的内容影响</li></ol><p>缺点：</p><ol><li>高分辨率式，回留下很大的空白</li><li>屏幕分辨率过小时会出现横向滚动条</li><li>在应该确保至少居中外包裹DIV（margin:0 auto）以保持一种显示平衡，否则对于使用大分辨率的用户，整个页面会被藏到一边去</li></ol></li><li><p>流式<br>通常被称为液态布局。通常采用相对于分辨率大小的百分比的方式自适应不同的分辨率，可以根据浏览器的宽度和屏幕的大小自动调整效果，灵活多变<br>优点：</p><ol><li>对用户来说更加友好，能部分自适应用户设置</li><li>页面周围的空白区域在所有分辨率和浏览器下都是相同的，在视觉上更美观</li><li>如果设计良好，流动布局可以避免在小分辨率下出现水平滚动条</li></ol><p>缺点：</p><ol><li>设计者需要在不同的分辨率下进行测试才能看到最终的设计效果</li><li>在不同的分辨率下图片或者视频需要不同的素材</li><li>在屏幕分辨率跨度太大时，内容会过大或者过小，变得难以阅读</li></ol></li><li><p>响应式<br>这是一种糅合了流式布局，再搭配查询技术使用的网页布局方式<br>根据不同的设备平台对内容、媒体文件和布局结构进行相应的调整与优化，从而使为用户提供一种最优且相对统一的体验模式<br>优点：</p><ol><li>面对不同分辨率设备灵活性强</li><li>能够快捷的解决多设备显示适应问题</li></ol><p>缺点：</p><ol><li>兼容各种设备工作量大，效率低下</li><li>代码累赘，会出现隐藏无用的元素，加载时间加长</li><li>一定程度上改变了网站原有的布局结构，会出现用户混淆的情况</li></ol></li></ol><h1 id="DIV-CSS布局技术">2. DIV+CSS布局技术</h1><p>把页面中所有的元素都看成是一个盒子，通过盒子进行CSS样式定义，并借助DIV变迁及其CSS定位实现网页布局</p><h2 id="DIV-CSS布局的方法步骤">2.1. DIV+CSS布局的方法步骤</h2><ol><li>整体上对页面进行分块</li><li>按照分块设计使用DIV标记并定义其样式属性</li><li>对DIV盒子进行定位实现页面布局</li></ol><h2 id="创建DIV">2.2. 创建DIV</h2><p>DIV标签是一个块标签，他将页面内容划分为独立的部分，以实现网页的规划和布局。</p><p>DIV标签可以加入很多的属性，如：id、class、align、style等，在CSS布局设计中，为了设计网页内容和表现的分离，应尽量的减少align、style等属性的编写次数。因此，常用的属性也只有id和class两种了</p><h2 id="CSS盒模型">2.3. CSS盒模型</h2><p>是指在页面布局中，为了将页面元素合理有效的组织在一起，形成一套完整的、行之有效的原则和规范</p><p>CSS盒是由margin（外边距）、border（边框）、padding（内边距）、content（内容）四个部分组成，此外，还有高度和宽度两个辅助属性</p><h3 id="content内容区">2.3.1. content内容区</h3><p>是盒子模型的中心，包含了盒子的主要重要信息。包含width、height、overflow三个属性。</p><h4 id="overflower">2.3.1.1. overflower</h4><p>overflow主要是指定溢出内容的处理方式</p><table><thead><tr><th>overflow取值</th><th>描述</th></tr></thead><tbody><tr><td>visible</td><td>默认值，溢出的内容不会被修建，会呈现在元素框之外</td></tr><tr><td>hidden</td><td>溢出的内容不可见</td></tr><tr><td>scroll</td><td>溢出的内容会被修建，但是可以通过滚动条来查看隐藏的部分</td></tr><tr><td>auto</td><td>由浏览器决定如何处理溢出部分</td></tr></tbody></table><h4 id="border">2.3.1.2. border</h4><p>border是指围绕元素内容和内边距的一条或多条线</p><p>border-width：边框宽度</p><figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css">&#123;<span class="hljs-attribute">border-top-width</span>: <span class="hljs-number">10px</span>&#125;<br>&#123;<span class="hljs-attribute">border-width</span>: <span class="hljs-number">10px</span> <span class="hljs-number">20px</span> <span class="hljs-number">30px</span> <span class="hljs-number">40px</span>&#125; (上右下左的顺序设置)<br>如果是三个参数将按上(左右)下的顺序作用到边框上<br>如果是两个参数的话，按照(上下)(左右)的顺序作用到边框上<br>如果只有一个参数的时候，四个方向的取值相同<br></code></pre></div></td></tr></table></figure><p>border-style：边框样式</p><p>border-radius：可以设置四个角的圆角样式</p><p>border-image：对图像边框进行设置</p><h1 id="多列布局方法">3. 多列布局方法</h1><h1 id="CSS3弹性盒布局">4. CSS3弹性盒布局</h1><h1 id="HTML5的语义化标签及DIV-CSS网页布局技术设计网页">5. HTML5的语义化标签及DIV+CSS网页布局技术设计网页</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> html </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> html </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>7.3DIV+CSS网页布局</title>
+      <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.3DIV+CSS%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80/"/>
+      <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.3DIV+CSS%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80/</url>
+      
+        <content type="html"><![CDATA[<p>DIV+CSS网页布局。</p><span id="more"></span><h1 id="DIV-CSS网页布局名词解释">1. DIV+CSS网页布局名词解释</h1><p>核心是盒子模型，通过对盒子进行CSS样式定义，借助CSS对盒子定位，这样就称为DIV+CSS布局</p><h2 id="标签">1.1. 标签</h2><p>header、nav、aside、article</p><h1 id="为什么使用DIV-CSS">2. 为什么使用DIV+CSS</h1><h2 id="这样布局的优点">2.1. 这样布局的优点</h2><ol><li>利于搜索引擎的检索和排名</li><li>代码精简，网页加载更快</li><li>定位更准确</li><li>更容易被其他设备访问</li></ol><h1 id="如何进行DIV-CSS布局">3. 如何进行DIV+CSS布局</h1><p>四个步骤：</p><ol><li>整体上对页面进行分块</li><li>按照分块的设计使用DIV标记，包裹区块元素，设计HTML的主体内容</li><li>编辑CSS，设计盒子的定位及在盒中的元素样式</li><li>连编</li></ol><h1 id="DIV-CSS实例">4. DIV+CSS实例</h1><h2 id="常见的布局形式">4.1. 常见的布局形式</h2><p>单列布局：header、article、footer</p><p>1-2-1布局：header、article、aside、footer</p><p>1-3-1布局：header、article、aside、aside、footer</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> html </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> html </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>7.2网页元素的定位</title>
+      <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.2%E7%BD%91%E9%A1%B5%E5%85%83%E7%B4%A0%E7%9A%84%E5%AE%9A%E4%BD%8D/"/>
+      <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.2%E7%BD%91%E9%A1%B5%E5%85%83%E7%B4%A0%E7%9A%84%E5%AE%9A%E4%BD%8D/</url>
+      
+        <content type="html"><![CDATA[<p>网页元素的定位。</p><span id="more"></span><h1 id="网页元素的定位">1. 网页元素的定位</h1><p>CSS有三种基本的定位机制：普通流、浮动和绝对定位</p><ol><li>普通流：相当于默认</li><li>浮动：float属性定位</li><li>绝对定位：position属性定位</li></ol><h2 id="浮动">1.1. 浮动</h2><p>基本语法格式：选择器{float: 属性值;}</p><p>属性值：</p><table><thead><tr><th>属性值</th><th>描述</th></tr></thead><tbody><tr><td>left</td><td>元素向左浮动</td></tr><tr><td>right</td><td>元素向右浮动</td></tr><tr><td>none</td><td>元素不浮动（默认）</td></tr></tbody></table><p>浮动元素不再占用原文档流中的位置，所以会对其他元素排版产生影响，我们需要对元素清除浮动，基本语法格式：选择器{clear: 属性值};。它的属性值：</p><table><thead><tr><th>属性值</th><th>描述</th></tr></thead><tbody><tr><td>left</td><td>不允许左侧有浮动的元素</td></tr><tr><td>right</td><td>不允许右侧有浮动的元素</td></tr><tr><td>both</td><td>清除两侧的浮动元素影响</td></tr></tbody></table><h2 id="绝对定位">1.2. 绝对定位</h2><p>通过CSS定位设置可以实现网页元素的精确定位，定位属性包括定位模式和边偏移两部分，语法格式：选择器{position: 属性值};。属性值：</p><table><thead><tr><th>属性值</th><th>描述</th></tr></thead><tbody><tr><td>static</td><td>自动定位 默认</td></tr><tr><td>relative</td><td>相对定位，相对于其他原文档流位置进行定位</td></tr><tr><td>absolute</td><td>绝对定位，相对于上一个已经确定的父元素进行定位</td></tr><tr><td>fixed</td><td>固定定位，相对于浏览器窗口进行定位</td></tr></tbody></table><h1 id="设计导航栏">2. 设计导航栏</h1><p>用ul和li制作导航栏</p><ol><li>去掉项目符号可以使用text-decoration:none或者list-style-type:none</li><li>将列表项改为行排列，即内联行显示，可添加属性display:inline或者display:inline-block;</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> html </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> html </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>7.4.1CSS3-多列布局</title>
+      <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.1CSS3-%E5%A4%9A%E5%88%97%E5%B8%83%E5%B1%80/"/>
+      <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.1CSS3-%E5%A4%9A%E5%88%97%E5%B8%83%E5%B1%80/</url>
+      
+        <content type="html"><![CDATA[<p>CSS3-多列布局。</p><span id="more"></span><h1 id="多列布局">1. 多列布局</h1><p>像报纸一样</p><p>让Web页面呈现多栏多列叫多列布局</p><ol><li>分栏数<br>CSS3中通过columns属性设置分栏</li><li>列间修饰<br>columns-gap设置列间距<br>columns-rule设置列间宽度、样式和颜色</li><li>横跨多列<br>columns-span默认1，跨多少列</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> html </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> html </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>7.4多列布局及CSS3弹性盒布局</title>
+      <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.0%E5%A4%9A%E5%88%97%E5%B8%83%E5%B1%80%E5%8F%8ACSS3%E5%BC%B9%E6%80%A7%E7%9B%92%E5%B8%83%E5%B1%80/"/>
+      <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.0%E5%A4%9A%E5%88%97%E5%B8%83%E5%B1%80%E5%8F%8ACSS3%E5%BC%B9%E6%80%A7%E7%9B%92%E5%B8%83%E5%B1%80/</url>
+      
+        <content type="html"><![CDATA[<p>多列布局及CSS3弹性盒布局。</p><span id="more"></span><h1 id="见7-4-1和7-4-2">1. 见7.4.1和7.4.2</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> html </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> html </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>7.4.2CSS3-弹性盒布局</title>
+      <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.2CSS3-%E5%BC%B9%E6%80%A7%E7%9B%92%E5%B8%83%E5%B1%80/"/>
+      <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.2CSS3-%E5%BC%B9%E6%80%A7%E7%9B%92%E5%B8%83%E5%B1%80/</url>
+      
+        <content type="html"><![CDATA[<p>CSS3-弹性盒布局。</p><span id="more"></span><h1 id="弹性盒布局">1. 弹性盒布局</h1><p>弹性盒是CSS3的一种新布局模式。它是一种当页面需要适应不同的屏幕大小及设备类型时确保元素拥有桥当排列的布局方式</p><ol><li>弹性盒组成<br>弹性容器的定义：选择器{display: flex;}</li><li>弹性容器的布局<br>按照子元素排列的方向不同，有横向和纵向排列两种方式，子元素的方向属性：选择器{flex-flow: 方向值 换行设置;}</li><li>子元素的布局<br>子元素在空间宽度上的分配，由flex属性设置</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> html </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> html </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>7.5CSS3高级应用</title>
+      <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.5CSS3%E9%AB%98%E7%BA%A7%E5%BA%94%E7%94%A8/"/>
+      <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.5CSS3%E9%AB%98%E7%BA%A7%E5%BA%94%E7%94%A8/</url>
+      
+        <content type="html"><![CDATA[<p>CSS3高级应用。</p><span id="more"></span><h1 id="特效应用">1. 特效应用</h1><h2 id="滤镜属性filter">1.1. 滤镜属性filter</h2><p>滤镜是CSS的扩展部分。CSS的滤镜技术可以将各种特效添加到标准的HTML页面上，从而设计出多姿多彩的页面</p><p>语法格式：</p><p>选择器{filter:滤镜名称(滤镜参数)}</p><p>filter有十几种取值，每种取值都带有参数</p><h3 id="常用的滤镜的名称">1.1.1. 常用的滤镜的名称</h3><p>grayscale() 灰度</p><p>sepia() 老照片</p><p>saturate() 饱和度转换</p><p>hue-ratate() 色调转换</p><p>invert() 反射效果</p><p>opacity() 透明度</p><p>brightness() 亮度效果</p><p>contrast() 对比度</p><p>blur() 模糊</p><p>drop-shadow() 阴影效果</p><h2 id="渐变gradient">1.2. 渐变gradient</h2><p>CSS渐变可以显示在两个或多个指定的颜色之间平稳过渡效果</p><h3 id="线性渐变">1.2.1. 线性渐变</h3><p>linear</p><h3 id="径向渐变">1.2.2. 径向渐变</h3><p>radio</p><h2 id="2D转换transform">1.3. 2D转换transform</h2><p>CSS3转换transform可以实现二维平面内的位移、旋转、缩放、倾斜等变换效果</p><p>变换的函数：</p><p>translate() 平移</p><p>rotate() 旋转</p><p>scale() 缩放</p><p>skew() 倾斜</p><h2 id="过渡transition">1.4. 过渡transition</h2><p>过渡属性transition允许CSS属性值在一定时间和区间内平滑的过渡，这种效果可以在鼠标单击、获得焦点、被点击或对元素任何改变中触发，并圆滑地以动画效果改变CSS地属性值。</p><p>基本语法格式：选择器{transition:属性名称 过渡时间 速度类型 延迟时间;}</p><p>发生过渡的属性名称：属性名称用来规定应用过渡效果的CSS属性名称。他的取值可以是none、all或者某一个属性名</p><p>发生过渡时间用来规定由就属性过渡到新属性所花费的时间</p><p>linear线性效果</p><p>ease缓解效果</p><p>ease-in淡入效果</p><p>ease-out淡出效果</p><p>ease-in-out渐显渐隐效果</p><p>cubic-bezier特殊立方贝塞尔曲线效果</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> html </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> html </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>8.1JavaScript概念及其语法</title>
+      <link href="/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.1.0JavaScript%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95/"/>
+      <url>/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.1.0JavaScript%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<p>JavaScript概念及其语法。</p><span id="more"></span><h1 id="见8-1-1和8-1-2">1. 见8.1.1和8.1.2</h1>]]></content>
       
       
       <categories>
@@ -1447,6 +1748,31 @@
       <url>/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.1.3JavaScript%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95%E4%B8%8B/</url>
       
         <content type="html"><![CDATA[<p>JavaScript概念及其语法下。</p><span id="more"></span><h1 id="流程控制语句">1. 流程控制语句</h1><h2 id="顺序结构">1.1. 顺序结构</h2><h2 id="选择结构">1.2. 选择结构</h2><p>if switch</p><h2 id="循环结构">1.3. 循环结构</h2><p>while、do-while、for</p><h1 id="函数">2. 函数</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> html </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> html </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>8.1.1JavaScript概念及其语法上</title>
+      <link href="/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.1.1JavaScript%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95%E4%B8%8A/"/>
+      <url>/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.1.1JavaScript%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E8%AF%AD%E6%B3%95%E4%B8%8A/</url>
+      
+        <content type="html"><![CDATA[<p>JavaScript概念及其语法上。</p><span id="more"></span><h1 id="JavaScript简介">1. JavaScript简介</h1><p>是一种脚本语言，是动态的、弱类型、基于原型的语言</p><p>特点：</p><ol><li>语法简单，易学易用</li><li>解释性语言</li><li>跨平台</li><li>基于对象和时间驱动</li><li>可用于客户端</li></ol><p>作用：</p><ol><li>动态改变网页内容</li><li>动态改变网页外观</li><li>验证表单数据</li><li>响应事件</li></ol><p>和java的区别：</p><ol><li>java是传统编程语言，javascript是脚本语言</li><li>java语言多用于服务器端，javascript主要用于客户端</li><li>java不能直接嵌入网页运行，javascript程序可以直接嵌入网页运行</li><li>java和javascript语法结构存在差异</li></ol><p>javascript开发和运行环境：</p><p>是一种脚本语言，不需要编译成二进制文件，以文本形式存在，任何编译器都可以作为他的开发环境，通常的开发环境有：记事本、UltraEdit、Dreamwaver</p><h1 id="在HTML5中使用JavaScript">2. 在HTML5中使用JavaScript</h1><p>有两种方法：内嵌式，外链式</p><h2 id="内嵌式">2.1. 内嵌式</h2><p>script标签，放在head标签中</p><h2 id="外链式">2.2. 外链式</h2><p>同一段代码需要被多个网页文件所使用的时候，使用外链式</p><h1 id="数据类型与变量">3. 数据类型与变量</h1><h1 id="运算符与表达式">4. 运算符与表达式</h1><h1 id="流程控制语句">5. 流程控制语句</h1><h1 id="函数">6. 函数</h1>]]></content>
       
       
       <categories>
@@ -1567,31 +1893,6 @@
     
     
     <entry>
-      <title>8.5数组对象</title>
-      <link href="/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.5%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1/"/>
-      <url>/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.5%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1/</url>
-      
-        <content type="html"><![CDATA[<p>数组对象。</p><span id="more"></span>]]></content>
-      
-      
-      <categories>
-          
-          <category> html </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> html </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>9.1BOM和DOM概述</title>
       <link href="/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.1BOM%E5%92%8CDOM%E6%A6%82%E8%BF%B0/"/>
       <url>/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.1BOM%E5%92%8CDOM%E6%A6%82%E8%BF%B0/</url>
@@ -1617,11 +1918,11 @@
     
     
     <entry>
-      <title>9.3窗口对象</title>
-      <link href="/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.3%E7%AA%97%E5%8F%A3%E5%AF%B9%E8%B1%A1/"/>
-      <url>/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.3%E7%AA%97%E5%8F%A3%E5%AF%B9%E8%B1%A1/</url>
+      <title>8.5数组对象</title>
+      <link href="/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.5%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1/"/>
+      <url>/gzguo/2020/11/06/Web/8javaScript%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E5%8F%8AjavaScript%E5%AF%B9%E8%B1%A1/8.5%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1/</url>
       
-        <content type="html"><![CDATA[<p>窗口对象。</p><span id="more"></span>]]></content>
+        <content type="html"><![CDATA[<p>数组对象。</p><span id="more"></span>]]></content>
       
       
       <categories>
@@ -1692,186 +1993,36 @@
     
     
     <entry>
+      <title>9.3窗口对象</title>
+      <link href="/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.3%E7%AA%97%E5%8F%A3%E5%AF%B9%E8%B1%A1/"/>
+      <url>/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.3%E7%AA%97%E5%8F%A3%E5%AF%B9%E8%B1%A1/</url>
+      
+        <content type="html"><![CDATA[<p>窗口对象。</p><span id="more"></span>]]></content>
+      
+      
+      <categories>
+          
+          <category> html </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> html </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>9.5表单对象</title>
       <link href="/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.5%E8%A1%A8%E5%8D%95%E5%AF%B9%E8%B1%A1/"/>
       <url>/gzguo/2020/11/06/Web/9javaScript%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/9.5%E8%A1%A8%E5%8D%95%E5%AF%B9%E8%B1%A1/</url>
       
         <content type="html"><![CDATA[<p>表单对象。</p><span id="more"></span>]]></content>
-      
-      
-      <categories>
-          
-          <category> html </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> html </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>7.1网页布局类型及CSS盒模型</title>
-      <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.1%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80%E7%B1%BB%E5%9E%8B%E5%8F%8ACSS%E7%9B%92%E6%A8%A1%E5%9E%8B/"/>
-      <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.1%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80%E7%B1%BB%E5%9E%8B%E5%8F%8ACSS%E7%9B%92%E6%A8%A1%E5%9E%8B/</url>
-      
-        <content type="html"><![CDATA[<p>网页布局类型及CSS盒模型。</p><span id="more"></span><h1 id="网页布局方式">1. 网页布局方式</h1><p>网页布局主要是指在页面中如何对标题、导航栏、主要内容、脚注、表单等各种主要构成元素进行一个合理的排版</p><h2 id="网页布局的类型">1.1. 网页布局的类型</h2><ol><li><p>固定式<br>用固定的宽度设计网页布局尺寸，这种布局有一个设置了固定宽度的外包裹，里面的各个模块也是固定宽度。<br>优点：</p><ol><li>设计师所设计的就是最终用户所看到的</li><li>设计简单，并且容易定制</li><li>在所有的浏览器中的宽度一样，不会收到图片、表单、视频和其他固定宽度的内容影响</li></ol><p>缺点：</p><ol><li>高分辨率式，回留下很大的空白</li><li>屏幕分辨率过小时会出现横向滚动条</li><li>在应该确保至少居中外包裹DIV（margin:0 auto）以保持一种显示平衡，否则对于使用大分辨率的用户，整个页面会被藏到一边去</li></ol></li><li><p>流式<br>通常被称为液态布局。通常采用相对于分辨率大小的百分比的方式自适应不同的分辨率，可以根据浏览器的宽度和屏幕的大小自动调整效果，灵活多变<br>优点：</p><ol><li>对用户来说更加友好，能部分自适应用户设置</li><li>页面周围的空白区域在所有分辨率和浏览器下都是相同的，在视觉上更美观</li><li>如果设计良好，流动布局可以避免在小分辨率下出现水平滚动条</li></ol><p>缺点：</p><ol><li>设计者需要在不同的分辨率下进行测试才能看到最终的设计效果</li><li>在不同的分辨率下图片或者视频需要不同的素材</li><li>在屏幕分辨率跨度太大时，内容会过大或者过小，变得难以阅读</li></ol></li><li><p>响应式<br>这是一种糅合了流式布局，再搭配查询技术使用的网页布局方式<br>根据不同的设备平台对内容、媒体文件和布局结构进行相应的调整与优化，从而使为用户提供一种最优且相对统一的体验模式<br>优点：</p><ol><li>面对不同分辨率设备灵活性强</li><li>能够快捷的解决多设备显示适应问题</li></ol><p>缺点：</p><ol><li>兼容各种设备工作量大，效率低下</li><li>代码累赘，会出现隐藏无用的元素，加载时间加长</li><li>一定程度上改变了网站原有的布局结构，会出现用户混淆的情况</li></ol></li></ol><h1 id="DIV-CSS布局技术">2. DIV+CSS布局技术</h1><p>把页面中所有的元素都看成是一个盒子，通过盒子进行CSS样式定义，并借助DIV变迁及其CSS定位实现网页布局</p><h2 id="DIV-CSS布局的方法步骤">2.1. DIV+CSS布局的方法步骤</h2><ol><li>整体上对页面进行分块</li><li>按照分块设计使用DIV标记并定义其样式属性</li><li>对DIV盒子进行定位实现页面布局</li></ol><h2 id="创建DIV">2.2. 创建DIV</h2><p>DIV标签是一个块标签，他将页面内容划分为独立的部分，以实现网页的规划和布局。</p><p>DIV标签可以加入很多的属性，如：id、class、align、style等，在CSS布局设计中，为了设计网页内容和表现的分离，应尽量的减少align、style等属性的编写次数。因此，常用的属性也只有id和class两种了</p><h2 id="CSS盒模型">2.3. CSS盒模型</h2><p>是指在页面布局中，为了将页面元素合理有效的组织在一起，形成一套完整的、行之有效的原则和规范</p><p>CSS盒是由margin（外边距）、border（边框）、padding（内边距）、content（内容）四个部分组成，此外，还有高度和宽度两个辅助属性</p><h3 id="content内容区">2.3.1. content内容区</h3><p>是盒子模型的中心，包含了盒子的主要重要信息。包含width、height、overflow三个属性。</p><h4 id="overflower">2.3.1.1. overflower</h4><p>overflow主要是指定溢出内容的处理方式</p><table><thead><tr><th>overflow取值</th><th>描述</th></tr></thead><tbody><tr><td>visible</td><td>默认值，溢出的内容不会被修建，会呈现在元素框之外</td></tr><tr><td>hidden</td><td>溢出的内容不可见</td></tr><tr><td>scroll</td><td>溢出的内容会被修建，但是可以通过滚动条来查看隐藏的部分</td></tr><tr><td>auto</td><td>由浏览器决定如何处理溢出部分</td></tr></tbody></table><h4 id="border">2.3.1.2. border</h4><p>border是指围绕元素内容和内边距的一条或多条线</p><p>border-width：边框宽度</p><figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css">&#123;<span class="hljs-attribute">border-top-width</span>: <span class="hljs-number">10px</span>&#125;<br>&#123;<span class="hljs-attribute">border-width</span>: <span class="hljs-number">10px</span> <span class="hljs-number">20px</span> <span class="hljs-number">30px</span> <span class="hljs-number">40px</span>&#125; (上右下左的顺序设置)<br>如果是三个参数将按上(左右)下的顺序作用到边框上<br>如果是两个参数的话，按照(上下)(左右)的顺序作用到边框上<br>如果只有一个参数的时候，四个方向的取值相同<br></code></pre></div></td></tr></table></figure><p>border-style：边框样式</p><p>border-radius：可以设置四个角的圆角样式</p><p>border-image：对图像边框进行设置</p><h1 id="多列布局方法">3. 多列布局方法</h1><h1 id="CSS3弹性盒布局">4. CSS3弹性盒布局</h1><h1 id="HTML5的语义化标签及DIV-CSS网页布局技术设计网页">5. HTML5的语义化标签及DIV+CSS网页布局技术设计网页</h1>]]></content>
-      
-      
-      <categories>
-          
-          <category> html </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> html </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>7.2网页元素的定位</title>
-      <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.2%E7%BD%91%E9%A1%B5%E5%85%83%E7%B4%A0%E7%9A%84%E5%AE%9A%E4%BD%8D/"/>
-      <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.2%E7%BD%91%E9%A1%B5%E5%85%83%E7%B4%A0%E7%9A%84%E5%AE%9A%E4%BD%8D/</url>
-      
-        <content type="html"><![CDATA[<p>网页元素的定位。</p><span id="more"></span><h1 id="网页元素的定位">1. 网页元素的定位</h1><p>CSS有三种基本的定位机制：普通流、浮动和绝对定位</p><ol><li>普通流：相当于默认</li><li>浮动：float属性定位</li><li>绝对定位：position属性定位</li></ol><h2 id="浮动">1.1. 浮动</h2><p>基本语法格式：选择器{float: 属性值;}</p><p>属性值：</p><table><thead><tr><th>属性值</th><th>描述</th></tr></thead><tbody><tr><td>left</td><td>元素向左浮动</td></tr><tr><td>right</td><td>元素向右浮动</td></tr><tr><td>none</td><td>元素不浮动（默认）</td></tr></tbody></table><p>浮动元素不再占用原文档流中的位置，所以会对其他元素排版产生影响，我们需要对元素清除浮动，基本语法格式：选择器{clear: 属性值};。它的属性值：</p><table><thead><tr><th>属性值</th><th>描述</th></tr></thead><tbody><tr><td>left</td><td>不允许左侧有浮动的元素</td></tr><tr><td>right</td><td>不允许右侧有浮动的元素</td></tr><tr><td>both</td><td>清除两侧的浮动元素影响</td></tr></tbody></table><h2 id="绝对定位">1.2. 绝对定位</h2><p>通过CSS定位设置可以实现网页元素的精确定位，定位属性包括定位模式和边偏移两部分，语法格式：选择器{position: 属性值};。属性值：</p><table><thead><tr><th>属性值</th><th>描述</th></tr></thead><tbody><tr><td>static</td><td>自动定位 默认</td></tr><tr><td>relative</td><td>相对定位，相对于其他原文档流位置进行定位</td></tr><tr><td>absolute</td><td>绝对定位，相对于上一个已经确定的父元素进行定位</td></tr><tr><td>fixed</td><td>固定定位，相对于浏览器窗口进行定位</td></tr></tbody></table><h1 id="设计导航栏">2. 设计导航栏</h1><p>用ul和li制作导航栏</p><ol><li>去掉项目符号可以使用text-decoration:none或者list-style-type:none</li><li>将列表项改为行排列，即内联行显示，可添加属性display:inline或者display:inline-block;</li></ol>]]></content>
-      
-      
-      <categories>
-          
-          <category> html </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> html </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>7.3DIV+CSS网页布局</title>
-      <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.3DIV+CSS%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80/"/>
-      <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.3DIV+CSS%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80/</url>
-      
-        <content type="html"><![CDATA[<p>DIV+CSS网页布局。</p><span id="more"></span><h1 id="DIV-CSS网页布局名词解释">1. DIV+CSS网页布局名词解释</h1><p>核心是盒子模型，通过对盒子进行CSS样式定义，借助CSS对盒子定位，这样就称为DIV+CSS布局</p><h2 id="标签">1.1. 标签</h2><p>header、nav、aside、article</p><h1 id="为什么使用DIV-CSS">2. 为什么使用DIV+CSS</h1><h2 id="这样布局的优点">2.1. 这样布局的优点</h2><ol><li>利于搜索引擎的检索和排名</li><li>代码精简，网页加载更快</li><li>定位更准确</li><li>更容易被其他设备访问</li></ol><h1 id="如何进行DIV-CSS布局">3. 如何进行DIV+CSS布局</h1><p>四个步骤：</p><ol><li>整体上对页面进行分块</li><li>按照分块的设计使用DIV标记，包裹区块元素，设计HTML的主体内容</li><li>编辑CSS，设计盒子的定位及在盒中的元素样式</li><li>连编</li></ol><h1 id="DIV-CSS实例">4. DIV+CSS实例</h1><h2 id="常见的布局形式">4.1. 常见的布局形式</h2><p>单列布局：header、article、footer</p><p>1-2-1布局：header、article、aside、footer</p><p>1-3-1布局：header、article、aside、aside、footer</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> html </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> html </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>7.4多列布局及CSS3弹性盒布局</title>
-      <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.0%E5%A4%9A%E5%88%97%E5%B8%83%E5%B1%80%E5%8F%8ACSS3%E5%BC%B9%E6%80%A7%E7%9B%92%E5%B8%83%E5%B1%80/"/>
-      <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.0%E5%A4%9A%E5%88%97%E5%B8%83%E5%B1%80%E5%8F%8ACSS3%E5%BC%B9%E6%80%A7%E7%9B%92%E5%B8%83%E5%B1%80/</url>
-      
-        <content type="html"><![CDATA[<p>多列布局及CSS3弹性盒布局。</p><span id="more"></span><h1 id="见7-4-1和7-4-2">1. 见7.4.1和7.4.2</h1>]]></content>
-      
-      
-      <categories>
-          
-          <category> html </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> html </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>7.4.1CSS3-多列布局</title>
-      <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.1CSS3-%E5%A4%9A%E5%88%97%E5%B8%83%E5%B1%80/"/>
-      <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.1CSS3-%E5%A4%9A%E5%88%97%E5%B8%83%E5%B1%80/</url>
-      
-        <content type="html"><![CDATA[<p>CSS3-多列布局。</p><span id="more"></span><h1 id="多列布局">1. 多列布局</h1><p>像报纸一样</p><p>让Web页面呈现多栏多列叫多列布局</p><ol><li>分栏数<br>CSS3中通过columns属性设置分栏</li><li>列间修饰<br>columns-gap设置列间距<br>columns-rule设置列间宽度、样式和颜色</li><li>横跨多列<br>columns-span默认1，跨多少列</li></ol>]]></content>
-      
-      
-      <categories>
-          
-          <category> html </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> html </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>7.4.2CSS3-弹性盒布局</title>
-      <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.2CSS3-%E5%BC%B9%E6%80%A7%E7%9B%92%E5%B8%83%E5%B1%80/"/>
-      <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.4.2CSS3-%E5%BC%B9%E6%80%A7%E7%9B%92%E5%B8%83%E5%B1%80/</url>
-      
-        <content type="html"><![CDATA[<p>CSS3-弹性盒布局。</p><span id="more"></span><h1 id="弹性盒布局">1. 弹性盒布局</h1><p>弹性盒是CSS3的一种新布局模式。它是一种当页面需要适应不同的屏幕大小及设备类型时确保元素拥有桥当排列的布局方式</p><ol><li>弹性盒组成<br>弹性容器的定义：选择器{display: flex;}</li><li>弹性容器的布局<br>按照子元素排列的方向不同，有横向和纵向排列两种方式，子元素的方向属性：选择器{flex-flow: 方向值 换行设置;}</li><li>子元素的布局<br>子元素在空间宽度上的分配，由flex属性设置</li></ol>]]></content>
-      
-      
-      <categories>
-          
-          <category> html </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> html </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>7.5CSS3高级应用</title>
-      <link href="/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.5CSS3%E9%AB%98%E7%BA%A7%E5%BA%94%E7%94%A8/"/>
-      <url>/gzguo/2020/11/06/Web/7CSS3%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/7.5CSS3%E9%AB%98%E7%BA%A7%E5%BA%94%E7%94%A8/</url>
-      
-        <content type="html"><![CDATA[<p>CSS3高级应用。</p><span id="more"></span><h1 id="特效应用">1. 特效应用</h1><h2 id="滤镜属性filter">1.1. 滤镜属性filter</h2><p>滤镜是CSS的扩展部分。CSS的滤镜技术可以将各种特效添加到标准的HTML页面上，从而设计出多姿多彩的页面</p><p>语法格式：</p><p>选择器{filter:滤镜名称(滤镜参数)}</p><p>filter有十几种取值，每种取值都带有参数</p><h3 id="常用的滤镜的名称">1.1.1. 常用的滤镜的名称</h3><p>grayscale() 灰度</p><p>sepia() 老照片</p><p>saturate() 饱和度转换</p><p>hue-ratate() 色调转换</p><p>invert() 反射效果</p><p>opacity() 透明度</p><p>brightness() 亮度效果</p><p>contrast() 对比度</p><p>blur() 模糊</p><p>drop-shadow() 阴影效果</p><h2 id="渐变gradient">1.2. 渐变gradient</h2><p>CSS渐变可以显示在两个或多个指定的颜色之间平稳过渡效果</p><h3 id="线性渐变">1.2.1. 线性渐变</h3><p>linear</p><h3 id="径向渐变">1.2.2. 径向渐变</h3><p>radio</p><h2 id="2D转换transform">1.3. 2D转换transform</h2><p>CSS3转换transform可以实现二维平面内的位移、旋转、缩放、倾斜等变换效果</p><p>变换的函数：</p><p>translate() 平移</p><p>rotate() 旋转</p><p>scale() 缩放</p><p>skew() 倾斜</p><h2 id="过渡transition">1.4. 过渡transition</h2><p>过渡属性transition允许CSS属性值在一定时间和区间内平滑的过渡，这种效果可以在鼠标单击、获得焦点、被点击或对元素任何改变中触发，并圆滑地以动画效果改变CSS地属性值。</p><p>基本语法格式：选择器{transition:属性名称 过渡时间 速度类型 延迟时间;}</p><p>发生过渡的属性名称：属性名称用来规定应用过渡效果的CSS属性名称。他的取值可以是none、all或者某一个属性名</p><p>发生过渡时间用来规定由就属性过渡到新属性所花费的时间</p><p>linear线性效果</p><p>ease缓解效果</p><p>ease-in淡入效果</p><p>ease-out淡出效果</p><p>ease-in-out渐显渐隐效果</p><p>cubic-bezier特殊立方贝塞尔曲线效果</p>]]></content>
       
       
       <categories>
@@ -2042,11 +2193,11 @@
     
     
     <entry>
-      <title>3.4全局属性</title>
-      <link href="/gzguo/2020/10/05/Web/3%E9%A1%B5%E9%9D%A2%E5%85%83%E7%B4%A0%E5%92%8C%E5%B1%9E%E6%80%A7/3.4%E5%85%A8%E5%B1%80%E5%B1%9E%E6%80%A7/"/>
-      <url>/gzguo/2020/10/05/Web/3%E9%A1%B5%E9%9D%A2%E5%85%83%E7%B4%A0%E5%92%8C%E5%B1%9E%E6%80%A7/3.4%E5%85%A8%E5%B1%80%E5%B1%9E%E6%80%A7/</url>
+      <title>3.3文本层次语义元素及分组元素</title>
+      <link href="/gzguo/2020/10/05/Web/3%E9%A1%B5%E9%9D%A2%E5%85%83%E7%B4%A0%E5%92%8C%E5%B1%9E%E6%80%A7/3.3%E6%96%87%E6%9C%AC%E5%B1%82%E6%AC%A1%E8%AF%AD%E4%B9%89%E5%85%83%E7%B4%A0%E5%8F%8A%E5%88%86%E7%BB%84%E5%85%83%E7%B4%A0/"/>
+      <url>/gzguo/2020/10/05/Web/3%E9%A1%B5%E9%9D%A2%E5%85%83%E7%B4%A0%E5%92%8C%E5%B1%9E%E6%80%A7/3.3%E6%96%87%E6%9C%AC%E5%B1%82%E6%AC%A1%E8%AF%AD%E4%B9%89%E5%85%83%E7%B4%A0%E5%8F%8A%E5%88%86%E7%BB%84%E5%85%83%E7%B4%A0/</url>
       
-        <content type="html"><![CDATA[<p>全局属性。</p><span id="more"></span><h1 id="全局属性定义">1. 全局属性定义</h1><p>全局属性是对于任何一个标签都可以使用的属性。在HTML5中新增了一些全局属性，这些全局属性可以表达非常丰富的语义，也会额外提供很多的使用功能</p><h1 id="全局属性有哪些">2. 全局属性有哪些</h1><table><thead><tr><th>属性</th><th>描述</th></tr></thead><tbody><tr><td>accesskey</td><td>规定激活元素的快捷键</td></tr><tr><td>class</td><td>规定一个元素的一个或多个类名</td></tr><tr><td>contenteditable</td><td>规定元素内容是否可以编辑</td></tr><tr><td>contextmenu</td><td>规定元素的上下文菜单</td></tr><tr><td>data</td><td>用于存储页面或者应用程序的私有定制数据</td></tr><tr><td>dir</td><td>规定元素中内容的文本方向</td></tr><tr><td>draggable</td><td>规定元素是否可被拖动</td></tr><tr><td>dropzone</td><td>规定在拖动数据时是否进行复制、移动或链接</td></tr><tr><td>hidden</td><td>规定元素是否显现</td></tr><tr><td>id</td><td>规定元素的唯一id</td></tr><tr><td>lang</td><td>规定元素内容的语言</td></tr><tr><td>spellcheck</td><td>规定是否对元素进行拼写和语法检查</td></tr><tr><td>style</td><td>规定元素的行内CSS样式</td></tr><tr><td>tabindex</td><td>规定元素的tab键次序</td></tr><tr><td>title</td><td>规定有关元素的额外信息</td></tr><tr><td>translate</td><td>规定是否应该翻译元素内容</td></tr></tbody></table><h1 id="如何设置全局属性">3. 如何设置全局属性</h1><h2 id="hidden属性">3.1. hidden属性</h2><p>设置了hidden属性的段落将不再显示</p><h2 id="spellcheck属性">3.2. spellcheck属性</h2><p>拼写和语法检查的属性，可对拼写和语法进行检查并在下面画红线。只有元素可以编辑spellcheck属性才有意义，主要争对文本输入或者多行文本输入</p><h2 id="contenteditable属性">3.3. contenteditable属性</h2><p>规定是否允许用户编辑内容，通常在input标签中使用</p><h2 id="contextmenu属性">3.4. contextmenu属性</h2><p>规定元素上下文菜单，当用户右键点击元素时，会出现上下文菜单</p>]]></content>
+        <content type="html"><![CDATA[<p>文本层次语义元素及分组元素。</p><span id="more"></span><h1 id="文本层次语义元素">1. 文本层次语义元素</h1><table><thead><tr><th>名称</th><th>说明</th></tr></thead><tbody><tr><td>em</td><td>把文本定义为强调内容</td></tr><tr><td>strong</td><td>把文本定义为语气更强的强调内容</td></tr><tr><td>dfn</td><td>定义一个定义项目</td></tr><tr><td>code</td><td>定义计算机代码文本</td></tr><tr><td>samp</td><td>定义样本文本</td></tr><tr><td>kbd</td><td>定义键盘文本</td></tr><tr><td>var</td><td>定义变量</td></tr><tr><td>cite</td><td>定义引用</td></tr></tbody></table><h2 id="cite元素">1.1. cite元素</h2><p>创建一个引用标记，用来指明某内容的引用或参考源</p><h2 id="mark元素">1.2. mark元素</h2><p> 定义带有记号的文本，可以高亮显示文档中的文字以达到醒目的效果</p><h2 id="time元素">1.3. time元素</h2><p>定义日期或者时间，可以使用机器能够读懂的方式对日期和时间进行编码</p><h1 id="分组元素">2. 分组元素</h1><table><thead><tr><th>元素名称</th><th>说明</th></tr></thead><tbody><tr><td>div</td><td>没有任何语义的通用元素，与span对应</td></tr><tr><td>blockquote</td><td>表示摘自另一个源的大段内容</td></tr><tr><td>pre</td><td>表示其格式应被保留的内容</td></tr><tr><td>ul、ol</td><td>表示无序列表，有序列表</td></tr><tr><td>li</td><td>用于ul，ol元素中的列表项</td></tr><tr><td>dl、dt、dd</td><td>表示含有一系列术语和定义说明的列表</td></tr><tr><td>figure</td><td>表示图片</td></tr><tr><td>figcaption</td><td>表示figure大元素的标题</td></tr></tbody></table><h2 id="ul元素">2.1. ul元素</h2><p>表示不排序的项目列表，相当于word中的项目符号。无序列表使用一对标记ul标识，每一个列表项使用li</p><h2 id="ol元素">2.2. ol元素</h2><p>排序的项目列表，相当于word中的自动编号功能，适用语法和ul基本相同，列表项使用li</p><h2 id="dl元素">2.3. dl元素</h2><p>dl用于自定义列表，一般与dt和dd一起使用，dt定义列表名称，dd定义内容</p>]]></content>
       
       
       <categories>
@@ -2067,11 +2218,11 @@
     
     
     <entry>
-      <title>3.3文本层次语义元素及分组元素</title>
-      <link href="/gzguo/2020/10/05/Web/3%E9%A1%B5%E9%9D%A2%E5%85%83%E7%B4%A0%E5%92%8C%E5%B1%9E%E6%80%A7/3.3%E6%96%87%E6%9C%AC%E5%B1%82%E6%AC%A1%E8%AF%AD%E4%B9%89%E5%85%83%E7%B4%A0%E5%8F%8A%E5%88%86%E7%BB%84%E5%85%83%E7%B4%A0/"/>
-      <url>/gzguo/2020/10/05/Web/3%E9%A1%B5%E9%9D%A2%E5%85%83%E7%B4%A0%E5%92%8C%E5%B1%9E%E6%80%A7/3.3%E6%96%87%E6%9C%AC%E5%B1%82%E6%AC%A1%E8%AF%AD%E4%B9%89%E5%85%83%E7%B4%A0%E5%8F%8A%E5%88%86%E7%BB%84%E5%85%83%E7%B4%A0/</url>
+      <title>3.4全局属性</title>
+      <link href="/gzguo/2020/10/05/Web/3%E9%A1%B5%E9%9D%A2%E5%85%83%E7%B4%A0%E5%92%8C%E5%B1%9E%E6%80%A7/3.4%E5%85%A8%E5%B1%80%E5%B1%9E%E6%80%A7/"/>
+      <url>/gzguo/2020/10/05/Web/3%E9%A1%B5%E9%9D%A2%E5%85%83%E7%B4%A0%E5%92%8C%E5%B1%9E%E6%80%A7/3.4%E5%85%A8%E5%B1%80%E5%B1%9E%E6%80%A7/</url>
       
-        <content type="html"><![CDATA[<p>文本层次语义元素及分组元素。</p><span id="more"></span><h1 id="文本层次语义元素">1. 文本层次语义元素</h1><table><thead><tr><th>名称</th><th>说明</th></tr></thead><tbody><tr><td>em</td><td>把文本定义为强调内容</td></tr><tr><td>strong</td><td>把文本定义为语气更强的强调内容</td></tr><tr><td>dfn</td><td>定义一个定义项目</td></tr><tr><td>code</td><td>定义计算机代码文本</td></tr><tr><td>samp</td><td>定义样本文本</td></tr><tr><td>kbd</td><td>定义键盘文本</td></tr><tr><td>var</td><td>定义变量</td></tr><tr><td>cite</td><td>定义引用</td></tr></tbody></table><h2 id="cite元素">1.1. cite元素</h2><p>创建一个引用标记，用来指明某内容的引用或参考源</p><h2 id="mark元素">1.2. mark元素</h2><p> 定义带有记号的文本，可以高亮显示文档中的文字以达到醒目的效果</p><h2 id="time元素">1.3. time元素</h2><p>定义日期或者时间，可以使用机器能够读懂的方式对日期和时间进行编码</p><h1 id="分组元素">2. 分组元素</h1><table><thead><tr><th>元素名称</th><th>说明</th></tr></thead><tbody><tr><td>div</td><td>没有任何语义的通用元素，与span对应</td></tr><tr><td>blockquote</td><td>表示摘自另一个源的大段内容</td></tr><tr><td>pre</td><td>表示其格式应被保留的内容</td></tr><tr><td>ul、ol</td><td>表示无序列表，有序列表</td></tr><tr><td>li</td><td>用于ul，ol元素中的列表项</td></tr><tr><td>dl、dt、dd</td><td>表示含有一系列术语和定义说明的列表</td></tr><tr><td>figure</td><td>表示图片</td></tr><tr><td>figcaption</td><td>表示figure大元素的标题</td></tr></tbody></table><h2 id="ul元素">2.1. ul元素</h2><p>表示不排序的项目列表，相当于word中的项目符号。无序列表使用一对标记ul标识，每一个列表项使用li</p><h2 id="ol元素">2.2. ol元素</h2><p>排序的项目列表，相当于word中的自动编号功能，适用语法和ul基本相同，列表项使用li</p><h2 id="dl元素">2.3. dl元素</h2><p>dl用于自定义列表，一般与dt和dd一起使用，dt定义列表名称，dd定义内容</p>]]></content>
+        <content type="html"><![CDATA[<p>全局属性。</p><span id="more"></span><h1 id="全局属性定义">1. 全局属性定义</h1><p>全局属性是对于任何一个标签都可以使用的属性。在HTML5中新增了一些全局属性，这些全局属性可以表达非常丰富的语义，也会额外提供很多的使用功能</p><h1 id="全局属性有哪些">2. 全局属性有哪些</h1><table><thead><tr><th>属性</th><th>描述</th></tr></thead><tbody><tr><td>accesskey</td><td>规定激活元素的快捷键</td></tr><tr><td>class</td><td>规定一个元素的一个或多个类名</td></tr><tr><td>contenteditable</td><td>规定元素内容是否可以编辑</td></tr><tr><td>contextmenu</td><td>规定元素的上下文菜单</td></tr><tr><td>data</td><td>用于存储页面或者应用程序的私有定制数据</td></tr><tr><td>dir</td><td>规定元素中内容的文本方向</td></tr><tr><td>draggable</td><td>规定元素是否可被拖动</td></tr><tr><td>dropzone</td><td>规定在拖动数据时是否进行复制、移动或链接</td></tr><tr><td>hidden</td><td>规定元素是否显现</td></tr><tr><td>id</td><td>规定元素的唯一id</td></tr><tr><td>lang</td><td>规定元素内容的语言</td></tr><tr><td>spellcheck</td><td>规定是否对元素进行拼写和语法检查</td></tr><tr><td>style</td><td>规定元素的行内CSS样式</td></tr><tr><td>tabindex</td><td>规定元素的tab键次序</td></tr><tr><td>title</td><td>规定有关元素的额外信息</td></tr><tr><td>translate</td><td>规定是否应该翻译元素内容</td></tr></tbody></table><h1 id="如何设置全局属性">3. 如何设置全局属性</h1><h2 id="hidden属性">3.1. hidden属性</h2><p>设置了hidden属性的段落将不再显示</p><h2 id="spellcheck属性">3.2. spellcheck属性</h2><p>拼写和语法检查的属性，可对拼写和语法进行检查并在下面画红线。只有元素可以编辑spellcheck属性才有意义，主要争对文本输入或者多行文本输入</p><h2 id="contenteditable属性">3.3. contenteditable属性</h2><p>规定是否允许用户编辑内容，通常在input标签中使用</p><h2 id="contextmenu属性">3.4. contextmenu属性</h2><p>规定元素上下文菜单，当用户右键点击元素时，会出现上下文菜单</p>]]></content>
       
       
       <categories>
@@ -2117,11 +2268,11 @@
     
     
     <entry>
-      <title>2.5超链接标签</title>
-      <link href="/gzguo/2020/09/29/Web/2HTML5/2.5%E8%B6%85%E9%93%BE%E6%8E%A5%E6%A0%87%E7%AD%BE/"/>
-      <url>/gzguo/2020/09/29/Web/2HTML5/2.5%E8%B6%85%E9%93%BE%E6%8E%A5%E6%A0%87%E7%AD%BE/</url>
+      <title>2.4图片标签</title>
+      <link href="/gzguo/2020/09/29/Web/2HTML5/2.4%E5%9B%BE%E7%89%87%E6%A0%87%E7%AD%BE/"/>
+      <url>/gzguo/2020/09/29/Web/2HTML5/2.4%E5%9B%BE%E7%89%87%E6%A0%87%E7%AD%BE/</url>
       
-        <content type="html"><![CDATA[<p>超链接标签。</p><span id="more"></span><h1 id="什么是超链接">1. 什么是超链接</h1><p>跳转</p><h1 id="超链接分类">2. 超链接分类</h1><ul><li>按路径不同分：</li></ul><ol><li>内部链接</li><li>锚点链接</li><li>外部链接</li></ol><ul><li>按使用对象不同分</li></ul><ol><li>文本超链接</li><li>图像超链接</li><li>E-mail链接</li><li>锚点链接</li><li>多媒体文件链接</li><li>空连接</li></ol><h1 id="什么时链宿和链源">3. 什么时链宿和链源</h1><h2 id="链宿">3.1. 链宿</h2><p>是指要跳转的目标，这个目标可以是一个网页、一个图片、一个电子邮件地址、一个文件、一个应用程序</p><h2 id="链源">3.2. 链源</h2><p>引起跳转的原因，可以实文字、图像、图形区域</p><figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">herf</span>=<span class="hljs-string">链宿</span>&gt;</span>链源<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br></code></pre></div></td></tr></table></figure><h1 id="如何实现HTML的超链接">4. 如何实现HTML的超链接</h1><figure class="highlight xl"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xl">href      链宿的路径                用于设置要跳转的目标<br><span class="hljs-keyword">name</span>   创建文档标签             用于指定锚的名称<br><span class="hljs-built_in">title</span>      指向链接的提示信息   使用<span class="hljs-built_in">title</span>属性可以让鼠标悬停在超链接上的时候，显示该超链接的文字注释<br>target  指定打开的目标窗口   有五种取值，默认值_self<br></code></pre></div></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<p>图片标签。</p><span id="more"></span><h1 id="gif">1. gif</h1><p>支持动画、无损图像格式、支持透明</p><p>常用于小图标、LOFO及其他色彩相对单一的图像</p><h1 id="png">2. png</h1><p>相对于gif体积更小，支持alpha透明（全透明、半透明、全不透明）颜色过度更平滑、不支持动画、无损压缩</p><h1 id="jpg">3. jpg</h1><p>显色比上面两个多得多、有损压缩</p><h1 id="网页插入图像">4. 网页插入图像</h1><h2 id="body-background">4.1. body background</h2><figure class="highlight ada"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs ada">&lt;<span class="hljs-keyword">body</span> background=<span class="hljs-string">&quot;&quot;</span>&gt;&lt;/<span class="hljs-keyword">body</span>&gt;<br></code></pre></div></td></tr></table></figure><h2 id="img">4.2. img</h2><figure class="highlight routeros"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs routeros">&lt;img <span class="hljs-attribute">src</span>=<span class="hljs-string">&quot;&quot;</span>&gt;<br></code></pre></div></td></tr></table></figure><ul><li>alt：规定图像的代替文本</li><li>src：规定图像的URL</li><li>height：规定图像的高度</li><li>ismap：把图象设置为服务器端图像映射</li><li>usemap：把图象设置为客户端图像映射</li><li>width：规定图像宽度</li></ul><h2 id="路径">4.3. 路径</h2><p>相对路径、绝对路径</p>]]></content>
       
       
       <categories>
@@ -2142,11 +2293,11 @@
     
     
     <entry>
-      <title>2.4图片标签</title>
-      <link href="/gzguo/2020/09/29/Web/2HTML5/2.4%E5%9B%BE%E7%89%87%E6%A0%87%E7%AD%BE/"/>
-      <url>/gzguo/2020/09/29/Web/2HTML5/2.4%E5%9B%BE%E7%89%87%E6%A0%87%E7%AD%BE/</url>
+      <title>2.5超链接标签</title>
+      <link href="/gzguo/2020/09/29/Web/2HTML5/2.5%E8%B6%85%E9%93%BE%E6%8E%A5%E6%A0%87%E7%AD%BE/"/>
+      <url>/gzguo/2020/09/29/Web/2HTML5/2.5%E8%B6%85%E9%93%BE%E6%8E%A5%E6%A0%87%E7%AD%BE/</url>
       
-        <content type="html"><![CDATA[<p>图片标签。</p><span id="more"></span><h1 id="gif">1. gif</h1><p>支持动画、无损图像格式、支持透明</p><p>常用于小图标、LOFO及其他色彩相对单一的图像</p><h1 id="png">2. png</h1><p>相对于gif体积更小，支持alpha透明（全透明、半透明、全不透明）颜色过度更平滑、不支持动画、无损压缩</p><h1 id="jpg">3. jpg</h1><p>显色比上面两个多得多、有损压缩</p><h1 id="网页插入图像">4. 网页插入图像</h1><h2 id="body-background">4.1. body background</h2><figure class="highlight ada"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs ada">&lt;<span class="hljs-keyword">body</span> background=<span class="hljs-string">&quot;&quot;</span>&gt;&lt;/<span class="hljs-keyword">body</span>&gt;<br></code></pre></div></td></tr></table></figure><h2 id="img">4.2. img</h2><figure class="highlight routeros"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs routeros">&lt;img <span class="hljs-attribute">src</span>=<span class="hljs-string">&quot;&quot;</span>&gt;<br></code></pre></div></td></tr></table></figure><ul><li>alt：规定图像的代替文本</li><li>src：规定图像的URL</li><li>height：规定图像的高度</li><li>ismap：把图象设置为服务器端图像映射</li><li>usemap：把图象设置为客户端图像映射</li><li>width：规定图像宽度</li></ul><h2 id="路径">4.3. 路径</h2><p>相对路径、绝对路径</p>]]></content>
+        <content type="html"><![CDATA[<p>超链接标签。</p><span id="more"></span><h1 id="什么是超链接">1. 什么是超链接</h1><p>跳转</p><h1 id="超链接分类">2. 超链接分类</h1><ul><li>按路径不同分：</li></ul><ol><li>内部链接</li><li>锚点链接</li><li>外部链接</li></ol><ul><li>按使用对象不同分</li></ul><ol><li>文本超链接</li><li>图像超链接</li><li>E-mail链接</li><li>锚点链接</li><li>多媒体文件链接</li><li>空连接</li></ol><h1 id="什么时链宿和链源">3. 什么时链宿和链源</h1><h2 id="链宿">3.1. 链宿</h2><p>是指要跳转的目标，这个目标可以是一个网页、一个图片、一个电子邮件地址、一个文件、一个应用程序</p><h2 id="链源">3.2. 链源</h2><p>引起跳转的原因，可以实文字、图像、图形区域</p><figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">herf</span>=<span class="hljs-string">链宿</span>&gt;</span>链源<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br></code></pre></div></td></tr></table></figure><h1 id="如何实现HTML的超链接">4. 如何实现HTML的超链接</h1><figure class="highlight xl"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xl">href      链宿的路径                用于设置要跳转的目标<br><span class="hljs-keyword">name</span>   创建文档标签             用于指定锚的名称<br><span class="hljs-built_in">title</span>      指向链接的提示信息   使用<span class="hljs-built_in">title</span>属性可以让鼠标悬停在超链接上的时候，显示该超链接的文字注释<br>target  指定打开的目标窗口   有五种取值，默认值_self<br></code></pre></div></td></tr></table></figure>]]></content>
       
       
       <categories>
@@ -2392,31 +2543,6 @@
     
     
     <entry>
-      <title>2.2HTML文档头部的标签</title>
-      <link href="/gzguo/2020/09/28/Web/2HTML5/2.2HTML%E6%96%87%E6%A1%A3%E5%A4%B4%E9%83%A8%E7%9B%B8%E5%85%B3%E7%9A%84%E6%A0%87%E7%AD%BE/"/>
-      <url>/gzguo/2020/09/28/Web/2HTML5/2.2HTML%E6%96%87%E6%A1%A3%E5%A4%B4%E9%83%A8%E7%9B%B8%E5%85%B3%E7%9A%84%E6%A0%87%E7%AD%BE/</url>
-      
-        <content type="html"><![CDATA[<p>头部标签。</p><span id="more"></span><h1 id="title">1. title</h1><p>主要用于定义HTML页面的标题，即给网页取一个名字，必须位于<head>之内</head></p><h2 id="title的作用：">1.1. title的作用：</h2><ul><li>在浏览器的标题栏中显示</li><li>可以用作默认的快捷方式或者收藏夹的名称</li><li>可以作为搜索引擎结果中的页面标题</li></ul><h2 id="应用时应注意">1.2. 应用时应注意</h2><ul><li>一个网页只能有一个标题</li><li>标题的长度不超过64个字符数</li><li>标题标记对之间不允许有其他的标签存在</li></ul><h1 id="meta">2. meta</h1><p>用于定义页面的元信息，可重复出现在<head>头部标记中，详细信息在   HTML5语法标准中。</head></p><h1 id="link">3. link</h1><p>用link来引用外部的文件，一个页面允许使用多个link标记引用多个外部文件。</p><h1 id="style">4. style</h1><p>用于为HTML文档定义样式信息，位于<head>之中。</head></p><h1 id="script">5. script</h1><p>用于在HTML页面中加载脚本文件：如javascript。</p><h1 id="base">6. base</h1><p>描述了基本的链接地址/链接目标，该标签作为HTML文档中所有的链接标签的默认链接。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> html </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> html </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>2.1HTML5语法基础</title>
       <link href="/gzguo/2020/09/28/Web/2HTML5/2.1HTML5%E8%AF%AD%E6%B3%95%E5%9F%BA%E7%A1%80/"/>
       <url>/gzguo/2020/09/28/Web/2HTML5/2.1HTML5%E8%AF%AD%E6%B3%95%E5%9F%BA%E7%A1%80/</url>
@@ -2442,11 +2568,36 @@
     
     
     <entry>
-      <title>linux</title>
-      <link href="/gzguo/2020/09/28/linux/1%E5%91%BD%E4%BB%A4/linux%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/"/>
-      <url>/gzguo/2020/09/28/linux/1%E5%91%BD%E4%BB%A4/linux%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/</url>
+      <title>2.2HTML文档头部的标签</title>
+      <link href="/gzguo/2020/09/28/Web/2HTML5/2.2HTML%E6%96%87%E6%A1%A3%E5%A4%B4%E9%83%A8%E7%9B%B8%E5%85%B3%E7%9A%84%E6%A0%87%E7%AD%BE/"/>
+      <url>/gzguo/2020/09/28/Web/2HTML5/2.2HTML%E6%96%87%E6%A1%A3%E5%A4%B4%E9%83%A8%E7%9B%B8%E5%85%B3%E7%9A%84%E6%A0%87%E7%AD%BE/</url>
       
-        <content type="html"><![CDATA[<p>linux查看、vim搜索、防火墙、分区的相关命令。</p><span id="more"></span><h1 id="查看">1. 查看</h1><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">whoami   <span class="hljs-comment">//查看当前登陆用户</span><br><span class="hljs-built_in">exit</span>   <span class="hljs-comment">//退出虚拟机的连接</span><br>pwd   <span class="hljs-comment">//查看当前路径</span><br>ps aux | grep mysql   <span class="hljs-comment">//查看某个进程</span><br>ps -ef|grep redis   <span class="hljs-comment">//查看进程是否激活</span><br>netstat -ntlup|grep <span class="hljs-number">8080</span>   <span class="hljs-comment">//查看8080端口被谁占用</span><br>rm -rf 目录绝对位置   <span class="hljs-comment">//删除整个目录及目录下的所有文件</span><br>du --max-depth=<span class="hljs-number">1</span> -h   <span class="hljs-comment">//查看磁盘占用</span><br></code></pre></div></td></tr></table></figure><h1 id="vim搜索">2. vim搜索</h1><h2 id="搜索">2.1. 搜索</h2><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">:/搜索内容  <span class="hljs-comment">//搜索文件里面相关的内容</span><br></code></pre></div></td></tr></table></figure><h2 id="取消搜索">2.2. 取消搜索</h2><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">nohlsearch    <span class="hljs-comment">//简写noh</span><br><span class="hljs-built_in">set</span> nohlsearch   <span class="hljs-comment">//简写set noh</span><br></code></pre></div></td></tr></table></figure><h1 id="防火墙">3. 防火墙</h1><h2 id="添加端口">3.1. 添加端口</h2><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">firewall-cmd --add-port=<span class="hljs-number">5000</span>/tcp --permanent<br>firewall-cmd --reload<br></code></pre></div></td></tr></table></figure><h2 id="开启关闭">3.2. 开启关闭</h2><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">systemctl status firewalld.service   <span class="hljs-comment">//查看防火墙状态</span><br>firewall-cmd --state   <span class="hljs-comment">//查看防火墙状态</span><br>firewall-cmd --<span class="hljs-built_in">list</span>-ports   <span class="hljs-comment">//查看防火墙开启的端口</span><br>firewall-cmd --add-port=<span class="hljs-number">6379</span>/tcp   <span class="hljs-comment">//添加端口</span><br>firewall-cmd --<span class="hljs-built_in">list</span>-services   <span class="hljs-comment">//查看防火墙开启的服务</span><br>systemctl start firewalld   <span class="hljs-comment">//开启防火墙</span><br>systemctl stop firewalld   <span class="hljs-comment">//禁用防火墙</span><br>systemctl enable firewalld   <span class="hljs-comment">//设置防火墙开机启动</span><br>systemctl disable firewalld   <span class="hljs-comment">//停止并禁用开机启动</span><br>firewall-cmd --reload   <span class="hljs-comment">//重启防火墙</span><br></code></pre></div></td></tr></table></figure><h2 id="永久打开端口">3.3. 永久打开端口</h2><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">firewall-cmd --zone=<span class="hljs-keyword">public</span> --add-port=<span class="hljs-number">8080</span>/tcp --permanent   <span class="hljs-comment">//永久打开端口</span><br>firewall-cmd --reload   <span class="hljs-comment">//重新加载</span><br></code></pre></div></td></tr></table></figure><h1 id="添加swag分区">4. 添加swag分区</h1><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">dd <span class="hljs-keyword">if</span>=/dev/zero of=/swapfile bs=<span class="hljs-number">1</span>M count=<span class="hljs-number">1024</span><br>mkswap /swapfile<br>swapon /swapfile<br><span class="hljs-built_in">free</span> -m<br></code></pre></div></td></tr></table></figure><h1 id="配置环境变量">5. 配置环境变量</h1><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">vim /etc/profile<br>source /etc/profile<br>    <br><span class="hljs-keyword">export</span> JAVA_HOME=/usr/local/jdk1<span class="hljs-number">.8</span><span class="hljs-number">.0</span>_181<br><span class="hljs-keyword">export</span> CLASSPATH=.:$JAVA_HOME/lib:$JAVA_HOME/jre/lib:$CLASSPATH<br><span class="hljs-keyword">export</span> PATH=$&#123;JAVA_HOME&#125;/bin:$PATH<br><span class="hljs-keyword">export</span> HADOOP_HOME=/usr/local/hadoop/<br><span class="hljs-keyword">export</span> HADOOP_CONF_DIR=$&#123;HADOOP_HOME&#125;/etc/hadoop<br><span class="hljs-keyword">export</span> HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native<br><span class="hljs-keyword">export</span> HADOOP_OPTS=<span class="hljs-string">&quot;-Djava.library.path=$HADOOP_HOME/lib:$HADOOP_COMMON_LIB_NATIVE_DIR&quot;</span><br><span class="hljs-keyword">export</span> HBASE_HOME=/usr/local/hbase<br><span class="hljs-keyword">export</span> PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HBASE_HOME/bin<br><span class="hljs-keyword">export</span> HIVE_HOME=/usr/local/apache-hive<span class="hljs-number">-3.0</span><span class="hljs-number">.0</span>-bin<br><span class="hljs-keyword">export</span> PATH=$PATH:$HIVE_HOME/bin<br></code></pre></div></td></tr></table></figure><h1 id="配置网卡">6. 配置网卡</h1><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">cd /etc/sysconfig/network-scripts<br>vi ifcfg-ens33<br><span class="hljs-comment">//修改为以下内容</span><br>TYPE=Ethernet<br>PROXY_METHOD=none<br>BROWSER_ONLY=no<br>BOOTPROTO=dhcp<br>DEFROUTE=yes<br>IPV4_FAILURE_FATAL=no<br>IPV6INIT=yes<br>IPV6_AUTOCONF=yes<br>IPV6_DEFROUTE=yes<br>IPV6_FAILURE_FATAL=no<br>IPV6_ADDR_GEN_MODE=stable-privacy<br>NAME=ens33<br>UUID=2900a067-aa1c-4b9e-89af-beb948efd17d<br>DEVICE=ens33<br>ONBOOT=yes<br><span class="hljs-comment">//刷新网络</span><br>systemctl restart network<br><span class="hljs-comment">//关闭防火墙</span><br>systemctl stop firewalld   <span class="hljs-comment">//禁用防火墙</span><br>systemctl disable firewalld   <span class="hljs-comment">//停止并禁用开机启动</span><br>systemctl status firewalld.service   <span class="hljs-comment">//查看防火墙状态</span><br></code></pre></div></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<p>头部标签。</p><span id="more"></span><h1 id="title">1. title</h1><p>主要用于定义HTML页面的标题，即给网页取一个名字，必须位于<head>之内</head></p><h2 id="title的作用：">1.1. title的作用：</h2><ul><li>在浏览器的标题栏中显示</li><li>可以用作默认的快捷方式或者收藏夹的名称</li><li>可以作为搜索引擎结果中的页面标题</li></ul><h2 id="应用时应注意">1.2. 应用时应注意</h2><ul><li>一个网页只能有一个标题</li><li>标题的长度不超过64个字符数</li><li>标题标记对之间不允许有其他的标签存在</li></ul><h1 id="meta">2. meta</h1><p>用于定义页面的元信息，可重复出现在<head>头部标记中，详细信息在   HTML5语法标准中。</head></p><h1 id="link">3. link</h1><p>用link来引用外部的文件，一个页面允许使用多个link标记引用多个外部文件。</p><h1 id="style">4. style</h1><p>用于为HTML文档定义样式信息，位于<head>之中。</head></p><h1 id="script">5. script</h1><p>用于在HTML页面中加载脚本文件：如javascript。</p><h1 id="base">6. base</h1><p>描述了基本的链接地址/链接目标，该标签作为HTML文档中所有的链接标签的默认链接。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> html </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> html </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>docker环境搭建</title>
+      <link href="/gzguo/2020/09/28/linux/2%E6%93%8D%E4%BD%9C/docker%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+      <url>/gzguo/2020/09/28/linux/2%E6%93%8D%E4%BD%9C/docker%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
+      
+        <content type="html"><![CDATA[<p>安装docker、启动、暂停。</p><span id="more"></span><h1 id="环境搭建">1. 环境搭建</h1><h2 id="下载virtualBox（虚拟机）">1.1. 下载virtualBox（虚拟机）</h2><figure class="highlight nginx"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs nginx"><span class="hljs-attribute">windows</span> 的 virtualBox 只能通过右边的ctrl将鼠标移到windows<br></code></pre></div></td></tr></table></figure><h2 id="下载vagrant（镜像仓库）">1.2. 下载vagrant（镜像仓库）</h2><figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">vagrant</span> init centos/<span class="hljs-number">7</span>   初始化centos镜像，之后会产生一个vagrantfile<br><span class="hljs-attribute">vagrant</span> up   启动我们的虚拟环境<br><span class="hljs-attribute">vagrant</span> ssh   以vagrant的身份登陆虚拟机<br></code></pre></div></td></tr></table></figure><h2 id="网络地址转换-端口转发">1.3. 网络地址转换-端口转发</h2><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">虚拟机每装一个软件，就会到windows中映射一个虚拟端口。就好像指定windows的2000端口对应虚拟机的3306，使得虚拟机的mysql可以运行<br></code></pre></div></td></tr></table></figure><figure class="highlight armasm"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs armasm">端口转发太麻烦了，我们想要给虚拟机一个固定的<span class="hljs-built_in">ip</span>地址。使得windows和虚拟机可以相互ping通。这样的话，我们在虚拟机上下载一个软件直接访问虚拟机的端口就可以了<br></code></pre></div></td></tr></table></figure><h2 id="服务器安装docker">1.4. 服务器安装docker</h2><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">docker是虚拟化容器技术，Docker基于镜像，可以秒级启动各种容器。每种容器都是一个完整的运行环境，容器之间互相隔离<br>防止了容器之间的相互影响，而且docker可以去镜像市场找各种镜像，然后基于镜像启动容器，每一个容器都是一个完整的运境<br></code></pre></div></td></tr></table></figure><h3 id="Docker官网安装CentOS的docker">1.4.1. Docker官网安装CentOS的docker</h3><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">https:<span class="hljs-regexp">//</span>docs.docker.com<span class="hljs-regexp">/engine/i</span>nstall<span class="hljs-regexp">/centos/</span><br></code></pre></div></td></tr></table></figure><h3 id="安装之前先卸载之前的docker">1.4.2. 安装之前先卸载之前的docker</h3><figure class="highlight livescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs livescript">sudo yum remove docker <span class="hljs-string">\</span><br>                  docker-client <span class="hljs-string">\</span><br>                  docker-client-latest <span class="hljs-string">\</span><br>                  docker-common <span class="hljs-string">\</span><br>                  docker-latest <span class="hljs-string">\</span><br>                  docker-latest-logrotate <span class="hljs-string">\</span><br>                  docker-logrotate <span class="hljs-string">\</span><br>                  docker-engine<br></code></pre></div></td></tr></table></figure><h3 id="然后设置Docker的地址，在设置之前需要安装一些必要的包">1.4.3. 然后设置Docker的地址，在设置之前需要安装一些必要的包</h3><figure class="highlight cmake"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cmake">sudo yum <span class="hljs-keyword">install</span> -y yum-utils<br></code></pre></div></td></tr></table></figure><h3 id="告诉linux，docker在哪里装">1.4.4. 告诉linux，docker在哪里装</h3><figure class="highlight lua"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lua">sudo yum-<span class="hljs-built_in">config</span>-manager \<br>    <span class="hljs-comment">--add-repo \</span><br>    https://download.docker.com/linux/centos/docker-ce.repo<br>测试：<br>sudo yum-<span class="hljs-built_in">config</span>-manager <span class="hljs-comment">--enable docker-ce-nightly</span><br>sudo yum-<span class="hljs-built_in">config</span>-manager <span class="hljs-comment">--enable docker-ce-test</span><br>sudo yum-<span class="hljs-built_in">config</span>-manager <span class="hljs-comment">--disable docker-ce-nightly</span><br></code></pre></div></td></tr></table></figure><h3 id="安装docker的引擎docker-ce，操作docker的客户端docker-ce-cli和容器containerd-io">1.4.5. 安装docker的引擎docker-ce，操作docker的客户端docker-ce-cli和容器containerd.io</h3><figure class="highlight vim"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs vim">sudo yum install docker-<span class="hljs-keyword">ce</span> docker-<span class="hljs-keyword">ce</span>-cli containerd.io<br></code></pre></div></td></tr></table></figure><p>安装完成</p><h2 id="启动Docker">1.5. 启动Docker</h2><figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql">sudo systemctl <span class="hljs-keyword">start</span> docker   启动<br>sudo systemctl <span class="hljs-keyword">enable</span> docker   设置开机自启<br>service docker <span class="hljs-keyword">restart</span>   重新启动<br></code></pre></div></td></tr></table></figure><h3 id="配置Docker镜像加速">1.5.1. 配置Docker镜像加速</h3><p>docker是从docker hub上下载镜像的，下载网站是国外的，可以配置国内的镜像加速</p><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">sudo mkdir -p <span class="hljs-regexp">/etc/</span>docker<br>sudo tee <span class="hljs-regexp">/etc/</span>docker/daemon.json &lt;&lt;-<span class="hljs-string">&#x27;EOF&#x27;</span><br>&#123;<br>  <span class="hljs-string">&quot;registry-mirrors&quot;</span>: [<span class="hljs-string">&quot;https://mhidjz1f.mirror.aliyuncs.com&quot;</span>]<br>&#125;<br>EOF<br>sudo systemctl daemon-reload<br>sudo systemctl restart docker<br></code></pre></div></td></tr></table></figure><h3 id="Docker的基本命令">1.5.2. Docker的基本命令</h3><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">docker -v   查看docker版本<br>docker images   检查服务器上有没有下载来的镜像<br>docker pull mysql:<span class="hljs-number">5.7</span>   下载mysql的镜像<br>docker run -p <span class="hljs-number">3306</span>:<span class="hljs-number">3306</span> --name mysql -v <span class="hljs-regexp">/mydata/my</span>sql<span class="hljs-regexp">/log:/</span>var<span class="hljs-regexp">/log/my</span>sql -v <span class="hljs-regexp">/mydata/my</span>sql<span class="hljs-regexp">/data:/</span>var<span class="hljs-regexp">/lib/my</span>sql -v <span class="hljs-regexp">/mydata/my</span>sql<span class="hljs-regexp">/conf:/</span>etc/mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:<span class="hljs-number">5.7</span>   根据镜像，启动容器<br>docker ps   查看docker目前运行的容器<br>docker exec -it <span class="hljs-number">2009870</span>e21c3(mysql) <span class="hljs-regexp">/bin/</span>bash   最后的这个参数可以是容器的id或者是容器的名字(进入bash控制台),两个参数<br>docker rm -f 容器id   删除对应的容器实例<br></code></pre></div></td></tr></table></figure><h3 id="启动Docker容器的run命令">1.5.3. 启动Docker容器的run命令</h3><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">docker run -p <span class="hljs-number">3306</span>:<span class="hljs-number">3306</span> --name mysql -v <span class="hljs-regexp">/mydata/my</span>sql<span class="hljs-regexp">/log:/</span>var<span class="hljs-regexp">/log/my</span>sql -v <span class="hljs-regexp">/mydata/my</span>sql<span class="hljs-regexp">/data:/</span>var<span class="hljs-regexp">/lib/my</span>sql -v <span class="hljs-regexp">/mydata/my</span>sql<span class="hljs-regexp">/conf:/</span>etc/mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:<span class="hljs-number">8.0</span>.<span class="hljs-number">19</span><br></code></pre></div></td></tr></table></figure><figure class="highlight diff"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs diff">run   每run一次我们就会启动一个容器，每个容器都是完整的运行环境<br><span class="hljs-deletion">-p 3306 3306   把容器内的3306端口映射到linux的3306端口，前面3306是linux的，后面3306是Docker的</span><br><span class="hljs-deletion">--name 给容器命名</span><br><span class="hljs-deletion">-v 目录挂载（前面的是linux下的真实目录，后面是docker容器里的mysql的配置对应的文件路径）</span><br>挂载的目的在于简化修改配置的操作，我们可以直接在真实的linux中改变容器里的mysql的配置，就好像是快捷方式一样<br><span class="hljs-deletion">-e 设置参数（调整密码）</span><br><span class="hljs-deletion">-d 以后台方式运行</span><br>:   相当于挂载（快捷方式）<br></code></pre></div></td></tr></table></figure><p>mysql容器就是一个完整的linux，进入docker的mysql内部可以看清楚</p><h3 id="重新启动docker容器">1.5.4. 重新启动docker容器</h3><figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql">docker <span class="hljs-keyword">start</span> docker_container   启动容器<br>docker <span class="hljs-keyword">restart</span> docker_container   重启容器<br>docker logs container_name   查看容器日志<br></code></pre></div></td></tr></table></figure><figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">ALL</span> <span class="hljs-keyword">PRIVILEGES</span> <span class="hljs-keyword">ON</span> *.* <span class="hljs-keyword">TO</span> <span class="hljs-string">&#x27;root&#x27;</span>@<span class="hljs-string">&#x27;%&#x27;</span> IDENTIFIED <span class="hljs-keyword">BY</span> <span class="hljs-string">&#x27;123456&#x27;</span> <span class="hljs-keyword">WITH</span> <span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">OPTION</span>;<br></code></pre></div></td></tr></table></figure>]]></content>
       
       
       <categories>
@@ -2492,11 +2643,11 @@
     
     
     <entry>
-      <title>docker环境搭建</title>
-      <link href="/gzguo/2020/09/28/linux/2%E6%93%8D%E4%BD%9C/docker%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
-      <url>/gzguo/2020/09/28/linux/2%E6%93%8D%E4%BD%9C/docker%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
+      <title>redis基础配置</title>
+      <link href="/gzguo/2020/09/28/linux/2%E6%93%8D%E4%BD%9C/redis%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/"/>
+      <url>/gzguo/2020/09/28/linux/2%E6%93%8D%E4%BD%9C/redis%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/</url>
       
-        <content type="html"><![CDATA[<p>安装docker、启动、暂停。</p><span id="more"></span><h1 id="环境搭建">1. 环境搭建</h1><h2 id="下载virtualBox（虚拟机）">1.1. 下载virtualBox（虚拟机）</h2><figure class="highlight nginx"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs nginx"><span class="hljs-attribute">windows</span> 的 virtualBox 只能通过右边的ctrl将鼠标移到windows<br></code></pre></div></td></tr></table></figure><h2 id="下载vagrant（镜像仓库）">1.2. 下载vagrant（镜像仓库）</h2><figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">vagrant</span> init centos/<span class="hljs-number">7</span>   初始化centos镜像，之后会产生一个vagrantfile<br><span class="hljs-attribute">vagrant</span> up   启动我们的虚拟环境<br><span class="hljs-attribute">vagrant</span> ssh   以vagrant的身份登陆虚拟机<br></code></pre></div></td></tr></table></figure><h2 id="网络地址转换-端口转发">1.3. 网络地址转换-端口转发</h2><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">虚拟机每装一个软件，就会到windows中映射一个虚拟端口。就好像指定windows的2000端口对应虚拟机的3306，使得虚拟机的mysql可以运行<br></code></pre></div></td></tr></table></figure><figure class="highlight armasm"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs armasm">端口转发太麻烦了，我们想要给虚拟机一个固定的<span class="hljs-built_in">ip</span>地址。使得windows和虚拟机可以相互ping通。这样的话，我们在虚拟机上下载一个软件直接访问虚拟机的端口就可以了<br></code></pre></div></td></tr></table></figure><h2 id="服务器安装docker">1.4. 服务器安装docker</h2><figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs">docker是虚拟化容器技术，Docker基于镜像，可以秒级启动各种容器。每种容器都是一个完整的运行环境，容器之间互相隔离<br>防止了容器之间的相互影响，而且docker可以去镜像市场找各种镜像，然后基于镜像启动容器，每一个容器都是一个完整的运境<br></code></pre></div></td></tr></table></figure><h3 id="Docker官网安装CentOS的docker">1.4.1. Docker官网安装CentOS的docker</h3><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">https:<span class="hljs-regexp">//</span>docs.docker.com<span class="hljs-regexp">/engine/i</span>nstall<span class="hljs-regexp">/centos/</span><br></code></pre></div></td></tr></table></figure><h3 id="安装之前先卸载之前的docker">1.4.2. 安装之前先卸载之前的docker</h3><figure class="highlight livescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs livescript">sudo yum remove docker <span class="hljs-string">\</span><br>                  docker-client <span class="hljs-string">\</span><br>                  docker-client-latest <span class="hljs-string">\</span><br>                  docker-common <span class="hljs-string">\</span><br>                  docker-latest <span class="hljs-string">\</span><br>                  docker-latest-logrotate <span class="hljs-string">\</span><br>                  docker-logrotate <span class="hljs-string">\</span><br>                  docker-engine<br></code></pre></div></td></tr></table></figure><h3 id="然后设置Docker的地址，在设置之前需要安装一些必要的包">1.4.3. 然后设置Docker的地址，在设置之前需要安装一些必要的包</h3><figure class="highlight cmake"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cmake">sudo yum <span class="hljs-keyword">install</span> -y yum-utils<br></code></pre></div></td></tr></table></figure><h3 id="告诉linux，docker在哪里装">1.4.4. 告诉linux，docker在哪里装</h3><figure class="highlight lua"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs lua">sudo yum-<span class="hljs-built_in">config</span>-manager \<br>    <span class="hljs-comment">--add-repo \</span><br>    https://download.docker.com/linux/centos/docker-ce.repo<br>测试：<br>sudo yum-<span class="hljs-built_in">config</span>-manager <span class="hljs-comment">--enable docker-ce-nightly</span><br>sudo yum-<span class="hljs-built_in">config</span>-manager <span class="hljs-comment">--enable docker-ce-test</span><br>sudo yum-<span class="hljs-built_in">config</span>-manager <span class="hljs-comment">--disable docker-ce-nightly</span><br></code></pre></div></td></tr></table></figure><h3 id="安装docker的引擎docker-ce，操作docker的客户端docker-ce-cli和容器containerd-io">1.4.5. 安装docker的引擎docker-ce，操作docker的客户端docker-ce-cli和容器containerd.io</h3><figure class="highlight vim"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs vim">sudo yum install docker-<span class="hljs-keyword">ce</span> docker-<span class="hljs-keyword">ce</span>-cli containerd.io<br></code></pre></div></td></tr></table></figure><p>安装完成</p><h2 id="启动Docker">1.5. 启动Docker</h2><figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql">sudo systemctl <span class="hljs-keyword">start</span> docker   启动<br>sudo systemctl <span class="hljs-keyword">enable</span> docker   设置开机自启<br>service docker <span class="hljs-keyword">restart</span>   重新启动<br></code></pre></div></td></tr></table></figure><h3 id="配置Docker镜像加速">1.5.1. 配置Docker镜像加速</h3><p>docker是从docker hub上下载镜像的，下载网站是国外的，可以配置国内的镜像加速</p><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">sudo mkdir -p <span class="hljs-regexp">/etc/</span>docker<br>sudo tee <span class="hljs-regexp">/etc/</span>docker/daemon.json &lt;&lt;-<span class="hljs-string">&#x27;EOF&#x27;</span><br>&#123;<br>  <span class="hljs-string">&quot;registry-mirrors&quot;</span>: [<span class="hljs-string">&quot;https://mhidjz1f.mirror.aliyuncs.com&quot;</span>]<br>&#125;<br>EOF<br>sudo systemctl daemon-reload<br>sudo systemctl restart docker<br></code></pre></div></td></tr></table></figure><h3 id="Docker的基本命令">1.5.2. Docker的基本命令</h3><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">docker -v   查看docker版本<br>docker images   检查服务器上有没有下载来的镜像<br>docker pull mysql:<span class="hljs-number">5.7</span>   下载mysql的镜像<br>docker run -p <span class="hljs-number">3306</span>:<span class="hljs-number">3306</span> --name mysql -v <span class="hljs-regexp">/mydata/my</span>sql<span class="hljs-regexp">/log:/</span>var<span class="hljs-regexp">/log/my</span>sql -v <span class="hljs-regexp">/mydata/my</span>sql<span class="hljs-regexp">/data:/</span>var<span class="hljs-regexp">/lib/my</span>sql -v <span class="hljs-regexp">/mydata/my</span>sql<span class="hljs-regexp">/conf:/</span>etc/mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:<span class="hljs-number">5.7</span>   根据镜像，启动容器<br>docker ps   查看docker目前运行的容器<br>docker exec -it <span class="hljs-number">2009870</span>e21c3(mysql) <span class="hljs-regexp">/bin/</span>bash   最后的这个参数可以是容器的id或者是容器的名字(进入bash控制台),两个参数<br>docker rm -f 容器id   删除对应的容器实例<br></code></pre></div></td></tr></table></figure><h3 id="启动Docker容器的run命令">1.5.3. 启动Docker容器的run命令</h3><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">docker run -p <span class="hljs-number">3306</span>:<span class="hljs-number">3306</span> --name mysql -v <span class="hljs-regexp">/mydata/my</span>sql<span class="hljs-regexp">/log:/</span>var<span class="hljs-regexp">/log/my</span>sql -v <span class="hljs-regexp">/mydata/my</span>sql<span class="hljs-regexp">/data:/</span>var<span class="hljs-regexp">/lib/my</span>sql -v <span class="hljs-regexp">/mydata/my</span>sql<span class="hljs-regexp">/conf:/</span>etc/mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:<span class="hljs-number">8.0</span>.<span class="hljs-number">19</span><br></code></pre></div></td></tr></table></figure><figure class="highlight diff"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs diff">run   每run一次我们就会启动一个容器，每个容器都是完整的运行环境<br><span class="hljs-deletion">-p 3306 3306   把容器内的3306端口映射到linux的3306端口，前面3306是linux的，后面3306是Docker的</span><br><span class="hljs-deletion">--name 给容器命名</span><br><span class="hljs-deletion">-v 目录挂载（前面的是linux下的真实目录，后面是docker容器里的mysql的配置对应的文件路径）</span><br>挂载的目的在于简化修改配置的操作，我们可以直接在真实的linux中改变容器里的mysql的配置，就好像是快捷方式一样<br><span class="hljs-deletion">-e 设置参数（调整密码）</span><br><span class="hljs-deletion">-d 以后台方式运行</span><br>:   相当于挂载（快捷方式）<br></code></pre></div></td></tr></table></figure><p>mysql容器就是一个完整的linux，进入docker的mysql内部可以看清楚</p><h3 id="重新启动docker容器">1.5.4. 重新启动docker容器</h3><figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql">docker <span class="hljs-keyword">start</span> docker_container   启动容器<br>docker <span class="hljs-keyword">restart</span> docker_container   重启容器<br>docker logs container_name   查看容器日志<br></code></pre></div></td></tr></table></figure><figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">ALL</span> <span class="hljs-keyword">PRIVILEGES</span> <span class="hljs-keyword">ON</span> *.* <span class="hljs-keyword">TO</span> <span class="hljs-string">&#x27;root&#x27;</span>@<span class="hljs-string">&#x27;%&#x27;</span> IDENTIFIED <span class="hljs-keyword">BY</span> <span class="hljs-string">&#x27;123456&#x27;</span> <span class="hljs-keyword">WITH</span> <span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">OPTION</span>;<br></code></pre></div></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<p>redis的内存淘汰机制，启动配置项，持久化。</p><span id="more"></span><h1 id="redis内存淘汰">1. redis内存淘汰</h1><h2 id="redis的内存大小">1.1. redis的内存大小</h2><p>如果不设置最大内存大小或者设置最大内存大小为0，在64位操作系统中不限制内存大小，在32位操作系统众最多使用3GB内存</p><figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">127</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">1</span>:<span class="hljs-number">6379</span>&gt; config set maxmemory <span class="hljs-number">100</span>mb   #设置Redis最大占用内存大小为<span class="hljs-number">100</span>M。<br><span class="hljs-attribute">127</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">1</span>:<span class="hljs-number">6379</span>&gt; config get maxmemory   #查看Redis的最大内存<br><br><span class="hljs-attribute">maxmemory</span> <span class="hljs-number">100</span>mb   #通过配置文件修改<br></code></pre></div></td></tr></table></figure><h2 id="redis的内存淘汰机制">1.2. redis的内存淘汰机制</h2><ul><li>noeviction(默认策略)：对于写请求不再提供服务，直接返回错误(DEL请求和部分特殊请求除外)</li><li>allkeys-lru：从所有key中使用LRU算法进行淘汰</li><li>volatile-lru：从设置过期时间的key中使用LRU算法进行淘汰</li><li>allkeys-random：从所有key中随机淘汰数据</li><li>volatile-random：从设置了过期时间的key中随机淘汰</li><li>volatile-ttl：在设置了过期时间的key中，根据key的过期时间进行淘汰，越早过期的越优先淘汰</li></ul><p>当使用volatile-lru、volatile-random、volatile-ttl这三种策略时，如果没有key可以被淘汰，则和noeviction一样返回错误。</p><figure class="highlight accesslog"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs accesslog"><span class="hljs-number">127.0.0.1:6379</span>&gt; config get maxmemory-policy   #查看当前的内存淘汰策略<br><span class="hljs-number">127.0.0.1:6379</span>&gt; config set maxmemory-policy allkeys-lru   #通过命令修改淘汰策略<br><br>maxmemory-policy allkeys-lru   #通过配置文件修改淘汰策略<br></code></pre></div></td></tr></table></figure><h2 id="LRU算法">1.3. LRU算法</h2><p>LRU（Least Recently Used），即最近最少使用，是一种缓存置换算法。在使用内存作为缓存的时候，缓存的大小一般是固定的。当缓存被占满，这个时候继续网存储里面添加数据，就需要淘汰一部分老的数据，释放内存空间用来存储新的数据。</p><p>这个时候就可以使用LRU算法了。其核心思想是：如果一个数据在最近一段时间没有被用到，那么将来被使用到的可能性也很小，所以就可以被淘汰掉。</p><h1 id="Redis启动">2. Redis启动</h1><h2 id="Redis配置项">2.1. Redis配置项</h2><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">port <span class="hljs-number">1111</span> <span class="hljs-comment"># 配置端口号、</span><br>bind <span class="hljs-number">0.0</span>.<span class="hljs-number">0.0</span>   允许远程访问<br>protected-mode no   允许远程访问<br>daemonize yes  <span class="hljs-comment"># 是否后台运行 daemonize yes/no</span><br>logfile <span class="hljs-regexp">/var/</span>log/redis.log  <span class="hljs-comment"># 日志文件位置</span><br>dbfilename dump.rbd  <span class="hljs-comment"># RDB持久化数据文件</span><br>dir <span class="hljs-regexp">/data/</span>redis  <span class="hljs-comment">#持久化文件的位置</span><br></code></pre></div></td></tr></table></figure><h2 id="redis启动">2.2. redis启动</h2><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">：<span class="hljs-regexp">/application/</span>redis<span class="hljs-regexp">/src/</span>redis-server <span class="hljs-regexp">/etc/</span>redis.conf    <span class="hljs-comment">#在配置文件下启动</span><br><span class="hljs-regexp">/application/</span>redis<span class="hljs-regexp">/src/</span>redis-cli -p <span class="hljs-number">1111</span>   <span class="hljs-comment"># 连接</span><br><br>redis-server ../redis.conf <br></code></pre></div></td></tr></table></figure><h1 id="redis持久化">3. redis持久化</h1><p>原本的redis数据是存储在内存中的，重启redis之后数据就会消失，持久化就是可以将数据保存到硬盘，只需要在配置文件中加入以下配置</p><figure class="highlight nginx"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs nginx"><span class="hljs-attribute">appendonly</span> <span class="hljs-literal">yes</span><br></code></pre></div></td></tr></table></figure><p>以配置文件重启redis</p><ul><li>查看redis服务占用的端口</li><li>杀死端口</li><li>重新启动</li></ul><figure class="highlight axapta"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs axapta">redis-<span class="hljs-keyword">server</span> 配置文件路径<br></code></pre></div></td></tr></table></figure>]]></content>
       
       
       <categories>
@@ -2542,6 +2693,31 @@
     
     
     <entry>
+      <title>linux</title>
+      <link href="/gzguo/2020/09/28/linux/2%E6%93%8D%E4%BD%9C/%E9%83%A8%E7%BD%B2jar%E5%8C%85/"/>
+      <url>/gzguo/2020/09/28/linux/2%E6%93%8D%E4%BD%9C/%E9%83%A8%E7%BD%B2jar%E5%8C%85/</url>
+      
+        <content type="html"><![CDATA[<p>部署jar包到服务器上，只需要四步！！！</p><span id="more"></span><h1 id="查看8080端口占用">1. 查看8080端口占用</h1><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">netstat -ntulp | grep <span class="hljs-number">8080</span><br></code></pre></div></td></tr></table></figure><h1 id="杀死8080端口">2. 杀死8080端口</h1><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">kill <span class="hljs-number">-9</span> ****<br></code></pre></div></td></tr></table></figure><h1 id="部署jar包">3. 部署jar包</h1><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">nohup java -jar **** &gt; ***.txt &amp;<br></code></pre></div></td></tr></table></figure><h1 id="清除txt文件内容">4. 清除txt文件内容</h1><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">echo <span class="hljs-string">&quot;&quot;</span> &gt; <span class="hljs-built_in">log</span>.txt<br></code></pre></div></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>分布式基本概念</title>
       <link href="/gzguo/2020/09/28/linux/2%E6%93%8D%E4%BD%9C/%E5%88%86%E5%B8%83%E5%BC%8F%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/"/>
       <url>/gzguo/2020/09/28/linux/2%E6%93%8D%E4%BD%9C/%E5%88%86%E5%B8%83%E5%BC%8F%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</url>
@@ -2567,36 +2743,11 @@
     
     
     <entry>
-      <title>redis基础配置</title>
-      <link href="/gzguo/2020/09/28/linux/2%E6%93%8D%E4%BD%9C/redis%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/"/>
-      <url>/gzguo/2020/09/28/linux/2%E6%93%8D%E4%BD%9C/redis%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/</url>
-      
-        <content type="html"><![CDATA[<p>redis的内存淘汰机制，启动配置项，持久化。</p><span id="more"></span><h1 id="redis内存淘汰">1. redis内存淘汰</h1><h2 id="redis的内存大小">1.1. redis的内存大小</h2><p>如果不设置最大内存大小或者设置最大内存大小为0，在64位操作系统中不限制内存大小，在32位操作系统众最多使用3GB内存</p><figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">127</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">1</span>:<span class="hljs-number">6379</span>&gt; config set maxmemory <span class="hljs-number">100</span>mb   #设置Redis最大占用内存大小为<span class="hljs-number">100</span>M。<br><span class="hljs-attribute">127</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">1</span>:<span class="hljs-number">6379</span>&gt; config get maxmemory   #查看Redis的最大内存<br><br><span class="hljs-attribute">maxmemory</span> <span class="hljs-number">100</span>mb   #通过配置文件修改<br></code></pre></div></td></tr></table></figure><h2 id="redis的内存淘汰机制">1.2. redis的内存淘汰机制</h2><ul><li>noeviction(默认策略)：对于写请求不再提供服务，直接返回错误(DEL请求和部分特殊请求除外)</li><li>allkeys-lru：从所有key中使用LRU算法进行淘汰</li><li>volatile-lru：从设置过期时间的key中使用LRU算法进行淘汰</li><li>allkeys-random：从所有key中随机淘汰数据</li><li>volatile-random：从设置了过期时间的key中随机淘汰</li><li>volatile-ttl：在设置了过期时间的key中，根据key的过期时间进行淘汰，越早过期的越优先淘汰</li></ul><p>当使用volatile-lru、volatile-random、volatile-ttl这三种策略时，如果没有key可以被淘汰，则和noeviction一样返回错误。</p><figure class="highlight accesslog"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs accesslog"><span class="hljs-number">127.0.0.1:6379</span>&gt; config get maxmemory-policy   #查看当前的内存淘汰策略<br><span class="hljs-number">127.0.0.1:6379</span>&gt; config set maxmemory-policy allkeys-lru   #通过命令修改淘汰策略<br><br>maxmemory-policy allkeys-lru   #通过配置文件修改淘汰策略<br></code></pre></div></td></tr></table></figure><h2 id="LRU算法">1.3. LRU算法</h2><p>LRU（Least Recently Used），即最近最少使用，是一种缓存置换算法。在使用内存作为缓存的时候，缓存的大小一般是固定的。当缓存被占满，这个时候继续网存储里面添加数据，就需要淘汰一部分老的数据，释放内存空间用来存储新的数据。</p><p>这个时候就可以使用LRU算法了。其核心思想是：如果一个数据在最近一段时间没有被用到，那么将来被使用到的可能性也很小，所以就可以被淘汰掉。</p><h1 id="Redis启动">2. Redis启动</h1><h2 id="Redis配置项">2.1. Redis配置项</h2><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">port <span class="hljs-number">1111</span> <span class="hljs-comment"># 配置端口号、</span><br>bind <span class="hljs-number">0.0</span>.<span class="hljs-number">0.0</span>   允许远程访问<br>protected-mode no   允许远程访问<br>daemonize yes  <span class="hljs-comment"># 是否后台运行 daemonize yes/no</span><br>logfile <span class="hljs-regexp">/var/</span>log/redis.log  <span class="hljs-comment"># 日志文件位置</span><br>dbfilename dump.rbd  <span class="hljs-comment"># RDB持久化数据文件</span><br>dir <span class="hljs-regexp">/data/</span>redis  <span class="hljs-comment">#持久化文件的位置</span><br></code></pre></div></td></tr></table></figure><h2 id="redis启动">2.2. redis启动</h2><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">：<span class="hljs-regexp">/application/</span>redis<span class="hljs-regexp">/src/</span>redis-server <span class="hljs-regexp">/etc/</span>redis.conf    <span class="hljs-comment">#在配置文件下启动</span><br><span class="hljs-regexp">/application/</span>redis<span class="hljs-regexp">/src/</span>redis-cli -p <span class="hljs-number">1111</span>   <span class="hljs-comment"># 连接</span><br><br>redis-server ../redis.conf <br></code></pre></div></td></tr></table></figure><h1 id="redis持久化">3. redis持久化</h1><p>原本的redis数据是存储在内存中的，重启redis之后数据就会消失，持久化就是可以将数据保存到硬盘，只需要在配置文件中加入以下配置</p><figure class="highlight nginx"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs nginx"><span class="hljs-attribute">appendonly</span> <span class="hljs-literal">yes</span><br></code></pre></div></td></tr></table></figure><p>以配置文件重启redis</p><ul><li>查看redis服务占用的端口</li><li>杀死端口</li><li>重新启动</li></ul><figure class="highlight axapta"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs axapta">redis-<span class="hljs-keyword">server</span> 配置文件路径<br></code></pre></div></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> linux </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> linux </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>linux</title>
-      <link href="/gzguo/2020/09/28/linux/2%E6%93%8D%E4%BD%9C/%E9%83%A8%E7%BD%B2jar%E5%8C%85/"/>
-      <url>/gzguo/2020/09/28/linux/2%E6%93%8D%E4%BD%9C/%E9%83%A8%E7%BD%B2jar%E5%8C%85/</url>
+      <link href="/gzguo/2020/09/28/linux/1%E5%91%BD%E4%BB%A4/linux%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/"/>
+      <url>/gzguo/2020/09/28/linux/1%E5%91%BD%E4%BB%A4/linux%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/</url>
       
-        <content type="html"><![CDATA[<p>部署jar包到服务器上，只需要四步！！！</p><span id="more"></span><h1 id="查看8080端口占用">1. 查看8080端口占用</h1><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">netstat -ntulp | grep <span class="hljs-number">8080</span><br></code></pre></div></td></tr></table></figure><h1 id="杀死8080端口">2. 杀死8080端口</h1><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">kill <span class="hljs-number">-9</span> ****<br></code></pre></div></td></tr></table></figure><h1 id="部署jar包">3. 部署jar包</h1><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">nohup java -jar **** &gt; ***.txt &amp;<br></code></pre></div></td></tr></table></figure><h1 id="清除txt文件内容">4. 清除txt文件内容</h1><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">echo <span class="hljs-string">&quot;&quot;</span> &gt; <span class="hljs-built_in">log</span>.txt<br></code></pre></div></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<p>linux查看、vim搜索、防火墙、分区的相关命令。</p><span id="more"></span><h1 id="查看">1. 查看</h1><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">whoami   <span class="hljs-comment">//查看当前登陆用户</span><br><span class="hljs-built_in">exit</span>   <span class="hljs-comment">//退出虚拟机的连接</span><br>pwd   <span class="hljs-comment">//查看当前路径</span><br>ps aux | grep mysql   <span class="hljs-comment">//查看某个进程</span><br>ps -ef|grep redis   <span class="hljs-comment">//查看进程是否激活</span><br>netstat -ntlup|grep <span class="hljs-number">8080</span>   <span class="hljs-comment">//查看8080端口被谁占用</span><br>rm -rf 目录绝对位置   <span class="hljs-comment">//删除整个目录及目录下的所有文件</span><br>du --max-depth=<span class="hljs-number">1</span> -h   <span class="hljs-comment">//查看磁盘占用</span><br></code></pre></div></td></tr></table></figure><h1 id="vim搜索">2. vim搜索</h1><h2 id="搜索">2.1. 搜索</h2><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">:/搜索内容  <span class="hljs-comment">//搜索文件里面相关的内容</span><br></code></pre></div></td></tr></table></figure><h2 id="取消搜索">2.2. 取消搜索</h2><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">nohlsearch    <span class="hljs-comment">//简写noh</span><br><span class="hljs-built_in">set</span> nohlsearch   <span class="hljs-comment">//简写set noh</span><br></code></pre></div></td></tr></table></figure><h1 id="防火墙">3. 防火墙</h1><h2 id="添加端口">3.1. 添加端口</h2><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">firewall-cmd --add-port=<span class="hljs-number">5000</span>/tcp --permanent<br>firewall-cmd --reload<br></code></pre></div></td></tr></table></figure><h2 id="开启关闭">3.2. 开启关闭</h2><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">systemctl status firewalld.service   <span class="hljs-comment">//查看防火墙状态</span><br>firewall-cmd --state   <span class="hljs-comment">//查看防火墙状态</span><br>firewall-cmd --<span class="hljs-built_in">list</span>-ports   <span class="hljs-comment">//查看防火墙开启的端口</span><br>firewall-cmd --add-port=<span class="hljs-number">6379</span>/tcp   <span class="hljs-comment">//添加端口</span><br>firewall-cmd --<span class="hljs-built_in">list</span>-services   <span class="hljs-comment">//查看防火墙开启的服务</span><br>systemctl start firewalld   <span class="hljs-comment">//开启防火墙</span><br>systemctl stop firewalld   <span class="hljs-comment">//禁用防火墙</span><br>systemctl enable firewalld   <span class="hljs-comment">//设置防火墙开机启动</span><br>systemctl disable firewalld   <span class="hljs-comment">//停止并禁用开机启动</span><br>firewall-cmd --reload   <span class="hljs-comment">//重启防火墙</span><br></code></pre></div></td></tr></table></figure><h2 id="永久打开端口">3.3. 永久打开端口</h2><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">firewall-cmd --zone=<span class="hljs-keyword">public</span> --add-port=<span class="hljs-number">8080</span>/tcp --permanent   <span class="hljs-comment">//永久打开端口</span><br>firewall-cmd --reload   <span class="hljs-comment">//重新加载</span><br></code></pre></div></td></tr></table></figure><h1 id="添加swag分区">4. 添加swag分区</h1><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">dd <span class="hljs-keyword">if</span>=/dev/zero of=/swapfile bs=<span class="hljs-number">1</span>M count=<span class="hljs-number">1024</span><br>mkswap /swapfile<br>swapon /swapfile<br><span class="hljs-built_in">free</span> -m<br></code></pre></div></td></tr></table></figure><h1 id="配置环境变量">5. 配置环境变量</h1><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">vim /etc/profile<br>source /etc/profile<br>    <br><span class="hljs-keyword">export</span> JAVA_HOME=/usr/local/jdk1<span class="hljs-number">.8</span><span class="hljs-number">.0</span>_181<br><span class="hljs-keyword">export</span> CLASSPATH=.:$JAVA_HOME/lib:$JAVA_HOME/jre/lib:$CLASSPATH<br><span class="hljs-keyword">export</span> PATH=$&#123;JAVA_HOME&#125;/bin:$PATH<br><span class="hljs-keyword">export</span> HADOOP_HOME=/usr/local/hadoop/<br><span class="hljs-keyword">export</span> HADOOP_CONF_DIR=$&#123;HADOOP_HOME&#125;/etc/hadoop<br><span class="hljs-keyword">export</span> HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native<br><span class="hljs-keyword">export</span> HADOOP_OPTS=<span class="hljs-string">&quot;-Djava.library.path=$HADOOP_HOME/lib:$HADOOP_COMMON_LIB_NATIVE_DIR&quot;</span><br><span class="hljs-keyword">export</span> HBASE_HOME=/usr/local/hbase<br><span class="hljs-keyword">export</span> PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HBASE_HOME/bin<br><span class="hljs-keyword">export</span> HIVE_HOME=/usr/local/apache-hive<span class="hljs-number">-3.0</span><span class="hljs-number">.0</span>-bin<br><span class="hljs-keyword">export</span> PATH=$PATH:$HIVE_HOME/bin<br></code></pre></div></td></tr></table></figure><h1 id="配置网卡">6. 配置网卡</h1><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">cd /etc/sysconfig/network-scripts<br>vi ifcfg-ens33<br><span class="hljs-comment">//修改为以下内容</span><br>TYPE=Ethernet<br>PROXY_METHOD=none<br>BROWSER_ONLY=no<br>BOOTPROTO=dhcp<br>DEFROUTE=yes<br>IPV4_FAILURE_FATAL=no<br>IPV6INIT=yes<br>IPV6_AUTOCONF=yes<br>IPV6_DEFROUTE=yes<br>IPV6_FAILURE_FATAL=no<br>IPV6_ADDR_GEN_MODE=stable-privacy<br>NAME=ens33<br>UUID=2900a067-aa1c-4b9e-89af-beb948efd17d<br>DEVICE=ens33<br>ONBOOT=yes<br><span class="hljs-comment">//刷新网络</span><br>systemctl restart network<br><span class="hljs-comment">//关闭防火墙</span><br>systemctl stop firewalld   <span class="hljs-comment">//禁用防火墙</span><br>systemctl disable firewalld   <span class="hljs-comment">//停止并禁用开机启动</span><br>systemctl status firewalld.service   <span class="hljs-comment">//查看防火墙状态</span><br></code></pre></div></td></tr></table></figure>]]></content>
       
       
       <categories>
@@ -2671,7 +2822,7 @@
       <link href="/gzguo/2019/09/28/hexo-problem/"/>
       <url>/gzguo/2019/09/28/hexo-problem/</url>
       
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="文件夹安全性问题">0.1. 文件夹安全性问题</h2><ol><li><p>问题描述：</p><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">fatal: detected dubious ownership in repository at <span class="hljs-string">&#x27;D:/contact/hexo/.deploy_git&#x27;</span><br>To add an exception <span class="hljs-keyword">for</span> <span class="hljs-keyword">this</span> directory, call:<br><br>​git config --global --add safe.directory D:/contact/hexo/.deploy_git<br><br>Set the environment variable GIT_TEST_DEBUG_UNSAFE_DIRECTORIES=<span class="hljs-keyword">true</span> and run<br>again <span class="hljs-keyword">for</span> more information.<br>FATAL &#123;<br>  err: Error: Spawn failed<br>      at ChildProcess.&lt;anonymous&gt; (D:\contact\hexo\node_modules\hexo-util\lib\spawn.js:<span class="hljs-number">51</span>:<span class="hljs-number">21</span>)<br>      at ChildProcess.emit (events.js:<span class="hljs-number">315</span>:<span class="hljs-number">20</span>)<br>      at ChildProcess.cp.emit (D:\contact\hexo\node_modules\cross-spawn\lib\enoent.js:<span class="hljs-number">34</span>:<span class="hljs-number">29</span>)<br>      at Process.ChildProcess._handle.onexit (internal/child_process.js:<span class="hljs-number">276</span>:<span class="hljs-number">12</span>) &#123;<br>    code: <span class="hljs-number">128</span><br>  &#125;<br>&#125; Something<span class="hljs-string">&#x27;s wrong. Maybe you can find the solution here: %s https://hexo.io/docs/troubleshooting.html</span><br></code></pre></div></td></tr></table></figure></li><li><p>问题解决：</p><p>git config –global –add safe.directory “*”;</p><p>相关链接：<a href="https://blog.51cto.com/u_15740728/5805813">https://blog.51cto.com/u_15740728/5805813</a></p></li></ol>]]></content>
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="文件夹安全性问题">0.1. 文件夹安全性问题</h2><ol><li><p>问题描述：</p><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">fatal: detected dubious ownership in repository at <span class="hljs-string">&#x27;D:/contact/hexo/.deploy_git&#x27;</span><br>To add an exception <span class="hljs-keyword">for</span> <span class="hljs-keyword">this</span> directory, call:<br><br>​git config --global --add safe.directory D:/contact/hexo/.deploy_git<br><br>Set the environment variable GIT_TEST_DEBUG_UNSAFE_DIRECTORIES=<span class="hljs-keyword">true</span> and run<br>again <span class="hljs-keyword">for</span> more information.<br>FATAL &#123;<br>  err: Error: Spawn failed<br>      at ChildProcess.&lt;anonymous&gt; (D:\contact\hexo\node_modules\hexo-util\lib\spawn.js:<span class="hljs-number">51</span>:<span class="hljs-number">21</span>)<br>      at ChildProcess.emit (events.js:<span class="hljs-number">315</span>:<span class="hljs-number">20</span>)<br>      at ChildProcess.cp.emit (D:\contact\hexo\node_modules\cross-spawn\lib\enoent.js:<span class="hljs-number">34</span>:<span class="hljs-number">29</span>)<br>      at Process.ChildProcess._handle.onexit (internal/child_process.js:<span class="hljs-number">276</span>:<span class="hljs-number">12</span>) &#123;<br>    code: <span class="hljs-number">128</span><br>  &#125;<br>&#125; Something<span class="hljs-string">&#x27;s wrong. Maybe you can find the solution here: %s https://hexo.io/docs/troubleshooting.html</span><br></code></pre></div></td></tr></table></figure></li><li><p>问题解决：</p><p>git config –global –add safe.directory “*”;</p><p>相关链接：<a href="https://blog.51cto.com/u_15740728/5805813">https://blog.51cto.com/u_15740728/5805813</a></p></li></ol><p>AC access key</p><p>ACM 编码的时候自己构造输入，然后才能写核心代码</p><p>跳表 redis的存储引擎</p>]]></content>
       
       
       <categories>

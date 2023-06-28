@@ -1,0 +1,578 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/gzguo/img/favicon.png">
+  <link rel="icon" href="/gzguo/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="引言：写点有意思的redis">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
+  
+  <title>初识redis - Learing</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/gzguo/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/agate.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/gzguo/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/gzguo/css/mac.css">
+<link rel="stylesheet" href="/gzguo/css/toubudaziji.css">
+<link rel="stylesheet" href="/gzguo/css/shubiao.css#.css">
+<link rel="stylesheet" href="/gzguo/css/gundong.css">
+<link rel="stylesheet" href="/gzguo/css/APlayer.min.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/gzguo/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"gc226JcELJOJ7J0n4C9IDFd1-gzGzoHsz","app_key":"Ix9equHpEbmzuf2eGJmCgvaB","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/gzguo/js/utils.js" ></script>
+  <script  src="/gzguo/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/gzguo/">&nbsp;<strong>Jarvis</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/gzguo/img/bj.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="初识redis">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2023-05-16 12:00" pubdate>
+        2023年5月16日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      22
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+    <a href="https://github.com/gzguo/gzguo" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#FD6C6C; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">初识redis</h1>
+            
+            <div class="markdown-body">
+              <p>引言：写点有意思的redis</p>
+<span id="more"></span>
+
+<h1 id="简单介绍">1. 简单介绍</h1><p>Redis is an open source，in-memory data structure store，used as a database，cache and message broker.</p>
+<p>Redis 是一个开源的，基于内存的数据结构存储，可以用作数据库、缓存和消息中间件。</p>
+<p>“Redis is written in ANSI C”–&gt;Redis由C语言编写</p>
+<p>Redis 是基于内存，常用于缓存的一种技术，并且redis存储的方式是以 key-value 的形式。</p>
+<p>为什么要用 Redis 而不是 map？</p>
+<ul>
+<li>key-value 不就是 Map，java 实现的 Map 是本地缓存，如果有多个机器的话，每个实例都需要保存一份本地缓存，缓存具有不一致性。</li>
+<li>Redis 实现的是分布式缓存，如果有多台实例的话，每个实例都会共享一份缓存，缓存具有一致性。</li>
+<li>java 的 Map 不是专业做缓存的，JVM 的内存太大容易挂掉。一般用做于容器来存储临时数据，缓存的数据随着 JVM 的销毁而结束。Map 所存储的数据结构，缓存机制等等都是需要程序员自己定义的。</li>
+<li>Redis 是专业做缓存的，可以用几十个 G 内存来做缓存。Redis 一般用作于缓存，可以将缓存的数据保存在硬盘里，Redis 重启之后就可以将其恢复。原生提供丰富的数据结构、缓存过期机制等等很多简单好用的功能。</li>
+</ul>
+<p>为什么要用缓存？</p>
+<ul>
+<li>网站访问很慢，一般是数据库支撑不住。因为一般数据库的读写都要经过磁盘，读磁盘的速度很慢（相对于读内存来说）</li>
+<li>mybatis、hibernate 不仅仅有一级缓存还有二级缓存这样的功能（终究来说还是本地缓存）。目的就是为了减少数据库的读写</li>
+<li>使用缓存可以提高性能（缓存的查询比数据库查询快，内存和硬盘的速度不在一个量级）、提高并发能力，缓存会分担一部分请求，可以支持更高的并发</li>
+</ul>
+<h1 id="Redis-数据结构">2. Redis 数据结构</h1><p>常用的数据结构：String list hash set sortset</p>
+<p>Redis 是由 key-value 存储的，Redis 的 key 一定是字符串，value 可以是上面的类型</p>
+<p>Redis 并没有直接使用这些数据类型来存储键值，而是为键创建键对象，为值创建值对象。只不过键对象中的类型为 String</p>
+<h2 id="SDS-简单动态字符串">2.1. SDS 简单动态字符串</h2><p>Redis 中的字符串跟 C 语言中的字符串，是<strong>有点差距的</strong>。</p>
+<p>Redis 使用 sdshdr 结构来表示一个SDS值：</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">struct sdshdr&#123;<br><br>    <span class="hljs-comment">// 字节数组，用于保存字符串</span><br>    <span class="hljs-keyword">char</span> buf[];<br><br>    <span class="hljs-comment">// 记录buf数组中已使用的字节数量，也是字符串的长度</span><br>    <span class="hljs-keyword">int</span> len;<br><br>    <span class="hljs-comment">// 记录buf数组未使用的字节数量</span><br>    <span class="hljs-keyword">int</span> free;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<p>使用SDS的好处：</p>
+<ul>
+<li>sdshdr 数据结构中用 len 属性记录了字符串的长度。那么获取字符串长度时，时间复杂度只需要 O(1)</li>
+<li>SDS 不会出现溢出的问题，如果修改 SDS 时，空间不足。会先扩展空间，再进行修改！（内部实现了动态扩展机制）</li>
+<li>SDS 减少内存分配次数（空间预分配机制）。在扩展空间时，除了分配修改时所必要的空间，还会分配额外的空闲空间（free 属性）</li>
+<li>SDS 是二进制安全的，所有的 SDS API 都会以处理二进制的方式来处理 SDS 存放在 buf 数组里的数据</li>
+</ul>
+<h2 id="链表">2.2. 链表</h2><ul>
+<li>无环双向链表</li>
+<li>获取表头指针，表尾指针，链表节点长度的时间复杂度均为O(1)</li>
+<li>链表使用 void* 指针来保存节点值，可以保存各种不同类型的值</li>
+</ul>
+<h2 id="哈希表">2.3. 哈希表</h2><p>字典其实就是在哈希表上再做了一层抽象</p>
+<p>在 Redis 中，key-value 的数据结构底层就是哈希表实现的。在 java 中哈希表其实就是数组+链表的形式来构建的。</p>
+<p>Redis 为了更好的使用，对哈希表进行了进一步的封装。</p>
+<p>Redis 中的哈希算法和哈希冲突跟 java 的差不多，他们的差异：</p>
+<ul>
+<li>Redis 哈希冲突时，是将最新的节点添加到链表的表头</li>
+<li>JDK 1.8 之后，java 在解决哈希冲突的时候，是将新的节点添加到链表的表尾</li>
+</ul>
+<h2 id="rehash-的过程">2.4. rehash 的过程</h2><p>Redis 专门用一个哈希表来进行 rehash。这和 java 的一次性直接 rehash 是有区别的。</p>
+<p>在对哈希表进行扩容和收缩的过程中，rehash 过程并不是一次性完成的，而是渐进式的完成的。</p>
+<p>Redis 在 rehash 的时候采用渐进式是因为：数据量过大的话，一次性 rehash 会有庞大的计算量，这可能会让服务器一段时间停止服务</p>
+<p>Redis具体是rehash时这么干的：</p>
+<ul>
+<li>(1:在字典中维持一个索引计数器变量rehashidx，并将设置为0，表示rehash开始。</li>
+<li>(2:在rehash期间每次对字典进行增加、查询、删除和更新操作时，<strong>除了执行指定命令外</strong>；还会将ht[0]中rehashidx索引上的值**rehash到ht[1]**，操作完成后rehashidx+1。</li>
+<li>(3:字典操作不断执行，最终在某个时间点，所有的键值对完成rehash，这时<strong>将rehashidx设置为-1，表示rehash完成</strong></li>
+<li>(4:在渐进式rehash过程中，字典会同时使用两个哈希表ht[0]和ht[1]，所有的更新、删除、查找操作也会在两个哈希表进行。例如要查找一个键的话，<strong>服务器会优先查找ht[0]，如果不存在，再查找ht[1]<strong>，诸如此类。此外当执行</strong>新增操作</strong>时，新的键值对**一律保存到ht[1]**，不再对ht[0]进行任何操作，以保证ht[0]的键值对数量只减不增，直至变为空表。</li>
+</ul>
+<h2 id="跳跃表">2.5. 跳跃表</h2><p>跳跃表（shiplist）是实现 sortset（有序集合）的底层数据结构之一。</p>
+<p>什么是跳跃表？</p>
+<ul>
+<li>跳跃表是一种基于有序链表的扩展，简称调表</li>
+<li>其实就是使用关键节点作为索引的一种结构</li>
+</ul>
+<p>Redis 的跳跃表实现由 zskiplist 和 zskiplistNode 两个结构组成。其中 axkiplist 保存跳跃表的信息（表头 表尾节点 长度），zskiplistNode 则表示跳跃表的节点。</p>
+<h2 id="整数集合（intset）">2.6. 整数集合（intset）</h2><p>整数集合是 set （集合）的底层数据结构之一。当一个 set （集合）只包含整数值元素，并且元素的数量不多时，Redis 就会采用整数集合（intset）作为 set （集合）底层实现。</p>
+<p>整数集合保证了元素是不会出现重复的，并且时有序的（从小到大排序）</p>
+<h2 id="压缩列表（ziplist）">2.7. 压缩列表（ziplist）</h2><p>压缩列表（ziplist）时 list 和 hash 的底层实现之一。如果 list 的每个都是小整数值，或者是比较短的字符串，压缩列表（ziplist）作为 list 的底层实现。</p>
+<p>压缩列表（ziplist）是 Redis 为了节约内存而开发的，是由一系列的特殊编码的连续内存块组成的顺序性数据结构。</p>
+<h2 id="字符串对象">2.8. 字符串对象</h2><p>String 类型有三种编码格式：</p>
+<ul>
+<li>int：整数值，这个整数值可以使用 long 类型来表示<ul>
+<li>如果是浮点数，那就用 embstr 或者 raw 编码。具体用哪个就看这个数的长度了</li>
+</ul>
+</li>
+<li>embstr：字符串值，这个字符串值的长度小于32字节</li>
+<li>raw：字符串值，这个字符串值的长度大于32字节</li>
+</ul>
+<p>embstr 和 raw 的区别：</p>
+<ul>
+<li>raw 分配内存和释放内存的次数是两次，embstr 是一次</li>
+<li>embstr 编码的数据保存在一块连续的内存里面</li>
+</ul>
+<p>编码之间的转换：</p>
+<ul>
+<li>int 类型如果存的不再是一个整数值，则会从 int 转成 raw</li>
+<li>embstr 是只读的，在修改的时候会从 embstr 转成 raw</li>
+</ul>
+<h2 id="列表">2.9. 列表</h2><p>1726027629926547470</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/gzguo/categories/redis/">redis</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/gzguo/tags/redis/">redis</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/gzguo/2023/06/14/maven/%E5%85%A5%E9%97%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">maven入门</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/gzguo/2023/05/08/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/1%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95/">
+                        <span class="hidden-mobile">代码随想录</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"gc226JcELJOJ7J0n4C9IDFd1-gzGzoHsz","appKey":"Ix9equHpEbmzuf2eGJmCgvaB","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/gzguo/js/events.js" ></script>
+<script  src="/gzguo/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/gzguo/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script defer src="/gzguo/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+<script src="/gzguo/js/boom.js"></script>
+<script src="/gzguo/js/anime.min.js"></script>
+<script src="/gzguo/js/qipao.js"></script>
+<script src="/gzguo/js/timeDate.js"></script>
+<script src="/gzguo/js/APlayer.min.js"></script>
+<script src="/gzguo/js/Meting.min.js"></script>
+<script src="/gzguo/js/caidai.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/gzguo/js/boot.js" ></script>
+
+
+</body>
+</html>

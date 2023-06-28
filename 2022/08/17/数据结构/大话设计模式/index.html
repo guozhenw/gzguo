@@ -1,0 +1,539 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/gzguo/img/favicon.png">
+  <link rel="icon" href="/gzguo/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="IT">
+  <meta name="author" content="Little scholar">
+  <meta name="keywords" content="IT">
+  
+  <title>Learing</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/gzguo/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/agate.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/gzguo/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/gzguo/css/mac.css">
+<link rel="stylesheet" href="/gzguo/css/toubudaziji.css">
+<link rel="stylesheet" href="/gzguo/css/shubiao.css#.css">
+<link rel="stylesheet" href="/gzguo/css/gundong.css">
+<link rel="stylesheet" href="/gzguo/css/APlayer.min.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/gzguo/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"gc226JcELJOJ7J0n4C9IDFd1-gzGzoHsz","app_key":"Ix9equHpEbmzuf2eGJmCgvaB","server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/gzguo/js/utils.js" ></script>
+  <script  src="/gzguo/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/gzguo/">&nbsp;<strong>Jarvis</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gzguo/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/gzguo/img/bj.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-08-17 19:01" pubdate>
+        2022年8月17日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      14
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+    <a href="https://github.com/gzguo/gzguo" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#FD6C6C; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none"></h1>
+            
+            <div class="markdown-body">
+              <h1 id="面向对象和设计原则">1. 面向对象和设计原则</h1><h2 id="代码无错就是优？—简单工厂模式">1.1. 代码无错就是优？—简单工厂模式</h2><h3 id="什么是可维护、可复用、可扩展、灵活性好">1.1.1. 什么是可维护、可复用、可扩展、灵活性好</h3><p>活字印刷是从刻板印刷发展而来的，活字印刷和之前的刻板印刷对比很好的体现了四大特性。</p>
+<p>可维护：要改东西的话，只改需要改的东西就可以</p>
+<p>可复用：我们之前写的功能代码，可能在目前这个类中用不到了，但是在之后的类中还有可能会用到</p>
+<p>可扩展：有新的需求的话，只要加功能就行，不需要否定之前的工作</p>
+<p>灵活性好：面对新的需求，我们的代码可以进行简单的顺序调整的操作就可以实现新需求</p>
+<h3 id="uml类图">1.1.2. uml类图</h3><p>1、类图分三层</p>
+<p>​    第一层是类名，如果是抽象类的话，要用斜体表示</p>
+<p>​    第二层是类的特性，通常就是字段和属性</p>
+<p>​    第三层是类的操作，通常是方法或行为</p>
+<p><img src="D:\yonyou\typora\photo\image-20220818143044944.png" srcset="/gzguo/img/loading.gif" lazyload alt="image-20220818143044944"></p>
+<p>2、接口</p>
+<p>​    接口和类的最大区别是顶端有&lt;<interface>&gt;显示</interface></p>
+<p>​    第一行是接口名称</p>
+<p>​    第二行是接口方法</p>
+<p>接口的棒棒糖表示法</p>
+<p>​    <img src="D:\yonyou\typora\photo\image-20220818142642330.png" srcset="/gzguo/img/loading.gif" lazyload alt="image-20220818142642330"></p>
+<p>3、继承关系</p>
+<p>​    继承关系用空心三角形+实线来表示</p>
+<p><img src="D:\yonyou\typora\photo\image-20220818143029770.png" srcset="/gzguo/img/loading.gif" lazyload alt="image-20220818143029770"></p>
+<p>4、实现接口</p>
+<p>​    实现接口用空心三角形+虚线来表示</p>
+<p><img src="D:\yonyou\typora\photo\image-20220818143019560.png" srcset="/gzguo/img/loading.gif" lazyload alt="image-20220818143019560"></p>
+<p>5、关联</p>
+<p>​    association，在类中写一个private属性</p>
+<p>​    关联关系用实现箭头表示</p>
+<p><img src="D:\yonyou\typora\photo\image-20220818143057866.png" srcset="/gzguo/img/loading.gif" lazyload alt="image-20220818143057866"></p>
+<p>6、聚合（大雁和雁群）</p>
+<p>​    表示一种弱的‘拥有’关系，体现的是A对象可以包含B对象，但B对象不是A对象的一部分【DPE】</p>
+<p>​    聚合关系用空心的菱形+实线箭头来表示</p>
+<p><img src="D:\yonyou\typora\photo\image-20220818143301494.png" srcset="/gzguo/img/loading.gif" lazyload alt="image-20220818143301494"></p>
+<p>7、合成（鸟和翅膀）</p>
+<p>​    composition，也有翻译成组合的，是一种强的拥有关系，体现了严格的部分和整体的关系，部分和整体的生命周期一样【DPE】</p>
+<p>​    合成关系用实心的菱形+实线箭头来表示</p>
+<p><img src="D:\yonyou\typora\photo\image-20220818143518271.png" srcset="/gzguo/img/loading.gif" lazyload alt="image-20220818143518271"></p>
+<p>​    在鸟类中，初始化时，实例化翅膀wing，他们之间同时生成。</p>
+<p>​    合成关系的连线两端会有数字，这被称为基数，表明这一端的类可以有几个实例。如果一个类可以对应无数的实例，那就用n来表示。关联关系、聚合关系也可以有基数!</p>
+<p>8、依赖</p>
+<p>​    dependency，依赖关系用虚线箭头来表示</p>
+<p><img src="D:\yonyou\typora\photo\image-20220818143931095.png" srcset="/gzguo/img/loading.gif" lazyload alt="image-20220818143931095"></p>
+<h3 id="什么是简单工厂">1.1.3. 什么是简单工厂</h3><p>开发一个计算器功能的时候，我们可以把计算和显示的功能分开。这是封装特性</p>
+<p>不仅这样，我们可以搞一个计算类，所有的加减乘除，开方乘方等的计算都继承这个计算类，重写计算类中的计算方法，这样可以降低我们代码中的耦合度，提高开发的效率。</p>
+<p>当我们做完这些工作之后，我们就出现了一个新的问题，那我怎么知道用户是想做什么样的操作呢？</p>
+<p>这时候我们就可以用工厂模式来解决这个问题，用户的请求操作到来之后，我们先把请求交给工厂，让工厂判断该交给哪个计算来处理，让这些计算类去处理就好了！</p>
+<p>工厂解决了对象的创建问题，工厂尽量不要随意的改动！</p>
+<h2 id="商场促销—策略模式">1.2. 商场促销—策略模式</h2><p><img src="D:\yonyou\typora\photo\image-20220818151052945.png" srcset="/gzguo/img/loading.gif" lazyload alt="image-20220818151052945"></p>
+<p>通过上下文接口来执行不同的策略，通过构造方法输入策略，然后根据不同的策略执行不同的收费方法。</p>
+<p>策略模式要在客户端选择，我们可以把简单工厂模式加入到上下文的构造方法中来帮助我们创建对象，这样会让客户端更加方便</p>
+<p>但是我们现在还是在简单工厂模式中使用了switch语句，还是很不爽，如果想解决这个问题我们可以使用反射机制。</p>
+<p>反射反射，程序员的快乐！</p>
+<h2 id="拍摄UFO—单一职责原则">1.3. 拍摄UFO—单一职责原则</h2><p>单一职责原则srp，就一个类而言，应该仅有一个引起它变化的原因</p>
+<h2 id="考研求职两不误—开放封闭原则">1.4. 考研求职两不误—开放封闭原则</h2><p>一国两制、弹性工作制</p>
+<p>the open-closed principle 简称OCP，开闭原则</p>
+<p>对扩展是开放的，但是对更改是封闭的</p>
+<h2 id="依赖倒转原则">1.5. 依赖倒转原则</h2><p>电脑接口，，修电脑的时候什么坏了换什么！接口的重要性，没有接口的话，主板和内存条不匹配就只能把主板和内存条全部替换掉了！很不合理</p>
+<p>A高层模块不应该依赖低层的模块。两个都应该依赖抽象</p>
+<p>B抽象不应该依赖细节，细节应该依赖抽象</p>
+<p><strong>里氏代换原则</strong></p>
+<p>​    一个软件实体如果使用的是一个父类的话，那么一定适用于其子类，而且它察觉不出父类和子类对象的区别。</p>
+<p>​    也就是说，在软件里面，把父类都替换成他的子类，程序的行为没有变化。</p>
+<p>​    定义：子类型必须能够替换掉他们的父类类型（企鹅不是鸟）</p>
+<p>​    正是因为里氏替换原则的出现才使得开放封闭原则成为了可能，对扩展新的子类开放，对修改其他子类封闭？</p>
+<h2 id="装饰模式">1.6. 装饰模式</h2><p>​    动态的给一个对象添加一些额外的职责，就增加功能来说，装饰模式比生成子类更为灵活。</p>
+<p><img src="D:\yonyou\typora\photo\image-20220818185714326.png" srcset="/gzguo/img/loading.gif" lazyload alt="image-20220818185714326"></p>
+<h2 id="代理模式">1.7. 代理模式</h2><h1 id="设计模式（23）">2. 设计模式（23）</h1><h1 id="总结">3. 总结</h1><h1 id="附录">4. 附录</h1>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/gzguo/2022/08/18/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%A4%A7%E8%AF%9D%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/gzguo/2022/03/10/mysql/1.6mysql%E5%A4%8D%E4%B9%A0%E5%9B%9E%E9%A1%BE/">
+                        <span class="hidden-mobile">1.6mysql复习回顾</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"gc226JcELJOJ7J0n4C9IDFd1-gzGzoHsz","appKey":"Ix9equHpEbmzuf2eGJmCgvaB","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/gzguo/js/events.js" ></script>
+<script  src="/gzguo/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/gzguo/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script defer src="/gzguo/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+<script src="/gzguo/js/boom.js"></script>
+<script src="/gzguo/js/anime.min.js"></script>
+<script src="/gzguo/js/qipao.js"></script>
+<script src="/gzguo/js/timeDate.js"></script>
+<script src="/gzguo/js/APlayer.min.js"></script>
+<script src="/gzguo/js/Meting.min.js"></script>
+<script src="/gzguo/js/caidai.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/gzguo/js/boot.js" ></script>
+
+
+</body>
+</html>
